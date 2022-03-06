@@ -1,0 +1,24 @@
+[submodule "qt-qunexus/inc/KMI_Ports"]
+	path = qt-qunexus/inc/KMI_Ports
+	url = https://bitbucket.org/keith-mcmillen-instruments/kmi_ports.git
+[submodule "qt-qunexus/inc/KMI_MIDI_Device_Manager"]
+	path = qt-qunexus/inc/KMI_MIDI_Device_Manager
+	url = https://bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
+[submodule "qt-qunexus/inc/rtmidi"]
+	path = qt-qunexus/inc/rtmidi
+	url=https://github.com/thestk/rtmidi.git
+[submodule "qt-qunexus/inc/KMI_Updates"]
+	path = qt-qunexus/inc/KMI_Updates
+	url = https://bitbucket.org/keith-mcmillen-instruments/kmi_updates.git
+[submodule "QT/inc/KMI_KMDM"]
+	path = QT/inc/KMI_KMDM
+	url = https://EricKMI@bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
+[submodule "QT/inc/KMI_Ports"]
+	path = QT/inc/KMI_Ports
+	url = https://EricKMI@bitbucket.org/keith-mcmillen-instruments/kmi_ports.git
+[submodule "QT/inc/KMI_Updates"]
+	path = QT/inc/KMI_Updates
+	url = https://EricKMI@bitbucket.org/keith-mcmillen-instruments/kmi_updates.git
+[submodule "QT/inc/rtmidi"]
+	path = QT/inc/rtmidi
+	url = https://github.com/thestk/rtmidi.git

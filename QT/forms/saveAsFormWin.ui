@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>saveAsDialogForm</class>
+ <widget class="QWidget" name="saveAsDialogForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>150</width>
+    <height>123</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background: rgb(89, 89, 89);
+}
+
+/*-------QLabel-------*/
+QLabel
+{
+	color: rgb(245, 245, 245);
+}
+
+/*-----------QLineEdit------------*/
+QLineEdit
+{
+	background: rgb(40, 40, 40);
+	border: 2px solid rgb(242, 242, 242);
+	padding-bottom: 2px;
+	color: rgb(245, 245, 245);
+	font: 9pt &quot;Droid Sans Mono&quot;;
+}
+
+QLineEdit:focus
+{
+	border: 3px solid white;
+	padding-bottom: 2px;
+}
+
+/*----------- QPushButton ------------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(245, 245, 245);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0,1,0,0;
+}
+
+QPushButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: black;
+	border: 2px solid rgb(245, 245, 245);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+QPushButton:disabled
+{
+	background: rgba(20, 20, 20, 100);
+	color: rgb(100, 100, 100);
+	border: 2px solid rgb(100, 100, 100);
+	font: 8pt &quot;Futura-Normal&quot;;
+	padding: 0, 1, 0, 0;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>113</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Futura-Normal'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;What's my name?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="save">
+   <property name="geometry">
+    <rect>
+     <x>82</x>
+     <y>82</y>
+     <width>46</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Saves a shiny, new preset.</string>
+   </property>
+   <property name="text">
+    <string>SAVE AS</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="name">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>46</y>
+     <width>113</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>You shall be called...</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancel">
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>82</y>
+     <width>46</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>I've changed my mind. &lt;br&gt;I don't want a new preset. Not yet...</string>
+   </property>
+   <property name="text">
+    <string>CANCEL</string>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>cancel</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

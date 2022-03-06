@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>deleteDialogForm</class>
+ <widget class="QWidget" name="deleteDialogForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>316</width>
+    <height>74</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	background: rgb(89, 89, 89);
+}
+
+/*-------QLabel-------*/
+QLabel
+{
+	font: 10pt &quot;Futura PT&quot;;
+	color: rgb(242, 242, 242);
+}
+
+/*----------- QPushButton ----------*/
+QPushButton
+{
+	background: rgb(40, 40, 40);
+	color: white;
+	border: 2px solid rgb(242, 242, 242);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,1,0,0;
+}
+
+QDPushButton:pressed
+{
+	background: rgb(242, 242, 242);
+	color: black;
+	border: 2px solid rgb(242, 242, 242);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+s</string>
+  </property>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>291</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;Futura PT&quot;;</string>
+   </property>
+   <property name="text">
+    <string>You CANNOT undo this action!</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="delete_2">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>40</y>
+     <width>100</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&quot;Exterminate!&quot;</string>
+   </property>
+   <property name="text">
+    <string>Yes. Delete.</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
+     <width>100</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&quot;I've made a huge mistake.&quot;</string>
+   </property>
+   <property name="text">
+    <string>No. Cancel.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>3</y>
+     <width>291</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;Futura PT&quot;</string>
+   </property>
+   <property name="text">
+    <string>Are you sure you want to delete this preset?</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,8349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>setlistForm</class>
+ <widget class="QWidget" name="setlistForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>745</width>
+    <height>545</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12pt &quot;Futura PT&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(60, 60, 60);
+	border: transparent;
+	font: 12px &quot;Futura PT&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 70px;
+}
+
+QComboBox QAbstractItemView
+{
+    min-width: 190px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: padding;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(245, 245, 245);
+}
+</string>
+  </property>
+  <widget class="QComboBox" name="setlistmenu1">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>40</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable1">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>40</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>70</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu2">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>70</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu4">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>130</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable4">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>130</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable3">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>100</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu3">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>100</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu8">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>250</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu7">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>220</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu6">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>190</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable6">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>190</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable8">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>250</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu5">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>160</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable5">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>160</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable7">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>220</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu13">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>400</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu12">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>370</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu11">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>340</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu10">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>310</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu15">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>460</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu14">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>430</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable15">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>460</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable13">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>400</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu16">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>10</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable14">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>430</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable10">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>310</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable12">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>370</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable9">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>280</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu9">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>280</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable11">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>340</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable16">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>10</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable30">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>430</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu28">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>370</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu32">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>10</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable28">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>370</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu22">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>190</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu29">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>400</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu25">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>280</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu27">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>340</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu30">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>430</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable31">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>460</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu24">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>250</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable20">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>130</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu19">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>100</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable17">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>40</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu21">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>160</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable23">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>220</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable18">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>70</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable22">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>190</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu31">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>460</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable21">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>160</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable25">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>280</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable19">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>100</y>
+     <width>26</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu26">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>310</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable26">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>310</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable24">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>250</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu18">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>70</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable29">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>400</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable32">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>10</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu20">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>130</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu17">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>40</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable27">
+   <property name="geometry">
+    <rect>
+     <x>187</x>
+     <y>340</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu23">
+   <property name="geometry">
+    <rect>
+     <x>215</x>
+     <y>220</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu35">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>100</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable63">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>460</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable36">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>130</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable55">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>220</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable0">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>10</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable39">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>220</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu60">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>370</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu53">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>160</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu52">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>130</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu45">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>400</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable59">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>340</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable43">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>340</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu37">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>160</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable56">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>250</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu47">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>460</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu59">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>340</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu33">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>40</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable40">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>250</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu62">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>430</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu36">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>130</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable50">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>70</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable34">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>70</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable42">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>310</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu38">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>190</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable52">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>130</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable62">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>430</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu41">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>280</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable38">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>190</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu43">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>340</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu57">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>280</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable41">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>280</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu49">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>40</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable49">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>40</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable33">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>40</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu39">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>220</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable47">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>460</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu48">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>10</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu56">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>250</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu50">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>70</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable44">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>370</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable46">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>430</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu51">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>100</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable61">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>400</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable45">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>400</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu61">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>400</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable58">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>310</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu34">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>70</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu55">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>220</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable60">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>370</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu44">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>370</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu42">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>310</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable37">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>160</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable48">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>10</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="enable35">
+   <property name="geometry">
+    <rect>
+     <x>367</x>
+     <y>100</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu54">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>190</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu58">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>310</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu46">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>430</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable57">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>280</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu63">
+   <property name="geometry">
+    <rect>
+     <x>575</x>
+     <y>460</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable51">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>100</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu40">
+   <property name="geometry">
+    <rect>
+     <x>395</x>
+     <y>250</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable53">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>160</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="setlistmenu0">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>10</y>
+     <width>141</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Select a preset to include in the Setlist.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>PRESET_NAME</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>9</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QCheckBox" name="enable54">
+   <property name="geometry">
+    <rect>
+     <x>547</x>
+     <y>190</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enable/disable the selected preset.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background-color: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 25px;
+	height: 25px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_off.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_on.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>enable0</tabstop>
+  <tabstop>setlistmenu0</tabstop>
+  <tabstop>enable1</tabstop>
+  <tabstop>setlistmenu1</tabstop>
+  <tabstop>enable2</tabstop>
+  <tabstop>setlistmenu2</tabstop>
+  <tabstop>enable3</tabstop>
+  <tabstop>setlistmenu3</tabstop>
+  <tabstop>enable4</tabstop>
+  <tabstop>setlistmenu4</tabstop>
+  <tabstop>enable5</tabstop>
+  <tabstop>setlistmenu5</tabstop>
+  <tabstop>enable6</tabstop>
+  <tabstop>setlistmenu6</tabstop>
+  <tabstop>enable7</tabstop>
+  <tabstop>setlistmenu7</tabstop>
+  <tabstop>enable8</tabstop>
+  <tabstop>setlistmenu8</tabstop>
+  <tabstop>enable9</tabstop>
+  <tabstop>setlistmenu9</tabstop>
+  <tabstop>enable10</tabstop>
+  <tabstop>setlistmenu10</tabstop>
+  <tabstop>enable11</tabstop>
+  <tabstop>setlistmenu11</tabstop>
+  <tabstop>enable12</tabstop>
+  <tabstop>setlistmenu12</tabstop>
+  <tabstop>enable13</tabstop>
+  <tabstop>setlistmenu13</tabstop>
+  <tabstop>enable14</tabstop>
+  <tabstop>setlistmenu14</tabstop>
+  <tabstop>enable15</tabstop>
+  <tabstop>setlistmenu15</tabstop>
+  <tabstop>enable16</tabstop>
+  <tabstop>setlistmenu16</tabstop>
+  <tabstop>enable17</tabstop>
+  <tabstop>setlistmenu17</tabstop>
+  <tabstop>enable18</tabstop>
+  <tabstop>setlistmenu18</tabstop>
+  <tabstop>enable19</tabstop>
+  <tabstop>setlistmenu19</tabstop>
+  <tabstop>enable20</tabstop>
+  <tabstop>setlistmenu20</tabstop>
+  <tabstop>enable21</tabstop>
+  <tabstop>setlistmenu21</tabstop>
+  <tabstop>enable22</tabstop>
+  <tabstop>setlistmenu22</tabstop>
+  <tabstop>enable23</tabstop>
+  <tabstop>setlistmenu23</tabstop>
+  <tabstop>enable24</tabstop>
+  <tabstop>setlistmenu24</tabstop>
+  <tabstop>enable25</tabstop>
+  <tabstop>setlistmenu25</tabstop>
+  <tabstop>enable26</tabstop>
+  <tabstop>setlistmenu26</tabstop>
+  <tabstop>enable27</tabstop>
+  <tabstop>setlistmenu27</tabstop>
+  <tabstop>enable28</tabstop>
+  <tabstop>setlistmenu28</tabstop>
+  <tabstop>enable29</tabstop>
+  <tabstop>setlistmenu29</tabstop>
+  <tabstop>enable30</tabstop>
+  <tabstop>setlistmenu30</tabstop>
+  <tabstop>enable31</tabstop>
+  <tabstop>setlistmenu31</tabstop>
+  <tabstop>enable32</tabstop>
+  <tabstop>setlistmenu32</tabstop>
+  <tabstop>enable33</tabstop>
+  <tabstop>setlistmenu33</tabstop>
+  <tabstop>enable34</tabstop>
+  <tabstop>setlistmenu34</tabstop>
+  <tabstop>enable35</tabstop>
+  <tabstop>setlistmenu35</tabstop>
+  <tabstop>enable36</tabstop>
+  <tabstop>setlistmenu36</tabstop>
+  <tabstop>enable37</tabstop>
+  <tabstop>setlistmenu37</tabstop>
+  <tabstop>enable38</tabstop>
+  <tabstop>setlistmenu38</tabstop>
+  <tabstop>enable39</tabstop>
+  <tabstop>setlistmenu39</tabstop>
+  <tabstop>enable40</tabstop>
+  <tabstop>setlistmenu40</tabstop>
+  <tabstop>enable41</tabstop>
+  <tabstop>setlistmenu41</tabstop>
+  <tabstop>enable42</tabstop>
+  <tabstop>setlistmenu42</tabstop>
+  <tabstop>enable43</tabstop>
+  <tabstop>setlistmenu43</tabstop>
+  <tabstop>enable44</tabstop>
+  <tabstop>setlistmenu44</tabstop>
+  <tabstop>enable45</tabstop>
+  <tabstop>setlistmenu45</tabstop>
+  <tabstop>enable46</tabstop>
+  <tabstop>setlistmenu46</tabstop>
+  <tabstop>enable47</tabstop>
+  <tabstop>setlistmenu47</tabstop>
+  <tabstop>enable48</tabstop>
+  <tabstop>setlistmenu48</tabstop>
+  <tabstop>enable49</tabstop>
+  <tabstop>setlistmenu49</tabstop>
+  <tabstop>enable50</tabstop>
+  <tabstop>setlistmenu50</tabstop>
+  <tabstop>enable51</tabstop>
+  <tabstop>setlistmenu51</tabstop>
+  <tabstop>enable52</tabstop>
+  <tabstop>setlistmenu52</tabstop>
+  <tabstop>enable53</tabstop>
+  <tabstop>setlistmenu53</tabstop>
+  <tabstop>enable54</tabstop>
+  <tabstop>setlistmenu54</tabstop>
+  <tabstop>enable55</tabstop>
+  <tabstop>setlistmenu55</tabstop>
+  <tabstop>enable56</tabstop>
+  <tabstop>setlistmenu56</tabstop>
+  <tabstop>enable57</tabstop>
+  <tabstop>setlistmenu57</tabstop>
+  <tabstop>enable58</tabstop>
+  <tabstop>setlistmenu58</tabstop>
+  <tabstop>enable59</tabstop>
+  <tabstop>setlistmenu59</tabstop>
+  <tabstop>enable60</tabstop>
+  <tabstop>setlistmenu60</tabstop>
+  <tabstop>enable61</tabstop>
+  <tabstop>setlistmenu61</tabstop>
+  <tabstop>enable62</tabstop>
+  <tabstop>setlistmenu62</tabstop>
+  <tabstop>enable63</tabstop>
+  <tabstop>setlistmenu63</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

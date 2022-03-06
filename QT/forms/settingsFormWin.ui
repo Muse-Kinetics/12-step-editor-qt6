@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>settingsForm</class>
+ <widget class="QWidget" name="settingsForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>745</width>
+    <height>180</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 10pt &quot;Futura-Normal&quot;;
+	color: rgb(245, 245, 245);
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(60, 60, 60);
+	color: white;
+	border: 2px solid rgb(245, 245, 245);
+	font: 9pt &quot;Futura-Normal&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: black;
+	border: 2px solid rgb(245, 245, 245);
+	font: 9pt &quot;Futura-Normal&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+/*-------QSlider-------*/
+QSlider
+{
+	background: none;
+}
+
+/*-----VERTICAL-----*/
+
+QSlider::groove:vertical
+{
+	border: none;
+}
+
+QSlider::handle:vertical
+{
+	background: white;
+	border: none;
+	height: 2px;
+	
+}
+
+QSlider::add-page:vertical
+{
+	background: rgb(89, 89, 89);
+}
+
+QSlider::sub-page:vertical
+{
+	background: rgb(169, 169, 169);
+}
+
+/*-----HORIZONTAL-----*/
+
+QSlider::groove:horizontal
+{
+	border: none;
+}
+
+QSlider::handle:horizontal
+{
+	background: white;
+	border: none;
+	width: 3px;
+	
+}
+
+QSlider::sub-page:horizontal
+{
+	background: rgb(89, 89, 89);
+}
+
+QSlider::add-page:horizontal
+{
+	background: rgb(169, 169, 169);
+}
+</string>
+  </property>
+  <widget class="QSlider" name="globalSensitivity">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>40</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Adjusts the sensitivity of the 12 Step keys.&lt;p&gt;Moving the slider to the right (toward the &quot;+&quot; symbol) increases sensitivity — moving the slider to the left (toward the &quot;-&quot; symbol) decreases sensitivity.</string>
+   </property>
+   <property name="maximum">
+    <number>500</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="selectSensitivity">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>40</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Adjusts the sensitivity of the 12 Step's Select key.&lt;p&gt;Moving the slider to the right (toward the &quot;+&quot; symbol) increases sensitivity — moving the slider to the left (toward the &quot;-&quot; symbol) decreases sensitivity.</string>
+   </property>
+   <property name="maximum">
+    <number>500</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="resetGlobal">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>70</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Resets Sensitivity to the default value. </string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">padding-top: 1px;</string>
+   </property>
+   <property name="text">
+    <string>RESET GLOBAL SENSITIVITY</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="resetSelect">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>70</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Resets select button sensitivity to the default value. </string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">padding-top: 1px;</string>
+   </property>
+   <property name="text">
+    <string>RESET SELECT SENSITIVITY</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>20</y>
+     <width>191</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>GLOBAL KEY SENSITIVITY</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>20</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SELECT BUTTON SENSITIVITY</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="midiVolume">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>130</y>
+     <width>212</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enables/Disables the CC 7 127 message the 12 Step &lt;br&gt;automatically outputs on preset changes.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 212px;
+	height: 24px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/cc7_disabled_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/cc7_disabled.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/cc7_enabled.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/cc7_enabled_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>110</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SEND FULL VOLUME ON PRESET CHANGE</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>76</x>
+     <y>41</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>308</x>
+     <y>43</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>427</x>
+     <y>41</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>657</x>
+     <y>43</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>110</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>VELOCITY OVERRIDE</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="velocityOverride">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>130</y>
+     <width>212</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enables/Disables &quot;velocity override&quot;.&lt;p&gt;When enabled, all presets will transmit all MIDI notes at full velocity (127), ignoring all velocity-related settings in the modlines. When disabled, all presets will respond to velocity as normal.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox
+{
+	background: transparent;
+	border: none;
+}
+
+QCheckBox::indicator
+{
+	width: 212px;
+	height: 24px;
+}
+
+QCheckBox::indicator:unchecked:pressed
+{
+	image: url(:/ui/ui_images/cc7_disabled_pressed.png);
+}
+
+QCheckBox::indicator:unchecked
+{
+	image: url(:/ui/ui_images/cc7_disabled.png);
+}
+
+QCheckBox::indicator:checked
+{
+	image: url(:/ui/ui_images/cc7_enabled.png);
+}
+
+QCheckBox::indicator:checked:pressed
+{
+	image: url(:/ui/ui_images/cc7_enabled_pressed.png);
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

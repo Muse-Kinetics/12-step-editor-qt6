@@ -1,0 +1,1305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>775</width>
+    <height>460</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+
+}
+
+QToolTip
+{
+	border: 1px solid rgb(242, 242, 242);
+	background-color: rgb(40, 40, 40);
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(242, 242, 242);
+	padding: 2px;
+	min-height: 24px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12pt &quot;Futura PT&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+QComboBox QListView
+{
+	background-color: rgb(60, 60, 60);
+	border: transparent;
+	font: 12px &quot;Futura PT&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 35px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/*----------- QFrame ------------*/
+QFrame
+{
+	background: rgb(89, 89, 89);
+	border: none;
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(245, 245, 245);
+}
+
+
+/*-----------QLineEdit------------*/
+QLineEdit
+{
+	background: rgb(60, 60, 60);
+	border: 3px solid rgb(245, 245, 245);
+	padding-bottom: 2px;
+	color: rgb(245, 245, 245);
+	font: 24pt &quot;Droid Sans Mono&quot;;
+}
+
+QLineEdit:focus
+{
+	border: 3px solid white;
+	padding-bottom: 2px;
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(60, 60, 60);
+	color: white;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: black;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+</string>
+   </property>
+   <widget class="QFrame" name="frame_displayname">
+    <property name="geometry">
+     <rect>
+      <x>266</x>
+      <y>15</y>
+      <width>131</width>
+      <height>99</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Sets the current preset's display name.&lt;p&gt;Anything entered here appears on the 12 Step's alphanumeric display when the preset is selected.&lt;p&gt;Limited to a maximum of four characters.</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QComboBox
+{
+	font: 11pt &quot;Droid Sans Mono&quot;;
+	padding: 0px 0px 0px 7px;
+}
+
+QComboBox:focus
+{
+	border: 2px solid rgb(0, 174, 239);
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="presetlabel_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>131</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura PT</family>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name.&lt;p&gt;Anything entered here appears on the 12 Step's alphanumeric display when the preset is selected.&lt;p&gt;Limited to a maximum of four characters.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	font: 16pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>DISPLAY NAME</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="preset_displayname_1">
+     <property name="geometry">
+      <rect>
+       <x>8</x>
+       <y>52</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name.&lt;p&gt;Anything entered here appears on the 12 Step's alphanumeric display when the preset is selected.&lt;p&gt;Limited to a maximum of four characters.</string>
+     </property>
+     <property name="currentText">
+      <string/>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>_</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>A</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>D</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>F</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>G</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>I</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>J</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>L</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>N</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>O</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>P</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Q</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>R</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>S</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>T</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>U</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Z</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="preset_displayname_2">
+     <property name="geometry">
+      <rect>
+       <x>38</x>
+       <y>52</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name.&lt;p&gt;Anything entered here appears on the 12 Step's alphanumeric display when the preset is selected.&lt;p&gt;Limited to a maximum of four characters.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>_</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>A</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>D</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>F</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>G</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>I</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>J</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>L</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>N</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>O</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>P</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Q</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>R</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>S</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>T</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>U</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Z</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="preset_displayname_3">
+     <property name="geometry">
+      <rect>
+       <x>68</x>
+       <y>52</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name.&lt;p&gt;Anything entered here appears on the 12 Step's alphanumeric display when the preset is selected.&lt;p&gt;Limited to a maximum of four characters.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>_</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>A</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>D</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>F</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>G</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>I</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>J</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>L</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>N</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>O</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>P</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Q</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>R</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>S</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>T</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>U</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Z</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="preset_displayname_4">
+     <property name="geometry">
+      <rect>
+       <x>98</x>
+       <y>52</y>
+       <width>25</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Sets the current preset's display name.&lt;p&gt;Anything entered here appears on the 12 Step's alphanumeric display when the preset is selected.&lt;p&gt;Limited to a maximum of four characters.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>_</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>A</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>C</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>D</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>F</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>G</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>H</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>I</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>J</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>L</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>N</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>O</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>P</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Q</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>R</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>S</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>T</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>U</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Y</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Z</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_presets">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>15</y>
+      <width>237</width>
+      <height>99</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QFrame
+{
+
+}
+
+QToolButton:focus
+{
+	border: 2px solid rgb(0, 174, 239);
+}
+
+QComboBox:focus
+{
+	border: 2px solid rgb(0, 174, 239);
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QToolButton" name="update">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>65</y>
+       <width>210</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>&quot;Make it so.&quot;&lt;p&gt;Update a connected 12 Step's presets with the current setlist.&lt;p&gt;&lt;b&gt;Note&lt;/b&gt;: All presets currently on the 12 Step board will be overwritten.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*---------- QToolButton ---------*/
+QToolButton
+{
+	background: rgb(60, 60, 60);
+	border: 2px solid rgb(245,245,245);
+	font: 16pt &quot;Futura PT&quot;;
+	color: white;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	border: 2px solid rgb(245, 245, 245);
+	font: 16pt &quot;Futura PT&quot;;
+	color: black;
+}
+
+QToolButton::disabled
+{
+	background: rgba(20, 20, 20, 100);
+	border: 2px solid rgb(100, 100, 100);
+	font: 16pt &quot;Futura PT&quot;;
+	color: rgb(100, 100, 100);
+}
+
+QToolTip
+{
+	font: 12pt &quot;Futura PT&quot;;
+}</string>
+     </property>
+     <property name="text">
+      <string>Send Setlist To 12 Step</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="presetmenu">
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>7</y>
+       <width>210</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Selects the preset currently being edited.</string>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}
+</string>
+     </property>
+     <property name="editable">
+      <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string>PRESET_NAME_HERE</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>5</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>6</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>7</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>8</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>9</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QToolButton" name="save">
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>39</y>
+       <width>46</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>46</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Save any changes to the &lt;br&gt;current preset.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>SAVE</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="saveas">
+     <property name="geometry">
+      <rect>
+       <x>76</x>
+       <y>39</y>
+       <width>46</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>46</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Save the current settings&lt;br&gt; to a new preset slot.</string>
+     </property>
+     <property name="text">
+      <string>SAVE AS</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="revert">
+     <property name="geometry">
+      <rect>
+       <x>131</x>
+       <y>39</y>
+       <width>46</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>46</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Revert any unsaved &lt;br&gt;changes in the current &lt;br&gt;preset to its previously &lt;br&gt;saved state.</string>
+     </property>
+     <property name="text">
+      <string>REVERT</string>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="deletepreset">
+     <property name="geometry">
+      <rect>
+       <x>186</x>
+       <y>39</y>
+       <width>46</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>46</width>
+       <height>20</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Delete the currently selected preset.</string>
+     </property>
+     <property name="text">
+      <string>DELETE</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>7</y>
+       <width>14</width>
+       <height>86</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel
+{
+	image: url(:/ui/ui_images/presets_label.png);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="connected">
+    <property name="geometry">
+     <rect>
+      <x>533</x>
+      <y>68</y>
+      <width>211</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+font: 16px &quot;Futura&quot;;
+color: rgba(207, 0, 18, 175);</string>
+    </property>
+    <property name="text">
+     <string>IS NOT CONNECTED</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>5</y>
+      <width>237</width>
+      <height>72</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Futura PT</family>
+      <pointsize>72</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Shows whether or not a &lt;br&gt;12 Step has made a connection to the editor.</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	
+	
+	font: 72pt &quot;Futura PT&quot;;
+	background-color: transparent;
+	border: none;
+}</string>
+    </property>
+    <property name="text">
+     <string>12 STEP</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>presetmenu</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>saveas</tabstop>
+  <tabstop>revert</tabstop>
+  <tabstop>deletepreset</tabstop>
+  <tabstop>update</tabstop>
+  <tabstop>preset_displayname_1</tabstop>
+  <tabstop>preset_displayname_2</tabstop>
+  <tabstop>preset_displayname_3</tabstop>
+  <tabstop>preset_displayname_4</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>keyEditForm</class>
+ <widget class="QWidget" name="keyEditForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>151</width>
+    <height>255</height>
+   </rect>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>58</width>
+     <height>133</height>
+    </rect>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="SelectAllSpinBox" name="note5">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>103</y>
+      <width>24</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="specialValueText">
+     <string>off</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+    <property name="value">
+     <number>-1</number>
+    </property>
+   </widget>
+   <widget class="SelectAllSpinBox" name="note3">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>57</y>
+      <width>24</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="specialValueText">
+     <string>off</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+    <property name="value">
+     <number>-1</number>
+    </property>
+   </widget>
+   <widget class="SelectAllSpinBox" name="note4">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>80</y>
+      <width>24</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="specialValueText">
+     <string>off</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+    <property name="value">
+     <number>-1</number>
+    </property>
+   </widget>
+   <widget class="SelectAllSpinBox" name="note1">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>11</y>
+      <width>24</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="specialValueText">
+     <string>off</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+    <property name="value">
+     <number>-1</number>
+    </property>
+   </widget>
+   <widget class="SelectAllSpinBox" name="note2">
+    <property name="geometry">
+     <rect>
+      <x>7</x>
+      <y>34</y>
+      <width>24</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="specialValueText">
+     <string>off</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>127</number>
+    </property>
+    <property name="value">
+     <number>-1</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit1">
+    <property name="geometry">
+     <rect>
+      <x>27</x>
+      <y>11</y>
+      <width>25</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit2">
+    <property name="geometry">
+     <rect>
+      <x>27</x>
+      <y>34</y>
+      <width>25</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit4">
+    <property name="geometry">
+     <rect>
+      <x>27</x>
+      <y>80</y>
+      <width>25</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit3">
+    <property name="geometry">
+     <rect>
+      <x>27</x>
+      <y>57</y>
+      <width>25</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit5">
+    <property name="geometry">
+     <rect>
+      <x>27</x>
+      <y>103</y>
+      <width>25</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="toolTip">
+     <string>Click anywhere on this key to select it for editing.&lt;p&gt;Notes can be edited by using the five entry fields or by using the graphic keyboard below.</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <zorder>note3</zorder>
+   <zorder>note5</zorder>
+   <zorder>note4</zorder>
+   <zorder>note1</zorder>
+   <zorder>note2</zorder>
+   <zorder>lineEdit1</zorder>
+   <zorder>lineEdit2</zorder>
+   <zorder>lineEdit4</zorder>
+   <zorder>lineEdit3</zorder>
+   <zorder>lineEdit5</zorder>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SelectAllSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>selectallspinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>note1</tabstop>
+  <tabstop>note2</tabstop>
+  <tabstop>note3</tabstop>
+  <tabstop>note4</tabstop>
+  <tabstop>note5</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

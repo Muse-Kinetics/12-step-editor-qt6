@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>keyTabForm</class>
+ <widget class="QWidget" name="keyTabForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>745</width>
+    <height>525</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(242, 242, 242);
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(40, 40, 40);
+	color: rgb(242, 242, 242);
+	border: 2px solid rgb(242, 242, 242);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: rgb(20, 20, 20);
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+QToolButton:disabled
+{
+	background: rgba(20, 20, 20, 100);
+	color: rgb(100, 100, 100);
+	border: 2px solid rgb(100, 100, 100);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+QToolButton:focus
+{
+	border: 2px solid rgb(0, 174, 239);
+}
+</string>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>574</x>
+     <y>35</y>
+     <width>134</width>
+     <height>183</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QFrame
+{
+	background-color: rgb(89, 89, 89);
+}</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QToolButton" name="copyKeyButton">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>10</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Copies the currently selected key’s settings to the clipboard.</string>
+    </property>
+    <property name="text">
+     <string>Copy Key</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="pasteKeyButton">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>38</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Pastes a copied key’s settings to the currently selected key.</string>
+    </property>
+    <property name="text">
+     <string>Paste Key</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="clearKeyButton">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>66</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Completely clears all MIDI notes from the currently selected key.</string>
+    </property>
+    <property name="text">
+     <string>Clear Key</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="clearAllKeysButton">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>94</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Completely clears all MIDI notes from all keys.</string>
+    </property>
+    <property name="text">
+     <string>Clear All Keys</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="transposeUpButton">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>122</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Transposes the selected key’s MIDI notes up by a semitone when clicked.</string>
+    </property>
+    <property name="text">
+     <string>Transpose Up</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="transposeDownButton">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>150</y>
+      <width>110</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Transposes the selected key’s MIDI notes down a semitone when clicked.</string>
+    </property>
+    <property name="text">
+     <string>Transpose Down</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
