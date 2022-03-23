@@ -14,12 +14,23 @@ void ImportExportHandler::slotImportPreset()
 {
     QString filename = NULL;
 
-    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), QString("./"), tr("12 Step Editor Preset Files (*.twelvesteppreset)"));
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    filename = QFileDialog::getOpenFileName(this, tr("Import Preset"), settings.value(DEFAULT_DIR_KEY).toString(), tr("12 Step Editor Preset Files (*.twelvesteppreset)"));
 
 
     //if file is selected
-    if(filename != NULL)
+    if(!filename.isEmpty() && !filename.isNull())
     {
+        //this gets the filename without the path
+        QFileInfo fileInfo(filename);
+
+        // store this folder location for the next time we open a file
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
+
         //open file
         QFile* presetFile = new QFile(filename);
         presetFile->open(QIODevice::ReadOnly);
@@ -84,34 +95,45 @@ void ImportExportHandler::slotExportPreset()
 {
     QVariantMap exportedPresetMap = presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(presetInterface->currentPresetNum)).toMap();
 
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
     //set path and filename (default filename is the preset name)
-    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("./%1").arg(exportedPresetMap.value("preset_name").toString()), tr("12 Step Editor Preset Files (*.twelvesteppreset)"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Preset"), QString("%1/%2").arg(settings.value(DEFAULT_DIR_KEY).toString()).arg(exportedPresetMap.value("preset_name").toString()), tr("12 Step Editor Preset Files (*.twelvesteppreset)"));
 
-    //this gets the file name without the path
-    QFileInfo fileInfo(filename);
+    if(!filename.isEmpty() && !filename.isNull())
+    {
+        //this gets the filename without the path
+        QFileInfo fileInfo(filename);
 
-    //open new file to be saved
-    QFile* presetFile = new QFile(filename);
+        // store this folder location for the next time we open a file
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
 
-    //remove extension from filename
-    QString exportedPresetName = fileInfo.fileName().remove(".twelvesteppreset");
+        //open new file to be saved
+        QFile* presetFile = new QFile(filename);
 
-    qDebug() << QString("filename: %1").arg(exportedPresetName);
+        //remove extension from filename
+        QString exportedPresetName = fileInfo.fileName().remove(".twelvesteppreset");
 
-    //replace "preset_name" with filename typed in dialog
-    exportedPresetMap.insert("preset_name", exportedPresetName);
+        qDebug() << QString("filename: %1").arg(exportedPresetName);
 
-    //open, write, and close
-    presetFile->open(QIODevice::WriteOnly);
+        //replace "preset_name" with filename typed in dialog
+        exportedPresetMap.insert("preset_name", exportedPresetName);
 
-    QJsonDocument jsonDoc = QJsonDocument::fromVariant(exportedPresetMap);
-    QByteArray presetByteArray = jsonDoc.toJson();
+        //open, write, and close
+        presetFile->open(QIODevice::WriteOnly);
 
-    presetFile->resize(0);
-    presetFile->write(presetByteArray);
-    presetFile->close();
+        QJsonDocument jsonDoc = QJsonDocument::fromVariant(exportedPresetMap);
+        QByteArray presetByteArray = jsonDoc.toJson();
 
-    presetByteArray.clear();
+        presetFile->resize(0);
+        presetFile->write(presetByteArray);
+        presetFile->close();
+
+        presetByteArray.clear();
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,168 +146,182 @@ void ImportExportHandler::slotImportOldPreset()
 
     QString filename = NULL;
 
-    QFileDialog dialog(presetInterface, tr("Navigate to your 12Step.json file from 12 Step Editor V1.0"), QString("./"), tr("12 Step Editor version 1.0 Preset File (*.json)"));
+    QSettings settings;
+
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    QFileDialog dialog(presetInterface, tr("Navigate to your 12Step.json file from 12 Step Editor V1.0"), settings.value(DEFAULT_DIR_KEY).toString(), tr("12 Step Editor version 1.0 Preset File (*.json)"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     if(dialog.exec())
     {
         filename = dialog.selectedFiles().at(0);
     }
-
-    QFile *presetFile = new QFile(filename);
-
-    if(filename != NULL && !presetFile->exists())
+    //If file is selected
+    if(!filename.isEmpty() && !filename.isNull())
     {
-        emit signalPathNotFound();
-    }
-    else if(filename != NULL)
-    {
-        emit signalPathFound();
+        //this gets the filename without the path
+        QFileInfo fileInfo(filename);
 
-        presetFile->open(QIODevice::ReadOnly);
+        // store this folder location for the next time we open a file
+        QString thisDirectory = fileInfo.absolutePath();
+        settings.setValue(DEFAULT_DIR_KEY, thisDirectory);
 
-        QByteArray presetByteArray = presetFile->readAll();
-        presetFile->close();
+        QFile *presetFile = new QFile(filename);
 
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(presetByteArray);
-        QVariantMap importedMap = jsonDoc.toVariant().toMap();
-        QMapIterator<QString, QVariant> i(importedMap);
-
-        int numPresets = 1;
-
-        while(i.hasNext())
+        if(filename != NULL && !presetFile->exists())
         {
-            i.next();
+            emit signalPathNotFound();
+        }
+        else if(filename != NULL)
+        {
+            emit signalPathFound();
 
-            QVariantMap patterstorage = i.value().toMap();
-            QMapIterator<QString, QVariant> j(patterstorage);
+            presetFile->open(QIODevice::ReadOnly);
 
-            while(j.hasNext())
+            QByteArray presetByteArray = presetFile->readAll();
+            presetFile->close();
+
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(presetByteArray);
+            QVariantMap importedMap = jsonDoc.toVariant().toMap();
+            QMapIterator<QString, QVariant> i(importedMap);
+
+            int numPresets = 1;
+
+            while(i.hasNext())
             {
-                j.next();
+                i.next();
 
-                QVariantMap slot = j.value().toMap();
-                QMapIterator<QString, QVariant> k(slot);
+                QVariantMap patterstorage = i.value().toMap();
+                QMapIterator<QString, QVariant> j(patterstorage);
 
-                while(k.hasNext())
+                while(j.hasNext())
                 {
-                    k.next();
+                    j.next();
 
-                    QVariantMap slotNum = k.value().toMap();
-                    QMapIterator<QString, QVariant> l(slotNum);
+                    QVariantMap slot = j.value().toMap();
+                    QMapIterator<QString, QVariant> k(slot);
 
-                    while(l.hasNext())
+                    while(k.hasNext())
                     {
-                        l.next();
+                        k.next();
 
-                        if(l.key() == "data")
+                        QVariantMap slotNum = k.value().toMap();
+                        QMapIterator<QString, QVariant> l(slotNum);
+
+                        while(l.hasNext())
                         {
-                            importedOldPresetMap = l.value().toMap();
+                            l.next();
 
-                            importedNewPresetMap = slotConvertPreset();
-
-                            //get the preset name
-                            presetName = slotNum.value("name").toList().at(0).toString();
-                            QString changeablePresetName = presetName;
-                            QList<QString> allPresetNames;
-                            QString saveAsName;
-
-                            //check all the preset names and append a suffix if it's a duplicate
-                            int count = 0;
-                            for(int i = 0; i < presetInterface->slotGetNumPresetsInJson(); i++)
+                            if(l.key() == "data")
                             {
-                                QString iteratedPresetName = presetInterface->jsonMasterMap.value(presetInterface->slotGetPresetStringFromInt(i)).toMap().value(QString("preset_name")).toString();
-                                allPresetNames.append(iteratedPresetName);
+                                importedOldPresetMap = l.value().toMap();
 
-                                //take out the presetName's copy suffix if it has one
-                                if(iteratedPresetName.contains(" V1.0 ") && iteratedPresetName.at(iteratedPresetName.length()-7) == QString(" ").at(0))
+                                importedNewPresetMap = slotConvertPreset();
+
+                                //get the preset name
+                                presetName = slotNum.value("name").toList().at(0).toString();
+                                QString changeablePresetName = presetName;
+                                QList<QString> allPresetNames;
+                                QString saveAsName;
+
+                                //check all the preset names and append a suffix if it's a duplicate
+                                int count = 0;
+                                for(int i = 0; i < presetInterface->slotGetNumPresetsInJson(); i++)
                                 {
-                                    iteratedPresetName.chop(7);
-                                }
-                                else if(iteratedPresetName.contains(" V1.0 ") && iteratedPresetName.at(iteratedPresetName.length()-8) == QString(" ").at(0))
-                                {
-                                    iteratedPresetName.chop(8);
-                                }
-                                else if(iteratedPresetName.contains(" V1.0 ") && iteratedPresetName.at(iteratedPresetName.length()-9) == QString(" ").at(0))
-                                {
-                                    iteratedPresetName.chop(9);
+                                    QString iteratedPresetName = presetInterface->jsonMasterMap.value(presetInterface->slotGetPresetStringFromInt(i)).toMap().value(QString("preset_name")).toString();
+                                    allPresetNames.append(iteratedPresetName);
+
+                                    //take out the presetName's copy suffix if it has one
+                                    if(iteratedPresetName.contains(" V1.0 ") && iteratedPresetName.at(iteratedPresetName.length()-7) == QString(" ").at(0))
+                                    {
+                                        iteratedPresetName.chop(7);
+                                    }
+                                    else if(iteratedPresetName.contains(" V1.0 ") && iteratedPresetName.at(iteratedPresetName.length()-8) == QString(" ").at(0))
+                                    {
+                                        iteratedPresetName.chop(8);
+                                    }
+                                    else if(iteratedPresetName.contains(" V1.0 ") && iteratedPresetName.at(iteratedPresetName.length()-9) == QString(" ").at(0))
+                                    {
+                                        iteratedPresetName.chop(9);
+                                    }
+
+                                    //take out any suffixes that were already in the incoming presets
+                                    if(changeablePresetName.contains(" V1.0 ") && changeablePresetName.at(changeablePresetName.length()-7) == QString(" ").at(0))
+                                    {
+                                        changeablePresetName.chop(7);
+                                    }
+                                    else if(changeablePresetName.contains(" V1.0 ") && changeablePresetName.at(changeablePresetName.length()-8) == QString(" ").at(0))
+                                    {
+                                        changeablePresetName.chop(8);
+                                    }
+                                    else if(changeablePresetName.contains(" V1.0 ") && changeablePresetName.at(changeablePresetName.length()-9) == QString(" ").at(0))
+                                    {
+                                        changeablePresetName.chop(9);
+                                    }
+
+                                    //increment the count to see how many presets in the preset list match with the typed name
+                                    if(iteratedPresetName == changeablePresetName)
+                                    {
+                                        count++;
+                                    }
                                 }
 
-                                //take out any suffixes that were already in the incoming presets
-                                if(changeablePresetName.contains(" V1.0 ") && changeablePresetName.at(changeablePresetName.length()-7) == QString(" ").at(0))
+                                //add a suffix to the preset name if the counter found a copy
+                                if(count > 0)
                                 {
-                                    changeablePresetName.chop(7);
+                                    saveAsName = QString("%1 V1.0 %2").arg(changeablePresetName).arg(count);
+                                    //importedNewPresetMap.insert("preset_name", QString("%1 V1.0 %2").arg(changeablePresetName).arg(count));
                                 }
-                                else if(changeablePresetName.contains(" V1.0 ") && changeablePresetName.at(changeablePresetName.length()-8) == QString(" ").at(0))
+                                else
                                 {
-                                    changeablePresetName.chop(8);
-                                }
-                                else if(changeablePresetName.contains(" V1.0 ") && changeablePresetName.at(changeablePresetName.length()-9) == QString(" ").at(0))
-                                {
-                                    changeablePresetName.chop(9);
+                                    saveAsName = presetName;
+                                    //importedNewPresetMap.insert("preset_name", presetName);
                                 }
 
-                                //increment the count to see how many presets in the preset list match with the typed name
-                                if(iteratedPresetName == changeablePresetName)
+                                //this will increment the copy number of the suffix if the save as name is already present
+                                //acts as a compensator if inner copy numbers get deleted while leaving the latest copy
+                                if(saveAsName.contains(QString("%1 V1.0 ").arg(changeablePresetName)) && allPresetNames.contains(saveAsName))
                                 {
-                                    count++;
+                                    QString tempNameHolder = saveAsName;
+                                    int copyNumber = tempNameHolder.remove(QString("%1 V1.0 ").arg(changeablePresetName)).toInt();
+
+                                    while (allPresetNames.contains(saveAsName))
+                                    {
+                                        copyNumber++;
+                                        saveAsName = QString("%1 V1.0 %2").arg(changeablePresetName).arg(copyNumber);
+                                    }
                                 }
+
+                                importedNewPresetMap.insert("preset_name", saveAsName);
+
+                                //qDebug() << "Name of Importing Preset" << presetName;
+
+                                //-------------- Set Imported Preset to new preset and update ---------------
+                                presetInterface->presetListCopy.clear();
+                                presetInterface->presetListMaster.clear();
+
+                                numPresets = presetInterface->slotGetNumPresetsInJson();
+
+                                for(int i = 0; i < numPresets; i++)
+                                {
+                                    presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+                                    presetInterface->presetListMaster.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
+                                }
+                                presetInterface->presetListCopy.append(importedNewPresetMap);
+                                presetInterface->presetListMaster.append(importedNewPresetMap);
+
+                                presetInterface->slotOrderPresetsInJson();
+                                presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
+                                emit signalAddOrRemovePreset();
                             }
-
-                            //add a suffix to the preset name if the counter found a copy
-                            if(count > 0)
-                            {
-                                saveAsName = QString("%1 V1.0 %2").arg(changeablePresetName).arg(count);
-                                //importedNewPresetMap.insert("preset_name", QString("%1 V1.0 %2").arg(changeablePresetName).arg(count));
-                            }
-                            else
-                            {
-                                saveAsName = presetName;
-                                //importedNewPresetMap.insert("preset_name", presetName);
-                            }
-
-                            //this will increment the copy number of the suffix if the save as name is already present
-                            //acts as a compensator if inner copy numbers get deleted while leaving the latest copy
-                            if(saveAsName.contains(QString("%1 V1.0 ").arg(changeablePresetName)) && allPresetNames.contains(saveAsName))
-                            {
-                                QString tempNameHolder = saveAsName;
-                                int copyNumber = tempNameHolder.remove(QString("%1 V1.0 ").arg(changeablePresetName)).toInt();
-
-                                while (allPresetNames.contains(saveAsName))
-                                {
-                                    copyNumber++;
-                                    saveAsName = QString("%1 V1.0 %2").arg(changeablePresetName).arg(copyNumber);
-                                }
-                            }
-
-                            importedNewPresetMap.insert("preset_name", saveAsName);
-
-                            //qDebug() << "Name of Importing Preset" << presetName;
-
-                            //-------------- Set Imported Preset to new preset and update ---------------
-                            presetInterface->presetListCopy.clear();
-                            presetInterface->presetListMaster.clear();
-
-                            numPresets = presetInterface->slotGetNumPresetsInJson();
-
-                            for(int i = 0; i < numPresets; i++)
-                            {
-                                presetInterface->presetListCopy.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
-                                presetInterface->presetListMaster.append(presetInterface->jsonMasterMapCopy.value(presetInterface->slotGetPresetStringFromInt(i)).toMap());
-                            }
-                            presetInterface->presetListCopy.append(importedNewPresetMap);
-                            presetInterface->presetListMaster.append(importedNewPresetMap);
-
-                            presetInterface->slotOrderPresetsInJson();
-                            presetInterface->slotWriteJSON(presetInterface->jsonMasterMap);
-                            emit signalAddOrRemovePreset();
                         }
                     }
                 }
             }
+            emit signalPresetMenu(numPresets);
+            emit signalImportingComplete();
         }
-        emit signalPresetMenu(numPresets);
-        emit signalImportingComplete();
     }
 }
 

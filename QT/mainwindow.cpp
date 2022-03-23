@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     applicationVersion[1] = 1;
     applicationVersion[2] = 0;
 
-    betaVersion = "A"; // leave blank for release
+    betaVersion = ""; // leave blank for release
 
 
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_12step), sizeof(_fw_ver_12step));
@@ -79,8 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     kmiPorts->devicePoller->start(100);
 
     // connect kmiPorts to our handler
-    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)),
-            this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)), this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
 
     //qDebug() << "end connect";
 
@@ -115,10 +114,33 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connected = false;
 
-    // ---- 12 Step
-
     sessionSettings = new QSettings(this); //session settings allow us to enable/disable tooltips -- see slotInitMenuBar
 
+    // ******************************
+    // check for updates and set default save locations
+    // ******************************
+    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/12step/editor/softwareVersionCheck.json";
+    checkUpdates = new KMI_Updates(this, "12step", sessionSettings, applicationVersion, jsonVersionCheckURL);
+
+    // default file location
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    qDebug() << "Default file save location - pre: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
+
+    // test if this is a directory
+    QFileInfo check_file(sessionSettings->value(DEFAULT_DIR_KEY).toString());
+    if (!check_file.exists() || !check_file.isDir() || sessionSettings->value(DEFAULT_DIR_KEY).toString().contains("Contents/MacOS"))
+    {
+        QString desktop = QStandardPaths::locate(QStandardPaths::DesktopLocation, QString(), QStandardPaths::LocateDirectory);
+        qDebug() << "Desktop: " << desktop;
+        sessionSettings->setValue(DEFAULT_DIR_KEY, desktop);     // if key doesn't exist, set it to desktop
+    }
+
+    qDebug() << "Default file save location - post: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
+
+    // ******************************
+
+    // ---- 12 Step
     mainWindowHeight = KEYTAB_HEIGHT + TAB_Y_POS + MAINWINDOW_BOTTOM_SPACING;
     mainWindowWidth = KEYTAB_WIDTH + TAB_X_POS*2;
 
@@ -1228,7 +1250,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     case PORT_CONNECT:
 
         // update dropdown
-        if (inOrOut == PORT_OUT && portName != TWELVESTEP_OLD_OUT_P1) // don't create feedback loop
+        if (inOrOut == PORT_OUT && (portName != TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)) // don't create feedback loop
         {
             midiTab->midiThru->addItem(portName); // update dropdown
             //slotFixDropDownWidth(midiTab->midiThru);
@@ -1242,14 +1264,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         }
 
         // **** TwelveStep connect *****************************************
-        if (portName == TWELVESTEP_OLD_IN_P1 && inOrOut == PORT_IN)
+        if ((portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1) && inOrOut == PORT_IN)
         {
             TwelveStep->slotSetExpectedFW(thisFw);
             //qDebug() << "qn deviceName: " << TwelveStep->deviceName << " curfw is: " << TwelveStep->currentFwVer;
             TwelveStep->updatePortIn(portNum);
             fwUpdateWindow->slotAppendTextToConsole("\nTwelveStep Connected\n");
         }
-        else if (portName == TWELVESTEP_OLD_OUT_P1 && inOrOut == PORT_OUT)
+        else if ((portName == TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1) && inOrOut == PORT_OUT)
         {
             TwelveStep->updatePortOut(portNum);
             TwelveStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
@@ -1270,7 +1292,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         }
 
         // **** TwelveStep disconnect **************************************
-        if (portName == TWELVESTEP_OLD_IN_P1)
+        if (portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1)
         {
             // close ports and stop polling
             TwelveStep->slotCloseMidiIn(SIGNAL_SEND);
@@ -1284,11 +1306,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
 
         // **** TwelveStep renumber ****************************************
-        if (portName == TWELVESTEP_OLD_IN_P1 && inOrOut == PORT_IN)
+        if ((portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1) && inOrOut == PORT_IN)
         {
             TwelveStep->updatePortIn(portNum);
         }
-        else if (portName == TWELVESTEP_OLD_OUT_P1 && inOrOut == PORT_OUT)
+        else if ((portName == TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)&& inOrOut == PORT_OUT)
         {
             TwelveStep->updatePortOut(portNum);
         }

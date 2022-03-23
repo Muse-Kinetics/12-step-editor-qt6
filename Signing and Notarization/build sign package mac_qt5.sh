@@ -13,6 +13,8 @@ version=2.1.0
 bundle_id="com.keithmcmillen.$app_name"
 dmg_path=./dmg
 subfolder_path="./dmg/$app_name"
+changelog_source="../CHANGELOG.md"
+changelog_dest="$subfolder_path/CHANGELOG.md"
 app_path="$subfolder_path/$app_name.app"
 dmg_bg="$dmg_path/background.tiff"
 dmg_icon="./$app_name.icns"
@@ -44,9 +46,18 @@ then
 	echo ""
 fi
 
+if [ -f "$changelog_dest" ] 
+then
+  rm -rf "$changelog_dest"
+  echo ""
+  echo "Cleaning out old changelog..."
+  echo ""
+fi
+
 
 # copy the .app and resources
 \cp -R "$app_source" "$subfolder_path/"
+\cp -R "$changelog_source" "$subfolder_path/"
 
 
 echo ""
@@ -67,6 +78,11 @@ echo ""
 
 #run macdeployqt
 $path_to_dqt "$app_path" -verbose=2 -codesign="$developer_id" -qmldir="$qml_dir" -executable="$app_path/Contents/MacOS/$app_name"
+
+echo ""
+echo "### - Signing QT frameworks"
+echo ""
+
 codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app_path/Contents/Frameworks/QtPrintSupport.framework/Versions/5/Resources/QtPrintSupport.prl"
 #codesign -s "$developer_id" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f "$app_path/Contents/Frameworks/QtQuickWidgets.framework/Versions/5/Resources/QtQuickWidgets.prl"
 
@@ -86,7 +102,7 @@ codesign -s "$developer_id" --options runtime --timestamp --force --deep --entit
 
 
 #set folder icon (only needed if there is a folder in the dmg)
-#fileicon set "$dmg_path/" "$icon_file"
+fileicon set "$subfolder_path/" "$dmg_icon"
 
 # create dmg (brew install create-dmg)
 
