@@ -12,13 +12,13 @@
 	url = https://bitbucket.org/keith-mcmillen-instruments/kmi_updates.git
 [submodule "QT/inc/KMI_KMDM"]
 	path = QT/inc/KMI_KMDM
-	url = https://EricKMI@bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
+url=https://bitbucket.org/keith-mcmillen-instruments/kmi_midi_device_manager.git
 [submodule "QT/inc/KMI_Ports"]
 	path = QT/inc/KMI_Ports
-	url = https://EricKMI@bitbucket.org/keith-mcmillen-instruments/kmi_ports.git
+url=https://bitbucket.org/keith-mcmillen-instruments/kmi_ports.git
 [submodule "QT/inc/KMI_Updates"]
 	path = QT/inc/KMI_Updates
-	url = https://EricKMI@bitbucket.org/keith-mcmillen-instruments/kmi_updates.git
+url=https://bitbucket.org/keith-mcmillen-instruments/kmi_updates.git
 [submodule "QT/inc/rtmidi"]
 	path = QT/inc/rtmidi
 	url = https://github.com/thestk/rtmidi.git
