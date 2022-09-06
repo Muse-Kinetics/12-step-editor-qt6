@@ -16,6 +16,7 @@
 #include "RtMidi.h"
 #include "KMI_DevData.h"
 #include <fwupdate.h>
+#include <troubleshoot.h>
 #include "kmi_updates.h"
 
 #include "presetinterface.h"
@@ -77,16 +78,11 @@ public:
     // create KMI devices
     MidiDeviceManager *TwelveStep;
 
-    // create a virtual port on MacOS, iOS, and Linux. Not supported on Windows.
-#ifndef Q_OS_WIN
-    MidiDeviceManager* virtualMidiPort;
-#endif
-
     // MIDI aux inputs and outputs are defined here. For products like SoftStep, you would define 8 inputs for controllers
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
-    MidiDeviceManager* midiAuxOut;
+    MidiDeviceManager* midiTHRU;
 
     QString MIDI_AUX_KEY;
     bool    recallMidiAuxPort;
@@ -98,6 +94,22 @@ public:
     QString applicationFirmwareVersionString();
 
     fwUpdate* fwUpdateWindow;
+    troubleshoot* troubleshootWindow;
+
+    //----------------------------------- Stylesheets
+    // General
+    QFile*              generalStylesFile;
+    QString             generalStylesString;
+
+    // Dialog Styles
+    QFile*              dialogStylesFile;
+    QString             dialogStylesString;
+
+    //Buttons
+    QFile* blueStyleFile;
+    QString blueStyleString;
+    QFile* grayStyleFile;
+    QString grayStyleString;
 
     // ------ 12 Step ------------------------------------------------------------
 
@@ -108,6 +120,7 @@ public:
     CopyPasteHandler *copyPasteHandler;
     ImportExportHandler *importExportHandler;
     ToolTipEventFilter toolTipEventFilter;
+
     // eb todo
     SysexManager *sysexManager;
     ImageFormatter imageFormatter;
@@ -153,6 +166,7 @@ public:
     //dynamic width and height variables
     int mainWindowHeight;
     int mainWindowWidth;
+    bool forceFirmwareUpdate;
 
     //connection to device
     bool connected;
@@ -177,6 +191,8 @@ signals:
     void signalClosePorts();
 
 public slots:
+
+    void slotCreateDialog(QString dialogText);
 
     // ------ midi overhaul --------------------------------------------------------
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o
@@ -220,11 +236,7 @@ public slots:
 
     //midi ports & firmware updating
     void slotShowConnection(bool connection);
-//#ifdef Q_OS_MAC
-//    //fw update delay
-//    void slotFirmwareUpdateDelay();
-//#endif
-//    void slotSetFwUpdateMessage();
+    void slotOpenTroubleshooting();
 
     //Preset & Settings Image Formatting, Sending
     void slotSendPresets();

@@ -169,11 +169,11 @@ void ImportExportHandler::slotImportOldPreset()
 
         QFile *presetFile = new QFile(filename);
 
-        if(filename != NULL && !presetFile->exists())
+        if(!filename.isNull() && !presetFile->exists())
         {
             emit signalPathNotFound();
         }
-        else if(filename != NULL)
+        else if(!filename.isNull())
         {
             emit signalPathFound();
 

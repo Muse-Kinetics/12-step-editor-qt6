@@ -84,7 +84,7 @@ void Setlist::slotRecallSetlist()
         disconnect(combobox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMenuChanged(int)));
 
         QString comboboxName = combobox->objectName();
-        QString menuNum = comboboxName.midRef(11).toString();
+        QString menuNum = comboboxName.mid(11);
         combobox->setCurrentIndex(combobox->findText(setlist.value(QString("%1").arg(menuNum)).toString()));
 
         connect(combobox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotMenuChanged(int)));
@@ -134,6 +134,7 @@ void Setlist::slotPopulateSetlistAfterDelete(QComboBox *presetMenu)
 
 void Setlist::slotMenuChanged(int menuNum)
 {
+    Q_UNUSED(menuNum);
     QComboBox *menu = (QComboBox*)QObject::sender();
     int i = menu->objectName().remove("setlistmenu").toInt();
     QCheckBox *checkBox = setlistWidget->findChild<QCheckBox *>(QString("enable%1").arg(i));

@@ -103,7 +103,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return 0;
+        return Qt::NoItemFlags;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
@@ -180,21 +180,22 @@ void stop_here(void)
 }
 void TreeModel::setupModelData(const QVariant &data,TreeItem *parent,QString &pre, QString key)
 {
+    Q_UNUSED(key);
     int preLen = pre.length();
 
     pre.append(" ");
 //    pre.append(key);
 
-    switch(data.type())
+    switch(data.typeId())
     {
-        case QVariant::Map:
+        case QMetaType::QVariantMap:
            {
                 QMapIterator<QString, QVariant> i(data.toMap());
                 while (i.hasNext()) {
                      i.next();
 
                      QVariant newData(i.key());
-                     QVariant newChild = i.value();
+                     //QVariant newChild = i.value();
  //                    showData(newData,"Map:");
                      TreeItem *newParent = new TreeItem(newData,parent);
                      parent->appendChild(newParent);
@@ -202,7 +203,7 @@ void TreeModel::setupModelData(const QVariant &data,TreeItem *parent,QString &pr
                 }
             }
             break;
-    case QVariant::List:
+    case QMetaType::QVariantList:
         {
             QList<QVariant> list = data.toList();
             QList<QVariant>::Iterator it = list.begin();
@@ -265,24 +266,24 @@ TreeItem *TreeModel::child(TreeItem *root,QString p)
 
 void TreeModel::showData(const QVariant &data,QString title)
 {
-    switch(data.type())
+    switch(data.typeId())
     {
-        case QVariant::Map:
-            qDebug("%s:Map",title.toLatin1().data());
-            break;
-    case QVariant::List:
+    case QMetaType::QVariantMap:
+        qDebug("%s:Map",title.toLatin1().data());
+        break;
+    case QMetaType::QVariantList:
         qDebug("%s:List",title.toLatin1().data());
         break;
     default:
-        switch(data.type())
+        switch(data.typeId())
         {
 
-        case QVariant::String:qDebug() << title.toLatin1() << ":"  << data.toString();break;
-        case QVariant::LongLong: qDebug() << title.toLatin1() << ":" << data.toLongLong();break;
-        case QVariant::ULongLong:qDebug() << title.toLatin1() << ":" << data.toULongLong(); break;
-        case QVariant::Double:qDebug() << title.toLatin1() << ":" << data.toDouble();break;
+        case QMetaType::QString:qDebug() << title.toLatin1() << ":"  << data.toString();break;
+        case QMetaType::LongLong: qDebug() << title.toLatin1() << ":" << data.toLongLong();break;
+        case QMetaType::ULongLong:qDebug() << title.toLatin1() << ":" << data.toULongLong(); break;
+        case QMetaType::Double:qDebug() << title.toLatin1() << ":" << data.toDouble();break;
             default:
-            qDebug("%s:unknown type[%d]",title.toLatin1().data(),data.type());
+            qDebug("%s:unknown type[%d]",title.toLatin1().data(),data.typeId());
             break;
         }
 

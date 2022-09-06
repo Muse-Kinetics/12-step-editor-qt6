@@ -6,7 +6,7 @@
 #define MENUS_H
 
 #include <QStringList>
-#include "Menu.h"
+#include "menu.h"
 
 #define MENU_OFF 0
 enum KEYSAFETY { SINGLEKEY=1,MULTIKEY};

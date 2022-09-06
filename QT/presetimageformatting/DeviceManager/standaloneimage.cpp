@@ -7,6 +7,8 @@
 
 StandaloneImage::StandaloneImage(QVariantMap scenes, QList<QString> setList)
 {
+    Q_UNUSED(scenes);
+    Q_UNUSED(setList);
     //Initialize our image
     image = 0;
 
@@ -128,6 +130,7 @@ if (slotLevel)
 
 void StandaloneImage::scan_slot(int slotNum)
 {
+    Q_UNUSED(slotNum);
 }
 
 void StandaloneImage::scan(TreeItem *item)
@@ -140,7 +143,7 @@ void StandaloneImage::scan(TreeItem *item)
     int i;
 
     //Not used, we start here
-    bool slotLevel = false;
+//    bool slotLevel = false;
 
     //Various levels within "data" in json
     bool destinationsLevel = false;
@@ -154,11 +157,11 @@ void StandaloneImage::scan(TreeItem *item)
     //    qDebug("%s",item->showData("").toLatin1().data());
 
     //Check what type of data we're looking at
-    switch(item->itemData->type())
+    switch(item->itemData->typeId())
     {
 
     //------------ For all strings... which describe level
-    case QVariant::String:
+    case QMetaType::QString:
 
         //---- DESTINATIONS
         if (destinations)
@@ -276,26 +279,26 @@ void StandaloneImage::scan(TreeItem *item)
 
         break;
 
-    case QVariant::LongLong:
+    case QMetaType::LongLong:
         item->itemData->toLongLong();
         break;
 
-    case QVariant::ULongLong:
+    case QMetaType::ULongLong:
         item->itemData->toULongLong();
         break;
 
-    case QVariant::Double:
+    case QMetaType::Double:
         item->itemData->toDouble();
         break;
 
-    case QVariant::Int:
+    case QMetaType::Int:
         item->itemData->toInt();
         break;
 
-    case QVariant::List:break;
+    case QMetaType::QVariantList:break;
 
     default:
-        qDebug("StandaloneImage::scan: unknown qvariant type[%d]",item->itemData->type());
+        qDebug("StandaloneImage::scan: unknown qvariant type[%d]",item->itemData->typeId());
         break;
     }
 
@@ -345,7 +348,7 @@ bool StandaloneImage::scanCompareKeys()
     int keyNum;
     for (keyNum=0;keyNum < NUM_KEYS;keyNum++)
     {
-        keyName.sprintf("Key_%d::",keyNum+1);
+        keyName.asprintf("Key_%d::",keyNum+1);
 
         //If we are indeed looking at a key container (our current m_item, above)
         if (scanCompare(keyName))
@@ -363,7 +366,7 @@ bool StandaloneImage::scanCompareChild(const char *itemName)
     if ( m_item->childItems.count() != 1 )
         return false;
 
-    if (m_item->itemData->type() == QVariant::String)
+    if (m_item->itemData->typeId() == QMetaType::QString)
     {
 
         //       qDebug("scanCompareChild:[%s]==[%s]",m_item->itemData->toString().toLatin1().data(),itemName);
@@ -377,19 +380,19 @@ int StandaloneImage::itemInt()
 {
     TreeItem *child = m_item->childItems.at(0);
 
-    switch(child->itemData->type())
+    switch(child->itemData->typeId())
     {
-    case QVariant::LongLong:
+    case QMetaType::LongLong:
         //        qDebug("itemInt:LongLong[%d]",(int) child->itemData->toLongLong());
         return child->itemData->toLongLong();break;
-    case QVariant::ULongLong:
+    case QMetaType::ULongLong:
         //        qDebug("itemInt:ULongLong[%d]",(int) child->itemData->toULongLong());
         return child->itemData->toULongLong();break;
-    case QVariant::Int:
+    case QMetaType::Int:
         //        qDebug("itemInt:Int[%d]",(int) child->itemData->toInt());
         return child->itemData->toInt();break;
     default:
-        qDebug("StandaloneImage::itemInt: unknnown type %d",child->itemData->type());
+        qDebug("StandaloneImage::itemInt: unknnown type %d",child->itemData->typeId());
         break;
     }
 
@@ -399,16 +402,16 @@ int StandaloneImage::itemInt()
 char StandaloneImage::itemChar()
 {
     TreeItem *child = m_item->childItems.at(0);
-    switch(child->itemData->type())
+    switch(child->itemData->typeId())
     {
-    case QVariant::String:
+    case QMetaType::QString:
         return child->itemData->toString().data()[0].toLatin1();
         break;
-    case QVariant::LongLong:
-    case QVariant::ULongLong:
-    case QVariant::Int:
+    case QMetaType::LongLong:
+    case QMetaType::ULongLong:
+    case QMetaType::Int:
     default:
-        qDebug("StandaloneImage::itemInt: unknnown type %d",child->itemData->type());
+        qDebug("StandaloneImage::itemInt: unknnown type %d",child->itemData->typeId());
         break;
     }
     return 0;
@@ -440,13 +443,13 @@ double StandaloneImage::itemDouble()
 {
     TreeItem *child = m_item->childItems.at(0);
 
-    switch(child->itemData->type())
+    switch(child->itemData->typeId())
     {
-    case QVariant::Double:
+    case QMetaType::Double:
         //       qDebug("double[%f]",child->itemData->toDouble());
         return child->itemData->toDouble();break;
     default:
-        qDebug("StandaloneImage::itemDouble: unknnown type %d",child->itemData->type());
+        qDebug("StandaloneImage::itemDouble: unknnown type %d",child->itemData->typeId());
         break;
     }
 
@@ -458,9 +461,9 @@ int StandaloneImage::itemMenu(Menu &menu)
 {
     TreeItem *child = m_item->childItems.at(0);
 
-    switch(child->itemData->type())
+    switch(child->itemData->typeId())
     {
-    case QVariant::String:
+    case QMetaType::QString:
     {
         int index = menu.mapIndexOf(child->itemData->toString());
         if (!index)
@@ -473,7 +476,7 @@ int StandaloneImage::itemMenu(Menu &menu)
     }
         break;
     default:
-        qDebug("StandaloneImage::itemInt: unknnown type %d",m_item->itemData->type());
+        qDebug("StandaloneImage::itemInt: unknnown type %d",m_item->itemData->typeId());
         break;
     }
 

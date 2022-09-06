@@ -8,8 +8,8 @@
 
 MidiTab::MidiTab(QWidget *parent) :
     QWidget(parent),
-    midiTabForm(new Ui::midiTabForm),
-    midiTabFormWidget(new QWidget(this))
+    midiTabFormWidget(new QWidget(this)),
+        midiTabForm(new Ui::midiTabForm)
 {
     //---------------------------- set up Ui
     midiTabForm->setupUi(midiTabFormWidget);
@@ -213,15 +213,15 @@ void MidiTab::slotValueChanged()
             {
                 jsonName = "settings_note_mode";
                 QString obj = radiobutton->objectName();
-                qDebug() << obj.midRef(8).toString();
-                value = obj.midRef(8).toString();
+                qDebug() << obj.mid(8);
+                value = obj.mid(8);
             }
             else
             {
                 jsonName = "settings_key_safety_mode";
                 QString obj = radiobutton->objectName();
-                qDebug() << obj.midRef(9).toString();
-                value = obj.midRef(9).toString();
+                qDebug() << obj.mid(9);
+                value = obj.mid(9);
             }
         }
 

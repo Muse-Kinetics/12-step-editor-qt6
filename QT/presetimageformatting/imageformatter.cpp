@@ -258,7 +258,7 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
         //qDebug() << "check" << currentPreset.value(QString("preset_displayname_1")).toString() << "check";
 
         //Display Slot 1
-        if(currentPreset.value(QString("preset_displayname_1")).toString() != NULL)
+        if(!currentPreset.value(QString("preset_displayname_1")).toString().isNull())
         {
             image[slotIndex].display[0] = currentPreset.value(QString("preset_displayname_1")).toString().toLatin1().at(0);
         }
@@ -267,7 +267,7 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
             image[slotIndex].display[0] = QString(" ").toLatin1().at(0);
         }
         //Display Slot 2
-        if(currentPreset.value(QString("preset_displayname_2")).toString() != NULL)
+        if(!currentPreset.value(QString("preset_displayname_2")).toString().isNull())
         {
             image[slotIndex].display[1] = currentPreset.value(QString("preset_displayname_2")).toString().toLatin1().at(0);
         }
@@ -276,7 +276,7 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
             image[slotIndex].display[1] = QString(" ").toLatin1().at(0);
         }
         //Display Slot 3
-        if(currentPreset.value(QString("preset_displayname_3")).toString() != NULL)
+        if(!currentPreset.value(QString("preset_displayname_3")).toString().isNull())
         {
             image[slotIndex].display[2] = currentPreset.value(QString("preset_displayname_3")).toString().toLatin1().at(0);
         }
@@ -285,7 +285,7 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
             image[slotIndex].display[2] = QString(" ").toLatin1().at(0);
         }
         //Display Slot 4
-        if(currentPreset.value(QString("preset_displayname_4")).toString() != NULL)
+        if(!currentPreset.value(QString("preset_displayname_4")).toString().isNull())
         {
             image[slotIndex].display[3] = currentPreset.value(QString("preset_displayname_4")).toString().toLatin1().at(0);
         }

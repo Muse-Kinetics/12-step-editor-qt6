@@ -165,11 +165,11 @@ void TreeItem::splitSharedPrefixChildren()
     for (i=0;i<childItems.count();i++)
     {
         TreeItem *it = childItems.at(i);
-        switch(it->itemData->type())
+        switch(it->itemData->typeId())
         {
             default:
             break;
-            case QVariant::String:
+            case QMetaType::QString:
             {
                  QString str = it->itemData->toString();
                 int len = str.indexOf(QString("::"));
@@ -184,7 +184,7 @@ void TreeItem::splitSharedPrefixChildren()
                         for(r=i+1;r<childItems.count();)
                         {
                             TreeItem *nextTI = childItems.at(r);
-                            if (nextTI->itemData->type() == QVariant::String)
+                            if (nextTI->itemData->typeId() == QMetaType::QString)
                             {
                                 QString rstr = nextTI->itemData->toString();
                                 if (rstr.startsWith(leftStr))
@@ -219,11 +219,11 @@ QList<TreeItem *> *TreeItem::childrenOf(QString p)
     {
         TreeItem *it = childItems.at(i);
 
-        switch(it->itemData->type())
+        switch(it->itemData->typeId())
         {
             default:
                 break;
-            case QVariant::String:
+            case QMetaType::QString:
             {
                 QString str = it->itemData->toString();
                 if (str==p)
@@ -246,7 +246,7 @@ QString *TreeItem::childStringOf(QString p)
             TreeItem *item = list->at(0);
             if (item->childCount()==0)
             {
-                if (item->itemData->type() == QVariant::String)
+                if (item->itemData->typeId() == QMetaType::QString)
                 {
                     return new QString(item->itemData->toString());// returning new, someone must delete it.
                 }
@@ -259,7 +259,7 @@ TreeItem *TreeItem::child(QString p)
 {
     int i;
 
-    if (itemData->type() == QVariant::String)
+    if (itemData->typeId() == QMetaType::QString)
     {
         QString s = itemData->toString();
         if (s==p)
@@ -277,7 +277,7 @@ TreeItem *TreeItem::child(QString p)
 
 QString TreeItem::toString(bool &ok)
 {
-    if (itemData->type() != QVariant::String)
+    if (itemData->typeId() != QMetaType::QString)
     {
         ok = false;
         return QString("");
@@ -303,38 +303,38 @@ QStringList TreeItem::toStringList(QList<QVariant> list)
 
     for (i=list.begin();i!=list.end();i++)
     {
-        switch((*i).type())
+        switch((*i).typeId())
         {
-            case QVariant::String:
+            case QMetaType::QString:
                 sList.append((*i).toString());
                 break;
-            case QVariant::Int:
+            case QMetaType::Int:
                 {
                     QString sval;
-                    sval.sprintf("%d",(*i).toInt());
+                    sval.asprintf("%d",(*i).toInt());
                     sList.append(sval);
                 }
                 break;
-        case QVariant::LongLong:
+        case QMetaType::LongLong:
         {
             QString sval;
 
-            sval.sprintf("%ld",(long int) itemData->toLongLong());
+            sval.asprintf("%ld",(long int) itemData->toLongLong());
             sList.append(sval);
         }
             break;
-        case QVariant::ULongLong:
+        case QMetaType::ULongLong:
         {
             QString sval;
 
-            sval.sprintf("%ld",(long int) itemData->toULongLong());
+            sval.asprintf("%ld",(long int) itemData->toULongLong());
             sList.append(sval);
         }
             break;
-        case QVariant::Double:
+        case QMetaType::Double:
         {
             QString sval;
-            sval.sprintf("%f",itemData->toDouble());
+            sval.asprintf("%f",itemData->toDouble());
             sList.append(sval);
         }
             break;
@@ -354,7 +354,7 @@ void TreeItem::ssEmitValue()
     {
         QMap<int, QString> map;
         QStringList list;
-        int i,j;
+        int i;
 
         for (i=0;i<childCount();i++)
         {
@@ -376,36 +376,36 @@ void TreeItem::ssEmitValue()
     }
     break;
     case ssTYPE_NONE:
-        switch(itemData->type())
+        switch(itemData->typeId())
         {
-            case QVariant::String:
+            case QMetaType::QString:
             {
 //                qDebug("Str[%s]",itemData->toString().toLatin1().data());
                 emit sigValueString(itemData->toString());
             }
             break;
 
-            case QVariant::LongLong:
+            case QMetaType::LongLong:
 //            qDebug("LongLong[%ld]",(long int) itemData->toLongLong());
             if(m_accessInt)
                 *m_accessInt = itemData->toLongLong();
                 emit sigValueInt((int) itemData->toLongLong());
                 break;
 
-            case QVariant::ULongLong:
+            case QMetaType::ULongLong:
 //            qDebug("uLongLong[%ld]",(long int) itemData->toULongLong());
             if (m_accessInt)
                 *m_accessInt = itemData->toULongLong();
                 emit sigValueInt(itemData->toULongLong());
                 break;
-            case QVariant::Double:
+            case QMetaType::Double:
 //            qDebug("double[%f]",itemData->toDouble());
             if (m_accessDouble)
                 *m_accessDouble = itemData->toDouble();
                 emit sigValueDouble(itemData->toDouble());
                 break;
 
-            case QVariant::Int:
+        case QMetaType::Int:
             {
 //                qDebug("Int[%d]",itemData->toInt());
             if (m_accessInt)
@@ -413,11 +413,11 @@ void TreeItem::ssEmitValue()
                 emit sigValueInt(itemData->toInt());
             }
             break;
-        case QVariant::List:
-            break;
+//        case QMetaType::List:
+//            break;
 
-            default:
-            qDebug("unknown qvariant type[%d]",itemData->type());
+        default:
+            qDebug("unknown QMetaType type[%d]",itemData->typeId());
             break;
         }
     }
@@ -548,24 +548,24 @@ void TreeItem::dirty(int padNum,int state)
 
 void TreeItem::dirtyCheck()
 {
-    bool equal;
-    switch(itemData->type())
+    bool equal = false;
+    switch(itemData->typeId())
     {
-        case QVariant::String:
+        case QMetaType::QString:
  //       qDebug("compare[%s][%s]",itemData->toString().toLatin1().data(),itemDataBackup.toString().toLatin1().data());
             equal = itemData->toString() == itemDataBackup.toString();break;
-        case QVariant::LongLong:
+        case QMetaType::LongLong:
              equal = itemData->toLongLong() == itemDataBackup.toLongLong();break;
-        case QVariant::ULongLong:
+        case QMetaType::ULongLong:
             equal = itemData->toULongLong() == itemDataBackup.toULongLong();break;
-        case QVariant::Double:
+        case QMetaType::Double:
             equal = itemData->toDouble() == itemDataBackup.toDouble();break;
-        case QVariant::Int:
+        case QMetaType::Int:
             equal = itemData->toInt() == itemDataBackup.toInt();break;
-        case QVariant::List:break;
+//        case QMetaType::List:break;
 
         default:
-        qDebug("slotToggle: unknown qvariant type[%d]",itemData->type());
+        qDebug("slotToggle: unknown qvariant type[%d]",itemData->typeId());
         break;
     }
 
@@ -590,70 +590,70 @@ void TreeItem::dirtyCheck()
 
 void TreeItem::slotToggle()
 {
-    switch(itemData->type())
+    switch(itemData->typeId())
     {
-        case QVariant::String:break;
-        case QVariant::LongLong:
+        case QMetaType::QString:break;
+        case QMetaType::LongLong:
             itemData->setValue((qlonglong) (!itemData->toLongLong()));
             emit sigValueInt((int) itemData->toLongLong());
             dirtyCheck();
             break;
-        case QVariant::ULongLong:
+        case QMetaType::ULongLong:
               itemData->setValue(((qulonglong) !itemData->toULongLong()));
              emit sigValueInt(itemData->toULongLong());
             dirtyCheck();
             break;
-        case QVariant::Double:
+        case QMetaType::Double:
             itemData->setValue(((double) !itemData->toDouble()));
             emit sigValueDouble(itemData->toDouble());
             dirtyCheck();
             break;
-        case QVariant::Int:
+        case QMetaType::Int:
             itemData->setValue(((int) !itemData->toInt()));
             emit sigValueInt(itemData->toInt());
             dirtyCheck();
             break;
-        case QVariant::List:break;
+//        case QMetaType::List:break;
 
         default:
-        qDebug("slotToggle: unknown qvariant type[%d]",itemData->type());
+        qDebug("slotToggle: unknown qvariant type[%d]",itemData->typeId());
         break;
     }
 }
 void TreeItem::slotSetText(QString text)
 {
-    switch(itemData->type())
+    switch(itemData->typeId())
     {
-        case QVariant::String:
+        case QMetaType::QString:
         itemData->setValue(text);
         emit sigValueString(text);
 //        qDebug("delete me %s",text.toLatin1().data());
         dirtyCheck();
             break;
         default:
-        qDebug("slotSetText: unknown qvariant type[%d]",itemData->type());
+        qDebug("slotSetText: unknown qvariant type[%d]",itemData->typeId());
             break;
     }
 }
 void TreeItem::slotSetInt(int newVal)
 {
 //    qDebug("slotSetInt: %d",newVal);
-    switch(itemData->type())
+    switch(itemData->typeId())
     {
-        case QVariant::Int:
-        case QVariant::LongLong:
-        case QVariant::ULongLong:
+        case QMetaType::Int:
+        case QMetaType::LongLong:
+        case QMetaType::ULongLong:
            itemData->setValue(newVal);
             emit sigValueInt(newVal);
             dirtyCheck();
             break;
-        case QVariant::Double:
+        case QMetaType::Double:
             itemData->setValue((double)newVal);
             emit sigValueDouble((double)newVal);
             dirtyCheck();
             break;
         default:
-            qDebug("slotSetInt: unknown qvariant type[%d]",itemData->type());
+            qDebug("slotSetInt: unknown qvariant type[%d]",itemData->typeId());
             break;
     }
 
@@ -664,23 +664,23 @@ void TreeItem::slotSetDouble(double newVal)
 
     qDebug("TreeItem::slotSetDouble: %f",newVal);
 
-    switch(itemData->type())
+    switch(itemData->typeId())
     {
-        case QVariant::Int:
-        case QVariant::ULongLong:
+        case QMetaType::Int:
+        case QMetaType::ULongLong:
            itemData->setValue(newVal);
             emit sigValueInt(newVal);
             dirtyCheck();
             break;
 
-    case QVariant::Double:
+    case QMetaType::Double:
        itemData->setValue(newVal);
         emit sigValueDouble(newVal);
         dirtyCheck();
         break;
 
         default:
-            qDebug("slotSetDouble: unknown qvariant type[%d]",itemData->type());
+            qDebug("slotSetDouble: unknown qvariant type[%d]",itemData->typeId());
             break;
     }
 
@@ -735,7 +735,8 @@ QVariant TreeItem::data(QString pre)
         {
             if (child->childCount())
             {
-                if (child->itemData->type()==QVariant::String){
+                if (child->itemData->typeId() == QMetaType::QString)
+                {
   //                  qDebug("%smap.insert key[%s]",pre.toLatin1().data(),child->itemData->toString().toLatin1().data());
                     map.insert(child->itemData->toString(),child->data(pre));
                 }
@@ -765,27 +766,27 @@ QString TreeItem::showData(QVariant data,QString title)
 {
     QString rString;
 
-    title.sprintf("%s[%d]",title.toLatin1().data(),data.type());
+    title.asprintf("%s[%d]",title.toLatin1().data(),data.typeId());
 
-    switch(data.type())
+    switch(data.typeId())
     {
-        case QVariant::Map:
-                rString.sprintf("%s:Map",title.toLatin1().data());
+        case QMetaType::QVariantMap:
+                rString.asprintf("%s:Map",title.toLatin1().data());
                 break;
-        case QVariant::List:
-            qDebug("%s:List",title.toLatin1().data());
-            break;
+//        case QMetaType::List:
+//            qDebug("%s:List",title.toLatin1().data());
+//            break;
         default:
-            switch(data.type())
+            switch(data.typeId())
             {
 
-                case QVariant::String:rString.sprintf("%s:%s",title.toLatin1().data(),data.toString().toLatin1().data());break;
-                case QVariant::LongLong: rString.sprintf("%s:%ld",title.toLatin1().data(),(long)data.toLongLong());break;
-                case QVariant::ULongLong:rString.sprintf("%s:%ld",title.toLatin1().data(),(long) data.toULongLong()); break;
-                case QVariant::Double:rString.sprintf("%s:%f",title.toLatin1().data(),(float) data.toDouble());break;
-                case QVariant::Int:rString.sprintf("%s:%d",title.toLatin1().data(),data.toInt());break;
+                case QMetaType::QString:rString.asprintf("%s:%s",title.toLatin1().data(),data.toString().toLatin1().data());break;
+                case QMetaType::LongLong: rString.asprintf("%s:%ld",title.toLatin1().data(),(long)data.toLongLong());break;
+                case QMetaType::ULongLong:rString.asprintf("%s:%ld",title.toLatin1().data(),(long) data.toULongLong()); break;
+                case QMetaType::Double:rString.asprintf("%s:%f",title.toLatin1().data(),(float) data.toDouble());break;
+                case QMetaType::Int:rString.asprintf("%s:%d",title.toLatin1().data(),data.toInt());break;
                 default:
-                    rString.sprintf("%s:unknown type[%d]",title.toLatin1().data(),data.type());
+                    rString.asprintf("%s:unknown type[%d]",title.toLatin1().data(),data.typeId());
                     break;
             }
             break;

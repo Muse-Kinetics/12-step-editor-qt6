@@ -5,7 +5,7 @@
 #ifndef IMAGEFORMATTER_H
 #define IMAGEFORMATTER_H
 
-#include <QDebug.h>
+#include <qdebug.h>
 #include <QVariantMap>
 
 #include "menu.h"

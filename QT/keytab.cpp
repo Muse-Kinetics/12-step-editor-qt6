@@ -6,8 +6,8 @@
 
 KeyTab::KeyTab(QWidget *parent) :
     QWidget(parent),
-    keyTabForm(new Ui::keyTabForm),
-    keyTabFormWidget(new QWidget(this))
+    keyTabFormWidget(new QWidget(this)),
+    keyTabForm(new Ui::keyTabForm)
 {
     //----------------------- set up Ui
     keyTabForm->setupUi(keyTabFormWidget);
@@ -184,7 +184,7 @@ void KeyTab::slotSetSelectionsFromKeyboard()
     if(QObject::sender())
     {
         QObject *sender = QObject::sender();
-        int keyNumber = sender->objectName().midRef(11).toInt();
+        int keyNumber = sender->objectName().mid(11).toInt();
         bool toggled = this->findChild<QToolButton *>(sender->objectName())->isChecked();
 
         if(collectKeyNotes[currentKey].contains(keyNumber) && toggled == false)

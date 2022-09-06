@@ -182,9 +182,7 @@ QComboBox:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura PT</family>
        <pointsize>16</pointsize>
-       <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
       </font>
@@ -1226,44 +1224,18 @@ QComboBox::down-arrow
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="connected">
-    <property name="geometry">
-     <rect>
-      <x>533</x>
-      <y>68</y>
-      <width>211</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background: transparent;
-font: 16px &quot;Futura&quot;;
-color: rgba(207, 0, 18, 175);</string>
-    </property>
-    <property name="text">
-     <string>IS NOT CONNECTED</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>550</x>
+      <x>540</x>
       <y>5</y>
-      <width>237</width>
+      <width>230</width>
       <height>72</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Futura PT</family>
       <pointsize>72</pointsize>
-      <weight>50</weight>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -1283,6 +1255,28 @@ color: rgba(207, 0, 18, 175);</string>
     </property>
     <property name="text">
      <string>12 STEP</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="connected">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>72</y>
+      <width>181</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: transparent;
+font: 16px &quot;Futura&quot;;
+color: rgba(207, 0, 18, 175);
+text-align: center;</string>
+    </property>
+    <property name="text">
+     <string>NOT CONNECTED</string>
     </property>
    </widget>
   </widget>

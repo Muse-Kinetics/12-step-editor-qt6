@@ -286,6 +286,7 @@ void download_start(int build_num,unsigned char *image,int count,unsigned char *
 }
 void download_file_open(char *name)
 {
+    Q_UNUSED(name);
 #ifdef DEVELOPMENT_VERSION
     const char *homeDir = getenv("HOME");
     char fname[200];

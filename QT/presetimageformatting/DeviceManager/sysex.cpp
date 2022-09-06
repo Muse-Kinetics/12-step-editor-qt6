@@ -211,13 +211,13 @@ struct CORE_SX_DECODE {unsigned char index_in,index_out,buf[SX_ENCODE_LEN+1];};
 struct CORE_SX_DECODE core_sx_decode;
 
 void null_datum(unsigned char val) {
-	val= val;
+    Q_UNUSED(val);
 }
 unsigned char null_open(void) {
 	return 1;
 }
 void null_close(unsigned char success) {
-    success = success;
+    Q_UNUSED(success);
 }
 
 struct SFW_STATUS {int valid,buildnum,error;char version[20];};
@@ -237,7 +237,7 @@ struct FW_HEADER_G {
 } PACK_INLINE;
 
 void debug_msg_close(unsigned char success) {
-    success = success;
+    Q_UNUSED(success);
 //	int i;
 //	for(i=0;i<10;i++)
 //		qDebug("debug_msg: [%p] [%02x] [%c]",&sysex_data,sysex_data.u.debug_msg[i],sysex_data.u.debug_msg[i]);
@@ -354,14 +354,14 @@ void packet_data_init(TAIL *tail) {
 //	qDebug("pdi header address %p",packet_data_info.header);
 
 	packet_data_info.packet_count = 0;
-	if (packet_data_info.sysex_handler->data_header_len) {
-		sx_packet_opened = 1;// open to read in data header before calling .open()
-	}
-	else
-		if (packet_data_info.sysex_handler->open)
-			sx_packet_opened = (*packet_data_info.sysex_handler->open)();
-		else
-			(*packet_data_info.sysex_handler->close)(1);
+//	if (packet_data_info.sysex_handler->data_header_len) {
+//		sx_packet_opened = 1;// open to read in data header before calling .open()
+//	}
+//	else
+//		if (packet_data_info.sysex_handler->open)
+//			sx_packet_opened = (*packet_data_info.sysex_handler->open)();
+//		else
+//			(*packet_data_info.sysex_handler->close)(1);
 	
 	if (!packet_preamble.s.tail.fmt.length)
 		core_sx_set_packet_search();

@@ -13,6 +13,32 @@ QT       += core gui \
 TARGET = "12 Step Editor"
 TEMPLATE = app
 
+# Uncomment to create a Windows console version of the app
+#win32{
+#    CONFIG += console
+#}
+
+# still holding onto support for High Sierra here, separate build
+
+message("Building with Qt $${QT_VERSION}")
+
+# build with Qt 5.11.3 to support El Capitan, Sierra, and High Sierra
+lessThan(QT_MAJOR_VERSION, 6){
+    macx{
+        message("Building legacy MacOS Intel Binary")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
+    }
+}
+
+# build with Qt 6.2.1 to support Mojave and later
+versionAtLeast(QT_VERSION, 6.2.1){
+    macx{
+        message("Building Apple M1/Intel Universal Binary")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
+        QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+    }
+}
+
 INCLUDEPATH +=  presetimageformatting \
                 presetimageformatting/DeviceManager \
                 presetimageformatting/TreeView
@@ -21,6 +47,7 @@ INCLUDEPATH +=  presetimageformatting \
 SOURCES += main.cpp\
     inc/KMI_KMDM/KMI_mdm.cpp \
     inc/KMI_KMDM/fwupdate/fwupdate.cpp \
+    inc/KMI_KMDM/troubleshoot/troubleshoot.cpp \
     inc/KMI_Ports/kmi_ports.cpp \
     inc/KMI_Updates/kmi_updates.cpp \
     inc/rtmidi/RtMidi.cpp \
@@ -56,6 +83,7 @@ HEADERS  += mainwindow.h \
     inc/KMI_KMDM/KMI_mdm.h \
     inc/KMI_KMDM/fwupdate/fwupdate.h \
     inc/KMI_KMDM/midi.h \
+    inc/KMI_KMDM/troubleshoot/troubleshoot.h \
     inc/KMI_Ports/kmi_ports.h \
     inc/KMI_Updates/kmi_updates.h \
     inc/rtmidi/RtMidi.h \
@@ -118,7 +146,8 @@ FORMS    += forms/mainwindow.ui \
     forms/saveAsFormWin.ui \
     forms/setlistFormWin.ui \
     forms/settingsFormWin.ui \
-    inc/KMI_KMDM/fwupdate/fwupdate.ui
+    inc/KMI_KMDM/fwupdate/fwupdate.ui \
+    inc/KMI_KMDM/troubleshoot/troubleshoot.ui
 
 #-------------------MIDI--------------------#
 #-------------------------------------------#
@@ -128,6 +157,7 @@ INCLUDEPATH += \
     inc/KMI_Ports \
     inc/KMI_KMDM \
     inc/KMI_KMDM/fwupdate \
+    inc/KMI_KMDM/troubleshoot \
     inc/KMI_Updates
 
 #DEFINES += \
@@ -151,55 +181,6 @@ win32{
         LIBS += -lwinmm
 }
 # end rtmidi defines
-
-#macx{
-
-##INCLUDEPATH += ./source/midiio/mac
-
-## source/midiio/mac/mididevice.h \
-##HEADERS +=  source/midiio/mac/mididevicemanager.h
-##SOURCES +=  source/midiio/mac/mididevicemanager.cpp
-
-#LIBS += -framework Accelerate
-#LIBS += -framework AudioToolbox
-#LIBS += -framework Carbon
-#LIBS += -framework Cocoa
-#LIBS += -framework CoreAudio
-#LIBS += -framework CoreMIDI
-#LIBS += -framework DiscRecording
-#LIBS += -framework IOKit
-#LIBS += -framework OpenGL
-#LIBS += -framework QTKit
-#LIBS += -framework QuartzCore
-##LIBS += -framework QuickTime
-#LIBS += -framework WebKit
-
-#OBJECTIVE_SOURCES += \
-
-#}
-
-#win32{
-
-##INCLUDEPATH += ./source/midiio/windows
-##HEADERS += ./source/midiio/windows/mididevicemanager.h
-##SOURCES  += ./source/midiio/windows/mididevicemanager.cpp
-
-
-#LIBS += \
-#  -lcomdlg32 \
-#  -limm32 \
-#  -lole32 \
-#  -loleaut32 \
-#  -lrpcrt4 \
-#  -lshlwapi \
-#  -luuid \
-#  -lversion \
-#  -lwininet \
-#  -lwinmm \
-#  -lws2_32 \
-#  -lwsock32 \
-#  -lshell32
-#}
 
 OTHER_FILES +=
 

@@ -4,6 +4,7 @@
 
 #include "sysexdata.h"
 #include "sysex.h"
+#include <qdebug.h>
 
 #define	LE_short(val) (((val & 0xFF) << 8) + ( ((val) >> 8) & 0xFF))
 //#define	LE_int(val)  (LE_short(((int)val)>>16) | LE_short((int)val & 0xffff))
@@ -14,7 +15,7 @@ SysexData::SysexData(QByteArray sysexRaw)
 //    int i;
     sysexData = sysexRaw;
 
-    qDebug("SysexData[%d]",sysexData.count());
+    qDebug() << QString("SysexData[%1]").arg(sysexData.size());
     packetSearchInit();
 
 //    for (i=0;i<sysexData.count();i++)

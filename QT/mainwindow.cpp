@@ -15,15 +15,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
 
     saveAsDialogForm(new Ui::saveAsDialogForm),
-    saveAsDialogWidget(new QWidget(this)),
     deleteDialogForm(new Ui::deleteDialogForm),
-    deleteDialogWidget(new QWidget(this)),
     aboutDialogForm(new Ui::aboutDialogForm),
+    importOldFoundDialogForm(new Ui::importOldFoundDialog),
+
+    importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog),
+
+    saveAsDialogWidget(new QWidget(this)),
+    deleteDialogWidget(new QWidget(this)),
     aboutDialogWidget(new QWidget(this)),
     disableWidget(new QWidget(this)),
-    importOldFoundDialogForm(new Ui::importOldFoundDialog),
     importOldDialogWidget(new QWidget(this)),
-    importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog),
     importOldNotFoundDialogWidget(new QWidget(this)),
 //    fwoodDialogForm(new Ui::FwoodDialog),
 //    fwoodDialogWidget(new QWidget(this)),
@@ -106,7 +108,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "connect signalFirmwareDetected";
 
     // setup MIDI aux output
-    midiAuxOut = new MidiDeviceManager(this, PID_AUX, "MIDI Thru");
+    midiTHRU = new MidiDeviceManager(this, PID_AUX, "MIDI Thru");
 
     // ******************************
     // end KMI_Ports and device handlers
@@ -150,7 +152,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Firmware update Window
     fwUpdateWindow = new fwUpdate(this, "12 Step", applicationFirmwareVersionString());
-    //fwUpdateWindow->setStyleSheet(generalStylesString);
+
+    // Troubleshooting Window
+    troubleshootWindow = new troubleshoot(this, "12 Step", applicationFirmwareVersionString());
+
+    troubleshootWindow->hide();
+
+    connect(kmiPorts, SIGNAL(signalInputCount(int)), troubleshootWindow, SLOT(slotInputCount(int)));
+    connect(kmiPorts, SIGNAL(signalOutputCount(int)), troubleshootWindow, SLOT(slotOutputCount(int)));
+    connect(kmiPorts, SIGNAL(signalInputPort(QString,int)), troubleshootWindow, SLOT(slotInputPort(QString,int)));
+    connect(kmiPorts, SIGNAL(signalOutputPort(QString,int)), troubleshootWindow, SLOT(slotOutputPort(QString,int)));
 
     // end MIDI Overhaul
 
@@ -174,6 +185,38 @@ MainWindow::MainWindow(QWidget *parent) :
     if (QFontDatabase::addApplicationFont(corbelBFont) == -1) qDebug() << "Could not load font: " << corbelBFont;
 
     // ---- end FONTS -------------------------
+
+    // general stylesheets
+#ifdef Q_OS_MAC
+    generalStylesFile = new QFile(":stylesheets/GeneralStyles.qss");
+
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_QuNexus.qss");
+#else
+    generalStylesFile = new QFile(":stylesheets/GeneralStylesWindows.qss");
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_QuNexus_WIN.qss");
+#endif
+    if (!generalStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << generalStylesFile->fileName();
+    }
+    else
+    {
+        generalStylesString = QLatin1String(generalStylesFile->readAll());
+    }
+
+    if (!dialogStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << dialogStylesFile->fileName();
+    }
+    else
+    {
+        dialogStylesString = QLatin1String(dialogStylesFile->readAll());
+    }
+
+    //StyleSheets for "grey" pushbuttons
+    grayStyleFile = new QFile(":stylesheets/GrayButtonStyleSheet.qss");
+    grayStyleFile->open(QFile::ReadOnly);
+    grayStyleString = QLatin1String(grayStyleFile->readAll());
 
     //-------------------- Disable Widget
     disableWidget->hide();
@@ -387,6 +430,53 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+#define DIALOG_WIDTH 400
+#define DIALOG_HEIGHT 125
+#define DIALOG_TEXT_PADDING 10
+#define DIALOG_W_CENTER (DIALOG_WIDTH / 2)
+#define DIALOG_BUTT_W 70
+#define DIALOG_BUTT_H 28
+#define DIALOG_BUTT_X DIALOG_W_CENTER - (DIALOG_BUTT_W / 2)
+#define DIALOG_BUTT_Y DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2)
+#define DIALOG_TEXT_W (DIALOG_WIDTH - (DIALOG_TEXT_PADDING * 2))
+#define DIALOG_TEXT_H (DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2))
+
+void MainWindow::slotCreateDialog(QString dialogText)
+{
+    QDialog *msgBox = new QDialog(this);
+    msgBox->setModal(true);
+    msgBox->setWindowFlags(Qt::FramelessWindowHint);
+    msgBox->setStyleSheet(dialogStylesString);
+
+
+    msgBox->setMinimumSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+    msgBox->setFixedSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+
+    int x = this->width();
+    int y = this->height();
+
+    int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
+    int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
+
+    qDebug() << "parent x: " << x << " y: " << y << " dialogX: " << dialogX << "dialogY: " << dialogY;
+
+    msgBox->move(dialogX, dialogY);
+
+    QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
+    text->setAlignment(Qt::AlignCenter);
+    text->setMinimumSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
+    text->setFixedSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
+    text->move(DIALOG_TEXT_PADDING, DIALOG_TEXT_PADDING);
+
+    QPushButton* okButton = new QPushButton(msgBox);
+    okButton->setStyleSheet(grayStyleString);
+    okButton->setText("Ok");
+    okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W,DIALOG_BUTT_H));
+    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
+
+    msgBox->exec();
+}
+
 void MainWindow::closeEvent(QCloseEvent *)
 {
     if(presetsSending)
@@ -595,6 +685,11 @@ void MainWindow::slotConnectInterfaces()
 
     // handle device unexpectedly in bootloader mode
     connect(TwelveStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
+
+    // connect fwUpdate console messages to connection troubleshooter
+    connect(TwelveStep, SIGNAL(signalFwConsoleMessage(QString)), troubleshootWindow, SLOT(slotAppendToStatusLog(QString)));
+    connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), troubleshootWindow, SLOT(slotRequestFwUpdate()));
+    connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), troubleshootWindow, SLOT(slotFirmwareUpdated(bool)));
 
     // reset portlist after sending bootloader commands, catch changes to port names
     //connect(TwelveStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
@@ -863,13 +958,13 @@ void MainWindow::slotInitMenuBar()
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
-    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_C));
+    copyPresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
     connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
 
     pastePresetAct = new QAction("Paste Preset", edit);
     actionList.append(pastePresetAct);
     edit->addAction(pastePresetAct);
-    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_V));
+    pastePresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_V));
     connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
     pastePresetAct->setDisabled(true);
 
@@ -931,6 +1026,13 @@ void MainWindow::slotInitMenuBar()
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDoc()));
     actionList.append(doc);
     help->addAction(doc);
+    help->addSeparator();
+
+    //troubleshooter
+    QAction *troubleShoot = new QAction("Open Connection Troubleshooter", help);
+    connect(troubleShoot, SIGNAL(triggered()), this, SLOT(slotOpenTroubleshooting()));
+    actionList.append(troubleShoot);
+    help->addAction(troubleShoot);
     help->addSeparator();
 
     //tooltips
@@ -1080,6 +1182,7 @@ void MainWindow::slotShowConnection(bool connection)
         updateFirmwareAct->setDisabled(false);
 //        sysexManager->slotSendFwQuery();
         aboutDialogForm->found->setText(deviceFirmwareVersionString());
+        troubleshootWindow->slotConnected(true);
     }
     else
     {
@@ -1096,6 +1199,7 @@ void MainWindow::slotShowConnection(bool connection)
         ui->update->setEnabled(false);
         updateFirmwareAct->setDisabled(true);
         aboutDialogForm->found->setText("Not Connected");
+        troubleshootWindow->slotConnected(false);
     }
 }
 
@@ -1267,16 +1371,32 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if ((portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1) && inOrOut == PORT_IN)
         {
             TwelveStep->slotSetExpectedFW(thisFw);
-            //qDebug() << "qn deviceName: " << TwelveStep->deviceName << " curfw is: " << TwelveStep->currentFwVer;
-            TwelveStep->updatePortIn(portNum);
-            fwUpdateWindow->slotAppendTextToConsole("\nTwelveStep Connected\n");
+
+            troubleshootWindow->slotDetected();
+            ui->connected->setText("Detected");
+            ui->connected->setStyleSheet("QFrame#connected{border: 1px solid rgb(67,67,67); background:rgb(255,125,0); border-radius:6;}");
+
+            if (!TwelveStep->slotUpdatePortIn(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
+            else
+            {
+                fwUpdateWindow->slotAppendTextToConsole("\nTwelveStep Connected\n");
+            }
+
         }
         else if ((portName == TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1) && inOrOut == PORT_OUT)
         {
-            TwelveStep->updatePortOut(portNum);
-            TwelveStep->slotStartPolling("PORT_CONNECT"); // start polling when output port is added
+            if (!TwelveStep->slotUpdatePortOut(portNum))
+            {
+                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+            }
+            else
+            {
+                TwelveStep->pollingStatus = true; // start polling when output port is added
+            }
         }
-
         break;
     case PORT_DISCONNECT:
 
@@ -1292,15 +1412,25 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         }
 
         // **** TwelveStep disconnect **************************************
-        if (portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1)
+        if (inOrOut == PORT_IN && portName == TwelveStep->portName_in)
         {
             // close ports and stop polling
             TwelveStep->slotCloseMidiIn(SIGNAL_SEND);
-            TwelveStep->slotCloseMidiOut(SIGNAL_SEND);
-            TwelveStep->slotStopPolling("PORT_DISCONNECT");
-            if (inOrOut == PORT_IN) fwUpdateWindow->slotAppendTextToConsole("\nTwelveStep Disconnected\n");
+            fwUpdateWindow->slotAppendTextToConsole("\nTwelveStep Disconnected\n");
+            ui->connected->setText("Not Connected");
+            ui->connected->setStyleSheet("QFrame#connected{border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:6;}");
         }
-
+        else if (inOrOut == PORT_OUT && portName == TwelveStep->portName_out)
+        {
+            TwelveStep->slotCloseMidiOut(SIGNAL_SEND);
+            TwelveStep->pollingStatus = false;
+        }
+        else if (inOrOut == PORT_OUT && (portName == TWELVESTEP_OUT_P1 || portName == TWELVESTEP_OLD_OUT_P1) )
+        {
+            troubleshootWindow->slotConnected(false);
+            ui->connected->setText("Not Connected");
+            ui->connected->setStyleSheet("QFrame#connected{border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:6;}");
+        }
         break;
     case PORT_CHANGED:
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
@@ -1308,11 +1438,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // **** TwelveStep renumber ****************************************
         if ((portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1) && inOrOut == PORT_IN)
         {
-            TwelveStep->updatePortIn(portNum);
+            TwelveStep->slotUpdatePortIn(portNum);
         }
         else if ((portName == TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)&& inOrOut == PORT_OUT)
         {
-            TwelveStep->updatePortOut(portNum);
+            TwelveStep->slotUpdatePortOut(portNum);
         }
 
         break;
@@ -1327,7 +1457,7 @@ void MainWindow::slotRefreshConnection()
 {
     qDebug() << "slotRefreshConnection called";
 //#ifdef Q_OS_MAC
-    TwelveStep->slotResetConnections(TWELVESTEP_OLD_IN_P1, TWELVESTEP_OLD_IN_P1);
+    //TwelveStep->slotResetConnections(TWELVESTEP_OLD_IN_P1, TWELVESTEP_OLD_IN_P1);
 //#endif
 }
 
@@ -1356,29 +1486,36 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 
     if (success)
     {
-        TwelveStep->fwUpdateRequested = false;
-
         slotUpdateMIDIaux();
         slotShowConnection(true);
-        //slotEnableDisableMidiFunctions(true);
     }
     else
     {
         TwelveStep->slotFirmwareUpdateReset();
         slotShowConnection(false);
-        //slotEnableDisableMidiFunctions(false);
     }
     disableWidget->hide(); // re-enable app and "ungrey" main window
 }
 
 void MainWindow::slotForceFirmwareUpdate()
 {
+    if (!TwelveStep->port_out_open) return;
+
     slotFirmwareDetected(TwelveStep, false); // act as if we received a firmware mismatch
+    forceFirmwareUpdate = true;
 }
 
 void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
     qDebug() << "slotFirmwareDetected called";
+
+    troubleshootWindow->slotSetDevVersion(deviceFirmwareVersionString(), deviceBootloaderVersionString());
+    if (forceFirmwareUpdate)
+    {
+        troubleshootWindow->slotRequestFwUpdate();
+        forceFirmwareUpdate = false;
+    }
+
     if (matches)
     {
         qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
@@ -1390,9 +1527,9 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
     {
         qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
 
-        // setup sysex connections to receive globals data
-//        TwelveStep->disconnect(SIGNAL(signalRxSysExBA(QByteArray))); // disconnect to be safe
-//        connect(TwelveStep, SIGNAL(signalRxSysExBA(QByteArray)), sysExDecode, SLOT(slotProcessSysEx(QByteArray)));
+        ui->connected->setText("FIRMWARE OUT OF DATE");
+        ui->connected->setStyleSheet("QFrame#QuNexus_Connected_Frame{border: 1px solid rgb(67,67,67); background:rgb(255,0,0); border-radius:6;}");
+
 
         fwUpdateWindow->slotClearText();
         fwUpdateWindow->slotAppendTextToConsole(deviceBootloaderVersionString());
@@ -1432,13 +1569,13 @@ void MainWindow::slotUpdateMIDIaux()
             return;
         }
 
-        midiAuxOut->updatePortOut(thisOutPort);
-        connect(TwelveStep, SIGNAL(signalRxMidi_raw(uchar, uchar, uchar, uchar)), midiAuxOut, SLOT(slotSendMIDI(uchar, uchar, uchar, uchar)));
+        midiTHRU->slotUpdatePortOut(thisOutPort);
+        connect(TwelveStep, SIGNAL(signalRxMidi_raw(uchar,uchar,uchar,uchar)), midiTHRU, SLOT(slotSendMIDI(uchar,uchar,uchar,uchar)));
     }
     else
     {
         qDebug() << "close port, don't update";
-        midiAuxOut->slotCloseMidiOut(SIGNAL_NONE);
+        midiTHRU->slotCloseMidiOut(SIGNAL_NONE);
     }
 }
 
@@ -1449,6 +1586,12 @@ void MainWindow::slotRecallMIDIaux()
 
     midiTab->midiThru->setCurrentText(recallMidiAuxPortName);
     slotUpdateMIDIaux();
+}
+
+void MainWindow::slotOpenTroubleshooting()
+{
+    troubleshootWindow->show();
+    troubleshootWindow->slotScrollTroubleUp();
 }
 
 // --------------------------------------------------------------------------------------
