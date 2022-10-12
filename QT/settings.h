@@ -31,11 +31,17 @@ public:
 
     QWidget *settingsWidget;
 
+    // midi thru dropdown
+    QComboBox * midiThru;
+
 signals:
     void signalStoreValue(QString name, QVariant value);
     void signalWriteSettings();
 
     void signalSettingsDirty();
+
+    // update aux
+    void signalUpdateMIDIaux();
 
 public slots:
     void slotConnectElements();

@@ -147,11 +147,6 @@ void MidiTab::slotConnectElements()
     //key safety
     connect(midiTabForm->keySafetyMultiKey, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->keySafetySingleKey, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-
-    // MIDI Thru dropdown
-    midiThru = midiTabForm->midi_outputs;
-    connect(midiTabForm->midi_outputs, SIGNAL(activated(int)), this, SLOT(slotUpdateMIDIaux()));
-
 }
 
 void MidiTab::slotDisconnectElements()
@@ -478,9 +473,4 @@ void MidiTab::slotRecallDestMenus(int modNum)
     }
 
     modline[modNum]->slotRecallDestinations(destMenuList, recallText);
-}
-
-void MidiTab::slotUpdateMIDIaux()
-{
-    emit signalUpdateMIDIaux();
 }

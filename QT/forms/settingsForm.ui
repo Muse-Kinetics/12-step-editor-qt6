@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>745</width>
-    <height>180</height>
+    <height>260</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -236,6 +236,9 @@ QSlider::add-page:horizontal
    <property name="text">
     <string>GLOBAL KEY SENSITIVITY</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
@@ -248,6 +251,9 @@ QSlider::add-page:horizontal
    </property>
    <property name="text">
     <string>SELECT BUTTON HOLD TIME</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -317,14 +323,17 @@ QSlider::add-page:horizontal
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>85</x>
      <y>110</y>
-     <width>208</width>
+     <width>222</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>SEND FULL VOLUME ON PRESET CHANGE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="midiVolume">
@@ -382,6 +391,181 @@ QSlider::add-page:horizontal
    </property>
    <property name="text">
     <string>VELOCITY OVERRIDE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="midi_outputs">
+   <property name="geometry">
+    <rect>
+     <x>272</x>
+     <y>200</y>
+     <width>200</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing QuNexus settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12pt &quot;Futura PT&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    min-width: 450px;
+}
+
+/* dropdown box*/
+QComboBox QListView
+{
+	background-color: rgb(60, 60, 60);
+	border: transparent;
+	font: 12px &quot;Futura PT&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 200px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/*----------- QFrame ------------*/
+QFrame
+{
+	background: rgb(89, 89, 89);
+	border: none;
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(245, 245, 245);
+}
+
+
+/*-----------QLineEdit------------*/
+QLineEdit
+{
+	background: rgb(60, 60, 60);
+	border: 3px solid rgb(245, 245, 245);
+	padding-bottom: 2px;
+	color: rgb(245, 245, 245);
+	font: 24pt &quot;Droid Sans Mono&quot;;
+}
+
+QLineEdit:focus
+{
+	border: 3px solid white;
+	padding-bottom: 2px;
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(60, 60, 60);
+	color: white;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: black;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}
+</string>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>272</x>
+     <y>180</y>
+     <width>200</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DEVICE / EDITOR MIDI THRU</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

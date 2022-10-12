@@ -35,6 +35,10 @@ void Settings::slotConnectElements()
 
     connect(settingsForm->midiVolume, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
     connect(settingsForm->velocityOverride, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
+
+    // MIDI Thru dropdown
+    midiThru = settingsForm->midi_outputs;
+    connect(settingsForm->midi_outputs, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
 }
 
 void Settings::slotDisconnectElements()

@@ -1204,23 +1204,27 @@ QComboBox::down-arrow
       <string>DELETE</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>3</x>
-       <y>7</y>
-       <width>14</width>
-       <height>86</height>
+       <x>7</x>
+       <y>4</y>
+       <width>10</width>
+       <height>100</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QLabel
-{
-	image: url(:/ui/ui_images/presets_label.png);
-}</string>
+      <string notr="true">	font: 12pt &quot;Futura-Normal&quot;;
+	color: white;</string>
      </property>
      <property name="text">
-      <string/>
+      <string>P R E S E T S</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

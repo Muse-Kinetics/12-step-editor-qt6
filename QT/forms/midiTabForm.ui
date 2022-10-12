@@ -724,7 +724,7 @@ QToolButton:pressed
    <property name="geometry">
     <rect>
      <x>291</x>
-     <y>56</y>
+     <y>73</y>
      <width>191</width>
      <height>62</height>
     </rect>
@@ -892,7 +892,7 @@ QRadioButton::checked:focus
    <property name="geometry">
     <rect>
      <x>508</x>
-     <y>16</y>
+     <y>33</y>
      <width>221</width>
      <height>127</height>
     </rect>
@@ -1159,175 +1159,6 @@ QRadioButton::checked:focus
      <string/>
     </property>
    </widget>
-  </widget>
-  <widget class="QComboBox" name="midi_outputs">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>157</y>
-     <width>151</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Selects the preset currently being edited.</string>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-/*-----------QWidget-----------*/
-QWidget
-{
-	background: rgb(40, 40, 40);
-}
-
-/*----------- QComboBox ------------*/
-QComboBox
-{
-	font: 12pt &quot;Futura PT&quot;;
-	border: 2px solid rgb(245, 245, 245);
-	background: rgb(60, 60, 60);
-	color: white;
-	padding: 1px 3px 1px 4px;
- }
-
-QComboBox QAbstractItemView
-{
-    min-width: 450px;
-}
-
-QComboBox QListView
-{
-	background-color: rgb(60, 60, 60);
-	border: transparent;
-	font: 12px &quot;Futura PT&quot;;
-	padding-left: 3px;
-	padding-right: 3px;
-	min-width: 70px;
-}
-
-QComboBox::item:alternate
-{
-	background: rgb(90, 90, 90);
-}
-
-QComboBox::item:selected
-{
-	border: 1px solid transparent;
-	background: rgb(0,174,239);
-}
-
-QComboBox::indicator
-{
-	background-color: transparent;
-	selection-background-color: transparent;
-	color: transparent;
-	selection-color: white;
-}
-
-QComboBox::drop-down
-{
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: margin;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
-	padding: 1px 1px 1px 4px;
-}
-
-/*----------- QFrame ------------*/
-QFrame
-{
-	background: rgb(89, 89, 89);
-	border: none;
-}
-
-/*-----------QLabel------------*/
-QLabel
-{
-	font: 12pt &quot;Futura PT&quot;;
-	color: rgb(245, 245, 245);
-}
-
-
-/*-----------QLineEdit------------*/
-QLineEdit
-{
-	background: rgb(60, 60, 60);
-	border: 3px solid rgb(245, 245, 245);
-	padding-bottom: 2px;
-	color: rgb(245, 245, 245);
-	font: 24pt &quot;Droid Sans Mono&quot;;
-}
-
-QLineEdit:focus
-{
-	border: 3px solid white;
-	padding-bottom: 2px;
-}
-
-/*----------- QToolButton ------------*/
-QToolButton
-{
-	background: rgb(60, 60, 60);
-	color: white;
-	border: 2px solid rgb(245, 245, 245);
-	font: 10pt &quot;Futura PT&quot;;
-	padding: 0,1,0,0;
-}
-
-QToolButton:pressed
-{
-	background: rgb(245, 245, 245);
-	color: black;
-	border: 2px solid rgb(245, 245, 245);
-	font: 10pt &quot;Futura PT&quot;;
-	padding: 0, 1, 0, 0;
-}
-
-
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}
-</string>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <item>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="label_21">
-   <property name="geometry">
-    <rect>
-     <x>463</x>
-     <y>162</y>
-     <width>81</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Editor MIDI Thru</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
   </widget>
  </widget>
  <customwidgets>

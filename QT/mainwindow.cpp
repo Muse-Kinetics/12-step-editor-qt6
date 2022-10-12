@@ -89,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // create KMI device handlers
     // ******************************
 
-    TwelveStep = new MidiDeviceManager(this, PID_12STEP, "12Step");
+    TwelveStep = new MidiDeviceManager(this, PID_12STEP, "12Step", kmiPorts);
 
     // setup firmware image
     QString thisFwFile = QString(":/resources/firmware/12Step_Firmware_v%1.%2.%3.syx")
@@ -108,7 +108,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "connect signalFirmwareDetected";
 
     // setup MIDI aux output
-    midiTHRU = new MidiDeviceManager(this, PID_AUX, "MIDI Thru");
+    midiTHRU = new MidiDeviceManager(this, PID_AUX, "MIDI Thru", kmiPorts);
 
     // ******************************
     // end KMI_Ports and device handlers
@@ -175,11 +175,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QString droidFont = ":/fonts/droid-sans/DroidSansMono.ttf";
     QString futuraFont = ":/fonts/futura/futura-normal.ttf";
     QString futuraBFont = ":/fonts/futura/Futura-Bold.ttf";
+    QString futuraPTFont = ":/fonts/futura/FuturaPT-Book.otf";
     QString corbelFont = ":/fonts/corbel/corbel.ttf";
     QString corbelBFont = ":/fonts/corbel/corbelb.ttf";
 
     if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
     if (QFontDatabase::addApplicationFont(futuraFont) == -1) qDebug() << "Could not load font: " << futuraFont;
+    if (QFontDatabase::addApplicationFont(futuraPTFont) == -1) qDebug() << "Could not load font: " << futuraPTFont;
     if (QFontDatabase::addApplicationFont(futuraBFont) == -1) qDebug() << "Could not load font: " << futuraBFont;
     if (QFontDatabase::addApplicationFont(corbelFont) == -1) qDebug() << "Could not load font: " << corbelFont;
     if (QFontDatabase::addApplicationFont(corbelBFont) == -1) qDebug() << "Could not load font: " << corbelBFont;
@@ -284,8 +286,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // MIDI thru dropdown
     // connect dropdowns and connection status to MIDI aux ports
-    midiTab->
-    connect(midiTab, SIGNAL(signalUpdateMIDIaux()), this, SLOT(slotUpdateMIDIaux()));
+
+    connect(settingsTab, SIGNAL(signalUpdateMIDIaux()), this, SLOT(slotUpdateMIDIaux()));
     connect(TwelveStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIaux()));
 
     // remember last selected MIDI aux port
@@ -584,8 +586,8 @@ void MainWindow::slotConnectInterfaces()
     //send indicator for global states
 
     //EB TODO: commented these two out for debug
-    //connect(setlistTab, SIGNAL(signalSetlistDirty()), this, SLOT(slotShowGlobalDirtyStates()));
-    //connect(settingsTab, SIGNAL(signalSettingsDirty()), this, SLOT(slotShowGlobalDirtyStates()));
+    connect(setlistTab, SIGNAL(signalSetlistDirty()), this, SLOT(slotShowGlobalDirtyStates()));
+    connect(settingsTab, SIGNAL(signalSettingsDirty()), this, SLOT(slotShowGlobalDirtyStates()));
 
     //save as
     connect(ui->saveas, SIGNAL(clicked()), disableWidget, SLOT(raise()));
@@ -617,6 +619,9 @@ void MainWindow::slotConnectInterfaces()
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), this, SLOT(slotPopulatePresetMenu()));
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), deleteDialogWidget, SLOT(close()));
     connect(deleteDialogForm->delete_2, SIGNAL(clicked()), disableWidget, SLOT(close()));
+
+    // troubleshooter
+    connect(ui->connected, SIGNAL(clicked()), this, SLOT(slotOpenTroubleshooting()));
 
     //--------------------------------------- Setlist
     connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlistTab, SLOT(slotPopulateSetlistMenus(QComboBox*)));
@@ -694,7 +699,6 @@ void MainWindow::slotConnectInterfaces()
     // reset portlist after sending bootloader commands, catch changes to port names
     //connect(TwelveStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
     //connect(TwelveStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////// FW Updating Dialogs ////////////////////////////////////////////////////////////////
@@ -1169,15 +1173,15 @@ void MainWindow::slotShowConnection(bool connection)
     if(connected)
     {
 #ifdef Q_OS_MAC
-        ui->connected->setStyleSheet("QLabel {background:transparent;font:18px 'Futura PT'; color:rgba(0, 174, 237, 175);}"
-                                     "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
+        ui->connected->setStyleSheet("QPushButton {background:transparent;font:18px 'Futura PT'; color:rgba(0, 174, 237, 175);border-radius:0px;}"
+                                     "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242)};"
                                      );
 #else
-        ui->connected->setStyleSheet("QLabel {background:transparent;font:18px 'Futura-Normal'; color:rgba(0, 174, 237, 175);}"
+        ui->connected->setStyleSheet("QPushButton {background:transparent;font:18px 'Futura-Normal'; color:rgba(0, 174, 237, 175);border-radius:0px;}"
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
                                      );
 #endif
-        ui->connected->setText("IS CONNECTED");
+        ui->connected->setText("CONNECTED");
         ui->update->setEnabled(true);
         updateFirmwareAct->setDisabled(false);
 //        sysexManager->slotSendFwQuery();
@@ -1187,15 +1191,15 @@ void MainWindow::slotShowConnection(bool connection)
     else
     {
 #ifdef Q_OS_MAC
-        ui->connected->setStyleSheet("QLabel {background:transparent;font:18px 'Futura PT'; color:rgba(207, 0, 18, 175);}"
+        ui->connected->setStyleSheet("QPushButton {background:transparent;font:18px 'Futura PT'; color:rgba(207, 0, 18, 175);border-radius:0px;}"
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
                                      );
 #else
-        ui->connected->setStyleSheet("QLabel {background:transparent;font:18px 'Futura-Normal'; color:rgba(207, 0, 18, 175);}"
+        ui->connected->setStyleSheet("background:transparent;font:18px 'Futura-Normal'; color:rgba(207, 0, 18, 175);border-radius:0px;"
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
                                      );
 #endif
-        ui->connected->setText("IS NOT CONNECTED");
+        ui->connected->setText("NOT CONNECTED");
         ui->update->setEnabled(false);
         updateFirmwareAct->setDisabled(true);
         aboutDialogForm->found->setText("Not Connected");
@@ -1247,7 +1251,7 @@ void MainWindow::slotCleanUpSetlist()
 
     slotSendPresets();
 
-    if(sysexManager->connected)
+    if(TwelveStep->connected)
     {
         tabArea->setTabText(2, "Setlist");
         tabArea->setTabText(3, "Settings");
@@ -1356,8 +1360,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // update dropdown
         if (inOrOut == PORT_OUT && (portName != TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)) // don't create feedback loop
         {
-            midiTab->midiThru->addItem(portName); // update dropdown
-            //slotFixDropDownWidth(midiTab->midiThru);
+            settingsTab->midiThru->addItem(portName); // update dropdown
+            //slotFixDropDownWidth(settingsTab->midiThru);
 
             if (portName == sessionSettings->value(MIDI_AUX_KEY).toString()) // if this port matches the last selected port
             {
@@ -1374,7 +1378,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 
             troubleshootWindow->slotDetected();
             ui->connected->setText("Detected");
-            ui->connected->setStyleSheet("QFrame#connected{border: 1px solid rgb(67,67,67); background:rgb(255,125,0); border-radius:6;}");
+            ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background:rgb(255,125,0); border-radius:0px;}"
+                                         "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
 
             if (!TwelveStep->slotUpdatePortIn(portNum))
             {
@@ -1403,12 +1408,12 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if (inOrOut == PORT_OUT)
         {
             // update dropdown
-            if (midiTab->midiThru->currentText() == portName)
+            if (settingsTab->midiThru->currentText() == portName)
             {
-                midiTab->midiThru->setCurrentIndex(0);
+                settingsTab->midiThru->setCurrentIndex(0);
             }
 
-            midiTab->midiThru->removeItem(midiTab->midiThru->findText(portName));
+            settingsTab->midiThru->removeItem(settingsTab->midiThru->findText(portName));
         }
 
         // **** TwelveStep disconnect **************************************
@@ -1418,7 +1423,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             TwelveStep->slotCloseMidiIn(SIGNAL_SEND);
             fwUpdateWindow->slotAppendTextToConsole("\nTwelveStep Disconnected\n");
             ui->connected->setText("Not Connected");
-            ui->connected->setStyleSheet("QFrame#connected{border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:6;}");
+            ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:0px;}"
+                                         "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
         }
         else if (inOrOut == PORT_OUT && portName == TwelveStep->portName_out)
         {
@@ -1429,7 +1435,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             troubleshootWindow->slotConnected(false);
             ui->connected->setText("Not Connected");
-            ui->connected->setStyleSheet("QFrame#connected{border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:6;}");
+            ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:0px;}"
+                                         "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
         }
         break;
     case PORT_CHANGED:
@@ -1528,7 +1535,8 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
         qDebug() << "Firmware MisMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
 
         ui->connected->setText("FIRMWARE OUT OF DATE");
-        ui->connected->setStyleSheet("QFrame#QuNexus_Connected_Frame{border: 1px solid rgb(67,67,67); background:rgb(255,0,0); border-radius:6;}");
+        ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background:rgb(255,0,0); border-radius:0px;}"
+                                     "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
 
 
         fwUpdateWindow->slotClearText();
@@ -1551,21 +1559,21 @@ void MainWindow::slotUpdateMIDIaux()
 
     if (!connected) return; // don't continue if we aren't connected
 
-    sessionSettings->setValue(MIDI_AUX_KEY, midiTab->midiThru->currentText()); // store this setting for the next time we run the editor
+    sessionSettings->setValue(MIDI_AUX_KEY, settingsTab->midiThru->currentText()); // store this setting for the next time we run the editor
 
-    if (midiTab->midiThru->currentText() != "None")
+    if (settingsTab->midiThru->currentText() != "None")
     {
-        qDebug() << "update aux port: " << midiTab->midiThru->currentText();
+        qDebug() << "update aux port: " << settingsTab->midiThru->currentText();
 
 
         //recallMidiAuxPortName = ""; // reset this, which is only set when the stored aux port connects
 
         // set and open the ports
-        int thisOutPort = kmiPorts->getOutPortNumber(midiTab->midiThru->currentText());
+        int thisOutPort = kmiPorts->getOutPortNumber(settingsTab->midiThru->currentText());
 
         if (thisOutPort == -1)
         {
-            qDebug() << "ERROR: Port \"" << midiTab->midiThru->currentText() << "\" does not exist, cannot open as MIDI aux port";
+            qDebug() << "ERROR: Port \"" << settingsTab->midiThru->currentText() << "\" does not exist, cannot open as MIDI aux port";
             return;
         }
 
@@ -1584,7 +1592,7 @@ void MainWindow::slotRecallMIDIaux()
     qDebug() << "slotRecallMIDIaux called, connected: " << connected << " recallMidiAuxPortName: " << recallMidiAuxPortName;
     if (!connected || recallMidiAuxPortName == "") return; // wait until connected to TwelveStep and the previously saved port
 
-    midiTab->midiThru->setCurrentText(recallMidiAuxPortName);
+    settingsTab->midiThru->setCurrentText(recallMidiAuxPortName);
     slotUpdateMIDIaux();
 }
 

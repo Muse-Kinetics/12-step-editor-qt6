@@ -1,6 +1,6 @@
-#### SoftStep Editor and Firmware Changelog
+#### 12 Step Editor and Firmware Changelog
 
-### Editor 2.1.0, Firmware 0.2.9 (2021-03-14)
+### Editor 2.1.0, Firmware 0.3.0 (2022-09-30)
 - New Features/Changes:
 	- Overhauled MIDI backend using RtMidi, now builds/runs on modern operating systems.
 	- Added a MIDI THRU port to route incomming 12 Step midi to a virtual port, workaround for Windows inability to share MIDI ports with multiple applications

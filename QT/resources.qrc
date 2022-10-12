@@ -255,6 +255,6 @@
         <file>ui_images/cc7_enabled.png</file>
     </qresource>
     <qresource prefix="/">
-        <file>resources/firmware/12Step_Firmware_v0.2.9.syx</file>
+        <file>resources/firmware/12Step_Firmware_v0.3.0.syx</file>
     </qresource>
 </RCC>

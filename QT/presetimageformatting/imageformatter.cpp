@@ -11,8 +11,6 @@ ImageFormatter::ImageFormatter()
 
 void ImageFormatter::formatImage(QVariantMap reducedSetlist)
 {
-    //qDebug() << "reduced setlist" << reducedSetlist;
-
     //-----------------------------------------------------------------------------------------------------------------//
     //This function assumes that the "reducedSetlist" variable has already accounted for "[EMPTY]" slots in the setlist//
     //-----------------------------------------------------------------------------------------------------------------//
@@ -26,6 +24,8 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
     //Number pre presets in setlist (doesn't account for duplicates yet, not sure we need to)
     int numScenes = reducedSetlist.size();
 
+    qDebug() << "\nformatImage called: numScenes:" << numScenes;
+
     //Allocate the number of images (presets) that are in our setlist
     image = (IMAGE *) malloc( numScenes * sizeof(IMAGE) );
 
@@ -35,6 +35,7 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
     //Iterate through Setlist
     for(int slotIndex = 0; slotIndex < numScenes; slotIndex++)
     {
+        qDebug() << "\nSetlist slotIndex: " << slotIndex;
         //Handle multiple CC destinations per preset, only two allowed
         bool CC1Used = false;
 
@@ -257,42 +258,63 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
 
         //qDebug() << "check" << currentPreset.value(QString("preset_displayname_1")).toString() << "check";
 
-        //Display Slot 1
-        if(!currentPreset.value(QString("preset_displayname_1")).toString().isNull())
+        QString thisVal = "None";
+        QString thisKey = "";
+        QString thisChar;
+
+        for (int i = 0; i < 4; i++)
         {
-            image[slotIndex].display[0] = currentPreset.value(QString("preset_displayname_1")).toString().toLatin1().at(0);
+            thisKey = QString("preset_displayname_%1").arg(i+1);
+            thisVal = currentPreset.value(thisKey).toString();
+
+            if (thisVal.length())
+            {
+                thisChar = image[slotIndex].display[i] = thisVal.toLatin1().at(0);
+            }
+            else
+            {
+                thisChar = image[slotIndex].display[i] = QString(" ").toLatin1().at(0);
+            }
+
+            qDebug() << QString("ImageFormatter, slotIndex[%1] - char[%2] length: %3 val: %4").arg(slotIndex).arg(i).arg(thisVal.length()).arg(thisChar);
         }
-        else
-        {
-            image[slotIndex].display[0] = QString(" ").toLatin1().at(0);
-        }
-        //Display Slot 2
-        if(!currentPreset.value(QString("preset_displayname_2")).toString().isNull())
-        {
-            image[slotIndex].display[1] = currentPreset.value(QString("preset_displayname_2")).toString().toLatin1().at(0);
-        }
-        else
-        {
-            image[slotIndex].display[1] = QString(" ").toLatin1().at(0);
-        }
-        //Display Slot 3
-        if(!currentPreset.value(QString("preset_displayname_3")).toString().isNull())
-        {
-            image[slotIndex].display[2] = currentPreset.value(QString("preset_displayname_3")).toString().toLatin1().at(0);
-        }
-        else
-        {
-            image[slotIndex].display[2] = QString(" ").toLatin1().at(0);
-        }
-        //Display Slot 4
-        if(!currentPreset.value(QString("preset_displayname_4")).toString().isNull())
-        {
-            image[slotIndex].display[3] = currentPreset.value(QString("preset_displayname_4")).toString().toLatin1().at(0);
-        }
-        else
-        {
-            image[slotIndex].display[3] = QString(" ").toLatin1().at(0);
-        }
+
+//        //Display Slot 1
+//        if(!currentPreset.value(QString("preset_displayname_1")).toString().isNull())
+//        {
+//            image[slotIndex].display[0] = currentPreset.value(QString("preset_displayname_1")).toString().toLatin1().at(0);
+//        }
+//        else
+//        {
+//            image[slotIndex].display[0] = QString(" ").toLatin1().at(0);
+//        }
+//        //Display Slot 2
+//        if(!currentPreset.value(QString("preset_displayname_2")).toString().isNull())
+//        {
+//            image[slotIndex].display[1] = currentPreset.value(QString("preset_displayname_2")).toString().toLatin1().at(0);
+//        }
+//        else
+//        {
+//            image[slotIndex].display[1] = QString(" ").toLatin1().at(0);
+//        }
+//        //Display Slot 3
+//        if(!currentPreset.value(QString("preset_displayname_3")).toString().isNull())
+//        {
+//            image[slotIndex].display[2] = currentPreset.value(QString("preset_displayname_3")).toString().toLatin1().at(0);
+//        }
+//        else
+//        {
+//            image[slotIndex].display[2] = QString(" ").toLatin1().at(0);
+//        }
+//        //Display Slot 4
+//        if(!currentPreset.value(QString("preset_displayname_4")).toString().isNull())
+//        {
+//            image[slotIndex].display[3] = currentPreset.value(QString("preset_displayname_4")).toString().toLatin1().at(0);
+//        }
+//        else
+//        {
+//            image[slotIndex].display[3] = QString(" ").toLatin1().at(0);
+//        }
 
         //----------------------------------------------------------------------------------------------------------//
         //-------------------------------------------------- Keys --------------------------------------------------//

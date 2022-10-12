@@ -41,9 +41,6 @@ public:
     //current destination menu selections for each modline
     QStringList modlineDestinations;
 
-    // midi thru dropdown
-    QComboBox * midiThru;
-
 signals:
     void signalStoreValue(QString name, QVariant value, int presetNum);
     void signalCheckSavedState();
@@ -53,9 +50,6 @@ signals:
 
     void signalDeleteModline(int numModlinesShowing, int index);
     void signalWindowHeight(int numModlinesShowing);
-
-    // update aux
-    void signalUpdateMIDIaux();
 
 public slots:
     void slotConnectElements();
@@ -75,9 +69,6 @@ public slots:
     void slotRecallShowingModlines(QVariantMap, QVariantMap);
     void slotAddOrSubtractModlines();
     void slotWindowHeight(int);
-
-    // update aux
-    void slotUpdateMIDIaux();
 
 private:
     Ui::midiTabForm *midiTabForm;
