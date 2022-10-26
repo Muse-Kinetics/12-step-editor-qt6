@@ -20,25 +20,47 @@ QWidget
 	background: rgb(40, 40, 40);
 }
 
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 10pt &quot;Futura-Normal&quot;;
+	color: rgb(245, 245, 245);
+}
+
+
+
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 14px &quot;Futura PT Book&quot;;
 	border: 2px solid rgb(245, 245, 245);
 	background: rgb(60, 60, 60);
 	color: white;
 	padding: 1px 3px 1px 4px;
+    combobox-popup: 0;
  }
 
+/*----------- QComboBox ------------*/
+
+/* dropdown box*/
 QComboBox QListView
 {
-	background-color: rgb(60, 60, 60);
-	border: transparent;
-	font: 10px &quot;Futura-Normal&quot;;
-	color: rgb(242, 242, 242);
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10px &quot;Futura PT Book&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 35px;
+	min-width: 200px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 200px;
 }
 
 QComboBox::item:alternate
@@ -60,26 +82,81 @@ QComboBox::indicator
 	selection-color: white;
 }
 
+/* down arrow image */
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* required for down-arrow or it's blank*/
 QComboBox::drop-down
 {
-	width: 1px;
-	height: 1px;
-	subcontrol-origin: padding;
-	subcontrol-position: right center;
-	border-left-width: 0px;
-	border-right-width: 0px;
-	border-top-width: 0px;
-	border-bottom-width: 0px;
+    width: 1px;
+    height: 1px;
+    subcontrol-origin: margin;
+    subcontrol-position: right center;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
 	padding: 1px 1px 1px 4px;
 }
 
-/*-----------QLabel------------*/
-QLabel
+/* down arrow image */
+QComboBox::down-arrow
 {
-	font: 10pt &quot;Futura-Normal&quot;;
-	color: rgb(245, 245, 245);
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
 }
-</string>
+
+/* ---[scroll bar]----------------------------------------------------------------------------*/
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(255,255,255);
+	border: none;
+}
+
+/* This removes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}
+
+
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/</string>
   </property>
   <widget class="QComboBox" name="setlistmenu1">
    <property name="geometry">

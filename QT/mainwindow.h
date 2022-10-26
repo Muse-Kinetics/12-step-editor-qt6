@@ -84,6 +84,8 @@ public:
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
     MidiDeviceManager* midiTHRU;
 
+    //QComboBox *midiThruDropdown;
+
     QString MIDI_AUX_KEY;
     bool    recallMidiAuxPort;
     QString recallMidiAuxPortName;

@@ -9,7 +9,7 @@
 //initial window width is KEYTAB_WIDTH + TAB_X_POS*2 -- key tab is the first and initial tab
 //initial window height is KEYTAB_HEIGHT + TAB_Y_POS + MAINWINDOW_BOTTOM_SPACING -- key tab is the first and initial tab
 
-#define MAINWINDOW_BOTTOM_SPACING   15  //the amount of space under the tab area -- it makes sense to make this the same as the TAB_X_POS -- but I wanted to make it changeable separately just in case
+#define MAINWINDOW_BOTTOM_SPACING   8  //the amount of space under the tab area -- it makes sense to make this the same as the TAB_X_POS -- but I wanted to make it changeable separately just in case
 
 #define TAB_X_POS                   15 //this amount will add the same amount of space to the right so the tab is centered
 
@@ -28,13 +28,13 @@
 #define ABOUTWIDGET_WIDTH           300
 
 //fw query
-#define CURRENT_FW_QUERY_RESPONSE   "28 41 76 60 64 104 71 71 0 0 50 56 "
-#define FW_VERSION                  "28"
+//#define CURRENT_FW_QUERY_RESPONSE   "28 41 76 60 64 104 71 71 0 0 50 56 "
+//#define FW_VERSION                  "28"
 
 
 // -------------------------------------- Keyboard Tab
 #define KEYTAB_WIDTH                745 //I recommend making these 2 values match the keyTabForm.ui dimentions
-#define KEYTAB_HEIGHT               525
+#define KEYTAB_HEIGHT               500 // was 525
 
 //full keyboard placement
 #define KEYBOARD_TOTAL              128 //total number of keys that are created
@@ -42,8 +42,8 @@
 #define KEYBOARD_KEY_HEIGHT         50
 #define KEYBOARD_SPACING            2   //blank space between adjacent keys
 #define KEYBOARD_X_POS              25
-#define KEYBOARD_BLACK_Y_POS        345
-#define KEYBOARD_WHITE_Y_POS        400
+#define KEYBOARD_BLACK_Y_POS        325
+#define KEYBOARD_WHITE_Y_POS        380
 
 
 // -------------------------------------- 12Step Key Representations
@@ -53,8 +53,8 @@
 //12Step key representation placement
 #define KEYEDIT_SPACING             6   //space between adjacent keys
 #define KEYEDIT_X_POS               50
-#define KEYEDIT_BLACK_Y_POS         35
-#define KEYEDIT_WHITE_Y_POS         180
+#define KEYEDIT_BLACK_Y_POS         20
+#define KEYEDIT_WHITE_Y_POS         165
 
 
 // -------------------------------------- MIDI Tab

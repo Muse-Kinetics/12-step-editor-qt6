@@ -29,7 +29,7 @@ void GlobalPresetInterface::slotSetJSONPath()
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length());
     jsonPath.append("Resources/presets/settings.json");
 #else
-    jsonPath = QString("./presets/settings.json");
+    jsonPath.append("/presets/settings.json");
 #endif
 }
 
@@ -46,7 +46,8 @@ void GlobalPresetInterface::slotReadSettings()
     }
     else
     {
-        qDebug() << "WARNING: Settings JSON not found";
+        qDebug() << "Settings JSON: " << jsonPath;
+        qFatal("WARNING: Settings JSON not found");
     }
     jsonFile->close();
 }

@@ -34,6 +34,16 @@ public:
     // midi thru dropdown
     QComboBox * midiThru;
 
+    //------ Form
+    Ui::settingsForm *settingsForm;
+
+    // wrappers for midiThru - overwrought workaround for access violation on windows
+    QString midiThru_currentText();
+    void midiThru_setCurrentIndex(int index);
+    void midiThru_setCurrentText(QString portName);
+    void midiThru_addItem(QString portName);
+    void midiThru_removeItem(int index);
+
 signals:
     void signalStoreValue(QString name, QVariant value);
     void signalWriteSettings();
@@ -53,11 +63,11 @@ public slots:
 
     void slotSaveSettingsTimeout();
 
-private slots:
+//private slots:
     //void on_selectSensitivity_sliderReleased();
 
-private:
-    Ui::settingsForm *settingsForm;
+//private:
+
 };
 
 #endif // SETTINGS_H

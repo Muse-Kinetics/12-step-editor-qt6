@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>232</width>
-    <height>140</height>
+    <width>300</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,73 +46,88 @@ QPushButton:pressed
 
 </string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="expected">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>40</y>
-     <width>81</width>
-     <height>16</height>
+     <x>0</x>
+     <y>73</y>
+     <width>300</width>
+     <height>21</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Corbel</family>
-     <pointsize>8</pointsize>
-     <weight>75</weight>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
    </property>
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: bold 8pt &quot;Corbel&quot;;</string>
+    <string notr="true">font: 12pt &quot;Futura PT&quot;;
+background-color: rgba(0, 0,0,0);</string>
    </property>
    <property name="text">
-    <string>Expected FW:</string>
+    <string>Application Fw Version</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="found">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>60</y>
-     <width>61</width>
-     <height>16</height>
+     <x>0</x>
+     <y>104</y>
+     <width>300</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;Futura PT&quot;;
+background-color: rgba(0, 0,0,0);</string>
+   </property>
+   <property name="text">
+    <string>Device FW Version</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="application">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>13</y>
+     <width>300</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Corbel</family>
-     <pointsize>8</pointsize>
-     <weight>75</weight>
+     <family>Futura PT</family>
+     <pointsize>22</pointsize>
      <italic>false</italic>
-     <bold>true</bold>
+     <bold>false</bold>
     </font>
    </property>
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: bold 8pt &quot;Corbel&quot;;</string>
+    <string notr="true">font:22pt &quot;Futura PT&quot;;
+background-color: rgba(0,0,0,0);</string>
    </property>
    <property name="text">
-    <string>Found FW:</string>
+    <string>12 Step Editor Version</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QPushButton" name="ok">
    <property name="geometry">
     <rect>
-     <x>92</x>
-     <y>110</y>
+     <x>130</x>
+     <y>150</y>
      <width>40</width>
      <height>20</height>
     </rect>
@@ -128,162 +143,6 @@ QPushButton:pressed
    </property>
    <property name="text">
     <string>OK</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="found">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>60</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Corbel</family>
-     <pointsize>9</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 9pt &quot;Corbel&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Not Connected</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>80</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Corbel</family>
-     <pointsize>8</pointsize>
-     <weight>75</weight>
-     <italic>false</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: bold 8pt &quot;Corbel&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Editor Version:</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>224</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Futura-Normal</family>
-     <pointsize>12</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font:12pt &quot;Futura-Normal&quot;;
-</string>
-   </property>
-   <property name="text">
-    <string>About 12 Step Editor</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="editor_version">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>80</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Corbel</family>
-     <pointsize>9</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 9pt &quot;Corbel&quot;;</string>
-   </property>
-   <property name="text">
-    <string>2.0</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="expected">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>40</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Corbel</family>
-     <pointsize>9</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="focusPolicy">
-    <enum>Qt::NoFocus</enum>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">font: 9pt &quot;Corbel&quot;;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
  </widget>

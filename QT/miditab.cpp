@@ -22,7 +22,7 @@ MidiTab::MidiTab(QWidget *parent) :
     {
 #ifdef Q_OS_MAC
 #else
-        QCoreApplication::processEvents();
+        //QCoreApplication::processEvents();
 #endif
         modline[i] = new Modlines(midiTabFormWidget, i);
         modline[i]->slotConnectElements();

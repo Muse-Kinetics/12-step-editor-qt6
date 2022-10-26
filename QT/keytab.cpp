@@ -9,22 +9,26 @@ KeyTab::KeyTab(QWidget *parent) :
     keyTabFormWidget(new QWidget(this)),
     keyTabForm(new Ui::keyTabForm)
 {
+    qDebug() << "New KeyTab";
     //----------------------- set up Ui
     keyTabForm->setupUi(keyTabFormWidget);
     this->setGeometry(0, 0, KEYTAB_WIDTH, KEYTAB_HEIGHT);
     //set main stylesheet for this tab here - if it needs to be different from the stylesheet for all tabs - for that see mainwindow.cpp
 
+    qDebug() << "Make keys";
     //construct the 12Step keyboard representation
     for(int i = 0; i < 5; i++)
     {
         keyNotes.append(-1); // initializing the list of notes as blank
     }
     currentKey = 0; //initializing the currentKey to 0 since the app will start with key 0 selected
+
+    qDebug() << "connect keys";
     for(int i = 0; i < 13; i++)
     {
 #ifdef Q_OS_MAC
 #else
-        QCoreApplication::processEvents();
+        //QCoreApplication::processEvents();
 #endif
         keyEdit[i] = new KeyEdit(keyTabFormWidget, i);
         keyEdit[i]->slotConnectElements();
@@ -34,6 +38,7 @@ KeyTab::KeyTab(QWidget *parent) :
         connect(keyEdit[i], SIGNAL(signalChangeNoteSelection(int,int,int,int,int,int)), this, SLOT(slotSetKeyboardFromSelection(int,int,int,int,int,int)));
         connect(this, SIGNAL(signalSetSelectionsFromKeyboard(int,int,int,int,int,int)), keyEdit[i], SLOT(slotSelectKeysFromKeyboard(int,int,int,int,int,int)));
     }
+
 
     //construct the full keyboard toggles
     int blackKeyAdjustment = 0;

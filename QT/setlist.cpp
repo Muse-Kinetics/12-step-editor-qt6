@@ -54,7 +54,7 @@ void Setlist::slotUpdateJSONPath()
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //remove "MacOS" from path string
     jsonPath.append("Resources/presets/setlist.json");
 #else
-    jsonPath = QString("./presets/setlist.json");
+    jsonPath.append("/presets/setlist.json");
 #endif
 }
 
@@ -71,7 +71,8 @@ void Setlist::slotReadSetlist()
     }
     else
     {
-        qDebug() << "Setlist Not Found";
+        qDebug() << "Setlist JSON: " << jsonPath;
+        qFatal("Setlist Not Found");
     }
 
     jsonFile->close();

@@ -42,6 +42,8 @@ public:
 
     bool repopulating;
 
+    Ui::setlistForm *setlistForm;
+
 signals:
 
     void signalSetlistDirty();
@@ -61,8 +63,8 @@ public slots:
     void slotClearSetlist();
     void slotAutoPopulateSetlist(QComboBox *presetMenu);
 
-private:
-    Ui::setlistForm *setlistForm;
+//private:
+//    Ui::setlistForm *setlistForm;
 };
 
 #endif // SETLIST_H

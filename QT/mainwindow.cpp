@@ -4,11 +4,8 @@
 
 #include "mainwindow.h"
 #include <QWidget>
-//#include <sysexmanager.h>
 #include "KMI_FwVersions.h"
 #include "inc/KMI_Updates/kmi_updates.h"
-
-//#include "./jucesupport/JuceLibraryCode/JuceHeader.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -75,13 +72,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // kmiPorts reports changes in MIDI i/o
     kmiPorts = new KMI_Ports(this);
-
-
-    // start polling at 100ms intervals
-    kmiPorts->devicePoller->start(100);
-
-    // connect kmiPorts to our handler
-    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)), this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
 
     //qDebug() << "end connect";
 
@@ -188,6 +178,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // ---- end FONTS -------------------------
 
+     qDebug() << "------------ [STYLESHEETS SETUP] ---------------------------------------------------";
     // general stylesheets
 #ifdef Q_OS_MAC
     generalStylesFile = new QFile(":stylesheets/GeneralStyles.qss");
@@ -221,6 +212,7 @@ MainWindow::MainWindow(QWidget *parent) :
     grayStyleString = QLatin1String(grayStyleFile->readAll());
 
     //-------------------- Disable Widget
+    qDebug() << "------------ [WIDGET SETUP] ---------------------------------------------------";
     disableWidget->hide();
     disableWidget->setGeometry(0,0,mainWindowWidth, mainWindowHeight);
     disableWidget->setStyleSheet("background: rgba(0,0,0,200);");
@@ -230,6 +222,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tabArea->setGeometry(TAB_X_POS, TAB_Y_POS, KEYTAB_WIDTH, KEYTAB_HEIGHT);
     tabArea->setObjectName("tabArea");
 
+    qDebug() << "------------ [TABS STYLESHEETS] ---------------------------------------------------";
     //set main stylesheet for all tabs here
 #ifdef Q_OS_MAC
     tabArea->setStyleSheet("QTabWidget {}"
@@ -247,28 +240,33 @@ MainWindow::MainWindow(QWidget *parent) :
                            );
 #endif
 
+
     // ------------ TABS ------------------------------------------------
+    qDebug() << "------------ [KEY TAB SETUP] ---------------------------------------------------";
     keyTabAreaWidget = new QWidget(tabArea);
     tabArea->addTab(keyTabAreaWidget, QString("Note Entry"));  //move this when the keyboard tab is added
-
     keyTab = new KeyTab(keyTabAreaWidget);
 
+    qDebug() << "------------ [MIDI TAB SETUP] ---------------------------------------------------";
     midiTabAreaWidget = new QWidget(tabArea);
     tabArea->addTab(midiTabAreaWidget, QString("MIDI Parameters"));
 
     midiTab = new MidiTab(midiTabAreaWidget);
     midiTab->slotConnectElements();
 
+    qDebug() << "------------ [SETLIST TAB SETUP] ---------------------------------------------------";
     setlistTabAreaWidget = new QWidget(tabArea);
     tabArea->addTab(setlistTabAreaWidget, QString("Setlist"));
 
     setlistTab = new Setlist(setlistTabAreaWidget);
 
+    qDebug() << "------------ [SETTINGS TAB SETUP] ---------------------------------------------------";
     settingsTabAreaWidget = new QWidget(tabArea);
     tabArea->addTab(settingsTabAreaWidget, QString("Settings"));
 
     settingsTab = new Settings(settingsTabAreaWidget);
 
+    qDebug() << "------------ [TOOLTIPS] ---------------------------------------------------";
     tabArea->setTabToolTip(0,"Set up Notes here.");
     tabArea->setTabToolTip(1,"Manage the MIDI output here.");
     tabArea->setTabToolTip(2,"Changes in the setlist tab will not be sent to the 12 Step until the “Send Setlist to 12 Step” button is clicked.");
@@ -284,6 +282,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    thread->start();
 //#endif
 
+
+    qDebug() << "------------ [MIDI THRU SETUP] ---------------------------------------------------";
     // MIDI thru dropdown
     // connect dropdowns and connection status to MIDI aux ports
 
@@ -425,6 +425,13 @@ MainWindow::MainWindow(QWidget *parent) :
     presetInterface->slotRecallPreset(0);
     globalPresetInterface->slotRecallSettings();
     setlistTab->slotRecallSetlist();
+
+    // start polling at 100ms intervals (do this after mainWindow setup is complete)
+    qDebug() << "Start polling for MIDI ports";
+    kmiPorts->devicePoller->start(100);
+
+    // connect kmiPorts to our handler
+    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)), this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
 }
 
 MainWindow::~MainWindow()
@@ -492,6 +499,7 @@ void MainWindow::closeEvent(QCloseEvent *)
     }
     emit signalClosePorts();
     qDebug() << "closing...";
+    QApplication::quit();
 }
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *e)
@@ -921,7 +929,7 @@ void MainWindow::slotInitMenuBar()
     menubar = new QMenuBar(0);
 #else
     menubar = new QMenuBar(this);
-    menubar->setGeometry(0,0,this->width(),20);
+    menubar->setGeometry(0,0,this->width(),22);
 #endif
 
     qDebug() << "File";
@@ -1360,8 +1368,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         // update dropdown
         if (inOrOut == PORT_OUT && (portName != TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)) // don't create feedback loop
         {
-            settingsTab->midiThru->addItem(portName); // update dropdown
-            //slotFixDropDownWidth(settingsTab->midiThru);
+            settingsTab->midiThru_addItem(portName); // update dropdown
+            //slotFixDropDownWidth(midiThruDropdown);
 
             if (portName == sessionSettings->value(MIDI_AUX_KEY).toString()) // if this port matches the last selected port
             {
@@ -1408,12 +1416,12 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if (inOrOut == PORT_OUT)
         {
             // update dropdown
-            if (settingsTab->midiThru->currentText() == portName)
+            if (settingsTab->midiThru_currentText() == portName)
             {
-                settingsTab->midiThru->setCurrentIndex(0);
+                settingsTab->midiThru_setCurrentIndex(0);
             }
 
-            settingsTab->midiThru->removeItem(settingsTab->midiThru->findText(portName));
+            settingsTab->midiThru_removeItem(settingsTab->midiThru->findText(portName));
         }
 
         // **** TwelveStep disconnect **************************************
@@ -1559,21 +1567,21 @@ void MainWindow::slotUpdateMIDIaux()
 
     if (!connected) return; // don't continue if we aren't connected
 
-    sessionSettings->setValue(MIDI_AUX_KEY, settingsTab->midiThru->currentText()); // store this setting for the next time we run the editor
+    sessionSettings->setValue(MIDI_AUX_KEY, settingsTab->midiThru_currentText()); // store this setting for the next time we run the editor
 
-    if (settingsTab->midiThru->currentText() != "None")
+    if (settingsTab->midiThru_currentText() != "None")
     {
-        qDebug() << "update aux port: " << settingsTab->midiThru->currentText();
+        qDebug() << "update aux port: " << settingsTab->midiThru_currentText();
 
 
         //recallMidiAuxPortName = ""; // reset this, which is only set when the stored aux port connects
 
         // set and open the ports
-        int thisOutPort = kmiPorts->getOutPortNumber(settingsTab->midiThru->currentText());
+        int thisOutPort = kmiPorts->getOutPortNumber(settingsTab->midiThru_currentText());
 
         if (thisOutPort == -1)
         {
-            qDebug() << "ERROR: Port \"" << settingsTab->midiThru->currentText() << "\" does not exist, cannot open as MIDI aux port";
+            qDebug() << "ERROR: Port \"" << settingsTab->midiThru_currentText() << "\" does not exist, cannot open as MIDI aux port";
             return;
         }
 
@@ -1592,7 +1600,7 @@ void MainWindow::slotRecallMIDIaux()
     qDebug() << "slotRecallMIDIaux called, connected: " << connected << " recallMidiAuxPortName: " << recallMidiAuxPortName;
     if (!connected || recallMidiAuxPortName == "") return; // wait until connected to TwelveStep and the previously saved port
 
-    settingsTab->midiThru->setCurrentText(recallMidiAuxPortName);
+    settingsTab->midiThru_setCurrentText(recallMidiAuxPortName);
     slotUpdateMIDIaux();
 }
 

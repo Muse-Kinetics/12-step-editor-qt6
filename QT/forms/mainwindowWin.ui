@@ -27,7 +27,136 @@ QToolTip
 	color: rgb(242, 242, 242);
 	padding: 2px;
 	min-height: 24px;
-}</string>
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 14px &quot;Futura PT Book&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+    combobox-popup: 0;
+ }
+
+/*----------- QComboBox ------------*/
+
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10px &quot;Futura PT Book&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 200px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 200px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+    width: 1px;
+    height: 1px;
+    subcontrol-origin: margin;
+    subcontrol-position: right center;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	padding-right: 15px;
+}
+
+/* ---[scroll bar]----------------------------------------------------------------------------*/
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(255,255,255);
+	border: none;
+}
+
+/* This removes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}
+
+
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
@@ -174,6 +303,26 @@ QComboBox::drop-down
 QComboBox QListView
 {
 	color: rgb(242, 242, 242);
+}
+
+
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: none;
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: none;
+	padding-right: 15px;
 }</string>
     </property>
     <property name="frameShape">
@@ -195,7 +344,6 @@ QComboBox QListView
       <font>
        <family>Corbel</family>
        <pointsize>10</pointsize>
-       <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
       </font>
@@ -1054,20 +1202,7 @@ QToolTip
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}
-</string>
+      <string notr="true"/>
      </property>
      <property name="editable">
       <bool>false</bool>
@@ -1134,7 +1269,7 @@ QComboBox::down-arrow
     <widget class="QToolButton" name="save">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>22</x>
        <y>39</y>
        <width>46</width>
        <height>20</height>
@@ -1159,7 +1294,7 @@ QComboBox::down-arrow
     <widget class="QToolButton" name="saveas">
      <property name="geometry">
       <rect>
-       <x>76</x>
+       <x>77</x>
        <y>39</y>
        <width>46</width>
        <height>20</height>
@@ -1222,64 +1357,39 @@ QComboBox::down-arrow
       <string>DELETE</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>3</x>
-       <y>7</y>
-       <width>14</width>
-       <height>86</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel
-{
-	image: url(:/ui/ui_images/presets_label.png);
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
    </widget>
-   <widget class="QLabel" name="connected">
+   <widget class="QPushButton" name="connected">
     <property name="geometry">
      <rect>
-      <x>563</x>
-      <y>83</y>
+      <x>557</x>
+      <y>84</y>
       <width>181</width>
-      <height>21</height>
+      <height>20</height>
      </rect>
-    </property>
-    <property name="toolTip">
-     <string>Shows whether or not a &lt;br&gt;12 Step has made a connection to the editor.</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background: transparent;
-font: bold 18px &quot;Futura-Normal&quot;;
-color: rgba(207, 0, 18, 175);</string>
+font: 16px &quot;Futura&quot;;
+color: rgba(207, 0, 18, 175);
+text-align: center;</string>
     </property>
     <property name="text">
-     <string>IS NOT CONNECTED</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+     <string>NOT CONNECTED</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>533</x>
-      <y>13</y>
-      <width>234</width>
-      <height>91</height>
+      <x>527</x>
+      <y>17</y>
+      <width>230</width>
+      <height>72</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Futura-Normal</family>
-      <pointsize>10</pointsize>
-      <weight>50</weight>
+      <family>Futura PT</family>
+      <pointsize>52</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -1290,13 +1400,42 @@ color: rgba(207, 0, 18, 175);</string>
     <property name="styleSheet">
      <string notr="true">QLabel
 {
+	
+	
+	font: 52pt &quot;Futura PT&quot;;
 	background-color: transparent;
 	border: none;
-	image: url(:/ui/ui_images/12step_title.png);
 }</string>
     </property>
     <property name="text">
-     <string/>
+     <string>12 STEP</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>35</y>
+      <width>10</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">	font: 11px &quot;Futura-Normal&quot;;
+	color: white;
+	background: transparent;</string>
+    </property>
+    <property name="text">
+     <string>P R E S E T S</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

@@ -18,7 +18,7 @@ void CopyPasteHandler::slotClearPreset()
     filename.remove(filename.length() - 5, filename.length());  //remove "MacOS" from path string
     filename.append("Resources/presets/Blank.twelvesteppreset");
 #elif !defined(Q_OS_MAC)
-    filename = QString("resources/presets/Blank.twelvesteppreset");
+    filename.append("/resources/presets/Blank.twelvesteppreset");
 #else
     filename = QString("./presets/Blank.twelvesteppreset");
 #endif
@@ -79,7 +79,7 @@ void CopyPasteHandler::slotClearPreset()
     }
     else
     {
-        qDebug() << "Blank JSON not found";
+        qFatal("Blank JSON not found");
     }
 }
 

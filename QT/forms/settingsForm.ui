@@ -396,7 +396,7 @@ QSlider::add-page:horizontal
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QComboBox" name="midi_outputs">
+  <widget class="QComboBox" name="midiThruCombo">
    <property name="geometry">
     <rect>
      <x>272</x>

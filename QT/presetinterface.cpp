@@ -31,7 +31,8 @@ void PresetInterface::slotUpdateJSONPath()
     jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
     jsonPath.append("Resources/presets/12Step.json");
 #else
-    jsonPath = QString("./presets/12Step.json");
+    //qDebug() << "jp: " << jsonPath;
+    jsonPath.append("/presets/12Step.json");
 #endif
 }
 
@@ -51,7 +52,8 @@ void PresetInterface::slotReadJSON()
     }
     else
     {
-        qDebug() << "WARNING: 12Step Editor JSON Not Found";
+        qDebug() << "12Step JSON path: " << jsonPath;
+        qFatal("ERROR: 12Step Editor JSON Not Found");
     }
     jsonFile->close();
 }

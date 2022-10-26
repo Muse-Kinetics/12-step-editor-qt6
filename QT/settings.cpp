@@ -18,6 +18,11 @@ Settings::Settings(QWidget *parent) :
     this->setGeometry(0, 0, SETTINGSTAB_WIDTH, SETTINGSTAB_HEIGHT);
     //set main stylesheet for this tab here - if it needs to be different from the stylesheet for all tabs - for that see mainwindow.cpp
 
+    qDebug() << "Instantiace settings.cpp";
+    midiThru = settingsForm->midiThruCombo;
+    qDebug() << "settings - midiThru: " << midiThru->objectName();
+
+
     slotConnectElements();
 }
 
@@ -37,8 +42,7 @@ void Settings::slotConnectElements()
     connect(settingsForm->velocityOverride, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
 
     // MIDI Thru dropdown
-    midiThru = settingsForm->midi_outputs;
-    connect(settingsForm->midi_outputs, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
+    connect(midiThru, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
 }
 
 void Settings::slotDisconnectElements()
@@ -154,4 +158,31 @@ void Settings::slotResetGlobalSensitivity()
 void Settings::slotResetSelectSensitivity()
 {
     settingsForm->selectSensitivity->setValue(100);
+}
+
+// wrappers for midiThru - overwrought workaround for access violation on windows
+
+QString Settings::midiThru_currentText()
+{
+    return midiThru->currentText();
+}
+
+void Settings::midiThru_setCurrentIndex(int index)
+{
+    midiThru->setCurrentIndex(index);
+}
+
+void Settings::midiThru_setCurrentText(QString portName)
+{
+    midiThru->setCurrentText(portName);
+}
+
+void Settings::midiThru_addItem(QString portName)
+{
+    midiThru->addItem(portName);
+}
+
+void Settings::midiThru_removeItem(int index)
+{
+    midiThru->removeItem(index);
 }
