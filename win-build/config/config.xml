@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    	<Name>12 Step Editor Installer</Name>
+    	<Version>1.0</Version>
+    	<Title>12 Step Editor Installer</Title>
+    	<Publisher>Keith McMillen Instruments</Publisher>
+    	<StartMenuDir>Keith McMillen Instruments</StartMenuDir>
+		<TargetDir>@HomeDir@/KMI/12 Step Editor</TargetDir>
+		<WizardStyle>Mac</WizardStyle>
+		<StyleSheet>style.qss</StyleSheet>
+		<ControlScript>pre-install.qs</ControlScript>
+</Installer>

@@ -24,8 +24,9 @@ class Settings : public QWidget
     Q_OBJECT
 
 public:
-    explicit Settings(QWidget *parent = 0);
+    explicit Settings(QWidget *parent = 0, QSettings *_sessionSettings = nullptr);
 
+    QSettings *sessionSettings;
     QTimer *saveSettingsTimeout;
     int saveSettingsTimeoutTime;
 
@@ -43,6 +44,8 @@ public:
     void midiThru_setCurrentText(QString portName);
     void midiThru_addItem(QString portName);
     void midiThru_removeItem(int index);
+    int midiThru_findItem(QString portName);
+
 
 signals:
     void signalStoreValue(QString name, QVariant value);

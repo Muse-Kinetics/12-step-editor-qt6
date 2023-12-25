@@ -5,10 +5,13 @@
 #include "presetinterface.h"
 //#include <midiio/mac/mididevicemanager.h>
 
-PresetInterface::PresetInterface(QWidget *parent) :
+PresetInterface::PresetInterface(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent)
 {
+    sessionSettings = _sessionSettings;
+
     //writeDefaultJSON();
+
     slotConstructDefaultMap();
 }
 
@@ -25,15 +28,8 @@ void PresetInterface::closeEvent(QCloseEvent *)
 
 void PresetInterface::slotUpdateJSONPath()
 {
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
-
-#if defined(Q_OS_MAC)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //Remove "MacOS" from path string
-    jsonPath.append("Resources/presets/12Step.json");
-#else
-    //qDebug() << "jp: " << jsonPath;
-    jsonPath.append("/presets/12Step.json");
-#endif
+    jsonPath = sessionSettings->value("PRESET_DIR").toString(); //get bundle path
+    jsonPath.append("/12Step.json");
 }
 
 void PresetInterface::slotReadJSON()
@@ -82,7 +78,7 @@ void PresetInterface::slotWriteJSON(QVariantMap jsonMap)
 void PresetInterface::writeDefaultJSON()
 {
     slotConstructDefaultMap();
-    jsonPath = QString("./presets/12Step.json");
+    //jsonPath = QString("./presets/12Step.json");
 
     for(int i = 0; i < 4; i++)
     {

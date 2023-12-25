@@ -4,11 +4,13 @@
 
 #include "settings.h"
 
-Settings::Settings(QWidget *parent) :
+Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent),
     settingsForm(new Ui::settingsForm),
     settingsWidget(new QWidget(this))
 {
+    sessionSettings = _sessionSettings;
+
     saveSettingsTimeout = new QTimer(this);
     this->setObjectName("Settings");
     connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
@@ -18,7 +20,7 @@ Settings::Settings(QWidget *parent) :
     this->setGeometry(0, 0, SETTINGSTAB_WIDTH, SETTINGSTAB_HEIGHT);
     //set main stylesheet for this tab here - if it needs to be different from the stylesheet for all tabs - for that see mainwindow.cpp
 
-    qDebug() << "Instantiace settings.cpp";
+    qDebug() << "Instantiate settings.cpp";
     midiThru = settingsForm->midiThruCombo;
     qDebug() << "settings - midiThru: " << midiThru->objectName();
 
@@ -185,4 +187,9 @@ void Settings::midiThru_addItem(QString portName)
 void Settings::midiThru_removeItem(int index)
 {
     midiThru->removeItem(index);
+}
+
+int Settings::midiThru_findItem(QString portName)
+{
+   return midiThru->findText(portName);
 }

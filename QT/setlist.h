@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <QtGui>
 #include <QVariant>
+#include <userdialog.h>
 
 #include "definitions.h"
 
@@ -27,8 +28,9 @@ class Setlist : public QWidget
     Q_OBJECT
 
 public:
-    explicit Setlist(QWidget *parent = 0);
+    explicit Setlist(QWidget *parent = 0, QSettings *_sessionSettings = nullptr);
 
+    QSettings *sessionSettings;
     QWidget* setlistWidget;
 
     QList<QComboBox *> menus;

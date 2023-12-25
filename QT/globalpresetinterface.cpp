@@ -4,13 +4,14 @@
 
 #include "globalpresetinterface.h"
 
-GlobalPresetInterface::GlobalPresetInterface(QWidget *parent) :
+GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent)
 {
     //saveSettingsTimeout = new QTimer(this);
     //connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
     //saveSettingsTimeoutTime = 0;
 
+    sessionSettings = _sessionSettings;
     slotSetJSONPath();
     slotReadSettings();
     //slotWriteDefaultSettings();
@@ -23,14 +24,8 @@ GlobalPresetInterface::GlobalPresetInterface(QWidget *parent) :
 
 void GlobalPresetInterface::slotSetJSONPath()
 {
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
-
-#if defined(Q_OS_MAC)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length());
-    jsonPath.append("Resources/presets/settings.json");
-#else
-    jsonPath.append("/presets/settings.json");
-#endif
+    jsonPath = sessionSettings->value("PRESET_DIR").toString(); //get bundle path
+    jsonPath.append("/settings.json");
 }
 
 void GlobalPresetInterface::slotReadSettings()

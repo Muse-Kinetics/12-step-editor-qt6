@@ -5,6 +5,8 @@
 #ifndef DEFINITIONS_H
 #define DEFINITIONS_H
 
+#include <qglobal.h>
+
 // -------------------------------------- MainWindow
 //initial window width is KEYTAB_WIDTH + TAB_X_POS*2 -- key tab is the first and initial tab
 //initial window height is KEYTAB_HEIGHT + TAB_Y_POS + MAINWINDOW_BOTTOM_SPACING -- key tab is the first and initial tab
@@ -36,7 +38,7 @@
 #define KEYTAB_WIDTH                745 //I recommend making these 2 values match the keyTabForm.ui dimentions
 #define KEYTAB_HEIGHT               500 // was 525
 
-//full keyboard placement
+// bottom keyboard placement
 #define KEYBOARD_TOTAL              128 //total number of keys that are created
 #define KEYBOARD_KEY_WIDTH          7
 #define KEYBOARD_KEY_HEIGHT         50
@@ -47,14 +49,25 @@
 
 
 // -------------------------------------- 12Step Key Representations
+
+#ifdef Q_OS_MAC
 #define KEYEDIT_WIDTH               58  //I recommend making these 2 values match the frame dimentions within the keyEditForm.ui
 #define KEYEDIT_HEIGHT              133
-
-//12Step key representation placement
 #define KEYEDIT_SPACING             6   //space between adjacent keys
 #define KEYEDIT_X_POS               50
 #define KEYEDIT_BLACK_Y_POS         20
 #define KEYEDIT_WHITE_Y_POS         165
+#else
+#define KEYEDIT_WIDTH               68  //I recommend making these 2 values match the frame dimentions within the keyEditForm.ui
+#define KEYEDIT_HEIGHT              133
+#define KEYEDIT_SPACING             0   //space between adjacent keys
+#define KEYEDIT_X_POS               20
+#define KEYEDIT_BLACK_Y_POS         20
+#define KEYEDIT_WHITE_Y_POS         165
+
+#endif
+
+
 
 
 // -------------------------------------- MIDI Tab

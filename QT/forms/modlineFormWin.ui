@@ -73,7 +73,7 @@ QComboBox::down-arrow
 {
     border: none;
     background: none;
-    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    image: url(:/ui/ui_images/combobox_menu_arrows.svg);
     padding-right: 12px;
     width: 12px;
     height: 12px;
@@ -98,7 +98,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
@@ -167,7 +167,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
@@ -258,7 +258,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
@@ -346,7 +346,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
@@ -503,7 +503,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }</string>
    </property>

@@ -25,7 +25,7 @@ QWidget
 /**************LABEL**************/
 QLabel
 {
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 9pt &quot;Corbel&quot;;
 	color: rgb(242, 242, 242);
 	background-color: transparent;
 }
@@ -33,7 +33,7 @@ QLabel
 /**************SPINBOX**************/
 QSpinBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	color: rgb(242, 242, 242);
 	background-color: rgb(60, 60, 60);
 	border: 2px solid rgb(242, 242, 242);
@@ -47,7 +47,7 @@ QSpinBox:focus
 /**************DOUBLESPINBOX**************/
 QDoubleSpinBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	color: rgb(242, 242, 242);
 	background-color: rgb(60, 60, 60);
 	border: 2px solid rgb(242, 242, 242);
@@ -100,12 +100,12 @@ QRadioButton::indicator
    <property name="styleSheet">
     <string notr="true">QToolButton
 {
-	image: url(:/ui/ui_images/delete_modline_notpressed.png);
+	image: url(:/ui/ui_images/delete_modline_notpressed.svg);
 }
 
 QToolButton:pressed
 {
-	image: url(:/ui/ui_images/delete_modline_pressed.png);
+	image: url(:/ui/ui_images/delete_modline_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -130,12 +130,12 @@ QToolButton:pressed
    <property name="styleSheet">
     <string notr="true">QToolButton
 {
-	image: url(:/ui/ui_images/add_modline_notpressed.png);
+	image: url(:/ui/ui_images/add_modline_notpressed.svg);
 }
 
 QToolButton:pressed
 {
-	image: url(:/ui/ui_images/add_modline_pressed.png);
+	image: url(:/ui/ui_images/add_modline_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -713,7 +713,7 @@ QToolButton:pressed
    <property name="styleSheet">
     <string notr="true">QLabel
 {
-	image: url(:/ui/ui_images/divider.png);
+	image: url(:/ui/ui_images/divider.svg);
 }</string>
    </property>
    <property name="text">
@@ -762,32 +762,32 @@ QToolButton:pressed
 
 QRadioButton::unchecked
 {
-	image: url(:/ui/ui_images/keysafety_singlekey_inactive.png);
+	image: url(:/ui/ui_images/keysafety_singlekey_inactive.svg);
 }
 
 QRadioButton::checked
 {
-	image: url(:/ui/ui_images/keysafety_singlekey_active.png);
+	image: url(:/ui/ui_images/keysafety_singlekey_active.svg);
 }
 
 QRadioButton::unchecked:pressed
 {
-	image: url(:/ui/ui_images/keysafety_singlekey_pressed.png);
+	image: url(:/ui/ui_images/keysafety_singlekey_pressed.svg);
 }
 
 QRadioButton::checked:pressed
 {
-	image: url(:/ui/ui_images/keysafety_singlekey_pressed.png);
+	image: url(:/ui/ui_images/keysafety_singlekey_pressed.svg);
 }
 
 QRadioButton::unchecked:focus
 {
-	image: url(:/ui/ui_images/keysafety_singlekey_inactive_focus.png);
+	image: url(:/ui/ui_images/keysafety_singlekey_inactive_focus.svg);
 }
 
 QRadioButton::checked:focus
 {
-	image: url(:/ui/ui_images/keysafety_singlekey_active_focus.png);
+	image: url(:/ui/ui_images/keysafety_singlekey_active_focus.svg);
 }</string>
     </property>
     <property name="text">
@@ -817,32 +817,32 @@ QRadioButton::checked:focus
 
 QRadioButton::unchecked
 {
-	image: url(:/ui/ui_images/keysafety_multikey_inactive.png);
+	image: url(:/ui/ui_images/keysafety_multikey_inactive.svg);
 }
 
 QRadioButton::checked
 {
-	image: url(:/ui/ui_images/keysafety_multikey_active.png);
+	image: url(:/ui/ui_images/keysafety_multikey_active.svg);
 }
 
 QRadioButton::unchecked:pressed
 {
-	image: url(:/ui/ui_images/keysafety_multikey_pressed.png);
+	image: url(:/ui/ui_images/keysafety_multikey_pressed.svg);
 }
 
 QRadioButton::checked:pressed
 {
-	image: url(:/ui/ui_images/keysafety_multikey_pressed.png);
+	image: url(:/ui/ui_images/keysafety_multikey_pressed.svg);
 }
 
 QRadioButton::unchecked:focus
 {
-	image: url(:/ui/ui_images/keysafety_multikey_inactive_focus.png);
+	image: url(:/ui/ui_images/keysafety_multikey_inactive_focus.svg);
 }
 
 QRadioButton::checked:focus
 {
-	image: url(:/ui/ui_images/keysafety_multikey_active_focus.png);
+	image: url(:/ui/ui_images/keysafety_multikey_active_focus.svg);
 }</string>
     </property>
     <property name="text">
@@ -864,7 +864,7 @@ QRadioButton::checked:focus
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	image: url(:/ui/ui_images/keysafety_grouping.png);
+	image: url(:/ui/ui_images/keysafety_grouping.svg);
 }</string>
     </property>
     <property name="text">
@@ -930,32 +930,32 @@ QRadioButton::checked:focus
 
 QRadioButton::unchecked
 {
-	image: url(:/ui/ui_images/notemode_normal_inactive.png);
+	image: url(:/ui/ui_images/notemode_normal_inactive.svg);
 }
 
 QRadioButton::checked
 {
-	image: url(:/ui/ui_images/notemode_normal_active.png);
+	image: url(:/ui/ui_images/notemode_normal_active.svg);
 }
 
 QRadioButton::unchecked:pressed
 {
-	image: url(:/ui/ui_images/notemode_normal_pressed.png);
+	image: url(:/ui/ui_images/notemode_normal_pressed.svg);
 }
 
 QRadioButton::checked:pressed
 {
-	image: url(:/ui/ui_images/notemode_normal_pressed.png);
+	image: url(:/ui/ui_images/notemode_normal_pressed.svg);
 }
 
 QRadioButton::unchecked:focus
 {
-	image: url(:/ui/ui_images/notemode_normal_inactive_focus.png);
+	image: url(:/ui/ui_images/notemode_normal_inactive_focus.svg);
 }
 
 QRadioButton::checked:focus
 {
-	image: url(:/ui/ui_images/notemode_normal_active_focus.png);
+	image: url(:/ui/ui_images/notemode_normal_active_focus.svg);
 }</string>
     </property>
     <property name="text">
@@ -968,10 +968,10 @@ QRadioButton::checked:focus
    <widget class="QRadioButton" name="noteModeLegato">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>89</x>
       <y>33</y>
-      <width>103</width>
-      <height>26</height>
+      <width>105</width>
+      <height>27</height>
      </rect>
     </property>
     <property name="toolTip">
@@ -985,32 +985,32 @@ QRadioButton::checked:focus
 
 QRadioButton::unchecked
 {
-	image: url(:/ui/ui_images/notemode_legato_inactive.png);
+	image: url(:/ui/ui_images/notemode_legato_inactive.svg);
 }
 
 QRadioButton::checked
 {
-	image: url(:/ui/ui_images/notemode_legato_active.png);
+	image: url(:/ui/ui_images/notemode_legato_active.svg);
 }
 
 QRadioButton::unchecked:pressed
 {
-	image: url(:/ui/ui_images/notemode_legato_pressed.png);
+	image: url(:/ui/ui_images/notemode_legato_pressed.svg);
 }
 
 QRadioButton::checked:pressed
 {
-	image: url(:/ui/ui_images/notemode_legato_pressed.png);
+	image: url(:/ui/ui_images/notemode_legato_pressed.svg);
 }
 
 QRadioButton::unchecked:focus
 {
-	image: url(:/ui/ui_images/notemode_legato_inactive_focus.png);
+	image: url(:/ui/ui_images/notemode_legato_inactive_focus.svg);
 }
 
 QRadioButton::checked:focus
 {
-	image: url(:/ui/ui_images/notemode_legato_active_focus.png);
+	image: url(:/ui/ui_images/notemode_legato_active_focus.svg);
 }</string>
     </property>
     <property name="text">
@@ -1021,7 +1021,7 @@ QRadioButton::checked:focus
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>65</y>
+      <y>66</y>
       <width>103</width>
       <height>27</height>
      </rect>
@@ -1037,32 +1037,32 @@ QRadioButton::checked:focus
 
 QRadioButton::unchecked
 {
-	image: url(:/ui/ui_images/notemode_toggle_inactive.png);
+	image: url(:/ui/ui_images/notemode_toggle_inactive.svg);
 }
 
 QRadioButton::checked
 {
-	image: url(:/ui/ui_images/notemode_toggle_active.png);
+	image: url(:/ui/ui_images/notemode_toggle_active.svg);
 }
 
 QRadioButton::unchecked:pressed
 {
-	image: url(:/ui/ui_images/notemode_toggle_pressed.png);
+	image: url(:/ui/ui_images/notemode_toggle_pressed.svg);
 }
 
 QRadioButton::checked:pressed
 {
-	image: url(:/ui/ui_images/notemode_toggle_pressed.png);
+	image: url(:/ui/ui_images/notemode_toggle_pressed.svg);
 }
 
 QRadioButton::unchecked:focus
 {
-	image: url(:/ui/ui_images/notemode_toggle_inactive_focus.png);
+	image: url(:/ui/ui_images/notemode_toggle_inactive_focus.svg);
 }
 
 QRadioButton::checked:focus
 {
-	image: url(:/ui/ui_images/notemode_toggle_active_focus.png);
+	image: url(:/ui/ui_images/notemode_toggle_active_focus.svg);
 }</string>
     </property>
     <property name="text">
@@ -1073,7 +1073,7 @@ QRadioButton::checked:focus
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>98</y>
+      <y>99</y>
       <width>103</width>
       <height>27</height>
      </rect>
@@ -1089,32 +1089,32 @@ QRadioButton::checked:focus
 
 QRadioButton::unchecked
 {
-	image: url(:/ui/ui_images/notemode_hold_inactive.png);
+	image: url(:/ui/ui_images/notemode_hold_inactive.svg);
 }
 
 QRadioButton::checked
 {
-	image: url(:/ui/ui_images/notemode_hold_active.png);
+	image: url(:/ui/ui_images/notemode_hold_active.svg);
 }
 
 QRadioButton::unchecked:pressed
 {
-	image: url(:/ui/ui_images/notemode_hold_pressed.png);
+	image: url(:/ui/ui_images/notemode_hold_pressed.svg);
 }
 
 QRadioButton::checked:pressed
 {
-	image: url(:/ui/ui_images/notemode_hold_pressed.png);
+	image: url(:/ui/ui_images/notemode_hold_pressed.svg);
 }
 
 QRadioButton::unchecked:focus
 {
-	image: url(:/ui/ui_images/notemode_hold_inactive_focus.png);
+	image: url(:/ui/ui_images/notemode_hold_inactive_focus.svg);
 }
 
 QRadioButton::checked:focus
 {
-	image: url(:/ui/ui_images/notemode_hold_active_focus.png);
+	image: url(:/ui/ui_images/notemode_hold_active_focus.svg);
 }</string>
     </property>
     <property name="text">
@@ -1152,7 +1152,7 @@ QRadioButton::checked:focus
     <property name="styleSheet">
      <string notr="true">QLabel
 {
-	image: url(:/ui/ui_images/notemode_grouping.png);
+	image: url(:/ui/ui_images/notemode_grouping.svg);
 }</string>
     </property>
     <property name="text">

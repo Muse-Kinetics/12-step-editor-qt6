@@ -109,7 +109,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
@@ -195,7 +195,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }</string>
    </property>
@@ -278,7 +278,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }</string>
    </property>
@@ -414,7 +414,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }</string>
    </property>

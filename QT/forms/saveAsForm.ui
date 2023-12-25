@@ -80,7 +80,7 @@ QPushButton:disabled
     </rect>
    </property>
    <property name="text">
-    <string>What's my name?</string>
+    <string>New Preset Name</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

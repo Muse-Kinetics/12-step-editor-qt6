@@ -23,7 +23,7 @@ QWidget
 /*-----------QLabel------------*/
 QLabel
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	color: rgb(245, 245, 245);
 }
 
@@ -87,7 +87,7 @@ QComboBox::down-arrow
 {
     border: none;
     background: none;
-    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    image: url(:/ui/ui_images/combobox_menu_arrows.svg);
     padding-right: 12px;
     width: 12px;
     height: 12px;

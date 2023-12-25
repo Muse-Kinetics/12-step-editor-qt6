@@ -5,8 +5,6 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-#define JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED 1
-
 int main(int argc, char *argv[])
 {
 
@@ -24,7 +22,7 @@ int main(int argc, char *argv[])
 
     //double scale = width / minWidth;
     //qDebug() << "scale: " << scale;
-    double scale = 1.35;
+    double scale = 1.3;
     std::string scaleAsString = std::to_string(scale);
     QByteArray scaleAsQByteArray(scaleAsString.c_str(), (int)scaleAsString.length());
     qputenv("QT_SCALE_FACTOR", scaleAsQByteArray);

@@ -12,11 +12,17 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
+VERSION = 2.1.1
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-# Uncomment to create a Windows console version of the app
-#win32{
-#    CONFIG += console
-#}
+#uncomment this and DEPLOY = 1 to build a console version of the app. Do this once before deploying the app.
+#BUILD_CONSOLE = 1
+
+# Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
+DEPLOY = 1
+
+# Uncomment this line if your project includes QML, this will add the qmldir option to the qt deployment utility command
+INCLUDE_QML = 1
 
 # still holding onto support for High Sierra here, separate build
 
@@ -37,6 +43,10 @@ versionAtLeast(QT_VERSION, 6.2.1){
         QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
         QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
     }
+}
+
+!isEmpty(BUILD_CONSOLE) {
+    CONFIG += console
 }
 
 INCLUDEPATH +=  presetimageformatting \
@@ -75,6 +85,7 @@ SOURCES += main.cpp\
     presetimageformatting/TreeView/treemodel.cpp \
     globalpresetinterface.cpp \
     selectallspinbox.cpp \
+    userdialog.cpp
 
 HEADERS  += mainwindow.h \
     inc/KMI_KMDM/KMI_DevData.h \
@@ -115,6 +126,7 @@ HEADERS  += mainwindow.h \
     presetimageformatting/12step.h \
     globalpresetinterface.h \
     selectallspinbox.h \
+    userdialog.h
 
 FORMS    += forms/mainwindow.ui \
     forms/modlineForm.ui \
@@ -128,14 +140,14 @@ FORMS    += forms/mainwindow.ui \
     forms/deleteForm.ui \
     forms/importOldFoundForm.ui \
     forms/importOldNotFoundForm.ui \
-    forms/fwoodform.ui \
-    forms/fwprogressform.ui \
-    forms/fwupdatecompleteform.ui \
+#    forms/fwoodform.ui \
+#    forms/fwprogressform.ui \
+#    forms/fwupdatecompleteform.ui \
     forms/aboutFormWin.ui \
     forms/deleteFormWin.ui \
-    forms/fwoodformWin.ui \
-    forms/fwprogressformWin.ui \
-    forms/fwupdatecompleteformWin.ui \
+#    forms/fwoodformWin.ui \
+#    forms/fwprogressformWin.ui \
+#    forms/fwupdatecompleteformWin.ui \
     forms/importOldFoundFormWin.ui \
     forms/importOldNotFoundFormWin.ui \
     forms/keyEditFormWin.ui \
@@ -212,30 +224,125 @@ DISTFILES += \
 
 #--------------- contents/resources --------
 
-macx{
+# copy SSL DLLs for checking kmi.com for updates
+win32 {
+    LIBCRYPTO_SRC = $$PWD/inc/KMI_Updates/ssl/libcrypto-1_1-x64.dll
+    LIBSSL_SRC = $$PWD/inc/KMI_Updates/ssl/libssl-1_1-x64.dll
 
-    twelveStepPresets.files = $$PWD/presets
-    twelveStepPresets.path = Contents/Resources
-    QMAKE_BUNDLE_DATA += twelveStepPresets
+    LIBCRYPTO_DST = $$replace(LIBCRYPTO_SRC, '/', '\\')
+    LIBSSL_DST = $$replace(LIBSSL_SRC, '/', '\\')
+
+    CONFIG(debug, debug|release) {
+        QMAKE_POST_LINK += copy /y \"$$LIBCRYPTO_DST\" \"$$OUT_PWD\\debug\\\" && \
+                           copy /y \"$$LIBSSL_DST\" \"$$OUT_PWD\\debug\\\" && \
+                           echo "Copied OpenSSL DLLs to debug directory."
+    } else {
+        QMAKE_POST_LINK += copy /y \"$$LIBCRYPTO_DST\" \"$$OUT_PWD\\release\\\" && \
+                           copy /y \"$$LIBSSL_DST\" \"$$OUT_PWD\\release\\\" && \
+                           echo "Copied OpenSSL DLLs to release directory."
+    }
 }
 
-win32{
 
-    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/release/presets\")
-    export(presets.commands)
 
-    first.depends += $(first) presets
-    export(first.depends)
+# Conditionally include deployment steps based on the DEPLOY flag
+!isEmpty(DEPLOY) {
 
-    QMAKE_EXTRA_TARGETS += first presets
+
+    win32 {
+
+        #-------------- sign the application
+        package_dir = $$shell_path($$absolute_path("..\\win-build\\packages\\com.keithmcmillen.12stepeditor\\data\\$${TARGET}", $$PWD))
+        content_dir = $$shell_path($$absolute_path("..\\win-build\\packages\\com.keithmcmillen.12stepeditor\\data\\Content", $$PWD))
+        repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
+
+        path_to_signtool = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe"
+
+
+        build_subdir = release  # Default to release
+        CONFIG(debug, debug|release): build_subdir = debug
+
+        temp_out_pwd = $$replace(OUT_PWD, "/", "\\")
+        binary_src = "$${temp_out_pwd}\\$${build_subdir}\\$${TARGET}.exe"
+        binary_dest = "$${package_dir}\\$${TARGET}.exe"
+        app_name = $${TARGET}
+
+        !isEmpty(BUILD_CONSOLE) {
+            binary_dest = "$${package_dir}\\$${TARGET} (debug console).exe"
+            app_name = $${TARGET} (debug console)
+        }
+
+        # newline
+        QMAKE_POST_LINK += echo "" $$escape_expand(\\n\\t)
+
+        QMAKE_POST_LINK += echo "Copying executable to package_dir" $$escape_expand(\\n\\t)
+
+        QMAKE_POST_LINK += copy /y \"$$binary_src \" \"$$binary_dest \" $$escape_expand(\\n\\t)
+
+
+        QMAKE_POST_LINK += echo "Signing App Executable" $$escape_expand(\\n\\t)
+        QMAKE_POST_LINK += $$path_to_signtool sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$binary_dest\" $$escape_expand(\\n\\t)
+
+        # only process the rest if this is not the console debug app
+        isEmpty(BUILD_CONSOLE) {
+            #-------------- run qt deploy utility (copies dlls and frameworks to deployment dir)
+
+            path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe
+
+
+            deploy_opts = "--compiler-runtime"
+            !isEmpty(INCLUDE_QML) {
+                deploy_opts += " --qmldir \"$$PWD\""
+            }
+
+
+            QMAKE_POST_LINK += echo "Running qtwindeploy: $$package_dir" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += $$path_to_qtwindeploy $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" $$escape_expand(\\n\\t)
+
+            #----------------- copy SSL dlls ----------------------------
+
+            QMAKE_POST_LINK += echo "Copying SSL dlls to package_dir" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += copy /y \"$$LIBCRYPTO_DST\" \"$$package_dir\" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += copy /y \"$$LIBSSL_DST\" \"$$package_dir\" $$escape_expand(\\n\\t)
+
+            #----------------- copy changelog ----------------------------
+
+            changelog_src = "$${repo_root_dir}\\CHANGELOG.md"
+
+            QMAKE_POST_LINK += echo "Copying changelog" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += copy /y \"$$changelog_src\" \"$$content_dir\" $$escape_expand(\\n\\t)
+            #QMAKE_POST_LINK += xcopy /Y /E /I /H /K \"$$content_src\" \"$$package_dir\\_Extras\" $$escape_expand(\\n\\t)
+
+            #----------------- create installer ----------------------------
+
+            path_to_bincreate = "C:\\Qt6\QtIFW-4.6.0\\bin\\binarycreator.exe"
+            path_to_installerbase = "C:\\Qt6\QtIFW-4.6.0\\bin\\installerbase.exe"
+            path_to_install = $$shell_path($$absolute_path("..\\win-build", $$PWD))
+            installer_name = \"$$app_name Installer v$$VERSION\"
+            installer_file = \"$$app_name Installer v$${VERSION}.exe\"
+
+            #message("path_to_bincreate is: " $$quote($$path_to_bincreate))
+            #message("installer_file is: " $$quote($$installer_file))
+
+            #QMAKE_POST_LINK += echo "Signing installerbase.exe" $$escape_expand(\\n\\t)
+            #QMAKE_POST_LINK += $$path_to_signtool sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$path_to_installerbase\" $$escape_expand(\\n\\t)
+
+            #QMAKE_POST_LINK += $$path_to_signtool remove /s \"$$path_to_installerbase\" $$escape_expand(\\n\\t)
+
+
+            QMAKE_POST_LINK += echo "Creating Installer" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += cd \"$$path_to_install\" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += \"$$path_to_bincreate\" --offline-only -c config/config.xml -p packages $$installer_name $$escape_expand(\\n\\t)
+
+            QMAKE_POST_LINK += echo "Signing Installer" $$escape_expand(\\n\\t)
+            QMAKE_POST_LINK += $$path_to_signtool sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file $$escape_expand(\\n\\t)
+        }
+    }
+
 }
 
-linux{
-    presets.commands = $(COPY_DIR) $$shell_path(\"$$PWD/presets\") $$shell_path(\"$$OUT_PWD/presets\")
-    export(presets.commands)
 
-    first.depends += $(first) presets
-    export(first.depends)
 
-    QMAKE_EXTRA_TARGETS += first presets
-}
+
+
+

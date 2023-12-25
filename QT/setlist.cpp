@@ -4,7 +4,7 @@
 
 #include "setlist.h"
 
-Setlist::Setlist(QWidget *parent) :
+Setlist::Setlist(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent),
     setlistForm(new Ui::setlistForm),
     setlistWidget(new QWidget(this))
@@ -13,6 +13,7 @@ Setlist::Setlist(QWidget *parent) :
     this->setGeometry(0, 0, SETLISTTAB_WIDTH, SETLISTTAB_HEIGHT);
     //set main stylesheet for this tab here - if it needs to be different from the stylesheet for all tabs - for that see mainwindow.cpp
 
+    sessionSettings = _sessionSettings;
     slotUpdateJSONPath();
     slotReadSetlist();
     slotInitComponents();
@@ -47,15 +48,9 @@ void Setlist::slotInitComponents()
 
 void Setlist::slotUpdateJSONPath()
 {
-    jsonPath = QCoreApplication::applicationDirPath(); //get bundle path
-    //jsonPath = QString("./presets/setlist.json");
-
-#if defined(Q_OS_MAC)
-    jsonPath.remove(jsonPath.length() - 5, jsonPath.length()); //remove "MacOS" from path string
-    jsonPath.append("Resources/presets/setlist.json");
-#else
-    jsonPath.append("/presets/setlist.json");
-#endif
+    jsonPath = sessionSettings->value("PRESET_DIR").toString(); //get bundle path
+    jsonPath.append("/setlist.json");
+    qDebug() << "setlist.json path: " << jsonPath;
 }
 
 void Setlist::slotReadSetlist()
@@ -72,6 +67,7 @@ void Setlist::slotReadSetlist()
     else
     {
         qDebug() << "Setlist JSON: " << jsonPath;
+        qDebug() << jsonFile->errorString();
         qFatal("Setlist Not Found");
     }
 

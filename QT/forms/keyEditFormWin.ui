@@ -55,6 +55,11 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
     <property name="mouseTracking">
      <bool>true</bool>
     </property>
@@ -85,6 +90,11 @@
       <width>24</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
     </property>
     <property name="mouseTracking">
      <bool>true</bool>
@@ -117,6 +127,11 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
     <property name="mouseTracking">
      <bool>true</bool>
     </property>
@@ -148,6 +163,11 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
     <property name="mouseTracking">
      <bool>true</bool>
     </property>
@@ -178,6 +198,11 @@
       <width>24</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
     </property>
     <property name="mouseTracking">
      <bool>true</bool>

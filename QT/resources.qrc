@@ -253,8 +253,72 @@
         <file>ui_images/cc7_enabled_active.png</file>
         <file>ui_images/cc7_enabled_pressed.png</file>
         <file>ui_images/cc7_enabled.png</file>
+        <file>ui_images/12step_title.svg</file>
+        <file>ui_images/add_modline_notpressed.svg</file>
+        <file>ui_images/add_modline_pressed.svg</file>
+        <file>ui_images/backlighting_off.svg</file>
+        <file>ui_images/backlighting_off_focus.svg</file>
+        <file>ui_images/backlighting_off_pressed.svg</file>
+        <file>ui_images/backlighting_on.svg</file>
+        <file>ui_images/backlighting_on_focus.svg</file>
+        <file>ui_images/backlighting_on_pressed.svg</file>
+        <file>ui_images/cc7_disabled.svg</file>
+        <file>ui_images/cc7_disabled_active.svg</file>
+        <file>ui_images/cc7_disabled_pressed.svg</file>
+        <file>ui_images/cc7_enabled.svg</file>
+        <file>ui_images/cc7_enabled_active.svg</file>
+        <file>ui_images/cc7_enabled_pressed.svg</file>
+        <file>ui_images/combobox_menu_arrows.svg</file>
+        <file>ui_images/delete_modline_notpressed.svg</file>
+        <file>ui_images/delete_modline_pressed.svg</file>
+        <file>ui_images/divider.svg</file>
+        <file>ui_images/key_edit_background_black.svg</file>
+        <file>ui_images/key_edit_background_blue.svg</file>
+        <file>ui_images/key_edit_background_white.svg</file>
+        <file>ui_images/keysafety_grouping.svg</file>
+        <file>ui_images/keysafety_multikey_active.svg</file>
+        <file>ui_images/keysafety_multikey_active_focus.svg</file>
+        <file>ui_images/keysafety_multikey_inactive.svg</file>
+        <file>ui_images/keysafety_multikey_inactive_focus.svg</file>
+        <file>ui_images/keysafety_multikey_pressed.svg</file>
+        <file>ui_images/keysafety_singlekey_active.svg</file>
+        <file>ui_images/keysafety_singlekey_active_focus.svg</file>
+        <file>ui_images/keysafety_singlekey_inactive.svg</file>
+        <file>ui_images/keysafety_singlekey_inactive_focus.svg</file>
+        <file>ui_images/keysafety_singlekey_pressed.svg</file>
+        <file>ui_images/notemode_grouping.svg</file>
+        <file>ui_images/notemode_hold_active.svg</file>
+        <file>ui_images/notemode_hold_active_focus.svg</file>
+        <file>ui_images/notemode_hold_inactive.svg</file>
+        <file>ui_images/notemode_hold_inactive_focus.svg</file>
+        <file>ui_images/notemode_hold_pressed.svg</file>
+        <file>ui_images/notemode_legato_active.svg</file>
+        <file>ui_images/notemode_legato_active_focus.svg</file>
+        <file>ui_images/notemode_legato_inactive.svg</file>
+        <file>ui_images/notemode_legato_inactive_focus.svg</file>
+        <file>ui_images/notemode_legato_pressed.svg</file>
+        <file>ui_images/notemode_normal_active.svg</file>
+        <file>ui_images/notemode_normal_active_focus.svg</file>
+        <file>ui_images/notemode_normal_inactive.svg</file>
+        <file>ui_images/notemode_normal_inactive_focus.svg</file>
+        <file>ui_images/notemode_normal_pressed.svg</file>
+        <file>ui_images/notemode_toggle_active.svg</file>
+        <file>ui_images/notemode_toggle_active_focus.svg</file>
+        <file>ui_images/notemode_toggle_inactive.svg</file>
+        <file>ui_images/notemode_toggle_inactive_focus.svg</file>
+        <file>ui_images/notemode_toggle_pressed.svg</file>
+        <file>ui_images/presets_label.svg</file>
+        <file>ui_images/setlist_off.svg</file>
+        <file>ui_images/setlist_on.svg</file>
+        <file>ui_images/setlist_pressed.svg</file>
     </qresource>
     <qresource prefix="/">
         <file>resources/firmware/12Step_Firmware_v0.3.0.syx</file>
+        <file>resources/stylesheets/12StepWin.qss</file>
+        <file>resources/stylesheets/12StepMac.qss</file>
+        <file>presets/12Step.json</file>
+        <file>presets/Blank.twelvesteppreset</file>
+        <file>presets/setlist.json</file>
+        <file>presets/settings.json</file>
     </qresource>
 </RCC>

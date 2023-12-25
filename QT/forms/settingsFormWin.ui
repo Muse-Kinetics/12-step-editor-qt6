@@ -23,7 +23,7 @@ QWidget
 /*-----------QLabel------------*/
 QLabel
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 12px &quot;Corbel&quot;;
 	color: rgb(245, 245, 245);
 }
 
@@ -34,7 +34,7 @@ QToolButton
 	background: rgb(60, 60, 60);
 	color: rgb(245, 245, 245);
 	border: 2px solid rgb(245, 245, 245);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 14px &quot;Futura PT&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -62,25 +62,25 @@ QCheckBox::indicator
 QCheckBox::indicator:unchecked:pressed
 {
 	
-image: url(:/ui/ui_images/cc7_disabled_pressed.png);
+image: url(:/ui/ui_images/cc7_disabled_pressed.svg);
 
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/cc7_disabled.png);
+	image: url(:/ui/ui_images/cc7_disabled.svg);
 
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/cc7_enabled.png);
+	image: url(:/ui/ui_images/cc7_enabled.svg);
 
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/cc7_enabled_pressed.png);
+	image: url(:/ui/ui_images/cc7_enabled_pressed.svg);
 }
 
 /*-------QSlider-------*/
@@ -220,7 +220,7 @@ QComboBox::down-arrow
 {
     border: none;
     background: none;
-    image: url(:/resources/modline_combobox_menu_arrows.svg);
+    image: url(:/ui/ui_images/combobox_menu_arrows.svg);
     padding-right: 12px;
     width: 12px;
     height: 12px;
@@ -245,7 +245,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
@@ -362,9 +362,9 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>81</x>
+     <x>76</x>
      <y>112</y>
-     <width>228</width>
+     <width>238</width>
      <height>16</height>
     </rect>
    </property>

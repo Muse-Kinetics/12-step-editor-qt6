@@ -1,0 +1,14 @@
+QWidget
+{
+
+}
+
+QToolTip
+{
+        border: 1px solid rgb(242, 242, 242);
+        background-color: rgb(40, 40, 40);
+        font: 12pt "Futura PT";
+        color: rgb(242, 242, 242);
+        padding: 2px;
+        min-height: 24px;
+}

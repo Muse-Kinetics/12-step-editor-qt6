@@ -23,7 +23,7 @@ QWidget
 /*-----------QLabel------------*/
 QLabel
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	color: rgb(242, 242, 242);
 }
 
@@ -33,7 +33,7 @@ QToolButton
 	background: rgb(40, 40, 40);
 	color: rgb(242, 242, 242);
 	border: 2px solid rgb(242, 242, 242);
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 9pt &quot;Corbel&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -42,7 +42,7 @@ QToolButton:pressed
 	background: rgb(245, 245, 245);
 	color: rgb(20, 20, 20);
 	border: 2px solid rgb(245, 245, 245);
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 9pt &quot;Corbel&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -51,7 +51,7 @@ QToolButton:disabled
 	background: rgba(20, 20, 20, 100);
 	color: rgb(100, 100, 100);
 	border: 2px solid rgb(100, 100, 100);
-	font: 9pt &quot;Futura-Normal&quot;;
+	font: 9pt &quot;Corbel&quot;;
 	padding: 0, 1, 0, 0;
 }
 

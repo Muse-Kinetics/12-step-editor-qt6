@@ -18,6 +18,7 @@
 #include <fwupdate.h>
 #include <troubleshoot.h>
 #include "kmi_updates.h"
+#include "userdialog.h"
 
 #include "presetinterface.h"
 #include "globalpresetinterface.h"
@@ -37,9 +38,6 @@
 #include "ui_aboutForm.h"
 #include "ui_importOldFoundForm.h"
 #include "ui_importOldNotFoundForm.h"
-#include "ui_fwoodform.h"
-#include "ui_fwprogressform.h"
-#include "ui_fwupdatecompleteform.h"
 #else
 #include "ui_mainwindowWin.h"
 #include "ui_saveAsFormWin.h"
@@ -47,9 +45,6 @@
 #include "ui_aboutFormWin.h"
 #include "ui_importOldFoundFormWin.h"
 #include "ui_importOldNotFoundFormWin.h"
-#include "ui_fwoodformWin.h"
-#include "ui_fwprogressformWin.h"
-#include "ui_fwupdatecompleteformWin.h"
 #endif
 
 namespace Ui {
@@ -113,6 +108,9 @@ public:
     QFile* grayStyleFile;
     QString grayStyleString;
 
+    // Tabs
+    QString tabStyleString;
+
     // ------ 12 Step ------------------------------------------------------------
 
     QSettings *sessionSettings;
@@ -145,13 +143,24 @@ public:
     QList<QAction *> actionList;
     QAction *updateFirmwareAct;
 
+    QAction *exportPreset;
+    QAction *importPreset;
+    QAction *importOldPreset;
+    QAction *openAppDataDir;
+
+    QAction *clearSetlist;
+    QAction *autoPopulateSetlist;
+
     //copy / paste actions
     QAction *clearPresetAct;
     QAction *copyPresetAct;
     QAction *pastePresetAct;
     QAction *pasteNewPresetAct;
     QAction *toolTipsEnable;
-    QAction *importOldPreset;
+
+    QAction *about;
+    QAction *doc;
+    QAction *troubleShoot;
 
     //Ui Elements
     MidiTab *midiTab;
@@ -194,7 +203,10 @@ signals:
 
 public slots:
 
-    void slotCreateDialog(QString dialogText);
+    void windowHasLoaded();
+    void slotOpenPresetDirectory();
+    bool slotCheckPresets();
+    void slotSetupStyleStringsAndFonts();
 
     // ------ midi overhaul --------------------------------------------------------
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o

@@ -182,6 +182,7 @@ QComboBox:focus
      </property>
      <property name="font">
       <font>
+       <family>Futura PT</family>
        <pointsize>16</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -1046,7 +1047,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 </string>
@@ -1059,7 +1060,7 @@ QComboBox::down-arrow
      </property>
      <item>
       <property name="text">
-       <string>PRESET_NAME_HERE</string>
+       <string>LOADING...</string>
       </property>
      </item>
      <item>
@@ -1127,6 +1128,14 @@ QComboBox::down-arrow
        <width>46</width>
        <height>20</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Futura PT</family>
+       <pointsize>10</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="toolTip">
       <string>Save any changes to the &lt;br&gt;current preset.</string>
@@ -1239,6 +1248,7 @@ QComboBox::down-arrow
     </property>
     <property name="font">
      <font>
+      <family>Futura PT</family>
       <pointsize>72</pointsize>
       <italic>false</italic>
       <bold>false</bold>

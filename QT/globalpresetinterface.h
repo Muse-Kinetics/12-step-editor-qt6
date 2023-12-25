@@ -17,11 +17,12 @@ class GlobalPresetInterface : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GlobalPresetInterface(QWidget *parent = 0);
+    explicit GlobalPresetInterface(QWidget *parent = 0, QSettings *_sessionSettings = nullptr);
 
     //QTimer *saveSettingsTimeout;
     //int saveSettingsTimeoutTime;
 
+    QSettings *sessionSettings;
     QVariantMap settings;
     QVariantMap defaultGlobalMap;
 

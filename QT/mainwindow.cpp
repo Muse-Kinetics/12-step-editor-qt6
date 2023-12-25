@@ -4,8 +4,10 @@
 
 #include "mainwindow.h"
 #include <QWidget>
+#include <QCoreApplication>
 #include "KMI_FwVersions.h"
 #include "inc/KMI_Updates/kmi_updates.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,22 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
     disableWidget(new QWidget(this)),
     importOldDialogWidget(new QWidget(this)),
     importOldNotFoundDialogWidget(new QWidget(this)),
-//    fwoodDialogForm(new Ui::FwoodDialog),
-//    fwoodDialogWidget(new QWidget(this)),
-//    fwUpdateCompleteDialogForm(new Ui::FwUpdateCompleteForm),
-//    fwUpdateCompleteDialogWidget(new QWidget(this)),
-//    fwProgressDialogForm(new Ui::FwProgressForm),
-//    fwProgressDialogWidget(new QWidget(this)),
 
-    presetInterface(new PresetInterface(this)),
-    globalPresetInterface(new GlobalPresetInterface(this)),
     copyPasteHandler(new CopyPasteHandler(presetInterface, this)),
     importExportHandler(new ImportExportHandler(presetInterface, this))
-//#ifdef Q_OS_MAC
-//    sysexManager(new SysexManager(this))
-//#else
-//    sysexManager(new SysexManager())
-//#endif
 {
     //plist stuff
     QCoreApplication::setApplicationName("12 Step Editor");
@@ -50,13 +39,23 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "System Locale: " << QLocale::system().name();
 
     // application version
-    applicationVersion.resize(3);
+    QString versionString = QString(APP_VERSION);
 
-    applicationVersion[0] = 2;
-    applicationVersion[1] = 1;
-    applicationVersion[2] = 0;
+    // Split the version string by dots and assign values directly
+    QStringList parts = versionString.split('.');
 
-    betaVersion = ""; // leave blank for release
+    for (int i = 0; i < 3 && i < parts.size(); ++i) {
+        applicationVersion.append(static_cast<char>(parts[i].toInt()));
+    }
+
+    if (parts.size() > 3)
+    {
+        betaVersion = parts[3]; // assume this is a letter
+    }
+    else
+    {
+        betaVersion = "";
+    }
 
 
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_12step), sizeof(_fw_ver_12step));
@@ -87,15 +86,14 @@ MainWindow::MainWindow(QWidget *parent) :
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
 
-    //qDebug() << "fwFilename: " << thisFwFile;
 
     if (!TwelveStep->slotOpenFirmwareFile(thisFwFile))
     {
         qDebug() << "ERROR - firmware file not found: " << thisFwFile;
+        UserDialog firmwareError("ERROR - firmware file not found! Please re-install the application.", {"Exit"});
+        firmwareError.exec();
+        QCoreApplication::quit();
     }
-
-    // connect firmware signals
-    qDebug() << "connect signalFirmwareDetected";
 
     // setup MIDI aux output
     midiTHRU = new MidiDeviceManager(this, PID_AUX, "MIDI Thru", kmiPorts);
@@ -104,31 +102,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // end KMI_Ports and device handlers
     // ******************************
 
-    connected = false;
-
-    sessionSettings = new QSettings(this); //session settings allow us to enable/disable tooltips -- see slotInitMenuBar
-
     // ******************************
     // check for updates and set default save locations
     // ******************************
     QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/12step/editor/softwareVersionCheck.json";
     checkUpdates = new KMI_Updates(this, "12step", sessionSettings, applicationVersion, jsonVersionCheckURL);
-
-    // default file location
-    const QString DEFAULT_DIR_KEY("default_dir");
-
-    qDebug() << "Default file save location - pre: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
-
-    // test if this is a directory
-    QFileInfo check_file(sessionSettings->value(DEFAULT_DIR_KEY).toString());
-    if (!check_file.exists() || !check_file.isDir() || sessionSettings->value(DEFAULT_DIR_KEY).toString().contains("Contents/MacOS"))
-    {
-        QString desktop = QStandardPaths::locate(QStandardPaths::DesktopLocation, QString(), QStandardPaths::LocateDirectory);
-        qDebug() << "Desktop: " << desktop;
-        sessionSettings->setValue(DEFAULT_DIR_KEY, desktop);     // if key doesn't exist, set it to desktop
-    }
-
-    qDebug() << "Default file save location - post: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
 
     // ******************************
 
@@ -137,6 +115,28 @@ MainWindow::MainWindow(QWidget *parent) :
     mainWindowWidth = KEYTAB_WIDTH + TAB_X_POS*2;
 
     ui->setupUi(this);
+
+
+    // **********************************
+    // Load Session Settings and File locations
+    // **********************************
+
+    // get session settings, make sure to pass this to objects that need them (ie preset interfaces looking for json files)
+    sessionSettings = new QSettings(this); //session settings allow us to enable/disable tooltips -- see slotInitMenuBar
+
+    // default file location
+    const QString DEFAULT_DIR_KEY("default_dir");
+
+    // test if this is a directory
+    QFileInfo check_file(sessionSettings->value(DEFAULT_DIR_KEY, QStandardPaths::writableLocation(QStandardPaths::DesktopLocation)).toString());
+    if (!check_file.exists() || !check_file.isDir() || sessionSettings->value(DEFAULT_DIR_KEY).toString().contains("Contents/MacOS"))
+    {
+        QString desktop = QStandardPaths::locate(QStandardPaths::DesktopLocation, QString(), QStandardPaths::LocateDirectory);
+        qDebug() << "Desktop: " << desktop;
+        sessionSettings->setValue(DEFAULT_DIR_KEY, desktop);     // if key doesn't exist, set it to desktop
+    }
+
+    qDebug() << "Default file save location: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
 
     // MIDI Overhaul and FW Update
 
@@ -159,57 +159,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setGeometry(400, 35, mainWindowWidth, mainWindowHeight);
     this->setFixedSize(mainWindowWidth, mainWindowHeight);
 
-    // ---- FONTS --------------------------
-    qDebug() << "------------ [FONTS SETUP] ---------------------------------------------------";
-
-    QString droidFont = ":/fonts/droid-sans/DroidSansMono.ttf";
-    QString futuraFont = ":/fonts/futura/futura-normal.ttf";
-    QString futuraBFont = ":/fonts/futura/Futura-Bold.ttf";
-    QString futuraPTFont = ":/fonts/futura/FuturaPT-Book.otf";
-    QString corbelFont = ":/fonts/corbel/corbel.ttf";
-    QString corbelBFont = ":/fonts/corbel/corbelb.ttf";
-
-    if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
-    if (QFontDatabase::addApplicationFont(futuraFont) == -1) qDebug() << "Could not load font: " << futuraFont;
-    if (QFontDatabase::addApplicationFont(futuraPTFont) == -1) qDebug() << "Could not load font: " << futuraPTFont;
-    if (QFontDatabase::addApplicationFont(futuraBFont) == -1) qDebug() << "Could not load font: " << futuraBFont;
-    if (QFontDatabase::addApplicationFont(corbelFont) == -1) qDebug() << "Could not load font: " << corbelFont;
-    if (QFontDatabase::addApplicationFont(corbelBFont) == -1) qDebug() << "Could not load font: " << corbelBFont;
-
-    // ---- end FONTS -------------------------
-
-     qDebug() << "------------ [STYLESHEETS SETUP] ---------------------------------------------------";
-    // general stylesheets
-#ifdef Q_OS_MAC
-    generalStylesFile = new QFile(":stylesheets/GeneralStyles.qss");
-
-    dialogStylesFile = new QFile(":/stylesheets/appDialog_QuNexus.qss");
-#else
-    generalStylesFile = new QFile(":stylesheets/GeneralStylesWindows.qss");
-    dialogStylesFile = new QFile(":/stylesheets/appDialog_QuNexus_WIN.qss");
-#endif
-    if (!generalStylesFile->open(QFile::ReadOnly))
-    {
-        qDebug() << "ERROR: could not open stylesheet: " << generalStylesFile->fileName();
-    }
-    else
-    {
-        generalStylesString = QLatin1String(generalStylesFile->readAll());
-    }
-
-    if (!dialogStylesFile->open(QFile::ReadOnly))
-    {
-        qDebug() << "ERROR: could not open stylesheet: " << dialogStylesFile->fileName();
-    }
-    else
-    {
-        dialogStylesString = QLatin1String(dialogStylesFile->readAll());
-    }
-
-    //StyleSheets for "grey" pushbuttons
-    grayStyleFile = new QFile(":stylesheets/GrayButtonStyleSheet.qss");
-    grayStyleFile->open(QFile::ReadOnly);
-    grayStyleString = QLatin1String(grayStyleFile->readAll());
+    slotSetupStyleStringsAndFonts();
 
     //-------------------- Disable Widget
     qDebug() << "------------ [WIDGET SETUP] ---------------------------------------------------";
@@ -221,24 +171,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tabArea = new QTabWidget(this);
     tabArea->setGeometry(TAB_X_POS, TAB_Y_POS, KEYTAB_WIDTH, KEYTAB_HEIGHT);
     tabArea->setObjectName("tabArea");
-
-    qDebug() << "------------ [TABS STYLESHEETS] ---------------------------------------------------";
-    //set main stylesheet for all tabs here
-#ifdef Q_OS_MAC
-    tabArea->setStyleSheet("QTabWidget {}"
-                           "QTabWidget::pane {border: 10px solid rgb(89, 89, 89);}"
-                           "QTabWidget::tab-bar {left: 20px;}"
-                           "QTabBar::tab {margin-left: 5; margin-right: 5; min-width: 100px; background-color: rgb(40, 40, 40); font: 14pt 'Futura PT'; color: rgb(242, 242, 242); border-left: 3px solid rgb(89, 89, 89); border-right: 3px solid rgb(89, 89, 89); border-top: 3px solid rgb(89, 89, 89); padding: 4px;}"
-                           "QTabBar::tab:selected {background-color: rgb(89, 89, 89);}"
-                           );
-#else
-    tabArea->setStyleSheet("QTabWidget {}"
-                           "QTabWidget::pane {border: 10px solid rgb(89, 89, 89);}"
-                           "QTabWidget::tab-bar {left: 20px;}"
-                           "QTabBar::tab {margin-left: 5; margin-right: 5; min-width: 100px; background-color: rgb(40, 40, 40); font: 10pt 'Futura-Normal'; color: rgb(242, 242, 242); border-left: 3px solid rgb(89, 89, 89); border-right: 3px solid rgb(89, 89, 89); border-top: 3px solid rgb(89, 89, 89); padding: 4px;}"
-                           "QTabBar::tab:selected {background-color: rgb(89, 89, 89);}"
-                           );
-#endif
+    tabArea->setStyleSheet(tabStyleString);
 
 
     // ------------ TABS ------------------------------------------------
@@ -254,18 +187,6 @@ MainWindow::MainWindow(QWidget *parent) :
     midiTab = new MidiTab(midiTabAreaWidget);
     midiTab->slotConnectElements();
 
-    qDebug() << "------------ [SETLIST TAB SETUP] ---------------------------------------------------";
-    setlistTabAreaWidget = new QWidget(tabArea);
-    tabArea->addTab(setlistTabAreaWidget, QString("Setlist"));
-
-    setlistTab = new Setlist(setlistTabAreaWidget);
-
-    qDebug() << "------------ [SETTINGS TAB SETUP] ---------------------------------------------------";
-    settingsTabAreaWidget = new QWidget(tabArea);
-    tabArea->addTab(settingsTabAreaWidget, QString("Settings"));
-
-    settingsTab = new Settings(settingsTabAreaWidget);
-
     qDebug() << "------------ [TOOLTIPS] ---------------------------------------------------";
     tabArea->setTabToolTip(0,"Set up Notes here.");
     tabArea->setTabToolTip(1,"Manage the MIDI output here.");
@@ -274,26 +195,6 @@ MainWindow::MainWindow(QWidget *parent) :
     
     // ------------ END TABS ------------------------------------------------
 
-    //set up the sysex manager - on windows sysexManager must be in a separate thread
-//#ifndef Q_OS_MAC
-//    QThread *thread = new QThread;
-//    sysexManager->moveToThread(thread);
-//    connect(thread, SIGNAL(started()), sysexManager, SLOT(process()));
-//    thread->start();
-//#endif
-
-
-    qDebug() << "------------ [MIDI THRU SETUP] ---------------------------------------------------";
-    // MIDI thru dropdown
-    // connect dropdowns and connection status to MIDI aux ports
-
-    connect(settingsTab, SIGNAL(signalUpdateMIDIaux()), this, SLOT(slotUpdateMIDIaux()));
-    connect(TwelveStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIaux()));
-
-    // remember last selected MIDI aux port
-    MIDI_AUX_KEY = "midi_aux_port";
-
-    qDebug() << "connected aux port";
 
     //-------------------- Dialogs
 
@@ -336,29 +237,9 @@ MainWindow::MainWindow(QWidget *parent) :
     importOldNotFoundDialoglForm->setupUi(importOldNotFoundDialogWidget);
     importOldNotFoundDialogWidget->setGeometry(mainWindowWidth/2 - importOldNotFoundDialogWidget->width()/2, mainWindowHeight/2 - importOldNotFoundDialogWidget->height()/2, importOldNotFoundDialogWidget->width(), importOldNotFoundDialogWidget->height());
     importOldNotFoundDialoglForm->ok->setDefault(true);
-    //fw dialogs
-//    fwoodDialogWidget->hide();
-//    fwoodDialogForm->setupUi(fwoodDialogWidget);
-//    fwoodDialogWidget->setGeometry(mainWindowWidth/2 - fwoodDialogWidget->width()/2, mainWindowHeight/2 - fwoodDialogWidget->height()/2, fwoodDialogWidget->width(), fwoodDialogWidget->height());
-//    fwoodDialogForm->expected->setText(FW_VERSION);
-//    fwoodDialogForm->update->setDefault(true);
-//    fwUpdateCompleteDialogWidget->hide();
-//    fwUpdateCompleteDialogForm->setupUi(fwUpdateCompleteDialogWidget);
-//    fwUpdateCompleteDialogWidget->setGeometry(mainWindowWidth/2 - fwUpdateCompleteDialogWidget->width()/2, mainWindowHeight/2 - fwUpdateCompleteDialogWidget->height()/2, fwUpdateCompleteDialogWidget->width(), fwUpdateCompleteDialogWidget->height());
-//    fwUpdateCompleteDialogForm->ok->setDefault(true);
-//    fwProgressDialogWidget->height();
-//    fwProgressDialogForm->setupUi(fwProgressDialogWidget);
-//    fwProgressDialogWidget->setGeometry(mainWindowWidth/2 - fwProgressDialogWidget->width()/2, mainWindowHeight/2 - fwProgressDialogWidget->height()/2, fwProgressDialogWidget->width(), fwProgressDialogWidget->height());
-//    fwProgressDialogForm->progressBar->setMaximum(0);
 
     qDebug() << "**** Init Menu Bar ****";
     slotInitMenuBar();
-
-    qDebug() << "**** Connect Interfaces ****";
-    slotConnectInterfaces();
-
-    qDebug() << "**** Set Preset Menu ****";
-    slotSetPresetMenu(0);
 
     //disable all context menus
     foreach(QWidget *widget, this->findChildren<QWidget *>())
@@ -374,64 +255,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->centralWidget->installEventFilter(this);
     tabArea->installEventFilter(this);
 
-//    //load fonts
-//    QString droidFont;
-//    QString futuraFont;
-//    QString futuraBFont;
-//    QString corbelFont;
-//    QString corbelBFont;
-//    QString fontPath = QCoreApplication::applicationDirPath();
-
-//#if defined(Q_OS_MAC)
-//    fontPath.remove(fontPath.length() - 5, fontPath.length());
-//    droidFont = QString("%1Resources/DroidSansMono.ttf").arg(fontPath);
-//    futuraFont = QString("%1Resources/FuturaPT-Book.otf").arg(fontPath);
-
-//    QFontDatabase::addApplicationFont(droidFont);
-//    QFontDatabase::addApplicationFont(futuraFont);
-
-//#elif !defined(Q_OS_MAC)
-//    droidFont = "./resources/DroidSansMono.ttf";
-//    futuraFont = "./resources/futura-normal.ttf";
-//    futuraBFont = "./resources/Futura-Bold.ttf";
-//    corbelFont = "./resources/corbel.ttf";
-//    corbelBFont = "./resources/corbelb.ttf";
-
-//    QFontDatabase::addApplicationFont(droidFont);
-//    QFontDatabase::addApplicationFont(futuraFont);
-//    QFontDatabase::addApplicationFont(futuraBFont);
-//    QFontDatabase::addApplicationFont(corbelFont);
-//    QFontDatabase::addApplicationFont(corbelBFont);
-
-//#else
-//    droidFont = "./resources/DroidSansMono.ttf";
-//    futuraFont = "./resources/FuturaPT-Book.otf";
-
-//    QFontDatabase::addApplicationFont(droidFont);
-//    QFontDatabase::addApplicationFont(futuraFont);
-//#endif
-
-
-    //the following was commented out because of JUCE assertion errors -- I may need to put it back in somewhere else
-    //double check midi outputs - connection indicator wouldn't always initiate properly before this double check was placed here
-    //slotShowConnection(false);
-    //sysexManager->slotMidiOutputsChanged();
-
-    //set state of preset stuff
-    presetsSending = false;
-    presetInterface->slotUpdateJSONPath();
-    presetInterface->slotReadJSON();
-    presetInterface->slotPopulatePresetMenu(ui->presetmenu);
-    presetInterface->slotRecallPreset(0);
-    globalPresetInterface->slotRecallSettings();
-    setlistTab->slotRecallSetlist();
-
-    // start polling at 100ms intervals (do this after mainWindow setup is complete)
-    qDebug() << "Start polling for MIDI ports";
-    kmiPorts->devicePoller->start(100);
-
-    // connect kmiPorts to our handler
-    connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)), this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+    // delaying all interface connections and preset loading until after the window
+    // has loaded. This allows us to show user dialogs if we can't find the preset
+    // json files, among other things.
+    QTimer::singleShot(0, this, &MainWindow::windowHasLoaded);
 }
 
 MainWindow::~MainWindow()
@@ -439,54 +266,331 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-#define DIALOG_WIDTH 400
-#define DIALOG_HEIGHT 125
-#define DIALOG_TEXT_PADDING 10
-#define DIALOG_W_CENTER (DIALOG_WIDTH / 2)
-#define DIALOG_BUTT_W 70
-#define DIALOG_BUTT_H 28
-#define DIALOG_BUTT_X DIALOG_W_CENTER - (DIALOG_BUTT_W / 2)
-#define DIALOG_BUTT_Y DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2)
-#define DIALOG_TEXT_W (DIALOG_WIDTH - (DIALOG_TEXT_PADDING * 2))
-#define DIALOG_TEXT_H (DIALOG_HEIGHT - DIALOG_BUTT_H - (DIALOG_TEXT_PADDING * 2))
-
-void MainWindow::slotCreateDialog(QString dialogText)
+void MainWindow::windowHasLoaded()
 {
-    QDialog *msgBox = new QDialog(this);
-    msgBox->setModal(true);
-    msgBox->setWindowFlags(Qt::FramelessWindowHint);
-    msgBox->setStyleSheet(dialogStylesString);
+    if (qApp->activeWindow()) {
+        qDebug() << "Active window type:" << qApp->activeWindow()->metaObject()->className();
+    } else {
+        qDebug() << "No active window!";
+        QTimer::singleShot(1000, this, &MainWindow::windowHasLoaded);
+        return;
+    }
+
+    // locate presets, or fail
+    if (slotCheckPresets())
+    {
 
 
-    msgBox->setMinimumSize(DIALOG_WIDTH, DIALOG_HEIGHT);
-    msgBox->setFixedSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+        qDebug() << "------------ [SETLIST TAB SETUP] ---------------------------------------------------";
+        setlistTabAreaWidget = new QWidget(tabArea);
+        tabArea->addTab(setlistTabAreaWidget, QString("Setlist"));
 
-    int x = this->width();
-    int y = this->height();
+        setlistTab = new Setlist(setlistTabAreaWidget, sessionSettings);
 
-    int dialogX = ((x / 2) - (DIALOG_WIDTH / 2));
-    int dialogY = ((y / 2) - (DIALOG_HEIGHT / 2));
+        qDebug() << "------------ [SETTINGS TAB SETUP] ---------------------------------------------------";
+        settingsTabAreaWidget = new QWidget(tabArea);
+        tabArea->addTab(settingsTabAreaWidget, QString("Settings"));
 
-    qDebug() << "parent x: " << x << " y: " << y << " dialogX: " << dialogX << "dialogY: " << dialogY;
+        settingsTab = new Settings(settingsTabAreaWidget, sessionSettings);
 
-    msgBox->move(dialogX, dialogY);
+        qDebug() << "------------ [MIDI THRU SETUP] ---------------------------------------------------";
+        // MIDI thru dropdown
+        // connect dropdowns and connection status to MIDI aux ports
 
-    QLabel* text = new QLabel(dialogText, msgBox, Qt::WindowFlags());
-    text->setAlignment(Qt::AlignCenter);
-    text->setMinimumSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
-    text->setFixedSize(DIALOG_TEXT_W, DIALOG_TEXT_H);
-    text->move(DIALOG_TEXT_PADDING, DIALOG_TEXT_PADDING);
+        connect(settingsTab, SIGNAL(signalUpdateMIDIaux()), this, SLOT(slotUpdateMIDIaux()));
+        connect(TwelveStep, SIGNAL(signalConnected(bool)), this, SLOT(slotUpdateMIDIaux()));
 
-    QPushButton* okButton = new QPushButton(msgBox);
-    okButton->setStyleSheet(grayStyleString);
-    okButton->setText("Ok");
-    okButton->setGeometry(QRect(DIALOG_BUTT_X, DIALOG_BUTT_Y, DIALOG_BUTT_W,DIALOG_BUTT_H));
-    connect(okButton, SIGNAL(clicked()), msgBox, SLOT(close()));
+        // remember last selected MIDI aux port
+        MIDI_AUX_KEY = "midi_aux_port";
 
-    msgBox->exec();
+        qDebug() << "connected aux port";
+
+        presetInterface = new PresetInterface(this, sessionSettings);
+        globalPresetInterface = new GlobalPresetInterface(this, sessionSettings);
+
+        qDebug() << "**** Connect Interfaces ****";
+        slotConnectInterfaces();
+
+        qDebug() << "**** Set Preset Menu ****";
+        slotSetPresetMenu(0);
+
+        //set state of preset stuff
+        presetsSending = false;
+        presetInterface->slotUpdateJSONPath();
+        presetInterface->slotReadJSON();
+        presetInterface->slotPopulatePresetMenu(ui->presetmenu);
+        presetInterface->slotRecallPreset(0);
+        globalPresetInterface->slotRecallSettings();
+        setlistTab->slotRecallSetlist();
+
+        // start polling at 100ms intervals (do this after mainWindow setup is complete)
+        qDebug() << "Start polling for MIDI ports";
+        kmiPorts->devicePoller->start(100);
+
+        // connect kmiPorts to our handler
+        connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)), this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+    }
 }
 
-void MainWindow::closeEvent(QCloseEvent *)
+void MainWindow::slotOpenPresetDirectory()
+{
+    QString presetDir = sessionSettings->value("PRESET_DIR").toString();
+    QDesktopServices::openUrl(QUrl::fromLocalFile(presetDir));
+}
+
+// search a directory for a list of files. If one doesn't exist, return it, otherwise return ""
+QString locateFiles(QStringList filesToCheck, QString locationToSearch)
+{
+    for (const QString &fileName : filesToCheck)
+    {
+        QString sourceFile = locationToSearch + "/" + fileName;
+        if (!QFile(sourceFile).exists() || QFile(sourceFile).size() < 100)
+        {
+            return fileName; // return missing file
+        }
+    }
+    return ""; // success
+}
+
+bool MainWindow::slotCheckPresets()
+{
+    bool exitProgram = false;
+    qDebug() << "slotCheckPresets called";
+
+    // check preset directory
+    if (!sessionSettings->contains("PRESET_DIR"))
+    {
+        sessionSettings->setValue("PRESET_DIR", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+    }
+
+    QString sourceDir = ":/presets"; // default factory preset resource files location
+
+    QString presetDir = sessionSettings->value("PRESET_DIR").toString(); // location of user presets, defaults to system appData directory
+    QDir dir(presetDir);
+
+    QStringList filesToCheck = {"12Step.json", "Blank.twelvesteppreset", "setlist.json", "settings.json"};
+
+    QString missingFile = locateFiles(filesToCheck, presetDir);
+
+    if (missingFile != "") // one of the files could not be found
+    {
+        QString popupMessage;
+        bool pdValid = false;
+
+        while (!pdValid && !exitProgram)
+        {
+
+            if (!sessionSettings->contains("APP_VERSION"))
+            {
+                // this is the first time we've run the app since adding checks for the preset directory
+                popupMessage = "This is a new installation of the editor. Do you want to use the factory "
+                               "default presets, or import presets from a previous editor install?";
+
+                // writing this will change the error message if we loop back
+                QList<QVariant> versionList;
+                versionList << applicationVersion[0] << applicationVersion[1] << applicationVersion[2];
+                sessionSettings->setValue("APP_VERSION", versionList);
+            }
+            else
+            {
+                // we've run the app before, but cannot find the presets directory or a specific file
+                popupMessage = "ERROR: Could not locate preset file: \n \n"
+                               + presetDir + "/" + missingFile + "\n \n"
+                                "Do you want to use the factory default presets, or import presets from a previous editor install?";
+            }
+
+            UserDialog presetDialog(popupMessage, {"Factory Default", "Import Presets", "Exit Application"}, 500, 300);
+            int pdResult = presetDialog.exec();
+
+
+            switch(pdResult)
+            {
+                case 1: // locate old presets
+                {
+                    sourceDir = QFileDialog::getExistingDirectory(
+                        this,                                                   // Parent widget
+                        tr("Locate 12 Step Presets Directory"),                 // Dialog title
+                        sessionSettings->value("default_dir", QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)).toString() // starting directory
+                    );
+
+                    missingFile = locateFiles(filesToCheck, sourceDir); // check the new source directory for all of the files
+
+                    if (missingFile != "")
+                    {
+                        UserDialog copyError("ERROR - Source file corrupt or does not exist: " + missingFile, {"Retry"});
+                        copyError.exec();
+                        break;
+                    }
+                    sessionSettings->setValue("default_dir", sourceDir); // update last directory viewed session setting
+                }
+                // source dir is legit, fall through
+                case 0: // copy (factory or user) presets to appdata dir
+                {
+                    pdValid = true;
+                    // Make sure the dest directory exists; create it if necessary
+                    if (!dir.exists()) {
+                        qDebug() << "Creating appData directory: " << presetDir;
+                        dir.mkpath(".");
+                    }
+                    else
+                    {
+                        qDebug() << "Cleaning directory: " << presetDir;
+
+                        // Get the list of all files in the directory
+                        QStringList fileList = dir.entryList(QDir::Files);
+
+                        // Iterate over the list and remove each file
+                        for (const QString &file : fileList) {
+                            dir.remove(file);
+                        }
+                    }
+
+                    // copy files from source to dest
+                    for (const QString &fileName : filesToCheck)
+                    {
+                        QString sourceFile = sourceDir + "/" + fileName;
+                        QString destFile = presetDir + "/" + fileName;
+                        QFile file(sourceFile);
+
+                        if (!file.copy(destFile))
+                        {
+                            // We've checked that user files are valid and that the destination exists. If we get an error here, then the appdata dir is broken and we have to fail.
+                            //pdValid = false;
+                            qDebug() << "Copy failed - source: " << fileName << " dest: " << destFile << " error: " << file.errorString();
+                            UserDialog copyError("Fatal Error: Could not copy " + fileName + " to (" + presetDir + "). Please double check that this directory exists, and that the application has permission to write to it.", {"EXIT"});
+                            copyError.exec();
+                            // exit application
+                            //exitProgram = true;
+                            std::exit(2);
+                            QCoreApplication::exit(2);
+                        }
+                        else
+                        {
+                            int count = 10;
+                            qDebug() << "Copied - source: " << fileName << " dest: " << destFile;
+                            QFile::setPermissions(destFile, QFile::ReadUser | QFile::WriteUser);  // Set permissions
+
+                            // this check is for slow filesystems, make sure the file is accessible
+                            while (count-- > 0)
+                            {
+                                if (!QFile::exists(destFile))
+                                {
+                                    qDebug() << "File not accessible after copy: " << destFile << " attempt: " << count;
+                                    if (count == 0)
+                                    {
+                                        UserDialog copyError("Fatal Error: Could not copy " + fileName + " to (" + presetDir + "). Please double check that this directory exists, and that the application has permission to write to it.", {"EXIT"});
+                                        copyError.exec();
+                                        std::exit(2);
+                                        QCoreApplication::exit(2);
+                                    }
+                                    QThread::msleep(100);  // Add a delay
+                                }
+                                else
+                                {
+                                    count = 0;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+                default:
+                    // exit application
+                    //exitProgram = true;
+                    std::exit(2);
+                    QCoreApplication::exit(2);
+                    break;
+            } // switch case
+        } // while loop
+    } // preset dir check
+
+    if (exitProgram)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+void MainWindow::slotSetupStyleStringsAndFonts()
+{
+
+    // ---- FONTS --------------------------
+    qDebug() << "------------ [FONTS SETUP] ---------------------------------------------------";
+
+    QString droidFont = ":/fonts/droid-sans/DroidSansMono.ttf";
+    QString futuraFont = ":/fonts/futura/futura-normal.ttf";
+    QString futuraBFont = ":/fonts/futura/Futura-Bold.ttf";
+    QString futuraPTFont = ":/fonts/futura/FuturaPT-Book.otf";
+    QString corbelFont = ":/fonts/corbel/corbel.ttf";
+    QString corbelBFont = ":/fonts/corbel/corbelb.ttf";
+    QString sourceFont = ":/fonts/source-sans-pro/SourceSansPro-Regular.otf";
+
+    if (QFontDatabase::addApplicationFont(droidFont) == -1) qDebug() << "Could not load font: " << droidFont;
+    if (QFontDatabase::addApplicationFont(futuraFont) == -1) qDebug() << "Could not load font: " << futuraFont;
+    if (QFontDatabase::addApplicationFont(futuraPTFont) == -1) qDebug() << "Could not load font: " << futuraPTFont;
+    if (QFontDatabase::addApplicationFont(futuraBFont) == -1) qDebug() << "Could not load font: " << futuraBFont;
+    if (QFontDatabase::addApplicationFont(corbelFont) == -1) qDebug() << "Could not load font: " << corbelFont;
+    if (QFontDatabase::addApplicationFont(corbelBFont) == -1) qDebug() << "Could not load font: " << corbelBFont;
+    if (QFontDatabase::addApplicationFont(sourceFont) == -1) qDebug() << "Could not load font: " << sourceFont;
+
+    // ---- end FONTS -------------------------
+
+     qDebug() << "------------ [STYLESHEETS SETUP] ---------------------------------------------------";
+    // general stylesheets
+#ifdef Q_OS_MAC
+    generalStylesFile = new QFile(":stylesheets/GeneralStyles.qss");
+
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_QuNexus.qss");
+#else
+    generalStylesFile = new QFile(":stylesheets/GeneralStylesWindows.qss");
+    dialogStylesFile = new QFile(":/stylesheets/appDialog_QuNexus_WIN.qss");
+#endif
+    if (!generalStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << generalStylesFile->fileName();
+    }
+    else
+    {
+        generalStylesString = QLatin1String(generalStylesFile->readAll());
+    }
+
+    if (!dialogStylesFile->open(QFile::ReadOnly))
+    {
+        qDebug() << "ERROR: could not open stylesheet: " << dialogStylesFile->fileName();
+    }
+    else
+    {
+        dialogStylesString = QLatin1String(dialogStylesFile->readAll());
+    }
+
+    //StyleSheets for "grey" pushbuttons
+    grayStyleFile = new QFile(":stylesheets/GrayButtonStyleSheet.qss");
+    grayStyleFile->open(QFile::ReadOnly);
+    grayStyleString = QLatin1String(grayStyleFile->readAll());
+
+    // TABS
+#ifdef Q_OS_MAC
+    tabStyleString = QString("QTabWidget {}"
+                           "QTabWidget::pane {border: 10px solid rgb(89, 89, 89);}"
+                           "QTabWidget::tab-bar {left: 20px;}"
+                           "QTabBar::tab {margin-left: 5; margin-right: 5; min-width: 100px; background-color: rgb(40, 40, 40); font: 14pt 'Futura PT'; color: rgb(242, 242, 242); border-left: 3px solid rgb(89, 89, 89); border-right: 3px solid rgb(89, 89, 89); border-top: 3px solid rgb(89, 89, 89); padding: 4px;}"
+                           "QTabBar::tab:selected {background-color: rgb(89, 89, 89);}"
+                           );
+#else
+    tabStyleString = QString("QTabWidget {}"
+                           "QTabWidget::pane {border: 10px solid rgb(89, 89, 89);}"
+                           "QTabWidget::tab-bar {left: 20px;}"
+                           "QTabBar::tab {margin-left: 5; margin-right: 5; min-width: 100px; background-color: rgb(40, 40, 40); font: 10pt 'Corbel'; color: rgb(242, 242, 242); border-left: 3px solid rgb(89, 89, 89); border-right: 3px solid rgb(89, 89, 89); border-top: 3px solid rgb(89, 89, 89); padding: 4px;}"
+                           "QTabBar::tab:selected {background-color: rgb(89, 89, 89);}"
+                           );
+#endif
+
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(presetsSending)
     {
@@ -499,7 +603,7 @@ void MainWindow::closeEvent(QCloseEvent *)
     }
     emit signalClosePorts();
     qDebug() << "closing...";
-    QApplication::quit();
+    event->accept();
 }
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *e)
@@ -638,6 +742,38 @@ void MainWindow::slotConnectInterfaces()
     ////////////////////////////////////////////////////////////// Menu Items /////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+    // File menu connections
+    connect(exportPreset, SIGNAL(triggered()), importExportHandler, SLOT(slotExportPreset()));
+    connect(importPreset, SIGNAL(triggered()), importExportHandler, SLOT(slotImportPreset()));
+    connect(importOldPreset, SIGNAL(triggered()), importExportHandler, SLOT(slotImportOldPreset()));
+    connect(openAppDataDir, SIGNAL(triggered()), this, SLOT(slotOpenPresetDirectory()));
+
+    // Edit menu connections
+    connect(clearPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotClearPreset()));
+    connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
+    connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
+    connect(pasteNewPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPasteNewPreset()));
+    connect(clearSetlist, SIGNAL(triggered()), setlistTab, SLOT(slotClearSetlist()));
+    connect(autoPopulateSetlist, SIGNAL(triggered()), this, SLOT(slotAutoPopulateSetlist()));
+
+    // Hardware menu connections
+    connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(raise()));
+    connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(updateFirmwareAct, SIGNAL(triggered()), this, SLOT(slotForceFirmwareUpdate()));
+
+    // Help menu connections
+    connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
+    connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(about, SIGNAL(triggered()), aboutDialogWidget, SLOT(raise()));
+    connect(about, SIGNAL(triggered()), aboutDialogWidget, SLOT(show()));
+    connect(about, SIGNAL(triggered()), aboutDialogForm->ok, SLOT(setFocus()));
+    connect(aboutDialogForm->ok, SIGNAL(clicked()), aboutDialogWidget, SLOT(hide()));
+    connect(aboutDialogForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
+    connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDoc()));
+    connect(troubleShoot, SIGNAL(triggered()), this, SLOT(slotOpenTroubleshooting()));
+    connect(toolTipsEnable, SIGNAL(triggered()), this, SLOT(slotEnableDisableToolTips()));
+
     //About Screen
     connect(aboutDialogForm->ok, SIGNAL(clicked()), aboutDialogWidget, SLOT(close()));
     connect(aboutDialogForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
@@ -717,45 +853,6 @@ void MainWindow::slotConnectInterfaces()
 
     // MIDI overhaul
     connect(TwelveStep, SIGNAL(signalConnected(bool)), this, SLOT(slotShowConnection(bool)));
-
-    //connect(sysexManager, SIGNAL(signalConnected(bool)), this, SLOT(slotShowConnection(bool)));
-    //connect(sysexManager, SIGNAL(signalFwVersion(QString)), fwoodDialogForm->found, SLOT(setText(QString)));
-    //connect(sysexManager, SIGNAL(signalFwVersion(QString)), aboutDialogForm->found, SLOT(setText(QString)));
-
-    //connect(sysexManager, SIGNAL(signalStartTimer(int)), sysexManager, SLOT(slotStartTimer(int)));
-    //connect(sysexManager, SIGNAL(signalStopTimer()), sysexManager, SLOT(slotStopTimer()));
-
-    //fw updating dialogs
-    //connect(sysexManager, SIGNAL(signalOpenFwDialog()), disableWidget, SLOT(show()));
-    //connect(sysexManager, SIGNAL(signalOpenFwDialog()), disableWidget, SLOT(raise()));
-    //connect(sysexManager, SIGNAL(signalOpenFwDialog()), this, SLOT(slotSetFwUpdateMessage()));
-    //connect(sysexManager, SIGNAL(signalOpenFwDialog()), fwoodDialogWidget, SLOT(show()));
-    //connect(sysexManager, SIGNAL(signalOpenFwDialog()), fwoodDialogWidget, SLOT(raise()));
-    //connect(sysexManager, SIGNAL(signalOpenFwDialog()), fwoodDialogForm->update, SLOT(setFocus()));
-//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), disableWidget, SLOT(close()));
-//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
-    //connect(fwoodDialogForm->cancel, SIGNAL(clicked()), sysexManager, SLOT(slotCancelFwUpdate()));
-//    connect(fwoodDialogForm->cancel, SIGNAL(clicked()), fwProgressDialogWidget, SLOT(close())); //technically this shouldn't happen, but in case of error this makes it so you don't get stuck
-
-//#ifdef Q_OS_MAC
-//    connect(fwoodDialogForm->update, SIGNAL(clicked()), fwoodDialogWidget, SLOT(close()));
-//    connect(fwoodDialogForm->update, SIGNAL(clicked()), fwProgressDialogWidget, SLOT(show()));
-//    connect(fwoodDialogForm->update, SIGNAL(clicked()), fwProgressDialogWidget, SLOT(raise()));
-//    connect(fwoodDialogForm->update, SIGNAL(clicked()), this, SLOT(slotFirmwareUpdateDelay()));
-//#else
-//    connect(fwoodDialogForm->update, SIGNAL(clicked()), sysexManager, SLOT(slotUpdateFw()));
-//    connect(sysexManager, SIGNAL(signalFwUpdateStarted()), fwoodDialogWidget, SLOT(close()));
-//    connect(sysexManager, SIGNAL(signalFwUpdateStarted()), fwProgressDialogWidget, SLOT(show()));
-//    connect(sysexManager, SIGNAL(signalFwUpdateStarted()), fwProgressDialogWidget, SLOT(raise()));
-//#endif
-
-    //connect(sysexManager, SIGNAL(signalFwUpdateFinished()), fwProgressDialogWidget, SLOT(close()));
-    //connect(sysexManager, SIGNAL(signalFwUpdateFinished()), fwUpdateCompleteDialogWidget, SLOT(show()));
-    //connect(sysexManager, SIGNAL(signalFwUpdateFinished()), fwUpdateCompleteDialogWidget, SLOT(raise()));
-    //connect(sysexManager, SIGNAL(signalFwUpdateFinished()), fwUpdateCompleteDialogForm->ok, SLOT(setFocus()));
-//    connect(fwUpdateCompleteDialogForm->ok, SIGNAL(clicked()), fwUpdateCompleteDialogWidget, SLOT(close()));
-//    connect(fwUpdateCompleteDialogForm->ok, SIGNAL(clicked()), disableWidget, SLOT(close()));
-    //connect(fwUpdateCompleteDialogForm->ok, SIGNAL(clicked()), sysexManager, SLOT(slotResetVariables()));
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -925,35 +1022,46 @@ void MainWindow::slotSaveAs()
 void MainWindow::slotInitMenuBar()
 {
     qDebug() << "slotInitMenuBar called";
-#ifdef Q_OS_MAC
-    menubar = new QMenuBar(0);
-#else
     menubar = new QMenuBar(this);
-    menubar->setGeometry(0,0,this->width(),22);
+
+#ifndef Q_OS_MAC
+    QFile menuStyleFile = QFile(":/stylesheets/menuBarWin.qss");
+    QString menuStyleString;
+
+    if (menuStyleFile.open(QFile::ReadOnly))
+    {
+        menuStyleString = QLatin1String(menuStyleFile.readAll());
+        menubar->setStyleSheet(menuStyleString);
+    }
+    else
+    {
+        qDebug() << "ERROR - Could not find menubar stylesheet: " << menuStyleString;
+    }
+
+    menubar->setGeometry(0,0, this->width(), 25);
 #endif
 
-    qDebug() << "File";
     //------------------------------------- File
     QMenu *file = new QMenu("File");
     file->setObjectName("FileMenu");
     menubar->addMenu(file);
 
-    qDebug() << "Import/Export";
     //---------------- Import / Export
-    QAction *exportPreset = new QAction("Export Preset", file);
+    exportPreset = new QAction("Export Preset", file);
     exportPreset->setObjectName("exportPreset");
-    connect(exportPreset, SIGNAL(triggered()), importExportHandler, SLOT(slotExportPreset()));
     file->addAction(exportPreset);
 
-    QAction *importPreset = new QAction("Import Preset", file);
+    importPreset = new QAction("Import Preset", file);
     importPreset->setObjectName("importPreset");
-    connect(importPreset, SIGNAL(triggered()), importExportHandler, SLOT(slotImportPreset()));
     file->addAction(importPreset);
 
-    QAction *importOldPreset = new QAction("Import All Presets from V1.0", file);
+    importOldPreset = new QAction("Import All Presets from V1.0", file);
     importOldPreset->setObjectName("importOldPresets");
-    connect(importOldPreset, SIGNAL(triggered()), importExportHandler, SLOT(slotImportOldPreset()));
     file->addAction(importOldPreset);
+
+    openAppDataDir = new QAction("Open Editor Preset Directory", file);
+    openAppDataDir->setObjectName("openAppDataDir");
+    file->addAction(openAppDataDir);
 
     //------------------------------------ Edit
     QMenu *edit = new QMenu("Edit");
@@ -964,40 +1072,33 @@ void MainWindow::slotInitMenuBar()
     clearPresetAct = new QAction("Clear Preset", edit);
     actionList.append(clearPresetAct);
     edit->addAction(clearPresetAct);
-    connect(clearPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotClearPreset()));
 
     //---------------- Copy / Paste
     copyPresetAct = new QAction("Copy Preset", edit);
     actionList.append(copyPresetAct);
     edit->addAction(copyPresetAct);
     copyPresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C));
-    connect(copyPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotCopyPreset()));
 
     pastePresetAct = new QAction("Paste Preset", edit);
     actionList.append(pastePresetAct);
     edit->addAction(pastePresetAct);
     pastePresetAct->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_V));
-    connect(pastePresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPastePreset()));
     pastePresetAct->setDisabled(true);
 
     pasteNewPresetAct = new QAction("Paste Preset to New", edit);
     actionList.append(pasteNewPresetAct);
     edit->addAction(pasteNewPresetAct);
-    connect(pasteNewPresetAct, SIGNAL(triggered()), copyPasteHandler, SLOT(slotPasteNewPreset()));
     pasteNewPresetAct->setDisabled(true);
 
     //---------------- Setlist Extras
-    QAction *clearSetlist = new QAction("Clear Setlist", edit);
+    clearSetlist = new QAction("Clear Setlist", edit);
     actionList.append(clearSetlist);
     edit->addAction(clearSetlist);
-    connect(clearSetlist, SIGNAL(triggered()), setlistTab, SLOT(slotClearSetlist()));
 
-    QAction *autoPopulateSetlist = new QAction("Auto Populate Setlist", edit);
+    autoPopulateSetlist = new QAction("Auto Populate Setlist", edit);
     actionList.append(autoPopulateSetlist);
     edit->addAction(autoPopulateSetlist);
-    connect(autoPopulateSetlist, SIGNAL(triggered()), this, SLOT(slotAutoPopulateSetlist()));
 
-    qDebug() << "Hardware menu";
     //------------------------------------ Hardware
     QMenu *hardware = new QMenu("Hardware");
     hardware->setObjectName("HardwareMenu");
@@ -1006,43 +1107,27 @@ void MainWindow::slotInitMenuBar()
     //reload firmware
     updateFirmwareAct = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updateFirmwareAct);
-    connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(raise()));
-    connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(show()));
-    // EB Todo - debug
-    connect(updateFirmwareAct, SIGNAL(triggered()), this, SLOT(slotForceFirmwareUpdate()));
-    //connect(updateFirmwareAct, SIGNAL(triggered()), fwoodDialogWidget, SLOT(raise()));
-    //connect(updateFirmwareAct, SIGNAL(triggered()), fwoodDialogWidget, SLOT(show()));
     hardware->addAction(updateFirmwareAct);
     updateFirmwareAct->setDisabled(true);
 
-    qDebug() << "Help Menu";
     //------------------------------------ Help
     QMenu *help = new QMenu("Help");
     help->setObjectName("HelpMenu");
     menubar->addMenu(help);
 
     //about
-    QAction *about = new QAction("About 12 Step Editor", help);
+    about = new QAction("About 12 Step Editor", help);
     actionList.append(about);
-    connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
-    connect(about, SIGNAL(triggered()), disableWidget, SLOT(show()));
-    connect(about, SIGNAL(triggered()), aboutDialogWidget, SLOT(raise()));
-    connect(about, SIGNAL(triggered()), aboutDialogWidget, SLOT(show()));
-    connect(about, SIGNAL(triggered()), aboutDialogForm->ok, SLOT(setFocus()));
-    connect(aboutDialogForm->ok, SIGNAL(clicked()), aboutDialogWidget, SLOT(hide()));
-    connect(aboutDialogForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     help->addAction(about);
 
     //doc
-    QAction *doc = new QAction("Documentation...", help);
-    connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDoc()));
+    doc = new QAction("Documentation...", help);
     actionList.append(doc);
     help->addAction(doc);
     help->addSeparator();
 
     //troubleshooter
-    QAction *troubleShoot = new QAction("Open Connection Troubleshooter", help);
-    connect(troubleShoot, SIGNAL(triggered()), this, SLOT(slotOpenTroubleshooting()));
+    troubleShoot = new QAction("Open Connection Troubleshooter", help);
     actionList.append(troubleShoot);
     help->addAction(troubleShoot);
     help->addSeparator();
@@ -1066,11 +1151,11 @@ void MainWindow::slotInitMenuBar()
         sessionSettings->setValue("toolTipsEnabled", true);
         toolTipsEnable = new QAction("Hide Tool Tips", file);
     }
-    connect(toolTipsEnable, SIGNAL(triggered()), this, SLOT(slotEnableDisableToolTips()));
     help->addAction(toolTipsEnable);
 
     menubar->show();
 }
+
 
 void MainWindow::slotUpdatePasteAvailability()
 {
@@ -1143,9 +1228,6 @@ void MainWindow::slotTabSizing(int tabIndex)
         aboutDialogWidget->setGeometry(mainWindowWidth/2 - ABOUTWIDGET_WIDTH/2, mainWindowHeight/2 - ABOUTWIDGET_HEIGHT/2, ABOUTWIDGET_WIDTH, ABOUTWIDGET_HEIGHT);
         importOldDialogWidget->setGeometry(mainWindowWidth/2 - importOldDialogWidget->width()/2, mainWindowHeight/2 - importOldDialogWidget->height()/2, importOldDialogWidget->width(), importOldDialogWidget->height());
         importOldNotFoundDialogWidget->setGeometry(mainWindowWidth/2 - importOldNotFoundDialogWidget->width()/2, mainWindowHeight/2 - importOldNotFoundDialogWidget->height()/2, importOldNotFoundDialogWidget->width(), importOldNotFoundDialogWidget->height());
-        //fwoodDialogWidget->setGeometry(mainWindowWidth/2 - fwoodDialogWidget->width()/2, mainWindowHeight/2 - fwoodDialogWidget->height()/2, fwoodDialogWidget->width(), fwoodDialogWidget->height());
-        //fwUpdateCompleteDialogWidget->setGeometry(mainWindowWidth/2 - fwUpdateCompleteDialogWidget->width()/2, mainWindowHeight/2 - fwUpdateCompleteDialogWidget->height()/2, fwUpdateCompleteDialogWidget->width(), fwUpdateCompleteDialogWidget->height());
-        //fwProgressDialogWidget->setGeometry(mainWindowWidth/2 - fwProgressDialogWidget->width()/2, mainWindowHeight/2 - fwProgressDialogWidget->height()/2, fwProgressDialogWidget->width(), fwProgressDialogWidget->height());
     }
     else
     {
@@ -1154,9 +1236,6 @@ void MainWindow::slotTabSizing(int tabIndex)
         aboutDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - ABOUTWIDGET_WIDTH/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - ABOUTWIDGET_HEIGHT/2, ABOUTWIDGET_WIDTH, ABOUTWIDGET_HEIGHT);
         importOldDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - importOldDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - importOldDialogWidget->height()/2, importOldDialogWidget->width(), importOldDialogWidget->height());
         importOldNotFoundDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - importOldNotFoundDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - importOldNotFoundDialogWidget->height()/2, importOldNotFoundDialogWidget->width(), importOldNotFoundDialogWidget->height());
-        //fwoodDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - fwoodDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - fwoodDialogWidget->height()/2, fwoodDialogWidget->width(), fwoodDialogWidget->height());
-        //fwUpdateCompleteDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - fwUpdateCompleteDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - fwUpdateCompleteDialogWidget->height()/2, fwUpdateCompleteDialogWidget->width(), fwUpdateCompleteDialogWidget->height());
-        //fwProgressDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - fwProgressDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - fwProgressDialogWidget->height()/2, fwProgressDialogWidget->width(), fwProgressDialogWidget->height());
     }
 }
 
@@ -1185,7 +1264,7 @@ void MainWindow::slotShowConnection(bool connection)
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242)};"
                                      );
 #else
-        ui->connected->setStyleSheet("QPushButton {background:transparent;font:18px 'Futura-Normal'; color:rgba(0, 174, 237, 175);border-radius:0px;}"
+        ui->connected->setStyleSheet("QPushButton {background:transparent;font:18px 'Corbel'; color:rgba(0, 174, 237, 175);border-radius:0px;}"
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
                                      );
 #endif
@@ -1203,7 +1282,7 @@ void MainWindow::slotShowConnection(bool connection)
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
                                      );
 #else
-        ui->connected->setStyleSheet("background:transparent;font:18px 'Futura-Normal'; color:rgba(207, 0, 18, 175);border-radius:0px;"
+        ui->connected->setStyleSheet("background:transparent;font:18px 'Corbel'; color:rgba(207, 0, 18, 175);border-radius:0px;"
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}"
                                      );
 #endif
@@ -1214,36 +1293,6 @@ void MainWindow::slotShowConnection(bool connection)
         troubleshootWindow->slotConnected(false);
     }
 }
-
-//#ifdef Q_OS_MAC
-//void MainWindow::slotFirmwareUpdateDelay()
-//{
-//    //sysexManager->fwUpdateStarted = true;
-
-//    //QTimer::singleShot(2000, sysexManager, SLOT(slotUpdateFw()));
-//    QTimer *updateDelay = new QTimer(this);
-
-//    //updateDelay->singleShot(2000, sysexManager, SLOT(slotUpdateFw()));
-//}
-//#endif
-
-//void MainWindow::slotSetFwUpdateMessage()
-//{
-//    if(QObject::sender())
-//    {
-//        QObject *sender = QObject::sender();
-//        QString senderName = sender->objectName();
-
-//        if(senderName != "SysexManager")
-//        {
-//            fwoodDialogForm->oodLabel->setText("Load the latest firmware.");
-//        }
-//        else
-//        {
-//            fwoodDialogForm->oodLabel->setText("Your firmware is out of date.");
-//        }
-//    }
-//}
 
 void MainWindow::slotCleanUpSetlist()
 {
@@ -1369,7 +1418,6 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if (inOrOut == PORT_OUT && (portName != TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)) // don't create feedback loop
         {
             settingsTab->midiThru_addItem(portName); // update dropdown
-            //slotFixDropDownWidth(midiThruDropdown);
 
             if (portName == sessionSettings->value(MIDI_AUX_KEY).toString()) // if this port matches the last selected port
             {
@@ -1391,7 +1439,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
 
             if (!TwelveStep->slotUpdatePortIn(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                UserDialog portError((QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName)), {"Ok"});
+                portError.exec();
             }
             else
             {
@@ -1403,7 +1452,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             if (!TwelveStep->slotUpdatePortOut(portNum))
             {
-                slotCreateDialog(QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName));
+                UserDialog portError((QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName)), {"Ok"});
+                portError.exec();
             }
             else
             {
@@ -1421,7 +1471,14 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
                 settingsTab->midiThru_setCurrentIndex(0);
             }
 
-            settingsTab->midiThru_removeItem(settingsTab->midiThru->findText(portName));
+            // make sure this port is actually in the aux dropdown
+            int findPortIndex = settingsTab->midiThru_findItem(portName);
+
+            if (findPortIndex != -1)
+            {
+                settingsTab->midiThru_removeItem(findPortIndex);
+            }
+
         }
 
         // **** TwelveStep disconnect **************************************

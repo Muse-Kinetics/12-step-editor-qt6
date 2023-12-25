@@ -14,10 +14,10 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget
+   <string notr="true">/*QWidget
 {
 
-}
+}*/
 
 QToolTip
 {
@@ -29,14 +29,22 @@ QToolTip
 	min-height: 24px;
 }
 
+QToolButton:focus
+{
+	border: 2px solid rgb(0, 174, 239);
+}
+
+
 /*----------- QComboBox ------------*/
 QComboBox
 {
 	font: 14px &quot;Futura PT Book&quot;;
+ /*
 	border: 2px solid rgb(245, 245, 245);
+*/
 	background: rgb(60, 60, 60);
 	color: white;
-	padding: 1px 3px 1px 4px;
+	padding: 1px 3px 1px 1px;
     combobox-popup: 0;
  }
 
@@ -45,11 +53,11 @@ QComboBox
 /* dropdown box*/
 QComboBox QListView
 {
-    border: 1px solid rgb(255,255,255);
+   /* border: 1px solid rgb(255,255,255);*/
 	color: white;
 	font: 10px &quot;Futura PT Book&quot;;
 	padding-left: 3px;
-	padding-right: 3px;
+	padding-right: 0px;
 	min-width: 200px;
     height: 200px;
 }
@@ -60,7 +68,7 @@ QComboBox QAbstractItemView
     background-color: rgb(40, 40, 40);
     selection-color: white;
     selection-background-color: rgb(0,174,239);
-    min-width: 200px;
+   /* min-width: 200px;*/
 }
 
 QComboBox::item:alternate
@@ -82,17 +90,6 @@ QComboBox::indicator
 	selection-color: white;
 }
 
-/* down arrow image */
-QComboBox::down-arrow
-{
-    border: none;
-    background: none;
-    image: url(:/resources/modline_combobox_menu_arrows.svg);
-    padding-right: 12px;
-    width: 12px;
-    height: 12px;
-}
-
 /* required for down-arrow or it's blank*/
 QComboBox::drop-down
 {
@@ -104,25 +101,32 @@ QComboBox::drop-down
     border-right-width: 0px;
     border-top-width: 0px;
     border-bottom-width: 0px;
-	padding: 1px 1px 1px 4px;
+	padding: 1px 1px 1px 0px;
 }
 
 /* down arrow image */
+
 QComboBox::down-arrow
 {
-	border: none;
+ /*
+	border: none;*/
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 
+
+/******************************************************************************************/
 /* ---[scroll bar]----------------------------------------------------------------------------*/
+/******************************************************************************************/
 
 QComboBox QAbstractItemView QScrollBar:vertical {
+
 	background: black;
 /* margin sets up how far the handle can travel */
 	margin: 0px 0px 0px 0px;
-	border: none;
+	/*border: none;*/
+	width: 10px;
 }
 
 /* Sets up the color and height of handle */
@@ -139,7 +143,7 @@ QComboBox QAbstractItemView QScrollBar::add-line:vertical {
 	border: none;
 }
 
-/* This remvoes the top button by setting the height to 0px */
+/* This removes the top button by setting the height to 0px */
 QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
 	height: 0px;
 	subcontrol-position: top;
@@ -169,7 +173,7 @@ QWidget
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	border: 2px solid rgb(245, 245, 245);
 	background: rgb(60, 60, 60);
 	color: white;
@@ -180,7 +184,7 @@ QComboBox QListView
 {
 	background-color: rgb(60, 60, 60);
 	border: transparent;
-	font: 10px &quot;Futura-Normal&quot;;
+	font: 10px &quot;Corbel&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 35px;
@@ -228,7 +232,7 @@ QFrame
 /*-----------QLabel------------*/
 QLabel
 {
-	font: 10pt &quot;Futura-Normal&quot;;
+	font: 10pt &quot;Corbel&quot;;
 	color: rgb(245, 245, 245);
 }
 
@@ -255,7 +259,7 @@ QToolButton
 	background: rgb(60, 60, 60);
 	color: white;
 	border: 2px solid rgb(245, 245, 245);
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 10px &quot;Corbel&quot;;
 	padding: 0,1,0,0;
 }
 
@@ -264,7 +268,7 @@ QToolButton:pressed
 	background: rgb(245, 245, 245);
 	color: black;
 	border: 2px solid rgb(245, 245, 245);
-	font: 8pt &quot;Futura-Normal&quot;;
+	font: 10px &quot;Corbel&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -285,7 +289,7 @@ QToolButton:pressed
     <property name="styleSheet">
      <string notr="true">QComboBox
 {
-	font: 10pt &quot;Droid Sans Mono&quot;;
+	font: 12px &quot;Droid Sans Mono&quot;;
 	color: rgb(242, 242, 242);
 	padding: 0px 0px 0px 7px;
 }
@@ -1110,25 +1114,12 @@ QComboBox::down-arrow
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QFrame
+     <string notr="true">/*QFrame
 {
 
-}
+}*/
 
-QToolButton:focus
-{
-	border: 2px solid rgb(0, 174, 239);
-}
-
-QComboBox:focus
-{
-	border: 2px solid rgb(0, 174, 239);
-}
-
-QComboBox QListView
-{
-	color: rgb(242, 242, 242);
-}</string>
+</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -1157,7 +1148,7 @@ QToolButton
 {
 	background: rgb(60, 60, 60);
 	border: 2px solid rgb(245,245,245);
-	font: bold 12pt &quot;Corbel&quot;;
+	font: bold 10pt &quot;Corbel&quot;;
 	color: white;
 }
 
@@ -1212,7 +1203,7 @@ QToolTip
      </property>
      <item>
       <property name="text">
-       <string>PRESET_NAME_HERE</string>
+       <string>LOADING...</string>
       </property>
      </item>
      <item>
@@ -1306,6 +1297,14 @@ QToolTip
        <height>20</height>
       </size>
      </property>
+     <property name="font">
+      <font>
+       <family>Corbel</family>
+       <pointsize>-1</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="toolTip">
       <string>Save the current settings&lt;br&gt; to a new preset slot.</string>
      </property>
@@ -1362,7 +1361,7 @@ QToolTip
     <property name="geometry">
      <rect>
       <x>557</x>
-      <y>84</y>
+      <y>97</y>
       <width>181</width>
       <height>20</height>
      </rect>
@@ -1377,19 +1376,19 @@ text-align: center;</string>
      <string>NOT CONNECTED</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="Title_12Step">
     <property name="geometry">
      <rect>
-      <x>527</x>
-      <y>17</y>
-      <width>230</width>
+      <x>510</x>
+      <y>30</y>
+      <width>261</width>
       <height>72</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Futura PT</family>
-      <pointsize>52</pointsize>
+      <pointsize>48</pointsize>
       <italic>false</italic>
       <bold>false</bold>
      </font>
@@ -1402,7 +1401,7 @@ text-align: center;</string>
 {
 	
 	
-	font: 52pt &quot;Futura PT&quot;;
+	font: 48pt &quot;Futura PT&quot;;
 	background-color: transparent;
 	border: none;
 }</string>
@@ -1414,7 +1413,7 @@ text-align: center;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="Preset_label">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -1424,7 +1423,7 @@ text-align: center;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">	font: 11px &quot;Futura-Normal&quot;;
+     <string notr="true">	font: 9px &quot;Corbel&quot;;
 	color: white;
 	background: transparent;</string>
     </property>

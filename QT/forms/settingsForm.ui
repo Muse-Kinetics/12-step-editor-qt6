@@ -61,25 +61,25 @@ QCheckBox::indicator
 QCheckBox::indicator:unchecked:pressed
 {
 	
-image: url(:/ui/ui_images/cc7_disabled_pressed.png);
+image: url(:/ui/ui_images/cc7_disabled_pressed.svg);
 
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/cc7_disabled.png);
+	image: url(:/ui/ui_images/cc7_disabled.svg);
 
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/cc7_enabled.png);
+	image: url(:/ui/ui_images/cc7_enabled.svg);
 
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/cc7_enabled_pressed.png);
+	image: url(:/ui/ui_images/cc7_enabled_pressed.svg);
 }
 
 /*-------QSlider-------*/
@@ -535,7 +535,7 @@ QComboBox::down-arrow
 {
 	border: none;
 	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
 	padding-right: 15px;
 }
 </string>

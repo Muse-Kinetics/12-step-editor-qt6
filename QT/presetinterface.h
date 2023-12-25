@@ -18,8 +18,9 @@ class PresetInterface : public QWidget
 {
     Q_OBJECT
 public:
-    explicit PresetInterface(QWidget *parent = 0);
+    explicit PresetInterface(QWidget *parent = 0, QSettings *_sessionSettings = nullptr);
 
+    QSettings *sessionSettings;
     QVariantMap jsonMasterMap;
     QVariantMap jsonMasterMapCopy;
     QList<QVariantMap> presetListMaster;

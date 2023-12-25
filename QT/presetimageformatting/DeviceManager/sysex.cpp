@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <string.h>
 #include <stdio.h>
+#include <QTextStream>
 
 #include "sysex.h"
 //#include "midi.h"
@@ -36,6 +37,8 @@ void crc_byte(char val)   {
 	unsigned short temp;
 	unsigned short quick;
 
+    //qDebug() << "crc - val: " << Qt::hex << (unsigned char)val << " crc-pre: " << Qt::hex << (unsigned int)crc;
+
 	temp = (crc >> 8) ^ val;
 	crc <<= 8;
 	quick = temp ^ (temp >> 4);
@@ -44,6 +47,7 @@ void crc_byte(char val)   {
 	crc ^= quick;
 	quick <<= 7;
 	crc ^= quick; 
+    //qDebug() << "crc - val: " << Qt::hex << (unsigned char)val << " crc-post: " << Qt::hex << (unsigned int)crc;
 }
 
 
@@ -52,7 +56,8 @@ void midi_chunk_init(void) {
 }
 
 void midi_buffer_put_core(unsigned char val){
-	message[message_len] = val;
+    qDebug() << "put_core - val: " << Qt::hex << val << " crc: " << (unsigned int)crc;
+    message[message_len] = val;
 	if (message_len < (MAX_SYSEX_SIZE-1))
 		message_len++;
 }
@@ -64,11 +69,13 @@ void midi_sx_encode_char(unsigned char val) {
 //        qDebug("mbpc %02x",val & 0x7f);
 	if (++midi_hi_count == SX_ENCODE_LEN) {
 		midi_hi_count = 0;
+        qDebug() << "hiBit Byte";
 		midi_buffer_put_core(midi_hi_bits);
 //	qDebug("mbpc %02x (hi_bits)",midi_hi_bits);
 	}
 }
 void midi_sx_encode_crc_char(unsigned char val) {
+    //qDebug() << "encode: " << Qt::hex << val;
 	crc_byte(val);
 	midi_sx_encode_char(val);
 }
