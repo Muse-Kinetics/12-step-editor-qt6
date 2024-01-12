@@ -19,7 +19,7 @@ PEDAL_INFO pedal_info;
 void sx_send_list()
 {
 
-    printf("sx_send_list called");
+    printf("sx_send_list called\n");
 
     if (fd_syx)
     {

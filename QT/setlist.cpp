@@ -6,8 +6,9 @@
 
 Setlist::Setlist(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent),
-    setlistForm(new Ui::setlistForm),
-    setlistWidget(new QWidget(this))
+    setlistWidget(new QWidget(this)),
+    setlistForm(new Ui::setlistForm)
+
 {
     setlistForm->setupUi(setlistWidget);
     this->setGeometry(0, 0, SETLISTTAB_WIDTH, SETLISTTAB_HEIGHT);
@@ -192,6 +193,22 @@ void Setlist::slotWriteSetlist()
     emit signalSetlistDirty();
 }
 
+unsigned char Setlist::getNumberOfPresetsInSetlist()
+{
+    unsigned char numPresets = 0;
+
+    //collect setlist items in order, add them to a list, then clear each menu
+    for(int i = 0; i < 64; i++)
+    {
+        QComboBox *menu = this->findChild<QComboBox *>(QString("setlistmenu%1").arg(i));
+        if(menu->currentText() != "[EMPTY]")
+        {
+            numPresets++;
+        }
+    }
+    return numPresets;
+}
+
 void Setlist::slotCleanUpSetlist()
 {
     QStringList setlistItems;
@@ -251,7 +268,7 @@ void Setlist::slotAutoPopulateSetlist(QComboBox *presetMenu)
     int countTo;
 
     //if the preset menu has less that 64 (the number of setlist slots), then we want to only iterate through the number of preset menu items
-    //this prevents crashing if we're trying to iterate through more slots than their are of either the setlist comboboxes or the preset menu items
+    //this prevents crashing if we're trying to iterate through more slots than there are of either the setlist comboboxes or the preset menu items
     if(presetMenu->count() <= 64)
     {
         countTo = presetMenu->count();

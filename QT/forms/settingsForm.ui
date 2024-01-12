@@ -46,6 +46,7 @@ QToolButton:pressed
 	padding: 0, 1, 0, 0;
 }
 
+/*----------- QCheckBox ------------*/
 QCheckBox
 {
 	background: transparent;
@@ -54,8 +55,8 @@ QCheckBox
 
 QCheckBox::indicator
 {
-	width: 212px;
-	height: 24px;
+	width: 210px;
+	height: 40px;
 }
 
 QCheckBox::indicator:unchecked:pressed
@@ -124,16 +125,17 @@ QSlider::handle:horizontal
 {
 	background: white;
 	border: none;
-	width: 3px;
+	width: 9px;
 	
 }
 
-QSlider::sub-page:horizontal
+
+QSlider::add-page:horizontal
 {
 	background: rgb(89, 89, 89);
 }
 
-QSlider::add-page:horizontal
+QSlider::sub-page:horizontal
 {
 	background: rgb(169, 169, 169);
 }
@@ -143,7 +145,7 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>40</y>
+     <y>30</y>
      <width>211</width>
      <height>22</height>
     </rect>
@@ -164,20 +166,20 @@ QSlider::add-page:horizontal
   <widget class="QSlider" name="selectSensitivity">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>40</y>
+     <x>90</x>
+     <y>122</y>
      <width>211</width>
      <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>Sets the minimum hold time to activate the 12 Step's Select key.&lt;p&gt;Moving the slider to the left (toward the &quot;-&quot; symbol) decreases how long you must hold the select key for it to activate.  Moving the slider to the right (toward the &quot;+&quot; symbol) increases the time you must hold the select key before it is activated.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum hold time to activate the 12 Step's Select key, from 50ms to 6 seconds.&lt;/p&gt;&lt;p&gt;Moving the slider to the left (toward the &amp;quot;-&amp;quot; symbol) decreases how long you must hold the select key for it to activate. Moving the slider to the right (toward the &amp;quot;+&amp;quot; symbol) increases the time you must hold the select key before it is activated.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="minimum">
     <number>1</number>
    </property>
    <property name="maximum">
-    <number>500</number>
+    <number>127</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -187,7 +189,7 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>70</y>
+     <y>60</y>
      <width>211</width>
      <height>24</height>
     </rect>
@@ -208,8 +210,8 @@ QSlider::add-page:horizontal
   <widget class="QToolButton" name="resetSelect">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>70</y>
+     <x>90</x>
+     <y>152</y>
      <width>211</width>
      <height>24</height>
     </rect>
@@ -228,7 +230,7 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>20</y>
+     <y>10</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -243,8 +245,8 @@ QSlider::add-page:horizontal
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>20</y>
+     <x>90</x>
+     <y>102</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -259,8 +261,8 @@ QSlider::add-page:horizontal
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>427</x>
-     <y>41</y>
+     <x>77</x>
+     <y>123</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -275,8 +277,8 @@ QSlider::add-page:horizontal
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>657</x>
-     <y>43</y>
+     <x>307</x>
+     <y>125</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -292,7 +294,7 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>76</x>
-     <y>41</y>
+     <y>31</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -308,7 +310,7 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>308</x>
-     <y>43</y>
+     <y>33</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -323,8 +325,8 @@ QSlider::add-page:horizontal
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>85</x>
-     <y>110</y>
+     <x>435</x>
+     <y>70</y>
      <width>222</width>
      <height>16</height>
     </rect>
@@ -339,10 +341,10 @@ QSlider::add-page:horizontal
   <widget class="QCheckBox" name="midiVolume">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>130</y>
+     <x>440</x>
+     <y>90</y>
      <width>212</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -362,9 +364,9 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>130</y>
+     <y>152</y>
      <width>212</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -384,7 +386,7 @@ QSlider::add-page:horizontal
    <property name="geometry">
     <rect>
      <x>441</x>
-     <y>110</y>
+     <y>132</y>
      <width>208</width>
      <height>16</height>
     </rect>
@@ -399,14 +401,14 @@ QSlider::add-page:horizontal
   <widget class="QComboBox" name="midiThruCombo">
    <property name="geometry">
     <rect>
-     <x>272</x>
-     <y>200</y>
+     <x>270</x>
+     <y>214</y>
      <width>200</width>
      <height>27</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing QuNexus settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing 12 Step settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -555,8 +557,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
-     <x>272</x>
-     <y>180</y>
+     <x>270</x>
+     <y>194</y>
      <width>200</width>
      <height>16</height>
     </rect>
@@ -566,6 +568,84 @@ QComboBox::down-arrow
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>657</x>
+     <y>33</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>10</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>BACKLIGHT BRIGHTNESS</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>427</x>
+     <y>31</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="backlightBrightness">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>30</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjust the brightness of the 12 Step key backlight LEDs.&lt;/p&gt;&lt;p&gt;This feature is only available on 12 Step2, and is disabled when legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSlider::sub-page:horizontal{background: rgb(170, 170, 170) }
+QSlider::add-page:horizontal{background: rgb(170, 170, 170)}
+QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}</string>
+   </property>
+   <property name="minimum">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <number>29</number>
+   </property>
+   <property name="sliderPosition">
+    <number>29</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>

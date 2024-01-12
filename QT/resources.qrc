@@ -320,5 +320,7 @@
         <file>presets/Blank.twelvesteppreset</file>
         <file>presets/setlist.json</file>
         <file>presets/settings.json</file>
+        <file>resources/firmware/12Step99-TrojanBootloader.syx</file>
+        <file>resources/firmware/12Step_Firmware_v1.0.0.syx</file>
     </qresource>
 </RCC>

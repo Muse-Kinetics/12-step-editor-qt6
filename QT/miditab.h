@@ -33,6 +33,7 @@ public:
     int numModlinesShowing;
 
     bool thisTabSelected;
+    int hardwareRev;
 
     //button groups
     QButtonGroup keySafety;
@@ -64,6 +65,7 @@ public slots:
     void slotEnableSourceB(int val);
 
     void slotTabView(int);
+    void slotEnableUIfor12S2(bool is12s2);
 
     //resizing functions for the add/subtract buttons
     void slotRecallShowingModlines(QVariantMap, QVariantMap);

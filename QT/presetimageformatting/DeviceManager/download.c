@@ -75,6 +75,9 @@ void write_c(char *title,void *data,int length)
 
 void send_standalone_settings(unsigned char *settings,int len)
 {
+    // first we send standalone_info, which primarily tells us the type of the
+    // next data packet, or in the case of presets how many preset packets are coming
+
     standalone_info.u.settings_format = 0;
 
     standalone_info.type = LE_short(SA_TYPE_SETTINGS);
@@ -84,7 +87,7 @@ void send_standalone_settings(unsigned char *settings,int len)
     midi_sx_packet_preamble(SX_PACKET_STANDALONE,sizeof(standalone_info));
     midi_sx_packet_data(&standalone_info,sizeof(standalone_info));
 
-    midi_sx_packet_data_close(len);
+    midi_sx_packet_data_close(len); // if this was 0 then this would be the last data packet
 
     //          write_c("standalone_settings",settings,len);
     //          write_c_close(x);

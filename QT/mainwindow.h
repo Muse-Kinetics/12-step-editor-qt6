@@ -210,7 +210,6 @@ public slots:
 
     // ------ midi overhaul --------------------------------------------------------
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o
-    void slotRefreshConnection();
     void slotBootloaderMode(bool fwUpdateRequested);
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
@@ -268,9 +267,7 @@ private:
     Ui::aboutDialogForm         *aboutDialogForm;
     Ui::importOldFoundDialog    *importOldFoundDialogForm;
     Ui::importOldNotFoundDialog *importOldNotFoundDialoglForm;
-//    Ui::FwoodDialog             *fwoodDialogForm;
-//    Ui::FwUpdateCompleteForm    *fwUpdateCompleteDialogForm;
-//    Ui::FwProgressForm          *fwProgressDialogForm;
+
 };
 
 #endif // MAINWINDOW_H

@@ -43,16 +43,31 @@ typedef struct {
     MODLINES modlines;
     char display[4];
     char CtlNum1,CtlNum2;
-    char noteMode,footMode;
+    unsigned char noteMode:2, cv1Mode:3, cv2Mode:3;  // in 12s1 this was 8 bits for noteMode, which only used 2 bits (4 values). Here we've preserved backwards
+                                            // compatibility for older presets, while allowing new 12s2 presets to write to these bits for cv modes.
+    unsigned char footMode:2, presetVersion:6;
     VOICE voiceA,voiceB;
     KEY keys[NUM_KEYS];
 } PACK_INLINE IMAGE;
 
 //---- PEDAL CALIBRATION
-typedef struct {
-    unsigned char heal,toe;
-    unsigned short mpx;
+typedef struct
+{
+    unsigned char heel, toe;
+    unsigned char table;
 } PEDAL_CALIBRATION;
+
+enum CVMODE
+{
+    CV_DEFAULT, // 0, default that will work with older presets, CV1 = gate, CV2 = pitch
+    CV_GATE,
+    CV_PITCH,
+    CV_PRESSURE,
+    CV_TILT,
+    CV_EXPRESSION_PEDAL,
+    CV_USBMIDI_CH15,
+    CV_USBMIDI_CH16 // midi notes will control CV = gate, CV2 = pitch. CC1 will control
+};
 
 //---- PEDAL FILTER
 typedef struct {
@@ -78,6 +93,7 @@ typedef struct {
 typedef struct {
     INPUT_SETTINGS input_settings;
     PEDAL_CALIBRATION pedal_calibration;
+    unsigned char keyL_brightness; // no reserved data in the settings struct, so we are repurposing the pedal mpx
     PEDAL_FILTER pedal_filter;
     CONNECT_MODE connect_mode;
 } PACK_INLINE SETTINGS;

@@ -128,6 +128,7 @@ void PresetInterface::slotRecallPreset(int i)
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
 {
+    qDebug() << "slotStoreValue called - name: " << name << " value: " << value;
     if(presetNum == -1)
     {
         presetNum = currentPresetNum;
@@ -163,6 +164,9 @@ void PresetInterface::slotCheckSaveState()
 
 void PresetInterface::slotSavePreset()
 {
+    // update preset version
+    slotStoreValue("presetVersion", 1, currentPresetNum);
+
     //store copy of current preset into master json
     jsonMasterMap.insert(slotGetPresetStringFromInt(currentPresetNum), jsonMasterMapCopy.value(slotGetPresetStringFromInt(currentPresetNum)).toMap());
 
@@ -440,6 +444,9 @@ QString PresetInterface::slotAppendSuffixToNewPresetName(QString currentName)
 
 void PresetInterface::slotConstructDefaultMap()
 {
+    // preset version (legacy 12 Step presets won't have an entry in JSON, but starting with 12Step2 presets are version 1);
+    defaultPresetMap["presetVersion"] = 1;
+
     //preset naming
     defaultPresetMap["preset_displayname_1"] = "D";
     defaultPresetMap["preset_displayname_2"] = "F";
@@ -448,8 +455,11 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["preset_name"] = "DefaultPreset";
 
     //settings
-    defaultPresetMap["settings_key_safety_mode"] = "SingleKey";
+    defaultPresetMap["settings_key_safety_mode"] = "Single Key";
     defaultPresetMap["settings_note_mode"] = "Normal";
+    defaultPresetMap["settings_cv1"] = "Default (Gate)";
+    defaultPresetMap["settings_cv2"] = "Default (Pitch)";
+
 
     //voice a settings
     defaultPresetMap["voice_a_bank"] = 0;

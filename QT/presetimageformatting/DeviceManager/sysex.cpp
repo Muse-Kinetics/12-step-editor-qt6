@@ -56,7 +56,7 @@ void midi_chunk_init(void) {
 }
 
 void midi_buffer_put_core(unsigned char val){
-    qDebug() << "put_core - val: " << Qt::hex << val << " crc: " << (unsigned int)crc;
+    //qDebug() << "put_core - val: " << Qt::hex << val << " crc: " << (unsigned int)crc;
     message[message_len] = val;
 	if (message_len < (MAX_SYSEX_SIZE-1))
 		message_len++;
@@ -69,7 +69,7 @@ void midi_sx_encode_char(unsigned char val) {
 //        qDebug("mbpc %02x",val & 0x7f);
 	if (++midi_hi_count == SX_ENCODE_LEN) {
 		midi_hi_count = 0;
-        qDebug() << "hiBit Byte";
+        //qDebug() << "hiBit Byte";
 		midi_buffer_put_core(midi_hi_bits);
 //	qDebug("mbpc %02x (hi_bits)",midi_hi_bits);
 	}
@@ -92,18 +92,19 @@ void midi_sx_flush(void) {
 		midi_sx_encode_char(0);
 }
 
-#define	TAIL_LEN	4
+#define	TAIL_LEN	4 // length[msb/lsb], crc[msb/lsb]
 
 void midi_sx_packet_preamble(unsigned short packet_type,unsigned short length) {
-	crc = 0xffff;
+    crc = 0xffff; // init crc
 
-	midi_buffer_put_core(0x01);
-	midi_chunk_init();
-	midi_sx_encode_crc_int(packet_type);
+    midi_buffer_put_core(0x01); // indicate we are about to begin encoding
+    midi_chunk_init(); // being 8bit->7bit encoding
+    midi_sx_encode_crc_int(packet_type); // 12step2 this became two chars for category/type
 	midi_sx_encode_crc_int(length + TAIL_LEN);
 	midi_sx_encode_int(crc);
 
 }
+
 extern "C" int midi_sx_data_addr;
 int midi_sx_data_addr = 0;
 void midi_sx_data_crc(void *data,unsigned short length) {
@@ -148,10 +149,13 @@ void midi_sx_packet_data(void *source,unsigned short length) {
 	crc = 0xffff;
 	midi_sx_data_crc(source,length);
 }
+
+// if we are sending multiple data packets, then we encode the length of the next packet
 void midi_sx_packet_data_close(unsigned short length) {
-	midi_sx_encode_crc_int(length ? length + TAIL_LEN : 0);
+    midi_sx_encode_crc_int(length ? length + TAIL_LEN : 0); // no more packets then encode 0
 	midi_sx_encode_int(crc);
 }
+
 void midi_sx_packet(unsigned short packet_type,void *source,unsigned short length) {
 	midi_sx_packet_preamble(packet_type,length);
 	midi_sx_packet_data(source,length);

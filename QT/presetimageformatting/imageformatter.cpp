@@ -206,30 +206,39 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
 
 
         //----------------------------------------------------------------------------------------------------------//
+        //------------------------------------------------ CV 1 & 2 ------------------------------------------------//
+        //----------------------------------------------------------------------------------------------------------//
+
+        QMap<QString, int> cvMap;
+
+        cvMap["Default (Gate)"] = 0;
+        cvMap["Default (Pitch)"] = 0;
+        cvMap["Gate"] = 1;
+        cvMap["Pitch"] = 2;
+        cvMap["Pressure"] = 3;
+        cvMap["Tilt"] = 4;
+        cvMap["Expression Pedal"] = 5;
+        cvMap["USB MIDI CH15"] = 6;
+        cvMap["USB MIDI CH16"] = 7;
+
+        image[slotIndex].cv1Mode = cvMap.value(currentPreset.value("settings_cv1").toString(), 0); // default to 0 if not found
+        image[slotIndex].cv2Mode = cvMap.value(currentPreset.value("settings_cv2").toString(), 0); // default to 0 if not found
+
+        image[slotIndex].presetVersion = 1; // Indicate this is no longer a legacy preset
+
+        //----------------------------------------------------------------------------------------------------------//
         //------------------------------------------------ Note Mode -----------------------------------------------//
         //----------------------------------------------------------------------------------------------------------//
 
+        QMap<QString, int> noteModeMap;
+        noteModeMap["Normal"] = 0;
+        noteModeMap["Legato"] = 1;
+        noteModeMap["Toggle"] = 2;
+        noteModeMap["Hold"] = 3;
+
         QString noteMode = currentPreset.value("settings_note_mode").toString();
+        image[slotIndex].noteMode = noteModeMap.value(noteMode, 0); // Default to 0 if not found
 
-        if(noteMode == "Normal")
-        {
-            image[slotIndex].noteMode = 0;
-        }
-
-        else if(noteMode == "Legato")
-        {
-            image[slotIndex].noteMode = 1;
-        }
-
-        else if(noteMode == "Toggle")
-        {
-            image[slotIndex].noteMode = 2;
-        }
-
-        else if(noteMode == "Hold")
-        {
-            image[slotIndex].noteMode = 3;
-        }
 
 
         //----------------------------------------------------------------------------------------------------------//
@@ -237,17 +246,17 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
         //----------------------------------------------------------------------------------------------------------//
 
         //This is known in the UI as "Key Safety"
+
+        QMap<QString, int> keySafetyMap;
+        keySafetyMap["SingleKey"] = 1;      // backwards compatibility needs no spaces when reading legacy json
+        keySafetyMap["MultiKey"] = 0;
+        keySafetyMap["Single Key"] = 1;     // current qComboBox values have spaces
+        keySafetyMap["Multi Key"] = 0;
+
         QString keySafety = currentPreset.value("settings_key_safety_mode").toString();
 
-        if(keySafety == "SingleKey")
-        {
-            image[slotIndex].footMode = 1;
-        }
-
-        else if(keySafety == "MultiKey")
-        {
-            image[slotIndex].footMode = 0;
-        }
+        image[slotIndex].footMode = keySafetyMap.value(keySafety, 0); // Default to 0 if not found
+        qDebug() << "imageFormatter - footMode = " << image[slotIndex].footMode;
 
 
         //----------------------------------------------------------------------------------------------------------//
@@ -367,9 +376,21 @@ void ImageFormatter::formatSettings(QVariantMap settingsMap)
     //---- Input Settings
     //Global Sensitivity
     settings.input_settings.GlobalSensitivity = toFixedPt(settingsMap.value("globalSensitivity").toDouble()); //JSON value set here, use conversion below
+    qDebug() << "settings.input_settings.GlobalSensitivity: " << settings.input_settings.GlobalSensitivity.whole;
 
     //Select Sensitivity
-    settings.input_settings.SelectSensitivity = (int) (settingsMap.value("selectSensitivity").toDouble() * 100); //JSON value set here, use conversion below
+    //settings.input_settings.SelectSensitivity = (int) (settingsMap.value("selectSensitivity").toDouble() * 100); //JSON value set here, use conversion below
+    settings.input_settings.SelectSensitivity = settingsMap.value("selectSensitivity").toInt();
+    qDebug() << "settings.input_settings.SelectSensitivity: " << settings.input_settings.SelectSensitivity;
+
+    //Backlight Brightness
+    settings.keyL_brightness = (int) (settingsMap.value("backlightBrightness").toInt()); //JSON value set here, use conversion below
+    qDebug() << "settings.keyL_brightness: " << settings.keyL_brightness;
+
+    // expression pedal defaults
+    settings.pedal_calibration.heel = 20;
+    settings.pedal_calibration.toe = 230;
+    settings.pedal_calibration.table = 0;
 
     //On Threshold
     settings.input_settings.onThreshold = 10;

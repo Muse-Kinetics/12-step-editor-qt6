@@ -43,6 +43,7 @@ public:
     bool eventFilter(QObject *, QEvent *);
 
     bool repopulating;
+    unsigned char getNumberOfPresetsInSetlist();
 
     Ui::setlistForm *setlistForm;
 

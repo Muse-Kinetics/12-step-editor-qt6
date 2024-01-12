@@ -114,6 +114,7 @@ QSlider::sub-page:vertical
 	background: rgb(169, 169, 169);
 }
 
+
 /*-----HORIZONTAL-----*/
 
 QSlider::groove:horizontal
@@ -129,12 +130,13 @@ QSlider::handle:horizontal
 	
 }
 
-QSlider::sub-page:horizontal
+
+QSlider::add-page:horizontal
 {
 	background: rgb(89, 89, 89);
 }
 
-QSlider::add-page:horizontal
+QSlider::sub-page:horizontal
 {
 	background: rgb(169, 169, 169);
 }
@@ -150,7 +152,7 @@ QSlider::add-page:horizontal
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing QuNexus settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing 12 Step settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -483,7 +485,7 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <number>1</number>
    </property>
    <property name="maximum">
-    <number>500</number>
+    <number>127</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>

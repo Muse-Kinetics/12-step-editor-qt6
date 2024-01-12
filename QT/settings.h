@@ -57,6 +57,7 @@ signals:
     void signalUpdateMIDIaux();
 
 public slots:
+    void slotEnableUIfor12S2(bool is12s2);
     void slotConnectElements();
     void slotDisconnectElements();
     void slotValueChanged();

@@ -2,7 +2,8 @@
     "Global": {
         "globalSensitivity": 1,
         "midiVolume": 0,
-        "selectSensitivity": 1,
+        "selectSensitivity": 10,
+        "backlightBrightness": 29,
         "velocityOverride": 0
     }
 }

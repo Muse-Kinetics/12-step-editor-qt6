@@ -55,6 +55,8 @@ INCLUDEPATH +=  presetimageformatting \
 
 
 SOURCES += main.cpp\
+    globalVars.c \
+    inc/KMI_KMDM/KMI_SysexMessages.c \
     inc/KMI_KMDM/KMI_mdm.cpp \
     inc/KMI_KMDM/fwupdate/fwupdate.cpp \
     inc/KMI_KMDM/troubleshoot/troubleshoot.cpp \
@@ -88,6 +90,7 @@ SOURCES += main.cpp\
     userdialog.cpp
 
 HEADERS  += mainwindow.h \
+    globalVars.h \
     inc/KMI_KMDM/KMI_DevData.h \
     inc/KMI_KMDM/KMI_FwVersions.h \
     inc/KMI_KMDM/KMI_SysexMessages.h \

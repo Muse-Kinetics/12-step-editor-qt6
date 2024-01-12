@@ -39,15 +39,12 @@ enum {SA_TYPE_PRESET_IMAGE,SA_TYPE_PRESET_SET,SA_TYPE_SETTINGS,SA_TYPE_STANDALON
 
 
 typedef struct {
-        unsigned short type;
+        unsigned short type; // the type of standalone packet, ie SA_TYPE_SETTINGS
         union {
                 struct {unsigned char format,reserved[2],num_presets;} PACK_INLINE preset_info;
-                struct {unsigned char read,num,val;} PACK_INLINE pin_info;
-                struct {unsigned char read,num,io,analog,write;} PACK_INLINE port_info;
-                unsigned char scan_onoff;
+                unsigned char settings_format;
                 unsigned char preset_num;
                 struct {unsigned char state,save;} onoff;
-                unsigned char settings_format;
         } u;
 } PACK_INLINE STANDALONE_INFO;
 

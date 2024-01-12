@@ -14,6 +14,15 @@ GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessio
     sessionSettings = _sessionSettings;
     slotSetJSONPath();
     slotReadSettings();
+
+    // double check that 12Step2 settings are loaded
+    if (settings.contains("backlightBrightness") == false)
+    {
+        qDebug() << "global settings: backlightBrightness entry missing, setting to default";
+        slotStoreSettings("backlightBrightness", 29);
+        slotWriteSettings();
+    }
+
     //slotWriteDefaultSettings();
     //slotRecallSettings();
 }
@@ -39,7 +48,7 @@ void GlobalPresetInterface::slotReadSettings()
         QJsonDocument jsonDoc = QJsonDocument::fromJson(settingsByteArray);
         settings = jsonDoc.toVariant().toMap();
     }
-    else
+    else // this shouldn't ever happen now that mainwindow.cpp loads factory defaults if the files are missing
     {
         qDebug() << "Settings JSON: " << jsonPath;
         qFatal("WARNING: Settings JSON not found");
@@ -79,9 +88,9 @@ void GlobalPresetInterface::slotWriteDefaultSettings()
 void GlobalPresetInterface::slotConstructSettingsDefaultMap()
 {
     defaultGlobalMap["globalSensitivity"] = 1.0;
-    defaultGlobalMap["selectSensitivity"] = 1.0;
+    defaultGlobalMap["selectSensitivity"] = 10;
+    defaultGlobalMap["backlightBrightness"] = 29;
     defaultGlobalMap["velocityOverride"] = 0;
-    //defaultGlobalMap["backlighting"] = true;
     defaultGlobalMap["midiVolume"] = 0;
 }
 

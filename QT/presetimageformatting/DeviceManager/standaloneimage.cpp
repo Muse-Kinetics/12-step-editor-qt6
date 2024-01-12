@@ -545,7 +545,8 @@ void StandaloneImage::inputSettingsItemCheck()
 
     if (scanCompareChild("Select_Sensitivity")){
 
-        input->SelectSensitivity = (70 * (100 - itemInt()) ) / 100 + 30;
+        //input->SelectSensitivity = (70 * (100 - itemInt()) ) / 100 + 30;
+        input->SelectSensitivity = itemInt();
         qDebug("************** setting SelectSensigivity[%d]  *******************",input->SelectSensitivity);
     }
 

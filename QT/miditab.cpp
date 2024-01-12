@@ -5,6 +5,7 @@
 #include "miditab.h"
 #include <QApplication>
 #include <QLabel>
+#include "globalVars.h"
 
 MidiTab::MidiTab(QWidget *parent) :
     QWidget(parent),
@@ -52,18 +53,10 @@ MidiTab::MidiTab(QWidget *parent) :
         connect(modline[i], SIGNAL(signalUpdateDestinationsOnChange(int,QString)), this, SLOT(slotChangeDestMenus(int,QString)));
     }
 
-    //put radio buttons in correct groups
-    keySafety.addButton(midiTabForm->keySafetyMultiKey, 0);
-    keySafety.addButton(midiTabForm->keySafetySingleKey, 1);
-    noteMode.addButton(midiTabForm->noteModeHold, 0);
-    noteMode.addButton(midiTabForm->noteModeLegato, 1);
-    noteMode.addButton(midiTabForm->noteModeToggle, 2);
-    noteMode.addButton(midiTabForm->noteModeNormal, 3);
-
     foreach (SelectAllSpinBox *spinbox, this->findChildren<SelectAllSpinBox *>())
     {
         spinbox->installEventFilter(this);
-    }
+    }  
 }
 
 bool MidiTab::eventFilter(QObject *obj, QEvent *event)
@@ -118,6 +111,20 @@ void MidiTab::slotTabView(int tabIndex)
     }
 }
 
+void MidiTab::slotEnableUIfor12S2(bool is12s2)
+{
+    if (is12s2)
+    {
+        midiTabForm->settings_cv1->setDisabled(false);
+        midiTabForm->settings_cv2->setDisabled(false);
+    }
+    else // 12s1, disable unused features
+    {
+        midiTabForm->settings_cv1->setDisabled(true);
+        midiTabForm->settings_cv2->setDisabled(true);
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////// Saving & Recalling /////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -138,15 +145,11 @@ void MidiTab::slotConnectElements()
     connect(midiTabForm->voice_b_programchange, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_b_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
-    //note mode
-    connect(midiTabForm->noteModeNormal, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->noteModeLegato, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->noteModeToggle, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->noteModeHold, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-
-    //key safety
-    connect(midiTabForm->keySafetyMultiKey, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->keySafetySingleKey, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
+    //settings
+    connect(midiTabForm->settings_cv1, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_cv2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_key_safety_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_note_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 }
 
 void MidiTab::slotDisconnectElements()
@@ -165,15 +168,11 @@ void MidiTab::slotDisconnectElements()
     disconnect(midiTabForm->voice_b_programchange, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_b_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
-    //note mode
-    disconnect(midiTabForm->noteModeNormal, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->noteModeLegato, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->noteModeToggle, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->noteModeHold, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-
-    //key safety
-    disconnect(midiTabForm->keySafetyMultiKey, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->keySafetySingleKey, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
+    //settings
+    disconnect(midiTabForm->settings_cv1, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_cv2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_key_safety_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_note_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 }
 
 void MidiTab::slotValueChanged()
@@ -201,25 +200,13 @@ void MidiTab::slotValueChanged()
                 }
             }
         }
-        else if(sender->metaObject()->className() == QString("QRadioButton"))
+        else if(sender->metaObject()->className() == QString("QComboBox"))
         {
-            QRadioButton* radiobutton = qobject_cast<QRadioButton *>(sender);
-            if(radiobutton->objectName().contains("noteMode"))
-            {
-                jsonName = "settings_note_mode";
-                QString obj = radiobutton->objectName();
-                qDebug() << obj.mid(8);
-                value = obj.mid(8);
-            }
-            else
-            {
-                jsonName = "settings_key_safety_mode";
-                QString obj = radiobutton->objectName();
-                qDebug() << obj.mid(9);
-                value = obj.mid(9);
-            }
-        }
 
+            QComboBox* comboBox = qobject_cast<QComboBox *>(sender);
+            value = comboBox->currentText(); // something something everything in json needs to be human text readable and we never use enums grumble grumble
+            qDebug() << "MidiTab combobox: " << comboBox << " value: " << value;
+        }
         emit signalStoreValue(jsonName, value, -1);
     }
     emit signalCheckSavedState();
@@ -243,35 +230,33 @@ void MidiTab::slotRecallPreset(QVariantMap preset, QVariantMap)
     midiTabForm->voice_b_programchange->setValue(preset.value(midiTabForm->voice_b_programchange->objectName()).toInt());
     midiTabForm->voice_b_transpose->setValue(preset.value(midiTabForm->voice_b_transpose->objectName()).toInt());
 
+    //cv
+    QString cv1 = preset.value("settings_cv1", "Default (Gate)").toString();
+    midiTabForm->settings_cv1->setCurrentText(cv1);
+
+    QString cv2 = preset.value("settings_cv2", "Default (Pitch)").toString();
+    midiTabForm->settings_cv2->setCurrentText(cv2);
+
     //note mode
     QString noteMode = preset.value("settings_note_mode").toString();
-    if(noteMode == "Normal")
-    {
-        midiTabForm->noteModeNormal->setChecked(true);
-    }
-    else if(noteMode == "Legato")
-    {
-        midiTabForm->noteModeLegato->setChecked(true);
-    }
-    else if(noteMode == "Toggle")
-    {
-        midiTabForm->noteModeToggle->setChecked(true);
-    }
-    else if(noteMode == "Hold")
-    {
-        midiTabForm->noteModeHold->setChecked(true);
-    }
+    midiTabForm->settings_note_mode->setCurrentText(noteMode);
 
     //key safety
     QString keySafety = preset.value("settings_key_safety_mode").toString();
+
+    qDebug() << "Recall preset - settings_key_safety_mode json value: " << keySafety;
+    // fix old values
     if(keySafety == "SingleKey")
     {
-        midiTabForm->keySafetySingleKey->setChecked(true);
+        keySafety = "Single Key";
     }
-    else if(keySafety == "MultiKey")
+    if(keySafety == "MultiKey")
     {
-        midiTabForm->keySafetyMultiKey->setChecked(true);
+        keySafety = "Multi Key";
     }
+    qDebug() << "Recall preset - settings_key_safety_mode fixed value: " << keySafety;
+
+    midiTabForm->settings_key_safety_mode->setCurrentText(keySafety);
 
     slotConnectElements();
 

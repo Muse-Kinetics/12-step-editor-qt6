@@ -6,29 +6,27 @@
 #include <QWidget>
 #include <QCoreApplication>
 #include "KMI_FwVersions.h"
-#include "inc/KMI_Updates/kmi_updates.h"
-
+#include "kmi_updates.h"
+#include "globalVars.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+
+    disableWidget(new QWidget(this)),
+    saveAsDialogWidget(new QWidget(this)),
+    deleteDialogWidget(new QWidget(this)),
+    aboutDialogWidget(new QWidget(this)),
+    importOldDialogWidget(new QWidget(this)),
+    importOldNotFoundDialogWidget(new QWidget(this)),
+
     ui(new Ui::MainWindow),
 
     saveAsDialogForm(new Ui::saveAsDialogForm),
     deleteDialogForm(new Ui::deleteDialogForm),
     aboutDialogForm(new Ui::aboutDialogForm),
     importOldFoundDialogForm(new Ui::importOldFoundDialog),
+    importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog)
 
-    importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog),
-
-    saveAsDialogWidget(new QWidget(this)),
-    deleteDialogWidget(new QWidget(this)),
-    aboutDialogWidget(new QWidget(this)),
-    disableWidget(new QWidget(this)),
-    importOldDialogWidget(new QWidget(this)),
-    importOldNotFoundDialogWidget(new QWidget(this)),
-
-    copyPasteHandler(new CopyPasteHandler(presetInterface, this)),
-    importExportHandler(new ImportExportHandler(presetInterface, this))
 {
     //plist stuff
     QCoreApplication::setApplicationName("12 Step Editor");
@@ -78,22 +76,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // create KMI device handlers
     // ******************************
 
-    TwelveStep = new MidiDeviceManager(this, PID_12STEP, "12Step", kmiPorts);
-
-    // setup firmware image
-    QString thisFwFile = QString(":/resources/firmware/12Step_Firmware_v%1.%2.%3.syx")
-            .arg(uchar(thisFw.at(0)))
-            .arg(uchar(thisFw.at(1)))
-            .arg(uchar(thisFw.at(2)));
-
-
-    if (!TwelveStep->slotOpenFirmwareFile(thisFwFile))
-    {
-        qDebug() << "ERROR - firmware file not found: " << thisFwFile;
-        UserDialog firmwareError("ERROR - firmware file not found! Please re-install the application.", {"Exit"});
-        firmwareError.exec();
-        QCoreApplication::quit();
-    }
+    TwelveStep = new MidiDeviceManager(this, PID_12STEP2, "12Step", kmiPorts);
 
     // setup MIDI aux output
     midiTHRU = new MidiDeviceManager(this, PID_AUX, "MIDI Thru", kmiPorts);
@@ -266,6 +249,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 void MainWindow::windowHasLoaded()
 {
     if (qApp->activeWindow()) {
@@ -275,6 +259,38 @@ void MainWindow::windowHasLoaded()
         QTimer::singleShot(1000, this, &MainWindow::windowHasLoaded);
         return;
     }
+
+
+    // setup bootloader/firmware images
+    qDebug() << "\n------------ [FIRMWARE SETUP] ---------------------------------------------------";
+
+    QString thisBlFile = QString(":/resources/firmware/12Step99-TrojanBootloader.syx");
+    qDebug() << "thisBlFile: " << thisBlFile;
+
+    if (!TwelveStep->slotOpenBootloaderFile(thisBlFile))
+    {
+        UserDialog bootloaderDialog("Error: Bootloader file not found!\n\nPlease re-install the 12 Step editor.", {"EXIT"});
+        bootloaderDialog.exec();
+        // exit application
+        std::exit(2);
+        QCoreApplication::exit(2);
+    }
+
+    // setup firmware image
+    QString thisFwFile = QString(":/resources/firmware/12Step_Firmware_v%1.%2.%3.syx")
+            .arg(uchar(thisFw.at(0)))
+            .arg(uchar(thisFw.at(1)))
+            .arg(uchar(thisFw.at(2)));
+
+
+    if (!TwelveStep->slotOpenFirmwareFile(thisFwFile))
+    {
+        qDebug() << "ERROR - firmware file not found: " << thisFwFile;
+        UserDialog firmwareError("ERROR - firmware file not found! Please re-install the application.", {"Exit"});
+        firmwareError.exec();
+        QCoreApplication::quit();
+    }
+
 
     // locate presets, or fail
     if (slotCheckPresets())
@@ -305,8 +321,12 @@ void MainWindow::windowHasLoaded()
 
         qDebug() << "connected aux port";
 
+        qDebug() << "**** Load Preset Interface Interfaces ****";
         presetInterface = new PresetInterface(this, sessionSettings);
         globalPresetInterface = new GlobalPresetInterface(this, sessionSettings);
+
+        copyPasteHandler = new CopyPasteHandler(presetInterface, this);
+        importExportHandler = new ImportExportHandler(presetInterface, this);
 
         qDebug() << "**** Connect Interfaces ****";
         slotConnectInterfaces();
@@ -355,7 +375,7 @@ QString locateFiles(QStringList filesToCheck, QString locationToSearch)
 bool MainWindow::slotCheckPresets()
 {
     bool exitProgram = false;
-    qDebug() << "slotCheckPresets called";
+    qDebug() << "------------ [LOCATE AND LOAD PRESET/JSON DATA] ----------------";
 
     // check preset directory
     if (!sessionSettings->contains("PRESET_DIR"))
@@ -840,10 +860,6 @@ void MainWindow::slotConnectInterfaces()
     connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), troubleshootWindow, SLOT(slotRequestFwUpdate()));
     connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), troubleshootWindow, SLOT(slotFirmwareUpdated(bool)));
 
-    // reset portlist after sending bootloader commands, catch changes to port names
-    //connect(TwelveStep, SIGNAL(signalBeginBlTimer()), this, SLOT(slotRefreshConnection()));
-    //connect(TwelveStep, SIGNAL(signalBeginFwTimer()), this, SLOT(slotRefreshConnection()));
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////// FW Updating Dialogs ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -859,7 +875,7 @@ void MainWindow::slotConnectInterfaces()
     //////////////////////////////////////////////////////////// Preset Updating //////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    connect(&imageFormatter.deviceManager, SIGNAL(sigSysex(unsigned char*, int)), TwelveStep, SLOT(slotSendSysEx(unsigned char*,int)));
+    connect(&imageFormatter.deviceManager, SIGNAL(sigSysex(unsigned char*, int)), TwelveStep, SLOT(slotSendSysEx(unsigned char*, int)));
 
     //send presets on update button click (clean up first)
     connect(ui->update, SIGNAL(clicked()), this, SLOT(slotCleanUpSetlist()));
@@ -1259,6 +1275,19 @@ void MainWindow::slotShowConnection(bool connection)
     //highlight the connected/not connected labels based on the connection state
     if(connected)
     {
+        // adjust ui based on hardware rev
+        bool is12s2 = false;
+
+        if (TwelveStep->PID_MIDI == PID_12STEP2)
+        {
+            is12s2 = true;
+        }
+
+        midiTab->slotEnableUIfor12S2(is12s2);
+        settingsTab->slotEnableUIfor12S2(is12s2);
+
+        // update connection indication
+
 #ifdef Q_OS_MAC
         ui->connected->setStyleSheet("QPushButton {background:transparent;font:18px 'Futura PT'; color:rgba(0, 174, 237, 175);border-radius:0px;}"
                                      "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242)};"
@@ -1317,6 +1346,13 @@ void MainWindow::slotCleanUpSetlist()
 
 void MainWindow::slotSendPresets()
 {
+    unsigned char numPresets = setlistTab->getNumberOfPresetsInSetlist();
+    qDebug() << "slotSendPresets called - numPresets: " << numPresets;
+
+    if (numPresets == 0)
+    {
+        return;
+    }
     //------- Do settings
     slotSendSettings();
 
@@ -1364,6 +1400,7 @@ void MainWindow::slotSendPresets()
 
 void MainWindow::slotSendSettings()
 {
+    qDebug() << "slotSendSettings called";
     ///This Function below does 3 Things:
     /// 1. Assigns json / qvariantmap values to our preset image struct
     /// 2. Uses imageFormatter's DeviceManager to create a SysEx message from our image struct
@@ -1372,7 +1409,7 @@ void MainWindow::slotSendSettings()
     imageFormatter.formatSettings(globalPresetInterface->settings.value("Global").toMap());
 }
 
-// MIDI OVERHAUL --------------------------------------
+// VERSION STRINGS --------------------------------------
 QString MainWindow::deviceBootloaderVersionString()
 {
     return QString("Device Bootloader Version: %1.%2.%3\n\n")
@@ -1399,7 +1436,7 @@ QString MainWindow::applicationFirmwareVersionString()
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
 }
-// END MIDI OVERHAUL --------------------------------------
+// END VERSION STRINGS --------------------------------------
 
 
 // --------------------------------------------------------------------------------------
@@ -1415,7 +1452,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     case PORT_CONNECT:
 
         // update dropdown
-        if (inOrOut == PORT_OUT && (portName != TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)) // don't create feedback loop
+        if (inOrOut == PORT_OUT && portName != TWELVESTEP1_OUT_P1 && portName != TWELVESTEP2_OUT_P1) // don't create feedback loop
         {
             settingsTab->midiThru_addItem(portName); // update dropdown
 
@@ -1428,7 +1465,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         }
 
         // **** TwelveStep connect *****************************************
-        if ((portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1) && inOrOut == PORT_IN)
+        if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_IN_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_IN)
         {
             TwelveStep->slotSetExpectedFW(thisFw);
 
@@ -1448,7 +1485,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             }
 
         }
-        else if ((portName == TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1) && inOrOut == PORT_OUT)
+        else if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_OUT)
         {
             if (!TwelveStep->slotUpdatePortOut(portNum))
             {
@@ -1496,7 +1533,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             TwelveStep->slotCloseMidiOut(SIGNAL_SEND);
             TwelveStep->pollingStatus = false;
         }
-        else if (inOrOut == PORT_OUT && (portName == TWELVESTEP_OUT_P1 || portName == TWELVESTEP_OLD_OUT_P1) )
+        else if (inOrOut == PORT_OUT && (portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) )
         {
             troubleshootWindow->slotConnected(false);
             ui->connected->setText("Not Connected");
@@ -1508,11 +1545,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
 
         // **** TwelveStep renumber ****************************************
-        if ((portName == TWELVESTEP_OLD_IN_P1 || portName == TWELVESTEP_IN_P1) && inOrOut == PORT_IN)
+        if (portName == TwelveStep->portName_in && inOrOut == PORT_IN)
         {
             TwelveStep->slotUpdatePortIn(portNum);
         }
-        else if ((portName == TWELVESTEP_OLD_OUT_P1 || portName == TWELVESTEP_OUT_P1)&& inOrOut == PORT_OUT)
+        else if (portName == TwelveStep->portName_out && inOrOut == PORT_OUT)
         {
             TwelveStep->slotUpdatePortOut(portNum);
         }
@@ -1521,16 +1558,6 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     default:
         break;
     }
-}
-
-// close and then reopen the TwelveStep ports
-// this is needed when the bootloader and app port names do not match
-void MainWindow::slotRefreshConnection()
-{
-    qDebug() << "slotRefreshConnection called";
-//#ifdef Q_OS_MAC
-    //TwelveStep->slotResetConnections(TWELVESTEP_OLD_IN_P1, TWELVESTEP_OLD_IN_P1);
-//#endif
 }
 
 
@@ -1591,9 +1618,6 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
     if (matches)
     {
         qDebug() << "FirmwareMatch: " << thisMDM->PID << "name:" << thisMDM->deviceName;
-
-        // EB TODO: this is a temporary cluge to make the editor work with old, non-bootloader firmware. Remove when fw1.0.0 is out
-        TwelveStep->bootloaderMode = false;
     }
     else
     {
@@ -1609,9 +1633,6 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
         fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString());
 
         fwUpdateWindow->show();
-
-        // EB TODO: this is a temporary cluge to make the editor work with old, non-bootloader firmware. Remove when fw1.0.0 is out
-        TwelveStep->bootloaderMode = true;
     }
 }
 

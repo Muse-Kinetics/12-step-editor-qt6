@@ -7,11 +7,11 @@
 this_year=2022
 app_name="12 Step Editor"
 app_name_fp=12\ Step\ Editor
-version=2.1.0
+version=2.1.1
 
 bundle_name=12StepEditor
 bundle_id="com.keithmcmillen.$bundle_name"
-app_source="../build-12StepEditor-Qt_6_3_1_for_macOS-Release/$app_name.app"
+app_source="../build-12StepEditor-Qt_6_3_2_for_macOS-Release/$app_name.app"
 app_qml_dir="../QT/"
 dmg_path=./dmg
 dmg_bg="$dmg_path/background.tiff"
@@ -20,7 +20,7 @@ subfolder_path="./dmg/$app_name"
 changelog_source="../CHANGELOG.md"
 changelog_dest="$subfolder_path/CHANGELOG.md"
 app_path="$subfolder_path/$app_name.app"
-path_to_dqt=~/Qt/6.3.1/macos/bin/macdeployqt
+path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
 developer_id="Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})"
 final_dmg_name="./$app_name Mac v$version.dmg"
 
@@ -148,7 +148,7 @@ create-dmg \
 # echo
 # read -n 1 -s -r -p ""
 
-rm "$dmg_path/SoftStem/Icon^M"
+rm "$dmg_path/12Step/Icon^M"
 
 echo ""
 echo "### - Clean dmg attributes..."

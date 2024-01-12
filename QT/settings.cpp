@@ -6,13 +6,15 @@
 
 Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent),
-    settingsForm(new Ui::settingsForm),
-    settingsWidget(new QWidget(this))
+    settingsWidget(new QWidget(this)),
+    settingsForm(new Ui::settingsForm)
+
 {
     sessionSettings = _sessionSettings;
 
-    saveSettingsTimeout = new QTimer(this);
     this->setObjectName("Settings");
+
+    saveSettingsTimeout = new QTimer(this);
     connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
     saveSettingsTimeoutTime = 0;
 
@@ -28,6 +30,23 @@ Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
     slotConnectElements();
 }
 
+void Settings::slotEnableUIfor12S2(bool is12s2)
+{
+    if (is12s2)
+    {
+        settingsForm->backlightBrightness->setDisabled(false);
+        settingsForm->backlightBrightness->setStyleSheet("");
+    }
+    else // 12s1, disable unused features
+    {
+        settingsForm->backlightBrightness->setDisabled(true);
+        settingsForm->backlightBrightness->setValue(29);
+        settingsForm->backlightBrightness->setStyleSheet("QSlider::sub-page:horizontal{background: rgb(170, 170, 170) }"
+                                                         "QSlider::add-page:horizontal{background: rgb(170, 170, 170)}"
+                                                         "QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}");
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////// SAVING & RECALLING //////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +55,7 @@ void Settings::slotConnectElements()
 {
     connect(settingsForm->globalSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(settingsForm->selectSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(settingsForm->backlightBrightness, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
     connect(settingsForm->resetGlobal, SIGNAL(clicked()), this, SLOT(slotResetGlobalSensitivity()));
     connect(settingsForm->resetSelect, SIGNAL(clicked()), this, SLOT(slotResetSelectSensitivity()));
@@ -51,6 +71,7 @@ void Settings::slotDisconnectElements()
 {
     disconnect(settingsForm->globalSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->selectSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(settingsForm->backlightBrightness, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
     disconnect(settingsForm->resetGlobal, SIGNAL(clicked()), this, SLOT(slotResetGlobalSensitivity()));
     disconnect(settingsForm->resetSelect, SIGNAL(clicked()), this, SLOT(slotResetSelectSensitivity()));
@@ -81,8 +102,16 @@ void Settings::slotValueChanged()
         {
             QSlider *slider = reinterpret_cast<QSlider *>(QObject::sender());
             jsonName = slider->objectName();
-            double gain = slider->value() * 0.01;
-            value = gain;
+            if (jsonName == "globalSensitivity")
+            {
+                double gain = slider->value() * 0.01;
+                value = gain;
+            }
+            else
+            {
+                value = slider->value();
+            }
+
 
             qDebug() << jsonName << " value changed: " << value;
         }
@@ -105,7 +134,7 @@ void Settings::slotValueChanged()
         emit signalStoreValue(jsonName, value);
     }
 
-    emit signalSettingsDirty();
+    //emit signalSettingsDirty();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -121,6 +150,7 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
             QString objectName = widget->objectName();
             int gain = preset.value(objectName).toDouble() * 100;
             slider->setValue(gain);
+            qDebug() << "settings update from slotRecallPreset - objectName: " << objectName << " gain: " << gain;
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
@@ -137,8 +167,8 @@ void Settings::slotSaveSettingsTimeout()
 {
     saveSettingsTimeoutTime++;
 
-    //if 0.5s have elapsed since last value was changed
-    if(saveSettingsTimeoutTime > 500)
+    //if x ms have elapsed since last value was changed
+    if(saveSettingsTimeoutTime > 10)
     {
         //save settings
         //slotWriteSettings();
@@ -159,7 +189,7 @@ void Settings::slotResetGlobalSensitivity()
 
 void Settings::slotResetSelectSensitivity()
 {
-    settingsForm->selectSensitivity->setValue(100);
+    settingsForm->selectSensitivity->setValue(10);
 }
 
 // wrappers for midiThru - overwrought workaround for access violation on windows
