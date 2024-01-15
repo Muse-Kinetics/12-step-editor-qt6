@@ -520,9 +520,11 @@ void StandaloneImage::voiceItemCheck()
         return;
 
     if (scanCompareChild("Bank"))
-        voice->bank = itemInt();
-    if (scanCompareChild("Bend_Range"))
-        voice->bendRange = toFixedPt( (double) itemInt() / 12.0);
+        voice->bankLSB = itemInt();
+    if (scanCompareChild("BankMSB"))
+        voice->bankMSB = itemInt();
+//    if (scanCompareChild("Bend_Range"))
+//        voice->bendRange = toFixedPt( (double) itemInt() / 12.0);
     if (scanCompareChild("Channel"))
         voice->channel = itemInt();
     //    if (scanCompareChild("Note_Mode"))
@@ -531,8 +533,8 @@ void StandaloneImage::voiceItemCheck()
         voice->programChange = itemInt();
     if (scanCompareChild("Transpose"))
         voice->transpose = itemInt();
-    if (scanCompareChild("Enable_Program_Change"))
-        voice->programChangeEnable = itemInt();
+//    if (scanCompareChild("Enable_Program_Change"))
+//        voice->programChangeEnable = itemInt();
 
 }
 void StandaloneImage::inputSettingsItemCheck()

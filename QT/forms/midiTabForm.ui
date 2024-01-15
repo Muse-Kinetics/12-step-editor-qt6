@@ -375,7 +375,7 @@ QToolButton:pressed
     <number>-1</number>
    </property>
   </widget>
-  <widget class="SelectAllSpinBox" name="voice_a_bank">
+  <widget class="SelectAllSpinBox" name="voice_a_bank_msb">
    <property name="geometry">
     <rect>
      <x>153</x>
@@ -409,7 +409,7 @@ QToolButton:pressed
     <number>-1</number>
    </property>
   </widget>
-  <widget class="SelectAllSpinBox" name="voice_b_bank">
+  <widget class="SelectAllSpinBox" name="voice_b_bank_msb">
    <property name="geometry">
     <rect>
      <x>221</x>
@@ -441,74 +441,6 @@ QToolButton:pressed
    </property>
    <property name="value">
     <number>-1</number>
-   </property>
-  </widget>
-  <widget class="SelectAllSpinBox" name="voice_a_bend_range">
-   <property name="geometry">
-    <rect>
-     <x>153</x>
-     <y>123</y>
-     <width>41</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Sets the Pitch Bend range (in semitones) of Voice A.</string>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="specialValueText">
-    <string/>
-   </property>
-   <property name="minimum">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <number>12</number>
-   </property>
-   <property name="value">
-    <number>1</number>
-   </property>
-  </widget>
-  <widget class="SelectAllSpinBox" name="voice_b_bend_range">
-   <property name="geometry">
-    <rect>
-     <x>221</x>
-     <y>123</y>
-     <width>41</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Sets the Pitch Bend range (in semitones) of Voice B.</string>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="specialValueText">
-    <string/>
-   </property>
-   <property name="minimum">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <number>12</number>
-   </property>
-   <property name="value">
-    <number>1</number>
    </property>
   </widget>
   <widget class="SelectAllSpinBox" name="voice_a_transpose">
@@ -610,12 +542,12 @@ QToolButton:pressed
     <rect>
      <x>37</x>
      <y>93</y>
-     <width>31</width>
+     <width>81</width>
      <height>26</height>
     </rect>
    </property>
    <property name="text">
-    <string>Bank</string>
+    <string>Bank MSB</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
@@ -628,7 +560,7 @@ QToolButton:pressed
     </rect>
    </property>
    <property name="text">
-    <string>Bend Range</string>
+    <string>Bank LSB</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -1075,6 +1007,74 @@ QComboBox::down-arrow
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="SelectAllSpinBox" name="voice_a_bank">
+   <property name="geometry">
+    <rect>
+     <x>153</x>
+     <y>123</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="specialValueText">
+    <string>off</string>
+   </property>
+   <property name="minimum">
+    <number>-1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="value">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="SelectAllSpinBox" name="voice_b_bank">
+   <property name="geometry">
+    <rect>
+     <x>221</x>
+     <y>123</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="specialValueText">
+    <string>off</string>
+   </property>
+   <property name="minimum">
+    <number>-1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="value">
+    <number>-1</number>
    </property>
   </widget>
  </widget>

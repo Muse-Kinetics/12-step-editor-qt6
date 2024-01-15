@@ -58,6 +58,7 @@ void GlobalPresetInterface::slotReadSettings()
 
 void GlobalPresetInterface::slotWriteSettings()
 {
+    qDebug() << "globalpresetinerface slotWriteSettings called";
     //load json into QFile
     QFile *jsonFile = new QFile(jsonPath);
 
@@ -100,6 +101,7 @@ void GlobalPresetInterface::slotConstructSettingsDefaultMap()
 
 void GlobalPresetInterface::slotStoreSettings(QString name, QVariant value)
 {
+    qDebug() << "globalpresetinterface slotStoreSettings called - name: " << name << " value: " << value;
     QVariantMap globalMap = settings.value(QString("Global")).toMap();
     globalMap.insert(name, value);
     settings.insert(QString("Global"), globalMap);

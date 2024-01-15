@@ -15,8 +15,10 @@
 #include "KMI_mdm.h"
 #include "RtMidi.h"
 #include "KMI_DevData.h"
+#include <pedalcal.h>
 #include <fwupdate.h>
 #include <troubleshoot.h>
+
 #include "kmi_updates.h"
 #include "userdialog.h"
 
@@ -46,6 +48,10 @@
 #include "ui_importOldFoundFormWin.h"
 #include "ui_importOldNotFoundFormWin.h"
 #endif
+
+#include "ui_pedalcal.h"
+
+
 
 namespace Ui {
 class MainWindow;
@@ -92,6 +98,7 @@ public:
 
     fwUpdate* fwUpdateWindow;
     troubleshoot* troubleshootWindow;
+    pedalCal* pedalCalWindow;
 
     //----------------------------------- Stylesheets
     // General
@@ -134,6 +141,7 @@ public:
     QWidget *aboutDialogWidget;
     QWidget *importOldDialogWidget;
     QWidget *importOldNotFoundDialogWidget;
+    QWidget *pedalCalWidget;
 //    QWidget *fwoodDialogWidget;
 //    QWidget *fwUpdateCompleteDialogWidget;
 //    QWidget *fwProgressDialogWidget;
@@ -141,6 +149,9 @@ public:
     //Menubar
     QMenuBar *menubar;
     QList<QAction *> actionList;
+
+    // hardware menu
+    QAction *openPedalCalibration;
     QAction *updateFirmwareAct;
 
     QAction *exportPreset;
@@ -216,6 +227,9 @@ public slots:
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);
     void slotUpdateMIDIaux();
     void slotRecallMIDIaux();
+    void slotEnableTether();
+    void slotDisableTether();
+    void slotProcessNRPN(uchar, int, int);
 
     // ------ end midi overhaul --------------------------------------------------------
 
@@ -267,7 +281,7 @@ private:
     Ui::aboutDialogForm         *aboutDialogForm;
     Ui::importOldFoundDialog    *importOldFoundDialogForm;
     Ui::importOldNotFoundDialog *importOldNotFoundDialoglForm;
-
+    Ui::pedalCal                *pedalCalForm;
 };
 
 #endif // MAINWINDOW_H

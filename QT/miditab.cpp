@@ -133,14 +133,14 @@ void MidiTab::slotConnectElements()
 {
     //voice a
     connect(midiTabForm->voice_a_bank, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->voice_a_bend_range, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->voice_a_bank_msb, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_a_channel, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_a_programchange, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_a_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
     //voice b
     connect(midiTabForm->voice_b_bank, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->voice_b_bend_range, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->voice_b_bank_msb, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_b_channel, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_b_programchange, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->voice_b_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
@@ -156,14 +156,14 @@ void MidiTab::slotDisconnectElements()
 {
     //voice a
     disconnect(midiTabForm->voice_a_bank, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->voice_a_bend_range, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->voice_a_bank_msb, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_a_channel, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_a_programchange, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_a_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
     //voice b
     disconnect(midiTabForm->voice_b_bank, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->voice_b_bend_range, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->voice_a_bank_msb, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_b_channel, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_b_programchange, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->voice_b_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
@@ -218,14 +218,14 @@ void MidiTab::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     //voice a
     midiTabForm->voice_a_bank->setValue(preset.value(midiTabForm->voice_a_bank->objectName()).toInt());
-    midiTabForm->voice_a_bend_range->setValue(preset.value(midiTabForm->voice_a_bend_range->objectName()).toInt());
+    midiTabForm->voice_a_bank_msb->setValue(preset.value(midiTabForm->voice_a_bank_msb->objectName()).toInt());
     midiTabForm->voice_a_channel->setValue(preset.value(midiTabForm->voice_a_channel->objectName()).toInt());
     midiTabForm->voice_a_programchange->setValue(preset.value(midiTabForm->voice_a_programchange->objectName()).toInt());
     midiTabForm->voice_a_transpose->setValue(preset.value(midiTabForm->voice_a_transpose->objectName()).toInt());
 
     //voice b
     midiTabForm->voice_b_bank->setValue(preset.value(midiTabForm->voice_b_bank->objectName()).toInt());
-    midiTabForm->voice_b_bend_range->setValue(preset.value(midiTabForm->voice_b_bend_range->objectName()).toInt());
+    midiTabForm->voice_b_bank_msb->setValue(preset.value(midiTabForm->voice_b_bank_msb->objectName()).toInt());
     midiTabForm->voice_b_channel->setValue(preset.value(midiTabForm->voice_b_channel->objectName()).toInt());
     midiTabForm->voice_b_programchange->setValue(preset.value(midiTabForm->voice_b_programchange->objectName()).toInt());
     midiTabForm->voice_b_transpose->setValue(preset.value(midiTabForm->voice_b_transpose->objectName()).toInt());

@@ -462,19 +462,21 @@ void PresetInterface::slotConstructDefaultMap()
 
 
     //voice a settings
-    defaultPresetMap["voice_a_bank"] = 0;
-    defaultPresetMap["voice_a_bend_range"] = 2;
+    defaultPresetMap["voice_a_bank"] = -1;
+    //defaultPresetMap["voice_a_bend_range"] = 2;
+    defaultPresetMap["voice_a_bank_msb"] = -1;
     defaultPresetMap["voice_a_channel"] = 1;
     //defaultPresetMap["voice_a_enable_programchange"] = false;
-    defaultPresetMap["voice_a_programchange"] = 0;
+    defaultPresetMap["voice_a_programchange"] = -1;
     defaultPresetMap["voice_a_transpose"] = 0;
 
     //voice b settings
-    defaultPresetMap["voice_b_bank"] = 0;
-    defaultPresetMap["voice_b_bend_range"] = 2;
+    defaultPresetMap["voice_b_bank"] = -1;
+    //defaultPresetMap["voice_b_bend_range"] = 2;
+    defaultPresetMap["voice_b_bank_msb"] = -1;
     defaultPresetMap["voice_b_channel"] = 2;
     //defaultPresetMap["voice_b_enable_programchange"] = false;
-    defaultPresetMap["voice_b_programchange"] = 0;
+    defaultPresetMap["voice_b_programchange"] = -1;
     defaultPresetMap["voice_b_transpose"] = 0;
 
     //modlines

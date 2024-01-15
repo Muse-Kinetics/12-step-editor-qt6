@@ -9,8 +9,8 @@
 #include <QTextStream>
 
 #include "sysex.h"
-//#include "midi.h"
-//#include "fwupdate.h"
+#include "midi.h"
+#include "KMI_SysexMessages.h"
 
 
 #define SX_ENCODE_LEN	0x07
@@ -134,14 +134,15 @@ void midi_buffer_put_nulls(int count) {
 void midi_sx_header(void) {
 	message_len = 0;
 	midi_buffer_put_core(MIDI_SX_START);
-	midi_buffer_put_core(0x00);
-        midi_buffer_put_core(0x01);
-        midi_buffer_put_core(0x55);
-	midi_buffer_put_core(0x7a);
-        midi_buffer_put_core(20); // product id
+    midi_buffer_put_core(kmi_id_1);
+    midi_buffer_put_core(kmi_id_2);
+    midi_buffer_put_core(kmi_id_3);
+    midi_buffer_put_core(0); // MIDI PID MSB
+    midi_buffer_put_core(PID_12STEP1); // MIDI PID LSB
 	midi_buffer_put_core(0x00); // format
 	midi_buffer_put_nulls(10);
 }
+
 void midi_sx_close(void) {
 	midi_buffer_put_core(MIDI_SX_STOP);
 }

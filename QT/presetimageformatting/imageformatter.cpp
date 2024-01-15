@@ -50,38 +50,42 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
         //----------------------------------------------------------------------------------------------------------//
 
         //---- Voice Settings A
-        image[slotIndex].voiceA.bank = currentPreset.value("voice_a_bank").toInt();
-        image[slotIndex].voiceA.bendRange = toFixedPt(currentPreset.value("voice_a_bend_range").toDouble());
+        image[slotIndex].voiceA.bankLSB = currentPreset.value("voice_a_bank").toInt();
+        image[slotIndex].voiceA.bankMSB = currentPreset.value("voice_a_bank_msb").toInt();
+        //image[slotIndex].voiceA.bendRange = toFixedPt(currentPreset.value("voice_a_bend_range").toDouble());
         image[slotIndex].voiceA.channel = currentPreset.value("voice_a_channel").toInt();
         image[slotIndex].voiceA.programChange = currentPreset.value("voice_a_programchange").toInt();
 
-        //we actually disable/enable program change using an off state in the number box
+        //prior to 12Step2 we disabled/enabled program change using an off state in the number box. Now the firmware
+        //recognizes -1 as disabling bank and program change messages
         //image[slotIndex].voiceA.programChangeEnable = currentPreset.value("voice_a_enable_programchange").toInt();
-        if(image[slotIndex].voiceA.programChange == -1)
-        {
-            image[slotIndex].voiceA.programChangeEnable = false;
-        }
-        else
-        {
-            image[slotIndex].voiceA.programChangeEnable = true;
-        }
+//        if(image[slotIndex].voiceA.programChange == -1)
+//        {
+//            image[slotIndex].voiceA.programChangeEnable = false;
+//        }
+//        else
+//        {
+//            image[slotIndex].voiceA.programChangeEnable = true;
+//        }
+
         image[slotIndex].voiceA.transpose = currentPreset.value("voice_a_transpose").toInt();
 
         //---- Voice Settings B
-        image[slotIndex].voiceB.bank = currentPreset.value("voice_b_bank").toInt();
-        image[slotIndex].voiceB.bendRange = toFixedPt(currentPreset.value("voice_b_bend_range").toDouble());
+        image[slotIndex].voiceB.bankLSB = currentPreset.value("voice_b_bank").toInt();
+        image[slotIndex].voiceB.bankMSB = currentPreset.value("voice_b_bank_msb").toInt();
+        //image[slotIndex].voiceB.bendRange = toFixedPt(currentPreset.value("voice_b_bend_range").toDouble());
         image[slotIndex].voiceB.channel = currentPreset.value("voice_b_channel").toInt();
         image[slotIndex].voiceB.programChange = currentPreset.value("voice_b_programchange").toInt();
 
         //image[slotIndex].voiceB.programChangeEnable = currentPreset.value("voice_b_enable_programchange").toInt();
-        if(image[slotIndex].voiceB.programChange == -1)
-        {
-            image[slotIndex].voiceB.programChangeEnable = false;
-        }
-        else
-        {
-            image[slotIndex].voiceB.programChangeEnable = true;
-        }
+//        if(image[slotIndex].voiceB.programChange == -1)
+//        {
+//            image[slotIndex].voiceB.programChangeEnable = false;
+//        }
+//        else
+//        {
+//            image[slotIndex].voiceB.programChangeEnable = true;
+//        }
         image[slotIndex].voiceB.transpose = currentPreset.value("voice_b_transpose").toInt();
 
 
@@ -380,17 +384,42 @@ void ImageFormatter::formatSettings(QVariantMap settingsMap)
 
     //Select Sensitivity
     //settings.input_settings.SelectSensitivity = (int) (settingsMap.value("selectSensitivity").toDouble() * 100); //JSON value set here, use conversion below
-    settings.input_settings.SelectSensitivity = settingsMap.value("selectSensitivity").toInt();
+    settings.input_settings.SelectSensitivity = (int) settingsMap.value("selectSensitivity").toInt();
     qDebug() << "settings.input_settings.SelectSensitivity: " << settings.input_settings.SelectSensitivity;
 
     //Backlight Brightness
     settings.keyL_brightness = (int) (settingsMap.value("backlightBrightness").toInt()); //JSON value set here, use conversion below
     qDebug() << "settings.keyL_brightness: " << settings.keyL_brightness;
 
-    // expression pedal defaults
-    settings.pedal_calibration.heel = 20;
-    settings.pedal_calibration.toe = 230;
-    settings.pedal_calibration.table = 0;
+    // expression pedal calibration
+    //
+    if (settingsMap.value("pedal_calibration_min").isNull() == false)
+    {
+        settings.pedal_calibration.heel = settingsMap.value("pedal_calibration_min").toInt();
+    }
+    else
+    {
+        settings.pedal_calibration.heel = 20; // default
+    }
+
+    if (settingsMap.value("pedal_calibration_max").isNull() == false)
+    {
+        settings.pedal_calibration.toe = settingsMap.value("pedal_calibration_max").toInt();
+    }
+    else
+    {
+        settings.pedal_calibration.toe = 230; // default
+    }
+
+    if (settingsMap.value("pedal_calibration_table").isNull() == false)
+    {
+        settings.pedal_calibration.table = settingsMap.value("pedal_calibration_table").toInt();
+    }
+    else
+    {
+        settings.pedal_calibration.table = 0; // default
+    }
+
 
     //On Threshold
     settings.input_settings.onThreshold = 10;

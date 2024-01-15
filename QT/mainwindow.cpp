@@ -8,6 +8,7 @@
 #include "KMI_FwVersions.h"
 #include "kmi_updates.h"
 #include "globalVars.h"
+#include "KMI_SysexMessages.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutDialogWidget(new QWidget(this)),
     importOldDialogWidget(new QWidget(this)),
     importOldNotFoundDialogWidget(new QWidget(this)),
+    pedalCalWidget(new QWidget(this)),
 
     ui(new Ui::MainWindow),
 
@@ -25,7 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     deleteDialogForm(new Ui::deleteDialogForm),
     aboutDialogForm(new Ui::aboutDialogForm),
     importOldFoundDialogForm(new Ui::importOldFoundDialog),
-    importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog)
+    importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog),
+    pedalCalForm(new Ui::pedalCal)
 
 {
     //plist stuff
@@ -122,6 +125,9 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "Default file save location: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
 
     // MIDI Overhaul and FW Update
+
+    // Pedal Calibration window
+    pedalCalWindow = new pedalCal(this);
 
     // Firmware update Window
     fwUpdateWindow = new fwUpdate(this, "12 Step", applicationFirmwareVersionString());
@@ -674,6 +680,8 @@ void MainWindow::slotConnectInterfaces()
     //---------- Settings
     connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), settingsTab, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
 
+    //---------- Pedal Calibration
+    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), pedalCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap,QVariantMap)));
 
     //--------------------------------------- Parameter Storage
 
@@ -707,6 +715,11 @@ void MainWindow::slotConnectInterfaces()
 
     connect(settingsTab, SIGNAL(signalWriteSettings()), this, SLOT(slotSendSettings()));
 
+    //---------- Pedal Calibration
+    connect(pedalCalWindow, SIGNAL(signalStoreValue(QString,QVariant)), globalPresetInterface, SLOT(slotStoreSettings(QString,QVariant)));
+    connect(pedalCalWindow, SIGNAL(signalSendCalibration()), this, SLOT(slotSendSettings()));
+    connect(pedalCalWindow, SIGNAL(signalSaveCalibration()), globalPresetInterface, SLOT(slotWriteSettings()));
+
     //--------------------------------------- Save, Save As, Revert, Delete
     //save button
     connect(ui->save, SIGNAL(clicked()), presetInterface, SLOT(slotSavePreset()));
@@ -715,9 +728,6 @@ void MainWindow::slotConnectInterfaces()
     //save indicator
     connect(presetInterface, SIGNAL(signalPresetDirty(bool)), this, SLOT(slotDisplaySaveState(bool)));
 
-    //send indicator for global states
-
-    //EB TODO: commented these two out for debug
     connect(setlistTab, SIGNAL(signalSetlistDirty()), this, SLOT(slotShowGlobalDirtyStates()));
     connect(settingsTab, SIGNAL(signalSettingsDirty()), this, SLOT(slotShowGlobalDirtyStates()));
 
@@ -781,6 +791,17 @@ void MainWindow::slotConnectInterfaces()
     connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(raise()));
     connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updateFirmwareAct, SIGNAL(triggered()), this, SLOT(slotForceFirmwareUpdate()));
+
+    connect(openPedalCalibration, SIGNAL(triggered()), disableWidget, SLOT(raise()));
+    connect(openPedalCalibration, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(openPedalCalibration,  SIGNAL(triggered()), pedalCalWidget, SLOT(raise()));
+    connect(openPedalCalibration,  SIGNAL(triggered()), pedalCalWidget, SLOT(show()));
+    connect(openPedalCalibration, SIGNAL(triggered()), pedalCalWindow, SLOT(show()));
+    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), pedalCalWidget, SLOT(hide()));
+    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), disableWidget, SLOT(hide()));
+
+    connect(openPedalCalibration, SIGNAL(triggered()), this, SLOT(slotEnableTether()));
+    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), this, SLOT(slotDisableTether()));
 
     // Help menu connections
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
@@ -859,6 +880,9 @@ void MainWindow::slotConnectInterfaces()
     connect(TwelveStep, SIGNAL(signalFwConsoleMessage(QString)), troubleshootWindow, SLOT(slotAppendToStatusLog(QString)));
     connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), troubleshootWindow, SLOT(slotRequestFwUpdate()));
     connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), troubleshootWindow, SLOT(slotFirmwareUpdated(bool)));
+
+    // NRPNs for pedalCal tether
+    connect(TwelveStep, SIGNAL(signalRxMidi_NRPN(uchar, int, int)), this, SLOT(slotProcessNRPN(uchar, int, int)));
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////// FW Updating Dialogs ////////////////////////////////////////////////////////////////
@@ -1120,6 +1144,12 @@ void MainWindow::slotInitMenuBar()
     hardware->setObjectName("HardwareMenu");
     menubar->addMenu(hardware);
 
+    //pedal calibration
+    openPedalCalibration = new QAction("Calibrate Expression Pedal", hardware);
+    actionList.append(openPedalCalibration);
+    hardware->addAction(openPedalCalibration);
+    openPedalCalibration->setDisabled(true);
+
     //reload firmware
     updateFirmwareAct = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updateFirmwareAct);
@@ -1300,6 +1330,7 @@ void MainWindow::slotShowConnection(bool connection)
         ui->connected->setText("CONNECTED");
         ui->update->setEnabled(true);
         updateFirmwareAct->setDisabled(false);
+        openPedalCalibration->setDisabled(false);
 //        sysexManager->slotSendFwQuery();
         aboutDialogForm->found->setText(deviceFirmwareVersionString());
         troubleshootWindow->slotConnected(true);
@@ -1318,6 +1349,7 @@ void MainWindow::slotShowConnection(bool connection)
         ui->connected->setText("NOT CONNECTED");
         ui->update->setEnabled(false);
         updateFirmwareAct->setDisabled(true);
+        openPedalCalibration->setDisabled(true);
         aboutDialogForm->found->setText("Not Connected");
         troubleshootWindow->slotConnected(false);
     }
@@ -1527,6 +1559,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             ui->connected->setText("Not Connected");
             ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:0px;}"
                                          "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
+            pedalCalWindow->hide();
+            disableWidget->hide();
         }
         else if (inOrOut == PORT_OUT && portName == TwelveStep->portName_out)
         {
@@ -1539,6 +1573,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             ui->connected->setText("Not Connected");
             ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:0px;}"
                                          "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
+            pedalCalWindow->hide();
+            disableWidget->hide();
         }
         break;
     case PORT_CHANGED:
@@ -1680,6 +1716,30 @@ void MainWindow::slotRecallMIDIaux()
 
     settingsTab->midiThru_setCurrentText(recallMidiAuxPortName);
     slotUpdateMIDIaux();
+}
+
+void MainWindow::slotEnableTether()
+{
+    qDebug() << "slotEnableTether called";
+    TwelveStep->slotSendSysEx(_12s_standalone_off, sizeof(_12s_standalone_off));
+    TwelveStep->slotSendSysEx(_12s_tether_on, sizeof(_12s_tether_on));
+}
+
+void MainWindow::slotDisableTether()
+{
+    qDebug() << "slotDisableTether called";
+    TwelveStep->slotSendSysEx(_12s_tether_off, sizeof(_12s_tether_off));
+    TwelveStep->slotSendSysEx(_12s_standalone_on, sizeof(_12s_standalone_on));
+}
+
+void MainWindow::slotProcessNRPN(uchar chan, int nrpn, int val)
+{
+    Q_UNUSED(chan);
+
+    if (nrpn == 86) // 86 == 12 Step expression pedal
+    {
+        pedalCalWindow->slotProcessInput(val);
+    }
 }
 
 void MainWindow::slotOpenTroubleshooting()

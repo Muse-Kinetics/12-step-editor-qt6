@@ -23,8 +23,14 @@ typedef struct {
 
 //---- VOICES
 typedef struct {
-    FIXED_PT bendRange;
-    char bank,channel,programChangeEnable,programChange,transpose;
+    // FIXED_PT bendRange;             // Bend range (FIXED_PT type) (deprecated)
+    char reserved[3];
+    char bankMSB;                   // Bank number MSB, -1 = disabled
+    char bankLSB;                   // Bank number LSB, was previously "bank", -1 = disabled
+    char channel;                   // MIDI Channel
+    char reserved4;                 // was Program change enable flag, deprecated in fw 1.0.0
+    char programChange;             // Program change number, -1 = disabled
+    char transpose;                 // Transpose value
 } PACK_INLINE VOICE;
 
 //---- KEY
