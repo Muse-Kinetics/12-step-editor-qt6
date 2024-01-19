@@ -226,7 +226,7 @@ QSlider::sub-page:horizontal
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="label_key_sensitivity">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -242,12 +242,12 @@ QSlider::sub-page:horizontal
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="label_select">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>80</x>
      <y>102</y>
-     <width>211</width>
+     <width>231</width>
      <height>16</height>
     </rect>
    </property>
@@ -322,7 +322,7 @@ QSlider::sub-page:horizontal
     <string>+</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QLabel" name="label_send_volume">
    <property name="geometry">
     <rect>
      <x>435</x>
@@ -382,7 +382,7 @@ QSlider::sub-page:horizontal
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_8">
+  <widget class="QLabel" name="label_velocity">
    <property name="geometry">
     <rect>
      <x>441</x>
@@ -554,7 +554,7 @@ QComboBox::down-arrow
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="label_thru">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -586,7 +586,7 @@ QComboBox::down-arrow
     <string>+</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_11">
+  <widget class="QLabel" name="label_backlight_brightness">
    <property name="geometry">
     <rect>
      <x>440</x>

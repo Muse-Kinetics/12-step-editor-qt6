@@ -86,15 +86,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // ******************************
     // end KMI_Ports and device handlers
-    // ******************************
-
-    // ******************************
-    // check for updates and set default save locations
-    // ******************************
-    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/12step/editor/softwareVersionCheck.json";
-    checkUpdates = new KMI_Updates(this, "12step", sessionSettings, applicationVersion, jsonVersionCheckURL);
-
-    // ******************************
+    // *****************************
 
     // ---- 12 Step
     mainWindowHeight = KEYTAB_HEIGHT + TAB_Y_POS + MAINWINDOW_BOTTOM_SPACING;
@@ -124,11 +116,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qDebug() << "Default file save location: " << sessionSettings->value(DEFAULT_DIR_KEY).toString();
 
+    // ******************************
+    // check for updates and set default save locations
+    // ******************************
+    QString jsonVersionCheckURL = "https://files.keithmcmillen.com/products/12step/editor/softwareVersionCheck.json";
+    checkUpdates = new KMI_Updates(this, "12step", sessionSettings, applicationVersion, jsonVersionCheckURL);
+
+    // ******************************
+
     // MIDI Overhaul and FW Update
 
-    // Pedal Calibration window
+    //-------------------- Pedal Calibration window
+    qDebug() << "------------ [EXPRESSION PEDAL CALIBRATION] ---------------------------------------------------";
     pedalCalWindow = new pedalCal(this);
 
+    qDebug() << "------------ [FW UPDATE AND TROUBLESHOOTING WINDOWS] ---------------------------------------------------";
     // Firmware update Window
     fwUpdateWindow = new fwUpdate(this, "12 Step", applicationFirmwareVersionString());
 
@@ -298,7 +300,7 @@ void MainWindow::windowHasLoaded()
     }
 
 
-    // locate presets, or fail
+    // this slot will locate JSON files, or fail/halt the app
     if (slotCheckPresets())
     {
 
@@ -331,7 +333,7 @@ void MainWindow::windowHasLoaded()
         presetInterface = new PresetInterface(this, sessionSettings);
         globalPresetInterface = new GlobalPresetInterface(this, sessionSettings);
 
-        copyPasteHandler = new CopyPasteHandler(presetInterface, this);
+        copyPasteHandler = new CopyPasteHandler(presetInterface, sessionSettings, this);
         importExportHandler = new ImportExportHandler(presetInterface, this);
 
         qDebug() << "**** Connect Interfaces ****";
@@ -348,6 +350,9 @@ void MainWindow::windowHasLoaded()
         presetInterface->slotRecallPreset(0);
         globalPresetInterface->slotRecallSettings();
         setlistTab->slotRecallSetlist();
+
+        settingsTab->slotUpdateLabeLValues();
+
 
         // start polling at 100ms intervals (do this after mainWindow setup is complete)
         qDebug() << "Start polling for MIDI ports";
@@ -812,6 +817,7 @@ void MainWindow::slotConnectInterfaces()
     connect(aboutDialogForm->ok, SIGNAL(clicked()), aboutDialogWidget, SLOT(hide()));
     connect(aboutDialogForm->ok, SIGNAL(clicked()), disableWidget, SLOT(hide()));
     connect(doc, SIGNAL(triggered()), this, SLOT(slotOpenDoc()));
+    connect(update, SIGNAL(triggered()), checkUpdates, SLOT( slotManualCheckForUpdates()));
     connect(troubleShoot, SIGNAL(triggered()), this, SLOT(slotOpenTroubleshooting()));
     connect(toolTipsEnable, SIGNAL(triggered()), this, SLOT(slotEnableDisableToolTips()));
 
@@ -1170,6 +1176,11 @@ void MainWindow::slotInitMenuBar()
     doc = new QAction("Documentation...", help);
     actionList.append(doc);
     help->addAction(doc);
+
+    //check for updates
+    update = new QAction("Check for Updates", help);
+    actionList.append(update);
+    help->addAction(update);
     help->addSeparator();
 
     //troubleshooter
@@ -1311,10 +1322,16 @@ void MainWindow::slotShowConnection(bool connection)
         if (TwelveStep->PID_MIDI == PID_12STEP2)
         {
             is12s2 = true;
-        }
 
-        midiTab->slotEnableUIfor12S2(is12s2);
-        settingsTab->slotEnableUIfor12S2(is12s2);
+            midiTab->slotEnableUIfor12S2(is12s2);
+            settingsTab->slotEnableUIfor12S2(is12s2); // need to do this before updating values
+            settingsTab->slotUpdateLabeLValues();
+        }
+        else
+        {
+            midiTab->slotEnableUIfor12S2(is12s2);
+            settingsTab->slotEnableUIfor12S2(is12s2);
+        }
 
         // update connection indication
 

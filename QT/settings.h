@@ -60,6 +60,7 @@ public slots:
     void slotEnableUIfor12S2(bool is12s2);
     void slotConnectElements();
     void slotDisconnectElements();
+    void slotUpdateLabeLValues();
     void slotValueChanged();
     void slotRecallPreset(QVariantMap, QVariantMap);
     void slotResetGlobalSensitivity();
@@ -70,7 +71,8 @@ public slots:
 //private slots:
     //void on_selectSensitivity_sliderReleased();
 
-//private:
+private:
+    bool _is12s2;
 
 };
 

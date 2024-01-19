@@ -28,10 +28,12 @@ Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
 
 
     slotConnectElements();
+    slotUpdateLabeLValues();
 }
 
 void Settings::slotEnableUIfor12S2(bool is12s2)
 {
+    _is12s2 = is12s2;
     if (is12s2)
     {
         settingsForm->backlightBrightness->setDisabled(false);
@@ -78,6 +80,29 @@ void Settings::slotDisconnectElements()
 
     disconnect(settingsForm->midiVolume, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->velocityOverride, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
+}
+
+void Settings::slotUpdateLabeLValues()
+{
+    double sensitivity = settingsForm->globalSensitivity->value() / 5.0;
+    double selectTime = (settingsForm->selectSensitivity->value() * 50.0) / 1000.0;
+    double brightnessFloat = double(settingsForm->backlightBrightness->value() / 29.0) * 100.0;
+    int brightness;
+
+    if (_is12s2)
+    {
+        brightness = (int)brightnessFloat; // round % to a whole number
+    }
+    else
+    {
+        brightness = 100; // only show 100% for 12Step1
+    }
+
+    qDebug() << "settingsTab slotUpdateLabeLValues called - brightness: " << brightness;
+
+    settingsForm->label_key_sensitivity->setText(QString("GLOBAL KEY SENSITIVITY - %1\%").arg(sensitivity));
+    settingsForm->label_select->setText(QString("SELECT BUTTON HOLD TIME - %1 Seconds").arg(selectTime));
+    settingsForm->label_backlight_brightness->setText(QString("BACKLIGHT BRIGHTNESS - %1\%").arg(brightness));
 }
 
 void Settings::slotValueChanged()
@@ -135,6 +160,7 @@ void Settings::slotValueChanged()
     }
 
     //emit signalSettingsDirty();
+    slotUpdateLabeLValues();
 }
 
 void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
@@ -148,9 +174,18 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
         {
             QSlider *slider = qobject_cast<QSlider *>(widget);
             QString objectName = widget->objectName();
-            int gain = preset.value(objectName).toDouble() * 100;
-            slider->setValue(gain);
-            qDebug() << "settings update from slotRecallPreset - objectName: " << objectName << " gain: " << gain;
+            int value;
+            if (objectName == "globalSensitivity")
+            {
+                value = preset.value(objectName).toDouble() * 100;
+            }
+            else
+            {
+                value = preset.value(objectName).toUInt();
+            }
+
+            slider->setValue(value);
+            qDebug() << "settings update from slotRecallPreset - objectName: " << objectName << " value: " << value;
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
@@ -161,6 +196,7 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
     }
 
     slotConnectElements();
+    slotUpdateLabeLValues();
 }
 
 void Settings::slotSaveSettingsTimeout()

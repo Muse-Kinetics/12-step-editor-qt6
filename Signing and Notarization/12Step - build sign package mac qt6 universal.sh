@@ -4,17 +4,17 @@
 # - You must use the entitlements included in this directory.
 
 # app_name is the name of the dmg volume
-this_year=2022
+this_year=2024
 app_name="12 Step Editor"
 app_name_fp=12\ Step\ Editor
-version=2.1.1
+version=3.0.0
 
 bundle_name=12StepEditor
 bundle_id="com.keithmcmillen.$bundle_name"
 app_source="../build-12StepEditor-Qt_6_3_2_for_macOS-Release/$app_name.app"
 app_qml_dir="../QT/"
 dmg_path=./dmg
-dmg_bg="$dmg_path/background.tiff"
+dmg_bg="$dmg_path/background2.tiff"
 dmg_icon="./$app_name.icns"
 subfolder_path="./dmg/$app_name"
 changelog_source="../CHANGELOG.md"
@@ -23,6 +23,7 @@ app_path="$subfolder_path/$app_name.app"
 path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
 developer_id="Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})"
 final_dmg_name="./$app_name Mac v$version.dmg"
+readme_name="README.pdf"
 
 
 # set current directory to where the script was called from
@@ -131,9 +132,10 @@ create-dmg \
   --background "$dmg_bg" \
   --window-pos 200 120 \
   --window-size 530 380 \
-  --icon-size 100 \
-  --icon "$app_name" 160 220 \
-  --app-drop-link 375 220 \
+  --icon-size 90 \
+  --icon "$readme_name" 265 100 \
+  --icon "$app_name" 155 220 \
+  --app-drop-link 370 220 \
   --hdiutil-verbose \
   "$final_dmg_name" \
   "$dmg_path/"

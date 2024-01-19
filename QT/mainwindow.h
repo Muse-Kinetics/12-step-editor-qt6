@@ -171,6 +171,7 @@ public:
 
     QAction *about;
     QAction *doc;
+    QAction *update;
     QAction *troubleShoot;
 
     //Ui Elements

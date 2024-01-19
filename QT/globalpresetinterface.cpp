@@ -16,7 +16,7 @@ GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessio
     slotReadSettings();
 
     // double check that 12Step2 settings are loaded
-    if (settings.contains("backlightBrightness") == false)
+    if (settings.value(QString("Global")).toMap().contains("backlightBrightness") == false)
     {
         qDebug() << "global settings: backlightBrightness entry missing, setting to default";
         slotStoreSettings("backlightBrightness", 29);
@@ -35,10 +35,12 @@ void GlobalPresetInterface::slotSetJSONPath()
 {
     jsonPath = sessionSettings->value("PRESET_DIR").toString(); //get bundle path
     jsonPath.append("/settings.json");
+    qDebug() << "globalpresetinerface slotSetJSONPath: " << jsonPath;
 }
 
 void GlobalPresetInterface::slotReadSettings()
 {
+    qDebug() << "globalpresetinerface slotReadSettings called";
     //load json into QFile
     QFile *jsonFile = new QFile(jsonPath);
 
@@ -109,6 +111,7 @@ void GlobalPresetInterface::slotStoreSettings(QString name, QVariant value)
 
 void GlobalPresetInterface::slotRecallSettings()
 {
+    qDebug() << "slotRecallSettings called";
     //called in constructor
     emit signalRecallSettings(settings.value(QString("Global")).toMap(), settings);
 }

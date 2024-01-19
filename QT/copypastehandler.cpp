@@ -4,24 +4,17 @@
 
 #include "copypastehandler.h"
 
-CopyPasteHandler::CopyPasteHandler(PresetInterface *presetInterfacer, QObject *parent) :
+CopyPasteHandler::CopyPasteHandler(PresetInterface *presetInterfacer, QSettings* _sessionSettings, QObject *parent) :
     QObject(parent)
 {
     presetInterface = presetInterfacer;
+    sessionSettings = _sessionSettings;
 }
 
 void CopyPasteHandler::slotClearPreset()
 {
-    QString filename = QCoreApplication::applicationDirPath();
-
-#if defined(Q_OS_MAC)
-    filename.remove(filename.length() - 5, filename.length());  //remove "MacOS" from path string
-    filename.append("Resources/presets/Blank.twelvesteppreset");
-#elif !defined(Q_OS_MAC)
-    filename.append("/resources/presets/Blank.twelvesteppreset");
-#else
-    filename = QString("./presets/Blank.twelvesteppreset");
-#endif
+    QString filename = sessionSettings->value("PRESET_DIR").toString(); //get bundle path
+    filename.append("/settings.json");
 
     //open file
     QFile* presetFile = new QFile(filename);

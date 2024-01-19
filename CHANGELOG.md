@@ -1,8 +1,34 @@
 #### 12 Step Editor and Firmware Changelog
 
+### Editor 3.0.0, Firmware 1.0.0 (2024-01-14)
+Major release update for 12 Step2
+- New Features/Changes:
+	- 12 Step2 Editor UI additions:
+		- Added CV Out 1 and 2 assignment dropdowns to MIDI Tab
+		- Added Backlight Brightness control to Settings Tab
+	- Added Expression Pedal Calibration to the Editor Hardware menu
+		- User can define min/max values to scale expression pedal input to output
+		- Added table assignment (linear, exponential, log, etc). This is a global setting that will always be applied to the expression pedal before preset modlines.
+	- Complete overhaul of USB MIDI driver. 12 Step now uses the same driver as KMI's latest products.
+		- 12 Step2 uses new USB MIDI port names: "12 Step Control Surface" and "12 Step TRS MIDI Out"
+		- Legacy hardware (12 Step1) uses old port names "12 Step Port 1" and "12 Step Port 2", this retains backwards compatibility with older editors.
+	- Added Bank MSB messages for each voice
+		- The previous "Bank" message was for the LSB (CC32), and was always enabled if Program Changes were enabled. Now all three messages can be individually enabled as needed.
+		- This feature replaced Pitch Bend Range. 12 Step now sends the full 14bit pitch bend range, so users should configure pitch bend range at the receiving MIDI device.
+	- Presets are now stored in the OS Application Data Directory rathern than the application directory/package. 
+		- A README.PDF has been included in the MacOS and Windows installation files that explains how to back up presets from previous editors before upgrading.
+		- When loading editor 3.0.0 for the first time, you will be prompted if you want to import your old presets or load factory defaults.
+	- Updated Ableton remote script for Live11/python3.
+	- Settings tab sliders now display actual values
+- Bug Fixes:
+	- Fixes to UI scaling for both MacOS and Windows
+	- Improved analog sensor scanning and removed some crosstalk noise present when pressing multiple keys
+	- Increased KeyOn and KeyOff thresholds to clean up false triggers and stuck notes
+
+
 ### Editor 2.1.0, Firmware 0.3.0 (2022-09-30)
 - New Features/Changes:
-	- Overhauled MIDI backend using RtMidi, now builds/runs on modern operating systems.
+	- Overhauled editor MIDI backend using RtMidi, now builds/runs on modern operating systems.
 	- Added a MIDI THRU port to route incomming 12 Step midi to a virtual port, workaround for Windows inability to share MIDI ports with multiple applications
 - Bug Fixes:
 	- Sensitivity Sliders
@@ -33,4 +59,4 @@
 
 
 12 Step Team:
-Keith McMillen, Eric Bateman, Andrej Hronco, Conner Lacy, Chuck Carlson, Evan Adams, Noah Ambrose, Evan Bogunia, Emmett Corman, Diane Douglas, Tom Ferguson, Matt Hettich, David Hishinuma, Sarah Howe, Daniel McAnulty, Dennis Saputelli, Dustin Schultz, Barry Threw, Nick Wang, Carson Whitley, and Steve Wright
+Eric Bateman, Tom Ferguson, Adi Handach, Andrej Hronco, Conner Lacy, Chuck Carlson, Evan Adams, Noah Ambrose, Evan Bogunia, Emmett Corman, Diane Douglas, Tom Ferguson, Matt Hettich, David Hishinuma, Sarah Howe, Daniel McAnulty, Dennis Saputelli, Dustin Schultz, Barry Threw, Nick Wang, Carson Whitley, Steve Wright, and Keith McMillen

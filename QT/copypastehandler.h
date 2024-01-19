@@ -15,9 +15,11 @@ class CopyPasteHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit CopyPasteHandler(PresetInterface *presetInterfacer, QObject *parent = 0);
+    explicit CopyPasteHandler(PresetInterface *presetInterfacer, QSettings* _sessionSettings, QObject *parent = 0);
 
     PresetInterface *presetInterface;
+
+    QSettings *sessionSettings;
 
     QVariantMap presetCopiedMap;
 

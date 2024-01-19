@@ -317,7 +317,7 @@ QToolButton:pressed
     </rect>
    </property>
    <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Program Change message.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Program Change message.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -351,7 +351,7 @@ QToolButton:pressed
     </rect>
    </property>
    <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Program Change message.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Program Change message.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -385,7 +385,7 @@ QToolButton:pressed
     </rect>
    </property>
    <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (MSB, CC#0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -419,7 +419,7 @@ QToolButton:pressed
     </rect>
    </property>
    <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (MSB, CC#0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -895,7 +895,7 @@ QComboBox::down-arrow
     </rect>
    </property>
    <property name="toolTip">
-    <string>Sets the type of sensor data coming from the 12 Step (for Voice A).</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets how many keys can be activated simultaneously.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*----------- QComboBox ------------*/
@@ -933,7 +933,7 @@ QComboBox::down-arrow
     </rect>
    </property>
    <property name="toolTip">
-    <string>Sets the type of sensor data coming from the 12 Step (for Voice A).</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets how MIDI notes will behave when playing the 12 Step &lt;/p&gt;&lt;p&gt;• Normal: Notes will turn on when a key is pressed and turn off when the key is released. &lt;/p&gt;&lt;p&gt;• Legato: Notes will turn on when a key is pressed and continue playing when released. When another key is pressed, the previous notes will turn off and the new key’s notes will turn on. &lt;/p&gt;&lt;p&gt;• Toggle: Notes will turn on when a key is pressed and stay on until the key is pressed again. &lt;/p&gt;&lt;p&gt;• Hold: Allows toggling between Normal and Legato mode using the Select key.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*----------- QComboBox ------------*/
@@ -1019,7 +1019,7 @@ QComboBox::down-arrow
     </rect>
    </property>
    <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (LSB, CC#32)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="frame">
     <bool>true</bool>
@@ -1053,7 +1053,7 @@ QComboBox::down-arrow
     </rect>
    </property>
    <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (LSB, CC#32)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="frame">
     <bool>true</bool>
