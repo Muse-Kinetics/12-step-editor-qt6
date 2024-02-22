@@ -12,7 +12,7 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.0
+VERSION = 3.0.1.C
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 #uncomment this and DEPLOY = 1 to build a console version of the app. Do this once before deploying the app.
@@ -58,8 +58,11 @@ SOURCES += main.cpp\
     globalVars.c \
     inc/KMI_KMDM/KMI_SysexMessages.c \
     inc/KMI_KMDM/KMI_mdm.cpp \
+    inc/KMI_KMDM/cvCal/cvCal.cpp \
     inc/KMI_KMDM/fwupdate/fwupdate.cpp \
+    inc/KMI_KMDM/kmiSysEx/kmiSysEx.cpp \
     inc/KMI_KMDM/pedalCal/pedalcal.cpp \
+    inc/KMI_KMDM/qt_ui/kmiSpinBoxUpDown.cpp \
     inc/KMI_KMDM/troubleshoot/troubleshoot.cpp \
     inc/KMI_Ports/kmi_ports.cpp \
     inc/KMI_Updates/kmi_updates.cpp \
@@ -96,10 +99,14 @@ HEADERS  += mainwindow.h \
     inc/KMI_KMDM/KMI_FwVersions.h \
     inc/KMI_KMDM/KMI_SysexMessages.h \
     inc/KMI_KMDM/KMI_mdm.h \
+    inc/KMI_KMDM/cvCal/cvCal.h \
+    inc/KMI_KMDM/cvCal/cvCalData.h \
     inc/KMI_KMDM/fwupdate/fwupdate.h \
+    inc/KMI_KMDM/kmiSysEx/kmiSysEx.h \
     inc/KMI_KMDM/midi.h \
     inc/KMI_KMDM/pedalCal/pedalcal.h \
     inc/KMI_KMDM/pedalCal/readOnlySlider.h \
+    inc/KMI_KMDM/qt_ui/kmiSpinBoxUpDown.h \
     inc/KMI_KMDM/troubleshoot/troubleshoot.h \
     inc/KMI_Ports/kmi_ports.h \
     inc/KMI_Updates/kmi_updates.h \
@@ -164,6 +171,7 @@ FORMS    += forms/mainwindow.ui \
     forms/saveAsFormWin.ui \
     forms/setlistFormWin.ui \
     forms/settingsFormWin.ui \
+    inc/KMI_KMDM/cvCal/cvCal.ui \
     inc/KMI_KMDM/fwupdate/fwupdate.ui \
     inc/KMI_KMDM/pedalCal/pedalcal.ui \
     inc/KMI_KMDM/troubleshoot/troubleshoot.ui
@@ -175,9 +183,12 @@ INCLUDEPATH += \
     inc/rtmidi \
     inc/KMI_Ports \
     inc/KMI_KMDM \
+    inc/KMI_KMDM/kmiSysEx \
+    inc/KMI_KMDM/cvCal \
     inc/KMI_KMDM/pedalCal \
     inc/KMI_KMDM/fwupdate \
     inc/KMI_KMDM/troubleshoot \
+    inc/KMI_KMDM/qt_ui \
     inc/KMI_Updates
 
 #DEFINES += \

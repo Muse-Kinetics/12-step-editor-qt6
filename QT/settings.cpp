@@ -3,6 +3,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include "settings.h"
+#include "midi.h"
 
 Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent),
@@ -26,6 +27,7 @@ Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
     midiThru = settingsForm->midiThruCombo;
     qDebug() << "settings - midiThru: " << midiThru->objectName();
 
+    progChgRxCh = settingsForm->progchgRXchannel;
 
     slotConnectElements();
     slotUpdateLabeLValues();
@@ -58,6 +60,7 @@ void Settings::slotConnectElements()
     connect(settingsForm->globalSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(settingsForm->selectSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(settingsForm->backlightBrightness, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(settingsForm->progchgRXchannel, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 
     connect(settingsForm->resetGlobal, SIGNAL(clicked()), this, SLOT(slotResetGlobalSensitivity()));
     connect(settingsForm->resetSelect, SIGNAL(clicked()), this, SLOT(slotResetSelectSensitivity()));
@@ -74,6 +77,7 @@ void Settings::slotDisconnectElements()
     disconnect(settingsForm->globalSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->selectSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->backlightBrightness, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(settingsForm->progchgRXchannel, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 
     disconnect(settingsForm->resetGlobal, SIGNAL(clicked()), this, SLOT(slotResetGlobalSensitivity()));
     disconnect(settingsForm->resetSelect, SIGNAL(clicked()), this, SLOT(slotResetSelectSensitivity()));
@@ -138,7 +142,7 @@ void Settings::slotValueChanged()
             }
 
 
-            qDebug() << jsonName << " value changed: " << value;
+
         }
         //checkboxes
         else if(senderClass == "QCheckBox")
@@ -156,6 +160,20 @@ void Settings::slotValueChanged()
                 value = 0;
             }
         }
+        //comboboxes
+        else if(senderClass == "QComboBox")
+        {
+            QComboBox *comboBox = reinterpret_cast<QComboBox *>(QObject::sender());
+            jsonName = comboBox->objectName();
+            value = comboBox->currentIndex();
+
+            if (jsonName == "progchgRXchannel" && comboBox->currentText() == "Disabled")
+            {
+                value = -1;
+            }
+        }
+
+        qDebug() << jsonName << " value changed: " << value;
         emit signalStoreValue(jsonName, value);
     }
 
@@ -169,11 +187,13 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     foreach (QWidget *widget, settingsWidget->findChildren<QWidget *>())
     {
+        QString objectName = widget->objectName();
+
         //check object type here
         if(widget->metaObject()->className() == QString("QSlider"))
         {
             QSlider *slider = qobject_cast<QSlider *>(widget);
-            QString objectName = widget->objectName();
+
             int value;
             if (objectName == "globalSensitivity")
             {
@@ -190,8 +210,24 @@ void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
             QCheckBox *checkBox = qobject_cast<QCheckBox *>(widget);
-            QString objectName = widget->objectName();
             checkBox->setChecked(preset.value(objectName).toBool());
+        }
+        else if(widget->metaObject()->className() == QString("QComboBox"))
+        {
+            QComboBox *comboBox = qobject_cast<QComboBox *>(widget);
+            int value = preset.value(objectName).toInt();
+
+            if (objectName == "progchgRXchannel")
+            {
+                if (value == -1)
+                {
+                    comboBox->setCurrentText("Disabled");
+                }
+                else
+                {
+                    comboBox->setCurrentIndex(value);
+                }
+            }
         }
     }
 

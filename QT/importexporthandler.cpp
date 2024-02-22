@@ -442,13 +442,13 @@ QVariantMap ImportExportHandler::slotConvertPreset()
             oldParameterName = QString("Foot_Mode");
             QString oldPresetValue = importedOldPresetMap.value(oldParameterName).toList().at(0).toString();
 
-            if(oldPresetValue == "Single Key")
+            if(oldPresetValue == "Single Key" || oldPresetValue == "SingleKey")
             {
-                presetValue = "SingleKey";
+                presetValue = "Mono";
             }
             else
             {
-                presetValue = "MultiKey";
+                presetValue = "Poly";
             }
         }
         else if(newParameterName.contains("settings_note_mode"))

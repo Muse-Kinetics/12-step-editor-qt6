@@ -127,6 +127,7 @@ void midi_sx_data_crc(void *data,unsigned short length) {
 //		qDebug("0x%04x, // %4d %02x",crc,i,((unsigned char *) data)[i]);
 	}
 }
+
 void midi_buffer_put_nulls(int count) {
 	while(count--)
 		midi_buffer_put_core(0);

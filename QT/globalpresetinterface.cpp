@@ -3,6 +3,7 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include "globalpresetinterface.h"
+#include "midi.h"
 
 GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessionSettings) :
     QWidget(parent)
@@ -15,11 +16,26 @@ GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessio
     slotSetJSONPath();
     slotReadSettings();
 
+    bool flagWriteSettings = false;
     // double check that 12Step2 settings are loaded
     if (settings.value(QString("Global")).toMap().contains("backlightBrightness") == false)
     {
         qDebug() << "global settings: backlightBrightness entry missing, setting to default";
         slotStoreSettings("backlightBrightness", 29);
+
+        flagWriteSettings = true;
+    }
+
+    if (settings.value(QString("Global")).toMap().contains("progchgRXchannel") == false)
+    {
+        qDebug() << "global settings: progchgRXchannel entry missing, setting to default";
+        slotStoreSettings("progchgRXchannel", MIDI_CH_10);
+
+        flagWriteSettings = true;
+    }
+
+    if (flagWriteSettings)
+    {
         slotWriteSettings();
     }
 
@@ -93,6 +109,7 @@ void GlobalPresetInterface::slotConstructSettingsDefaultMap()
     defaultGlobalMap["globalSensitivity"] = 1.0;
     defaultGlobalMap["selectSensitivity"] = 10;
     defaultGlobalMap["backlightBrightness"] = 29;
+    defaultGlobalMap["progchgRXchannel"] = MIDI_CH_10;
     defaultGlobalMap["velocityOverride"] = 0;
     defaultGlobalMap["midiVolume"] = 0;
 }

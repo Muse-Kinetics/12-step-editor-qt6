@@ -68,7 +68,27 @@ typedef struct {
         } u;
 } PACK_INLINE PEDAL_INFO;
 
-//extern  STANDALONE_INFO standalone_info;
+// calibration structs
+
+#define NUM_CV_OUTS 2
+#define NUM_CV_OCTAVES 6 // 0v counts
+#define NUM_CV_NOTES 61 // 0-5v is
+
+enum
+{
+    CV_CAL_MODE_FACTORY,
+    CV_CAL_MODE_OCTAVES,
+    CV_CAL_MODE_NOTES
+};
+
+typedef struct
+{
+    int8_t version;
+    uint8_t cal_mode;
+    uint16_t octaves[NUM_CV_OUTS][NUM_CV_OCTAVES];
+    uint16_t notes[NUM_CV_OUTS][NUM_CV_NOTES];
+} PACK_INLINE CV_CALIBRATION;
+
 
 
 #endif

@@ -4,6 +4,7 @@
 
 #include "menus.h"
 #include "standaloneimage.h"
+#include "midi.h"
 
 StandaloneImage::StandaloneImage(QVariantMap scenes, QList<QString> setList)
 {
@@ -42,8 +43,9 @@ void StandaloneImage::setSettingsDefaults()
     memset(&settings,0,sizeof(settings));
     settings.connect_mode.standalone = 1;
     settings.connect_mode.tether = 0;
-    settings.pedal_filter.hysteresis = 5;
-    settings.pedal_filter.length = 3;
+//    settings.pedal_filter.hysteresis = 5;
+//    settings.pedal_filter.length = 3;
+    settings.progchg_rx_channel = MIDI_CH_10;
 
 }
 

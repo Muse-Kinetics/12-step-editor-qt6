@@ -3,9 +3,25 @@
 // If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include "imageformatter.h"
+#include "midi.h"
+
+// uncomment this to enable writing the setlist to a c file (when sending it to 12 Step)
+// You need to create a "12stepPresetsC" folder in your downloads folder for this to work
+
+//#define GENERATE_FACTORY_PRESETS_C_FILE
 
 ImageFormatter::ImageFormatter()
 {
+    // Prepare file handlers to output an 8051 compatible C file that contains factory presets
+
+    // Get the Downloads folder path
+    downloadsFolderPath = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+
+    // Ensure there's a directory separator at the end (QDir::separator() ensures platform compatibility)
+    if (!downloadsFolderPath.endsWith(QDir::separator()))
+        downloadsFolderPath += QDir::separator();
+
+    presetsFileName = downloadsFolderPath + "12stepPresetsC" + QDir::separator() + "factory_presets.c";
 
 }
 
@@ -31,6 +47,11 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
 
     //Zero out the memory slot which will contain our presets (images)
     memset(image, 0, numScenes * sizeof(IMAGE));
+
+#ifdef GENERATE_FACTORY_PRESETS_C_FILE
+        // setup the factory presets C file
+        preparePresetsCFile(numScenes);
+#endif
 
     //Iterate through Setlist
     for(int slotIndex = 0; slotIndex < numScenes; slotIndex++)
@@ -213,22 +234,34 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
         //------------------------------------------------ CV 1 & 2 ------------------------------------------------//
         //----------------------------------------------------------------------------------------------------------//
 
-        QMap<QString, int> cvMap;
+        QMap<QString, unsigned char> cvLocalMap, cvUSBMap;
 
-        cvMap["Default (Gate)"] = 0;
-        cvMap["Default (Pitch)"] = 0;
-        cvMap["Gate"] = 1;
-        cvMap["Pitch"] = 2;
-        cvMap["Pressure"] = 3;
-        cvMap["Tilt"] = 4;
-        cvMap["Expression Pedal"] = 5;
-        cvMap["USB MIDI CH15"] = 6;
-        cvMap["USB MIDI CH16"] = 7;
+        cvLocalMap["Default (Gate)"] = 0;
+        cvLocalMap["Default (Pitch)"] = 0;
+        cvLocalMap["Gate"] = 1;
+        cvLocalMap["Pitch"] = 2;
+        cvLocalMap["Velocity"] = 3;
+        cvLocalMap["Pressure"] = 4;
+        cvLocalMap["Tilt"] = 5;
+        cvLocalMap["Expression Pedal"] = 6;
+        cvLocalMap["Disabled"] = 7;
 
-        image[slotIndex].cv1Mode = cvMap.value(currentPreset.value("settings_cv1").toString(), 0); // default to 0 if not found
-        image[slotIndex].cv2Mode = cvMap.value(currentPreset.value("settings_cv2").toString(), 0); // default to 0 if not found
+        cvUSBMap["Gate"] = 0;
+        cvUSBMap["Pitch"] = 1;
+        cvUSBMap["Velocity"] = 2;
+        cvUSBMap["Bend / Mod"] = 3;
+        cvUSBMap["Ch 1"] = 0;
+        cvUSBMap["Ch 2"] = 1;
 
-        image[slotIndex].presetVersion = 1; // Indicate this is no longer a legacy preset
+        image[slotIndex].cv1ModeLocal = cvLocalMap.value(currentPreset.value("settings_cv1_local").toString(), 0); // default to 0 if not found
+        image[slotIndex].cv1ModeUSB = cvUSBMap.value(currentPreset.value("settings_cv1_usb").toString(), 0); // default to 0 if not found
+        image[slotIndex].cv1USBChannel = cvUSBMap.value(currentPreset.value("settings_cv1_usb_ch").toString(), 0); // default to 0 if not found
+
+        image[slotIndex].cv2ModeLocal = cvLocalMap.value(currentPreset.value("settings_cv2_local").toString(), 0); // default to 0 if not found
+        image[slotIndex].cv2ModeUSB = cvUSBMap.value(currentPreset.value("settings_cv2_usb").toString(), 0); // default to 0 if not found
+        image[slotIndex].cv2USBChannel = cvUSBMap.value(currentPreset.value("settings_cv2_usb_ch").toString(), 0); // default to 0 if not found
+
+
 
         //----------------------------------------------------------------------------------------------------------//
         //------------------------------------------------ Note Mode -----------------------------------------------//
@@ -254,8 +287,10 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
         QMap<QString, int> keySafetyMap;
         keySafetyMap["SingleKey"] = 1;      // backwards compatibility needs no spaces when reading legacy json
         keySafetyMap["MultiKey"] = 0;
-        keySafetyMap["Single Key"] = 1;     // current qComboBox values have spaces
+        keySafetyMap["Single Key"] = 1;     // qComboBox values had spaces during dev, leaving this here for extra safety
         keySafetyMap["Multi Key"] = 0;
+        keySafetyMap["Mono"] = 1;     // qComboBox values had spaces during dev, leaving this here for extra safety
+        keySafetyMap["Poly"] = 0;
 
         QString keySafety = currentPreset.value("settings_key_safety_mode").toString();
 
@@ -360,7 +395,15 @@ void ImageFormatter::formatImage(QVariantMap reducedSetlist)
             //qDebug() << QString(keyNumString) + QString("1") << currentPreset.value(QString(keyNumString) + QString("1")).toInt();
         }
 
-    }
+        #ifdef GENERATE_FACTORY_PRESETS_C_FILE
+            // save preset to C file
+            savePresetToCFile(image[slotIndex], slotIndex, currentPreset.value("preset_name").toString());
+        #endif
+    } // end for loop
+
+    #ifdef GENERATE_FACTORY_PRESETS_C_FILE
+        closePresetsCFile();
+    #endif
 
     //-------- Formate Preset/Setlist Image as SysEx and emit send signal
     deviceManager.slot_sendPresets(imageRaw(), numScenes);
@@ -374,8 +417,9 @@ void ImageFormatter::formatSettings(QVariantMap settingsMap)
     //---- Settings
     settings.connect_mode.standalone = 1;
     settings.connect_mode.tether = 0;
-    settings.pedal_filter.hysteresis = 5;
-    settings.pedal_filter.length = 3;
+//    settings.pedal_filter.hysteresis = 5;
+//    settings.pedal_filter.length = 3;
+    settings.progchg_rx_channel = MIDI_CH_10;
 
     //---- Input Settings
     //Global Sensitivity
@@ -390,6 +434,10 @@ void ImageFormatter::formatSettings(QVariantMap settingsMap)
     //Backlight Brightness
     settings.keyL_brightness = (int) (settingsMap.value("backlightBrightness").toInt()); //JSON value set here, use conversion below
     qDebug() << "settings.keyL_brightness: " << settings.keyL_brightness;
+
+    //Program Change RX channel
+    settings.progchg_rx_channel = (int) (settingsMap.value("progchgRXchannel", MIDI_CH_10).toInt());
+    qDebug() << "settings.progchg_rx_channel: " << settings.progchg_rx_channel;
 
     // expression pedal calibration
     //
@@ -630,4 +678,200 @@ int ImageFormatter::tableMenuNumber(QString menuItem)
     }
 
     return 0;
+}
+
+
+
+// Assuming the definition of IMAGE and related structs and unions are globally accessible
+
+void ImageFormatter::preparePresetsCFile(unsigned int num_presets)
+{
+    QFile presetsFile(presetsFileName);
+
+    presetsFile.remove(); // delete file
+
+    // Open the file in Append mode to add to the end of the file
+    if (!presetsFile.open(QIODevice::WriteOnly | QIODevice::Text))
+        return; // Handle the error appropriately
+
+    QTextStream out(&presetsFile);
+
+    qDebug() << "imageFormatter application version: " << QString(APP_VERSION);
+
+    out << "// scenes.c - generated by 12 Step Editor version " << QString(APP_VERSION) << "\n\n";
+    out << "\n";
+    out << "code const unsigned char standalone_info[] = \n";
+    out << "{\n";
+    out << "    PRESET_INFO_FORMAT_VERSION,\n";
+    out << "    0,0,     // reserved\n";
+    out << "    " << num_presets << "       // num_presets\n";
+    out << "};\n\n";
+
+    out << "PRESET_IMAGE (*preset_images_ptr)[" << num_presets << "] = (PRESET_IMAGE (*)[" << num_presets << "])scenes;\n\n";
+
+    out << "code const unsigned char scenes[] = \n{\n";
+
+    presetsFile.close();
+}
+
+void ImageFormatter::closePresetsCFile()
+{
+    QFile presetsFile(presetsFileName);
+
+    // Open the file in Append mode to add to the end of the file
+    if (!presetsFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+        return; // Handle the error appropriately
+
+    QTextStream out(&presetsFile);
+
+    out << "};\n";
+    presetsFile.close();
+}
+
+#define SET_NOTE_MODE(mode) ((mode) & 0x03)
+#define SET_CV1_MODE_LOCAL(mode) (((mode) & 0x07) << 2)
+#define SET_CV1_MODE_USB(mode) (((mode) & 0x03) << 5)
+#define SET_CV1_USB_CHANNEL(channel) (((channel) & 0x01) << 7)
+
+#define SET_FOOT_MODE(mode) ((mode) & 0x03)
+#define SET_CV2_MODE_LOCAL(mode) (((mode) & 0x07) << 2)
+#define SET_CV2_MODE_USB(mode) (((mode) & 0x03) << 5)
+#define SET_CV2_USB_CHANNEL(channel) (((channel) & 0x01) << 7)
+
+void ImageFormatter::savePresetToCFile(IMAGE preset, int preset_number, QString preset_name)
+{
+
+    QFile presetsFile(presetsFileName);
+    // Open the file in Append mode to add to the end of the file
+    if (!presetsFile.open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text))
+        return; // Handle the error appropriately
+
+    QTextStream out(&presetsFile);
+
+    // Begin writing the IMAGE struct
+    out << "//---- PRESET IMAGE " << preset_number << " [" << preset_name << "] ------------------------------------------\n";
+
+
+    // Serialize the IMAGE struct here
+    out << "    " << static_cast<unsigned char>(preset.slotNum) << ",    // slotNum\n";
+
+    // ***************************************************************************************************************
+    // Serialize MODLINES
+    // ***************************************************************************************************************
+
+    // Helper lambda to serialize FIXED_PT 'whole' value directly
+//    auto serializeFixedPt = [&](const FIXED_PT& fixedPt) -> QString {
+//        return QString::number(fixedPt.whole);
+//    };
+
+    // Helper lambda to serialize a single MODLINE
+    auto serializeModline = [&](const MODLINE& modline, const QString& name)
+    {
+        out << "\n    // modline - " << name << "\n";
+        out << "        " << static_cast<unsigned char>(modline.Gain.v.a) << ", ";
+        out <<               static_cast<unsigned char>(modline.Gain.v.b) << ", ";
+        out <<               static_cast<unsigned char>(modline.Gain.v.c) << ", ";
+        out <<               static_cast<unsigned char>(modline.Gain.v.d) << ", // Gain - fixed point, four bytes\n";
+        out << "        " << static_cast<unsigned char>(modline.Max) <<       ",          // Max\n";
+        out << "        " << static_cast<unsigned char>(modline.Min) <<       ",          // Min\n";
+        out << "        " << static_cast<unsigned char>(modline.Offset) <<    ",          // Offset\n";
+        out << "        " << static_cast<unsigned char>(modline.Smooth) <<    ",          // Smooth\n";
+        out << "        " << static_cast<unsigned char>(modline.Source_A) <<  ",          // Source_A\n";
+        out << "        " << static_cast<unsigned char>(modline.Source_B) <<  ",          // Source_B\n";
+        out << "        " << static_cast<unsigned char>(modline.Table) <<     ",          // Table\n";
+    };
+
+    // Serializing each MODLINE in MODLINES
+    serializeModline(preset.modlines.AfTch, "AfTch");
+    serializeModline(preset.modlines.bend, "bend");
+    serializeModline(preset.modlines.CC1, "CC1");
+    serializeModline(preset.modlines.CC2, "CC2");
+    serializeModline(preset.modlines.Pan, "Pan");
+    serializeModline(preset.modlines.PlyAftTch, "PlyAftTch");
+    serializeModline(preset.modlines.Velociy, "Velociy");
+    serializeModline(preset.modlines.Volume, "Volume");
+    serializeModline(preset.modlines.XFade, "XFade");
+
+
+    // ***************************************************************************************************************
+    // Serialize 'display'
+    out << "\n    // Display Characters\n";
+    for (int i = 0; i < 4; ++i)
+    {
+        char displayChar = preset.display[i];
+        out << "    " << static_cast<unsigned char>(displayChar); // Output the integer value
+        if (displayChar >= 32 && displayChar <= 126) // Printable ASCII range
+        {
+            out << ",    // '" << displayChar << "'"; // Output the ASCII character equivalent as a comment
+        }
+        else
+        {
+            out << ",    // Non-printable character"; // Handle non-printable characters
+        }
+        if (i < 3)
+        {
+            out << "\n";
+        }
+    }
+    out << "\n"; // Newline after the last character for formatting
+
+    // Serialize CtlNum1, CtlNum2, and bitfields
+    out << "\n    // Controllers\n";
+    out << "    " << static_cast<unsigned char>(preset.CtlNum1) << ",    // CtlNum1\n";
+    out << "    " << static_cast<unsigned char>(preset.CtlNum2) << ",    // CtlNum2\n\n";
+
+    out << "    // Combined bitfield values for note/foot modes, cv1 and cv2\n\n";
+    out << "    " << (  SET_NOTE_MODE(static_cast<unsigned char>(preset.noteMode)) |
+                        SET_CV1_MODE_LOCAL(static_cast<unsigned char>(preset.cv1ModeLocal)) |
+                        SET_CV1_MODE_USB(static_cast<unsigned char>(preset.cv1ModeUSB)) |
+                        SET_CV1_USB_CHANNEL(static_cast<unsigned char>(preset.cv1USBChannel))     )
+                  << ",                 // " << QString("noteMode(%1), cv1ModeLocal(%2), cv1ModeUSB(%3), cv1USBChannel(%4)\n").arg(preset.noteMode).arg(preset.cv1ModeLocal).arg(preset.cv1ModeUSB).arg(preset.cv1USBChannel);
+
+    out << "    " << (  SET_FOOT_MODE(static_cast<unsigned char>(preset.footMode)) |
+                        SET_CV2_MODE_LOCAL(static_cast<unsigned char>(preset.cv2ModeLocal)) |
+                        SET_CV2_MODE_USB(static_cast<unsigned char>(preset.cv2ModeUSB)) |
+                        SET_CV2_USB_CHANNEL(static_cast<unsigned char>(preset.cv2USBChannel))       )
+                  << ",                // " << QString("footMode(%1), cv2ModeLocal(%2), cv2ModeUSB(%3), cv2USBChannel(%4)\n\n").arg(preset.footMode).arg(preset.cv2ModeLocal).arg(preset.cv2ModeUSB).arg(preset.cv2USBChannel);
+
+    // Helper lambda to serialize a single VOICE struct
+    auto serializeVoice = [&](const VOICE& voice, const QString& name)
+    {
+        out << "    // " << name << " VOICE\n";
+        out << "        0,0,0,       // reserved (3)\n";
+        out << "        " << static_cast<unsigned char>(voice.bankMSB) << ",        // bankMSB\n";
+        out << "        " << static_cast<unsigned char>(voice.bankLSB) << ",        // bankLSB\n";
+        out << "        " << static_cast<unsigned char>(voice.channel) << ",           // channel\n";
+        out << "        0,           // reserved (1)\n";
+        out << "        " << static_cast<unsigned char>(voice.programChange) << ",        // programChange\n";
+        out << "        " << static_cast<unsigned char>(voice.transpose) << ",          // transpose\n\n";
+    };
+
+    // Serialize voiceA and voiceB
+    serializeVoice(preset.voiceA, "voiceA");
+    serializeVoice(preset.voiceB, "voiceB");
+
+    // Serialize KEY structs
+    out << "    // KEYS (notes)\n\n";
+    for (int i = 0; i < NUM_KEYS; ++i)
+    {
+        out << "        ";
+        for (int j = 0; j < NUM_NOTES_PER_KEY; ++j)
+        {
+            out << static_cast<unsigned char>(preset.keys[i].notes[j]);
+            if (j < NUM_NOTES_PER_KEY - 1)
+            {
+                out << ", "; // Separate notes within the same key
+            }
+        }
+        if (i < NUM_KEYS - 1)
+        {
+            out << ",        // Key " << i << "\n"; // Separate different keys
+        }
+        else
+        {
+            out << ",        // Key " << i << "\n\n\n"; // Last key, prepare to close array
+        }
+    }
+
+    presetsFile.close();
 }

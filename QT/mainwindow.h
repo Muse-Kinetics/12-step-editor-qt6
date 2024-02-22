@@ -15,7 +15,10 @@
 #include "KMI_mdm.h"
 #include "RtMidi.h"
 #include "KMI_DevData.h"
+#include <kmiSysEx.h>
+
 #include <pedalcal.h>
+#include <cvCal.h>
 #include <fwupdate.h>
 #include <troubleshoot.h>
 
@@ -50,7 +53,7 @@
 #endif
 
 #include "ui_pedalcal.h"
-
+#include "ui_cvCal.h"
 
 
 namespace Ui {
@@ -79,6 +82,9 @@ public:
     // create KMI devices
     MidiDeviceManager *TwelveStep;
 
+    KMI_Decode *kmiDecode; // for decoding packets from the 12 Step
+    KMI_Encode *kmiEncode; // for encoding...
+
     // MIDI aux inputs and outputs are defined here. For products like SoftStep, you would define 8 inputs for controllers
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
@@ -99,6 +105,7 @@ public:
     fwUpdate* fwUpdateWindow;
     troubleshoot* troubleshootWindow;
     pedalCal* pedalCalWindow;
+    cvCal* cvCalWindow;
 
     //----------------------------------- Stylesheets
     // General
@@ -142,9 +149,7 @@ public:
     QWidget *importOldDialogWidget;
     QWidget *importOldNotFoundDialogWidget;
     QWidget *pedalCalWidget;
-//    QWidget *fwoodDialogWidget;
-//    QWidget *fwUpdateCompleteDialogWidget;
-//    QWidget *fwProgressDialogWidget;
+    QWidget *cvCalWidget;
 
     //Menubar
     QMenuBar *menubar;
@@ -152,6 +157,7 @@ public:
 
     // hardware menu
     QAction *openPedalCalibration;
+    QAction *openCVCalibration;
     QAction *updateFirmwareAct;
 
     QAction *exportPreset;
@@ -270,6 +276,8 @@ public slots:
     void slotSendPresets();
     void slotSendSettings();
 
+    void slotProcessKMIPacket(uint8_t PID, uint8_t category, uint8_t type, uint8_t* ptr, uint16_t length);
+
 protected:
     bool eventFilter(QObject *obj, QEvent *e);
 
@@ -283,6 +291,7 @@ private:
     Ui::importOldFoundDialog    *importOldFoundDialogForm;
     Ui::importOldNotFoundDialog *importOldNotFoundDialoglForm;
     Ui::pedalCal                *pedalCalForm;
+    Ui::cvCal                   *cvCalForm;
 };
 
 #endif // MAINWINDOW_H

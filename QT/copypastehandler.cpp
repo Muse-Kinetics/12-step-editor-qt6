@@ -14,7 +14,7 @@ CopyPasteHandler::CopyPasteHandler(PresetInterface *presetInterfacer, QSettings*
 void CopyPasteHandler::slotClearPreset()
 {
     QString filename = sessionSettings->value("PRESET_DIR").toString(); //get bundle path
-    filename.append("/settings.json");
+    filename.append("/Blank.twelvesteppreset");
 
     //open file
     QFile* presetFile = new QFile(filename);

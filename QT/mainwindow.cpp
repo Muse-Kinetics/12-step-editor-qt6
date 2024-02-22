@@ -9,6 +9,7 @@
 #include "kmi_updates.h"
 #include "globalVars.h"
 #include "KMI_SysexMessages.h"
+#include "sysex.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     importOldDialogWidget(new QWidget(this)),
     importOldNotFoundDialogWidget(new QWidget(this)),
     pedalCalWidget(new QWidget(this)),
+    cvCalWidget(new QWidget(this)),
 
     ui(new Ui::MainWindow),
 
@@ -28,7 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     aboutDialogForm(new Ui::aboutDialogForm),
     importOldFoundDialogForm(new Ui::importOldFoundDialog),
     importOldNotFoundDialoglForm(new Ui::importOldNotFoundDialog),
-    pedalCalForm(new Ui::pedalCal)
+    pedalCalForm(new Ui::pedalCal),
+    cvCalForm(new Ui::cvCal)
 
 {
     //plist stuff
@@ -45,8 +48,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // Split the version string by dots and assign values directly
     QStringList parts = versionString.split('.');
 
-    for (int i = 0; i < 3 && i < parts.size(); ++i) {
+    for (int i = 0; i < 3 && i < parts.size(); ++i)
+    {
         applicationVersion.append(static_cast<char>(parts[i].toInt()));
+        imageFormatter.applicationVersion.append(static_cast<char>(parts[i].toInt())); // update this, used for generating 8051 compatible factory presets C file
     }
 
     if (parts.size() > 3)
@@ -57,7 +62,6 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         betaVersion = "";
     }
-
 
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_12step), sizeof(_fw_ver_12step));
 
@@ -80,6 +84,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     TwelveStep = new MidiDeviceManager(this, PID_12STEP2, "12Step", kmiPorts);
+    kmiDecode = new KMI_Decode();
+    kmiEncode = new KMI_Encode(PID_12STEP2); // EB TODO: update this when we connect/detect a new PID
 
     // setup MIDI aux output
     midiTHRU = new MidiDeviceManager(this, PID_AUX, "MIDI Thru", kmiPorts);
@@ -127,8 +133,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // MIDI Overhaul and FW Update
 
     //-------------------- Pedal Calibration window
-    qDebug() << "------------ [EXPRESSION PEDAL CALIBRATION] ---------------------------------------------------";
+    qDebug() << "------------ [EXPRESSION PEDAL AND CV CALIBRATION] ---------------------------------------------------";
     pedalCalWindow = new pedalCal(this);
+    cvCalWindow = new cvCal(this);
+    cvCalWindow->setStyleSheet("");
 
     qDebug() << "------------ [FW UPDATE AND TROUBLESHOOTING WINDOWS] ---------------------------------------------------";
     // Firmware update Window
@@ -178,12 +186,6 @@ MainWindow::MainWindow(QWidget *parent) :
     midiTab = new MidiTab(midiTabAreaWidget);
     midiTab->slotConnectElements();
 
-    qDebug() << "------------ [TOOLTIPS] ---------------------------------------------------";
-    tabArea->setTabToolTip(0,"Set up Notes here.");
-    tabArea->setTabToolTip(1,"Manage the MIDI output here.");
-    tabArea->setTabToolTip(2,"Changes in the setlist tab will not be sent to the 12 Step until the “Send Setlist to 12 Step” button is clicked.");
-    tabArea->setTabToolTip(3,"Changes in the settings tab will not be sent to the 12 Step until the “Send Setlist to 12 Step” button is clicked.");
-    
     // ------------ END TABS ------------------------------------------------
 
 
@@ -317,6 +319,12 @@ void MainWindow::windowHasLoaded()
 
         settingsTab = new Settings(settingsTabAreaWidget, sessionSettings);
 
+        qDebug() << "------------ [TOOLTIPS] ---------------------------------------------------";
+        tabArea->setTabToolTip(0,"Set up the active preset Notes here. The updated preset be sent to the 12 Step before changes take affect.");
+        tabArea->setTabToolTip(1,"Manage the active preset MIDI settings here. The updated preset must be sent to the 12 Step before changes take affect.");
+        tabArea->setTabToolTip(2,"Arrange your presets into a setlist to be sent to the 12 Step.");
+        tabArea->setTabToolTip(3,"Global settings that are not tied to a preset. Changes here are sent to the 12 Step as settings are modified.");
+
         qDebug() << "------------ [MIDI THRU SETUP] ---------------------------------------------------";
         // MIDI thru dropdown
         // connect dropdowns and connection status to MIDI aux ports
@@ -359,7 +367,7 @@ void MainWindow::windowHasLoaded()
         kmiPorts->devicePoller->start(100);
 
         // connect kmiPorts to our handler
-        connect(kmiPorts, SIGNAL(signalPortUpdated(QString, uchar, uchar, int)), this, SLOT(slotMIDIPortChange(QString, uchar, uchar, int)));
+        connect(kmiPorts, SIGNAL(signalPortUpdated(QString,uchar,uchar,int)), this, SLOT(slotMIDIPortChange(QString,uchar,uchar,int)));
     }
 }
 
@@ -688,6 +696,9 @@ void MainWindow::slotConnectInterfaces()
     //---------- Pedal Calibration
     connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), pedalCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap,QVariantMap)));
 
+    //---------- CV Calibration
+    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), cvCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap,QVariantMap)));
+
     //--------------------------------------- Parameter Storage
 
     //MainWindow -- display name
@@ -797,16 +808,29 @@ void MainWindow::slotConnectInterfaces()
     connect(updateFirmwareAct, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(updateFirmwareAct, SIGNAL(triggered()), this, SLOT(slotForceFirmwareUpdate()));
 
-    connect(openPedalCalibration, SIGNAL(triggered()), disableWidget, SLOT(raise()));
-    connect(openPedalCalibration, SIGNAL(triggered()), disableWidget, SLOT(show()));
+//    // pedal calibration
+//    connect(openPedalCalibration, SIGNAL(triggered()), disableWidget, SLOT(raise()));
+//    connect(openPedalCalibration, SIGNAL(triggered()), disableWidget, SLOT(show()));
     connect(openPedalCalibration,  SIGNAL(triggered()), pedalCalWidget, SLOT(raise()));
     connect(openPedalCalibration,  SIGNAL(triggered()), pedalCalWidget, SLOT(show()));
     connect(openPedalCalibration, SIGNAL(triggered()), pedalCalWindow, SLOT(show()));
     connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), pedalCalWidget, SLOT(hide()));
-    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), disableWidget, SLOT(hide()));
+//    connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), disableWidget, SLOT(hide()));
 
     connect(openPedalCalibration, SIGNAL(triggered()), this, SLOT(slotEnableTether()));
     connect(pedalCalWindow,  SIGNAL(signalWindowClosed()), this, SLOT(slotDisableTether()));
+
+    // cv calibration
+//    connect(openCVCalibration, SIGNAL(triggered()), disableWidget, SLOT(raise()));
+//    connect(openCVCalibration, SIGNAL(triggered()), disableWidget, SLOT(show()));
+    connect(openCVCalibration,  SIGNAL(triggered()), cvCalWidget, SLOT(raise()));
+    connect(openCVCalibration,  SIGNAL(triggered()), cvCalWidget, SLOT(show()));
+    connect(openCVCalibration, SIGNAL(triggered()), cvCalWindow, SLOT(show()));
+    connect(openCVCalibration, SIGNAL(triggered()), cvCalWindow, SLOT(slotGetDeviceCVCalibration()));
+    connect(cvCalWindow,  SIGNAL(signalWindowClosed()), cvCalWidget, SLOT(hide()));
+//    connect(cvCalWindow,  SIGNAL(signalWindowClosed()), disableWidget, SLOT(hide()));
+
+    connect(settingsTab->progChgRxCh, SIGNAL(currentIndexChanged(int)), cvCalWindow, SLOT(slotUpdateNRPNChannel(int)));
 
     // Help menu connections
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
@@ -865,7 +889,7 @@ void MainWindow::slotConnectInterfaces()
 
 
     // connect firmware detection
-    connect(TwelveStep, SIGNAL(signalFirmwareDetected(MidiDeviceManager*, bool)), this, SLOT(slotFirmwareDetected(MidiDeviceManager*, bool)));
+    connect(TwelveStep, SIGNAL(signalFirmwareDetected(MidiDeviceManager*,bool)), this, SLOT(slotFirmwareDetected(MidiDeviceManager*,bool)));
 
     // connect firmware update window and midi device manager controls and messaging
     connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), TwelveStep, SLOT(slotRequestFirmwareUpdate()));                   // request fw
@@ -887,8 +911,17 @@ void MainWindow::slotConnectInterfaces()
     connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), troubleshootWindow, SLOT(slotRequestFwUpdate()));
     connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), troubleshootWindow, SLOT(slotFirmwareUpdated(bool)));
 
-    // NRPNs for pedalCal tether
-    connect(TwelveStep, SIGNAL(signalRxMidi_NRPN(uchar, int, int)), this, SLOT(slotProcessNRPN(uchar, int, int)));
+    // NRPNs for pedalCal tether and cvCal
+    connect(TwelveStep, SIGNAL(signalRxMidi_NRPN(uchar,int,int)), this, SLOT(slotProcessNRPN(uchar,int,int)));
+    connect(cvCalWindow, SIGNAL(signalSendNRPN(int,int,unsigned char)), TwelveStep, SLOT(slotSendMIDI_NRPN(int,int,uchar)));
+    connect(cvCalWindow, SIGNAL(signalSendStepSXPacket(uint8_t,uint8_t,uint8_t*,uint16_t)), kmiEncode, SLOT(slotEncodePacket(uint8_t,uint8_t,uint8_t*,uint16_t)));
+
+    // sysex enc/decoding
+    connect(TwelveStep, SIGNAL(signalRxSysExBA(QByteArray)), kmiDecode, SLOT(slotDecodePacket(QByteArray)));
+    connect(kmiDecode, SIGNAL(signalRxKMIPacket(uint8_t,uint8_t,uint8_t,uint8_t*,uint16_t)), this, SLOT(slotProcessKMIPacket(uint8_t,uint8_t,uint8_t,uint8_t*,uint16_t)));
+
+    connect(kmiEncode, SIGNAL(signalSendSysEx(unsigned char*,int)), TwelveStep, SLOT(slotSendSysEx(unsigned char*,int)));
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////// FW Updating Dialogs ////////////////////////////////////////////////////////////////
@@ -905,7 +938,7 @@ void MainWindow::slotConnectInterfaces()
     //////////////////////////////////////////////////////////// Preset Updating //////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    connect(&imageFormatter.deviceManager, SIGNAL(sigSysex(unsigned char*, int)), TwelveStep, SLOT(slotSendSysEx(unsigned char*, int)));
+    connect(&imageFormatter.deviceManager, SIGNAL(sigSysex(unsigned char*,int)), TwelveStep, SLOT(slotSendSysEx(unsigned char*,int)));
 
     //send presets on update button click (clean up first)
     connect(ui->update, SIGNAL(clicked()), this, SLOT(slotCleanUpSetlist()));
@@ -1156,6 +1189,13 @@ void MainWindow::slotInitMenuBar()
     hardware->addAction(openPedalCalibration);
     openPedalCalibration->setDisabled(true);
 
+    //cv calibration
+    openCVCalibration = new QAction("Calibrate CV Outs", hardware);
+    actionList.append(openCVCalibration);
+    hardware->addAction(openCVCalibration);
+    openCVCalibration->setDisabled(true);
+    openCVCalibration->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
+
     //reload firmware
     updateFirmwareAct = new QAction("Update/Reload Firmware...", hardware);
     actionList.append(updateFirmwareAct);
@@ -1348,9 +1388,19 @@ void MainWindow::slotShowConnection(bool connection)
         ui->update->setEnabled(true);
         updateFirmwareAct->setDisabled(false);
         openPedalCalibration->setDisabled(false);
+
+        if (is12s2) // don't allow on old hardware
+        {
+            openCVCalibration->setDisabled(false);
+        }
+
+        cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
+
 //        sysexManager->slotSendFwQuery();
         aboutDialogForm->found->setText(deviceFirmwareVersionString());
         troubleshootWindow->slotConnected(true);
+
+        slotSendSettings(); // sync hardware to editor
     }
     else
     {
@@ -1367,6 +1417,7 @@ void MainWindow::slotShowConnection(bool connection)
         ui->update->setEnabled(false);
         updateFirmwareAct->setDisabled(true);
         openPedalCalibration->setDisabled(true);
+        openCVCalibration->setDisabled(true);
         aboutDialogForm->found->setText("Not Connected");
         troubleshootWindow->slotConnected(false);
     }
@@ -1456,6 +1507,30 @@ void MainWindow::slotSendSettings()
     /// 3. Emits a signal with a pointer to the (unsigned char*) image data and byte length
 
     imageFormatter.formatSettings(globalPresetInterface->settings.value("Global").toMap());
+}
+
+// parse legacy KMI packets here
+void MainWindow::slotProcessKMIPacket(uint8_t PID, uint8_t category, uint8_t type, uint8_t* ptr, uint16_t length)
+{
+    Q_UNUSED(ptr);
+    qDebug() << "slotProcessKMIPacket called - PID: " << PID  << " category: " <<  category << "type: " << type  << "payloadLength: " << length;
+    switch (category)
+    {
+    case MSG_CAT_CALIBRATION:
+
+        switch (type)
+        {
+        case PEDAL_CAL_PAYLOAD:
+            break;
+        case KEYS_CAL_PAYLOAD:
+            break;
+        case CV_CAL_PAYLOAD:
+            cvCalWindow->slotParseDeviceCVCalibration(ptr, length);
+            break;
+        }
+
+        break;
+    }
 }
 
 // VERSION STRINGS --------------------------------------

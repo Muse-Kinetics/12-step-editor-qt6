@@ -7,11 +7,17 @@
 
 #include <qdebug.h>
 #include <QVariantMap>
+#include <QFile>
+#include <QTextStream>
+#include <QString>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "menu.h"
 #include "menus.h"
 #include "StandalonePreset.h"
 #include "devicemanager.h"
+
 
 #define	LE_short(val) (((val & 0xFF) << 8) + ( ((val) >> 8) & 0xFF))
 #define	LE_int(val)  ( LE_short((int) (val) & 0xffff)<<16 | LE_short((int)(val)>>16) )
@@ -47,6 +53,10 @@ public:
 
     //int itemMenu(Menu &menu, QString menuName);
 
+    void preparePresetsCFile(unsigned int num_presets);
+    void closePresetsCFile();
+    void savePresetToCFile(IMAGE preset, int preset_number, QString preset_name);
+
     //---- Set of structs to format image
     IMAGE *image;
     SETTINGS settings;
@@ -56,6 +66,12 @@ public:
     int sI;
     MODLINE *modline;
     int m_sceneCount;
+
+    QString downloadsFolderPath;
+    QString presetsFileName;
+
+    QByteArray applicationVersion;
+
 };
 
 #endif // IMAGEFORMATTER_H

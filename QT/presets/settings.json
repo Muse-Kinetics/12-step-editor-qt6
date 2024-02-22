@@ -1,9 +1,10 @@
 {
     "Global": {
-        "globalSensitivity": 1,
+        "backlightBrightness": 15,
+        "globalSensitivity": 3.86,
         "midiVolume": 0,
+        "progchgRXchannel": 9,
         "selectSensitivity": 10,
-        "backlightBrightness": 29,
         "velocityOverride": 0
     }
 }

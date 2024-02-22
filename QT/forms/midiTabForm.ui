@@ -723,17 +723,17 @@ QToolButton:pressed
     <string/>
    </property>
   </widget>
-  <widget class="QComboBox" name="settings_cv1">
+  <widget class="QComboBox" name="settings_cv1_local">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>38</y>
-     <width>140</width>
+     <x>390</x>
+     <y>33</y>
+     <width>100</width>
      <height>26</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DEFAULT - CV1 = GATE, CV2 = PITCH. If multiple notes are assigned to a 12 Step Key, only the first note (the one in the top of the editor) controls CV. Any USB MIDI note on/off messages sent to the 12 Step will also control gate/pitch. For all other CV settings described below, USB MIDI Note on/off messages are ignored.&lt;/p&gt;&lt;p&gt;GATE - the CV is set to 5V when a key is pressed, and 0V when the key is released.&lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent key that was pressed.&lt;/p&gt;&lt;p&gt;PRESSURE - the CV is set to 0-5V corresponding to the current PRESSURE of the active key &lt;/p&gt;&lt;p&gt;TILT - the CV is set to 0-5V corresponding to the current TILT of the active key &lt;/p&gt;&lt;p&gt;PEDAL - the CV is set to 0-5V, controlled by the expression pedal input &lt;/p&gt;&lt;p&gt;USB CH15 or USB CH16 - the CV is only controlled by USB MIDI messages, either Pitch Bend (14bit scaled to 12bit 0-5V) or Control Changes (7bit scaled to 12bit 0-5V) &lt;/p&gt;&lt;p&gt;Note - CV features are only available on 12 Step2, and are disabled if legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DEFAULT - CV1 = GATE, CV2 = PITCH. If multiple notes are assigned to a 12 Step Key, only the first note (the one in the top of the editor) controls the CV. &lt;br/&gt;&lt;br/&gt;GATE - the CV is set to 5V when a key is pressed, and 0V when the key is released. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent key that was pressed. &lt;/p&gt;&lt;p&gt;VELOCITY - same as PITCH, except the key velocity is mapped to 0-5V.&lt;/p&gt;&lt;p&gt;PRESSURE - the CV is set to 0-5V corresponding to the current PRESSURE of the active key. &lt;/p&gt;&lt;p&gt;TILT - the CV is set to 0-5V corresponding to the current TILT of the active key. &lt;/p&gt;&lt;p&gt;PEDAL - the CV is set to 0-5V, controlled by the expression pedal input. &lt;/p&gt;&lt;p&gt;DISABLED - the CV ignores local control from the 12 Step2 keys.&lt;/p&gt;&lt;p&gt;Note - CV features are only available on 12 Step2, and are disabled if legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*----------- QComboBox ------------*/
@@ -767,6 +767,11 @@ QComboBox::down-arrow
    </item>
    <item>
     <property name="text">
+     <string>Velocity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>Pressure</string>
     </property>
    </item>
@@ -782,20 +787,15 @@ QComboBox::down-arrow
    </item>
    <item>
     <property name="text">
-     <string>USB MIDI CH15</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>USB MIDI CH16</string>
+     <string>Disabled</string>
     </property>
    </item>
   </widget>
   <widget class="QLabel" name="label_21">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>38</y>
+     <x>340</x>
+     <y>33</y>
      <width>71</width>
      <height>26</height>
     </rect>
@@ -807,8 +807,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_22">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>68</y>
+     <x>340</x>
+     <y>63</y>
      <width>71</width>
      <height>26</height>
     </rect>
@@ -817,17 +817,17 @@ QComboBox::down-arrow
     <string>CV Out 2</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="settings_cv2">
+  <widget class="QComboBox" name="settings_cv2_local">
    <property name="geometry">
     <rect>
-     <x>470</x>
-     <y>68</y>
-     <width>140</width>
+     <x>390</x>
+     <y>63</y>
+     <width>100</width>
      <height>26</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DEFAULT - CV1 = GATE, CV2 = PITCH. If multiple notes are assigned to a 12 Step Key, only the first note (the one in the top of the editor) controls CV. Any USB MIDI note on/off messages sent to the 12 Step will also control gate/pitch. For all other CV settings described below, USB MIDI Note on/off messages are ignored.&lt;/p&gt;&lt;p&gt;GATE - the CV is set to 5V when a key is pressed, and 0V when the key is released.&lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent key that was pressed.&lt;/p&gt;&lt;p&gt;PRESSURE - the CV is set to 0-5V corresponding to the current PRESSURE of the active key &lt;/p&gt;&lt;p&gt;TILT - the CV is set to 0-5V corresponding to the current TILT of the active key &lt;/p&gt;&lt;p&gt;PEDAL - the CV is set to 0-5V, controlled by the expression pedal input &lt;/p&gt;&lt;p&gt;USB CH15 or USB CH16 - the CV is only controlled by USB MIDI messages, either Pitch Bend (14bit scaled to 12bit 0-5V) or Control Changes (7bit scaled to 12bit 0-5V) &lt;/p&gt;&lt;p&gt;Note - CV features are only available on 12 Step2, and are disabled if legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DEFAULT - CV1 = GATE, CV2 = PITCH. If multiple notes are assigned to a 12 Step Key, only the first note (the one in the top of the editor) controls the CV. &lt;br/&gt;&lt;br/&gt;GATE - the CV is set to 5V when a key is pressed, and 0V when the key is released. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent key that was pressed. &lt;/p&gt;&lt;p&gt;VELOCITY - same as PITCH, except the key velocity is mapped to 0-5V.&lt;/p&gt;&lt;p&gt;PRESSURE - the CV is set to 0-5V corresponding to the current PRESSURE of the active key. &lt;/p&gt;&lt;p&gt;TILT - the CV is set to 0-5V corresponding to the current TILT of the active key. &lt;/p&gt;&lt;p&gt;PEDAL - the CV is set to 0-5V, controlled by the expression pedal input. &lt;/p&gt;&lt;p&gt;DISABLED - the CV ignores local control from the 12 Step2 keys.&lt;/p&gt;&lt;p&gt;Note - CV features are only available on 12 Step2, and are disabled if legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*----------- QComboBox ------------*/
@@ -861,6 +861,11 @@ QComboBox::down-arrow
    </item>
    <item>
     <property name="text">
+     <string>Velocity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
      <string>Pressure</string>
     </property>
    </item>
@@ -876,26 +881,21 @@ QComboBox::down-arrow
    </item>
    <item>
     <property name="text">
-     <string>USB MIDI CH15</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>USB MIDI CH16</string>
+     <string>Disabled</string>
     </property>
    </item>
   </widget>
   <widget class="QComboBox" name="settings_key_safety_mode">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>116</y>
-     <width>130</width>
+     <x>510</x>
+     <y>123</y>
+     <width>127</width>
      <height>26</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets how many keys can be activated simultaneously.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets how many keys can be activated simultaneously. Mono = monophonic, one key at a time. Poly = polyphonic, multiple keys at a time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="styleSheet">
     <string notr="true">/*----------- QComboBox ------------*/
@@ -914,21 +914,21 @@ QComboBox::down-arrow
    </property>
    <item>
     <property name="text">
-     <string>Single Key</string>
+     <string>Mono</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Multi Key</string>
+     <string>Poly</string>
     </property>
    </item>
   </widget>
   <widget class="QComboBox" name="settings_note_mode">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>146</y>
-     <width>130</width>
+     <x>510</x>
+     <y>153</y>
+     <width>127</width>
      <height>26</height>
     </rect>
    </property>
@@ -974,8 +974,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_19">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>146</y>
+     <x>450</x>
+     <y>153</y>
      <width>54</width>
      <height>26</height>
     </rect>
@@ -987,15 +987,15 @@ QComboBox::down-arrow
     <string>Note Mode</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_18">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>116</y>
-     <width>50</width>
+     <x>450</x>
+     <y>123</y>
+     <width>54</width>
      <height>26</height>
     </rect>
    </property>
@@ -1003,10 +1003,10 @@ QComboBox::down-arrow
     <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key&lt;/b&gt;: Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Multi Key&lt;/b&gt;: All keys can be activated at any time.</string>
    </property>
    <property name="text">
-    <string>Key Safety</string>
+    <string>Key Mode</string>
    </property>
    <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="SelectAllSpinBox" name="voice_a_bank">
@@ -1075,6 +1075,226 @@ QComboBox::down-arrow
    </property>
    <property name="value">
     <number>-1</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_17">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>13</y>
+     <width>100</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Control Surface</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>13</y>
+     <width>75</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>USB</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="settings_cv2_usb">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>63</y>
+     <width>75</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GATE - the CV is set to 5V when a MIDI Note On is received, and 0V for Note Off. The gate remains on until all active notes are turned off. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;VELOCITY - the CV is set to a 0-5V voltage that matches the velocity of the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;BEND / MOD - the CV is set to a 0-5V voltage corresponding to14 bit (pitch bend) or 7 bit (mod wheel CC1) MIDI messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Gate</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pitch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Velocity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bend / Mod</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_cv1_usb">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>33</y>
+     <width>75</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;GATE - the CV is set to 5V when a MIDI Note On is received, and 0V for Note Off. The gate remains on until all active notes are turned off. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;VELOCITY - the CV is set to a 0-5V voltage that matches the velocity of the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;BEND / MOD - the CV is set to a 0-5V voltage corresponding to14 bit (pitch bend) or 7 bit (mod wheel CC1) MIDI messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Gate</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pitch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Velocity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bend / Mod</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_cv1_usb_ch">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>33</y>
+     <width>50</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The CV can receive messages on either MIDI Channel 1 or 2.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Ch 1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ch 2</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_cv2_usb_ch">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>63</y>
+     <width>50</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The CV can receive messages on either MIDI Channel 1 or 2.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+QComboBox
+{
+
+}
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Ch 1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ch 2</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_23">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>13</y>
+     <width>50</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Channel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

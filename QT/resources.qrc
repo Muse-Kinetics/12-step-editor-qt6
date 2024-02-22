@@ -311,6 +311,10 @@
         <file>ui_images/setlist_off.svg</file>
         <file>ui_images/setlist_on.svg</file>
         <file>ui_images/setlist_pressed.svg</file>
+        <file>ui_images/arrow-up.svg</file>
+        <file>ui_images/arrow-down.svg</file>
+        <file>ui_images/arrow-down_pressed.svg</file>
+        <file>ui_images/arrow-up_pressed.svg</file>
     </qresource>
     <qresource prefix="/">
         <file>resources/firmware/12Step_Firmware_v0.3.0.syx</file>
@@ -321,6 +325,6 @@
         <file>presets/setlist.json</file>
         <file>presets/settings.json</file>
         <file>resources/firmware/12Step99-TrojanBootloader.syx</file>
-        <file>resources/firmware/12Step_Firmware_v1.0.0.syx</file>
+        <file>resources/firmware/12Step_Firmware_v1.0.1.syx</file>
     </qresource>
 </RCC>

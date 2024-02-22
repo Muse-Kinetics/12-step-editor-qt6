@@ -455,11 +455,17 @@ void PresetInterface::slotConstructDefaultMap()
     defaultPresetMap["preset_name"] = "DefaultPreset";
 
     //settings
-    defaultPresetMap["settings_key_safety_mode"] = "Single Key";
+    defaultPresetMap["settings_key_safety_mode"] = "Mono";
     defaultPresetMap["settings_note_mode"] = "Normal";
-    defaultPresetMap["settings_cv1"] = "Default (Gate)";
-    defaultPresetMap["settings_cv2"] = "Default (Pitch)";
 
+    // CV
+    defaultPresetMap["settings_cv1_local"] = "Default (Gate)";
+    defaultPresetMap["settings_cv1_usb"] = "Gate";
+    defaultPresetMap["settings_cv1_usb_ch"] = "Ch 1";
+
+    defaultPresetMap["settings_cv2_local"] = "Default (Pitch)";
+    defaultPresetMap["settings_cv2_usb"] = "Pitch";
+    defaultPresetMap["settings_cv2_usb_ch"] = "Ch 1";
 
     //voice a settings
     defaultPresetMap["voice_a_bank"] = -1;

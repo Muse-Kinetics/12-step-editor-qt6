@@ -127,7 +127,11 @@ void send_standalone_image(unsigned char *image,int count)
     standalone_info.type = LE_short(SA_TYPE_PRESET_IMAGE);
 
     //Store count in our current info struct
+    standalone_info.u.preset_info.format = PRESET_INFO_FORMAT_VERSION; // EB - updated this for CV/12Step2, requires fw 1.0.1
+
+    //Store count in our current info struct
     standalone_info.u.preset_info.num_presets = count;
+
 
     //write our preamble
     midi_sx_packet_preamble(SX_PACKET_STANDALONE,sizeof(standalone_info));

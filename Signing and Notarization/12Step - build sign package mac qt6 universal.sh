@@ -7,7 +7,7 @@
 this_year=2024
 app_name="12 Step Editor"
 app_name_fp=12\ Step\ Editor
-version=3.0.0
+version=3.0.1C
 
 bundle_name=12StepEditor
 bundle_id="com.keithmcmillen.$bundle_name"
@@ -150,7 +150,8 @@ create-dmg \
 # echo
 # read -n 1 -s -r -p ""
 
-rm "$dmg_path/12Step/Icon^M"
+# remove Icon? file
+rm -rf "$subfolder_path/Icon^M"
 
 echo ""
 echo "### - Clean dmg attributes..."
@@ -190,4 +191,5 @@ xcrun notarytool submit "$final_dmg_name" --keychain-profile "${APPLE_KEYCHAIN_P
 # deprecated command
 #xcrun altool --notarize-app -f "$final_dmg_name" -t osx -u ${APPLE_ID} -p ${APPLE_APP_PASSWORD} -primary-bundle-id $bundle_id
 
+rm -rf ./dmg/12\ Step\ Editor/Icon$'\r
 

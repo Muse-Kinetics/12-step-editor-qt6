@@ -7,6 +7,34 @@
 
 #include "12step.h"
 
+#define PRESET_INFO_FORMAT_VERSION 1 // this is the current format version used in preset_info
+
+// CV Enums
+// 543210
+// |||\\\__ Local control - 8 types (default, gate, pitch, velocity, pressure, tilt, expression pedal, disabled)
+// |\\_____ USB control - NoteOn Gate, pitch, Velocity, Bend/CC
+// \_______ USB channel 0/1
+
+enum CV_MODE_LOCAL // 3 bit (8 values)
+{
+    CV_DEFAULT, // 0, default that will work with older presets, CV1 = gate, CV2 = pitch
+    CV_GATE,
+    CV_PITCH,
+    CV_VELOCITY,
+    CV_PRESSURE,
+    CV_TILT,
+    CV_EXPRESSION_PEDAL,
+    CV_DISABLED
+};
+
+enum CV_MODE_USB // 2 bit (4 values)
+{
+    CV_USB_GATE,   // CV acts as a gate for note on/off, pitch bend and CCs are direct control
+    CV_USB_PITCH,  // CV acts as pitch for note on/off
+    CV_USB_VELOCITY,
+    CV_USB_BEND_MOD
+};
+
 //---- FIXED POINT CONVERSION
 typedef union FIXED_PT
 {
@@ -49,9 +77,9 @@ typedef struct {
     MODLINES modlines;
     char display[4];
     char CtlNum1,CtlNum2;
-    unsigned char noteMode:2, cv1Mode:3, cv2Mode:3;  // in 12s1 this was 8 bits for noteMode, which only used 2 bits (4 values). Here we've preserved backwards
-                                            // compatibility for older presets, while allowing new 12s2 presets to write to these bits for cv modes.
-    unsigned char footMode:2, presetVersion:6;
+    unsigned char noteMode:2, cv1ModeLocal:3, cv1ModeUSB:2, cv1USBChannel:1;        // in 12s1 this was 8 bits for noteMode, which only used 2 bits (4 values). Here we've preserved backwards
+                                                                                    // compatibility for older presets, while allowing new 12s2 presets to write to these bits for cv modes.
+    unsigned char footMode:2, cv2ModeLocal:3, cv2ModeUSB:2, cv2USBChannel:1;        // same...
     VOICE voiceA,voiceB;
     KEY keys[NUM_KEYS];
 } PACK_INLINE IMAGE;
@@ -63,27 +91,11 @@ typedef struct
     unsigned char table;
 } PEDAL_CALIBRATION;
 
-enum CVMODE
-{
-    CV_DEFAULT, // 0, default that will work with older presets, CV1 = gate, CV2 = pitch
-    CV_GATE,
-    CV_PITCH,
-    CV_PRESSURE,
-    CV_TILT,
-    CV_EXPRESSION_PEDAL,
-    CV_USBMIDI_CH15,
-    CV_USBMIDI_CH16 // midi notes will control CV = gate, CV2 = pitch. CC1 will control
-};
-
 //---- PEDAL FILTER
 typedef struct {
     unsigned char hysteresis,length;
 } PACK_INLINE PEDAL_FILTER;
 
-//---- CONNECT MODE (Always standalone)
-//typedef struct {
-//    unsigned char standalone,tether;
-//} PACK_INLINE CONNECT_MODE;
 
 typedef struct {
     unsigned char standalone,tether : 1 , midi_volume_reset : 1, key_velocity_disable : 1;
@@ -100,7 +112,7 @@ typedef struct {
     INPUT_SETTINGS input_settings;
     PEDAL_CALIBRATION pedal_calibration;
     unsigned char keyL_brightness; // no reserved data in the settings struct, so we are repurposing the pedal mpx
-    PEDAL_FILTER pedal_filter;
+    char progchg_rx_channel, reserved1; // was PEDAL_FILTER pedal_filter;
     CONNECT_MODE connect_mode;
 } PACK_INLINE SETTINGS;
 

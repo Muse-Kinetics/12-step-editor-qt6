@@ -34,6 +34,7 @@ public:
 
     // midi thru dropdown
     QComboBox * midiThru;
+    QComboBox * progChgRxCh;
 
     //------ Form
     Ui::settingsForm *settingsForm;

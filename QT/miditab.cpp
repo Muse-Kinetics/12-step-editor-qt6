@@ -113,16 +113,17 @@ void MidiTab::slotTabView(int tabIndex)
 
 void MidiTab::slotEnableUIfor12S2(bool is12s2)
 {
-    if (is12s2)
-    {
-        midiTabForm->settings_cv1->setDisabled(false);
-        midiTabForm->settings_cv2->setDisabled(false);
-    }
-    else // 12s1, disable unused features
-    {
-        midiTabForm->settings_cv1->setDisabled(true);
-        midiTabForm->settings_cv2->setDisabled(true);
-    }
+    bool stateToSet = !is12s2; // invert so we can setDisabled
+    //return; // for now leave everything enabled for dev
+
+    midiTabForm->settings_cv1_local->setDisabled(stateToSet);
+    midiTabForm->settings_cv1_usb->setDisabled(stateToSet);
+    midiTabForm->settings_cv1_usb_ch->setDisabled(stateToSet);
+
+    midiTabForm->settings_cv2_local->setDisabled(stateToSet);
+    midiTabForm->settings_cv2_usb->setDisabled(stateToSet);
+    midiTabForm->settings_cv2_usb_ch->setDisabled(stateToSet);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -146,8 +147,14 @@ void MidiTab::slotConnectElements()
     connect(midiTabForm->voice_b_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
     //settings
-    connect(midiTabForm->settings_cv1, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
-    connect(midiTabForm->settings_cv2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_cv1_local, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_cv1_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_cv1_usb_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+
+    connect(midiTabForm->settings_cv2_local, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_cv2_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    connect(midiTabForm->settings_cv2_usb_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+
     connect(midiTabForm->settings_key_safety_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     connect(midiTabForm->settings_note_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 }
@@ -169,8 +176,14 @@ void MidiTab::slotDisconnectElements()
     disconnect(midiTabForm->voice_b_transpose, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 
     //settings
-    disconnect(midiTabForm->settings_cv1, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
-    disconnect(midiTabForm->settings_cv2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_cv1_local, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_cv1_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_cv1_usb_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+
+    disconnect(midiTabForm->settings_cv2_local, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_cv2_usb, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(midiTabForm->settings_cv2_usb_ch, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+
     disconnect(midiTabForm->settings_key_safety_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(midiTabForm->settings_note_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 }
@@ -204,7 +217,7 @@ void MidiTab::slotValueChanged()
         {
 
             QComboBox* comboBox = qobject_cast<QComboBox *>(sender);
-            value = comboBox->currentText(); // something something everything in json needs to be human text readable and we never use enums grumble grumble
+            value = comboBox->currentText();
             qDebug() << "MidiTab combobox: " << comboBox << " value: " << value;
         }
         emit signalStoreValue(jsonName, value, -1);
@@ -231,11 +244,21 @@ void MidiTab::slotRecallPreset(QVariantMap preset, QVariantMap)
     midiTabForm->voice_b_transpose->setValue(preset.value(midiTabForm->voice_b_transpose->objectName()).toInt());
 
     //cv
-    QString cv1 = preset.value("settings_cv1", "Default (Gate)").toString();
-    midiTabForm->settings_cv1->setCurrentText(cv1);
+    QString cv1, cv2;
 
-    QString cv2 = preset.value("settings_cv2", "Default (Pitch)").toString();
-    midiTabForm->settings_cv2->setCurrentText(cv2);
+    cv1 = preset.value("settings_cv1_local", "Default (Gate)").toString();
+    midiTabForm->settings_cv1_local->setCurrentText(cv1);
+    cv1 = preset.value("settings_cv1_usb", "Gate").toString();
+    midiTabForm->settings_cv1_usb->setCurrentText(cv1);
+    cv1 = preset.value("settings_cv1_usb_ch", "Ch 1").toString();
+    midiTabForm->settings_cv1_usb_ch->setCurrentText(cv1);
+
+    cv2 = preset.value("settings_cv2_local", "Default (Pitch)").toString();
+    midiTabForm->settings_cv2_local->setCurrentText(cv2);
+    cv2 = preset.value("settings_cv2_usb", "Pitch").toString();
+    midiTabForm->settings_cv2_usb->setCurrentText(cv2);
+    cv2 = preset.value("settings_cv2_usb_ch", "Ch 1").toString();
+    midiTabForm->settings_cv2_usb_ch->setCurrentText(cv2);
 
     //note mode
     QString noteMode = preset.value("settings_note_mode").toString();
@@ -246,13 +269,13 @@ void MidiTab::slotRecallPreset(QVariantMap preset, QVariantMap)
 
     qDebug() << "Recall preset - settings_key_safety_mode json value: " << keySafety;
     // fix old values
-    if(keySafety == "SingleKey")
+    if(keySafety == "Single Key" || keySafety == "SingleKey")
     {
-        keySafety = "Single Key";
+        keySafety = "Mono";
     }
-    if(keySafety == "MultiKey")
+    if(keySafety == "MultiKey" || keySafety == "Multi Key")
     {
-        keySafety = "Multi Key";
+        keySafety = "Poly";
     }
     qDebug() << "Recall preset - settings_key_safety_mode fixed value: " << keySafety;
 
