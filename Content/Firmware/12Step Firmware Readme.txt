@@ -18,3 +18,9 @@ Once the bootloader is installed, send this file to the SoftStep to put it into 
 This is the latest version of the firmware provided with the editor. Firmware version 1.x.x is compatible with both 12 Step and 12 Step2 hardware, and older hardware running the new firmware will use the old USB MIDI port names ("12Step Port 1", etc). This will allow older hardware to still talk to older editors, just ignore any prompts to update firmware. New 12 Step2 hardware is only compatible with editor 3.0.0 and later, and uses USB MIDI port names "12 Step Control Surface" and "12 Step TRS MIDI Out".
 
 Note: Windows does not properly display USB MIDI portname descriptors, and some applications will report "12 Step" for the control surface, and "MIDIIN2 (12 Step)" for the expander and/or TRS MIDI out. Microsoft should be fixing this when they roll out support for MIDI 2.0. 
+
+Recomended SysEx software:
+
+MacOS - SysEx Librarian: https://www.snoize.com/sysexlibrarian/
+
+Windows - SysExBox: http://miostools.midibox.org/ 

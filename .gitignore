@@ -110,3 +110,4 @@ compile_commands.json
 *.exe
 /win-build/*.zip
 Icon\r
+Icon\r
