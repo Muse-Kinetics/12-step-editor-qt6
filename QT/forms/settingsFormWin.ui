@@ -23,7 +23,7 @@ QWidget
 /*-----------QLabel------------*/
 QLabel
 {
-	font: 12px &quot;Corbel&quot;;
+	font: 12px &quot;Open Sans&quot;;
 	color: rgb(245, 245, 245);
 }
 
@@ -34,7 +34,7 @@ QToolButton
 	background: rgb(60, 60, 60);
 	color: rgb(245, 245, 245);
 	border: 2px solid rgb(245, 245, 245);
-	font: 14px &quot;Futura PT&quot;;
+	font: 14px &quot;Open Sans&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -43,7 +43,7 @@ QToolButton:pressed
 	background: rgb(245, 245, 245);
 	color: rgb(60, 60, 60);
 	border: 2px solid rgb(245, 245, 245);
-	font: 12pt &quot;Futura PT&quot;;
+	font: 12pt &quot;Open Sans&quot;;
 	padding: 0, 1, 0, 0;
 }
 
@@ -140,34 +140,13 @@ QSlider::sub-page:horizontal
 {
 	background: rgb(169, 169, 169);
 }
-</string>
-  </property>
-  <widget class="QComboBox" name="midiThruCombo">
-   <property name="geometry">
-    <rect>
-     <x>272</x>
-     <y>200</y>
-     <width>200</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Send incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing 12 Step settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*-----------QWidget-----------*/
-QWidget
-{
-	background: rgb(40, 40, 40);
-}
+
+/*---------------------------*/
 
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 14px &quot;Futura PT Book&quot;;
+	font: 14px &quot;Open Sans&quot;;
 	border: 2px solid rgb(245, 245, 245);
 	background: rgb(60, 60, 60);
 	color: white;
@@ -182,10 +161,10 @@ QComboBox QListView
 {
     border: 1px solid rgb(255,255,255);
 	color: white;
-	font: 10px &quot;Futura PT Book&quot;;
+	font: 10px &quot;Open Sans&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
-	min-width: 200px;
+	min-width: 100px;
     height: 200px;
 }
 
@@ -291,9 +270,41 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
 
 /* -------------------------------------------------------------------------------*/
 /* -------------------------------------------------------------------------------*/
-/* -------------------------------------------------------------------------------*/
-
-</string>
+/* -------------------------------------------------------------------------------*/</string>
+  </property>
+  <widget class="QLabel" name="label_progchg">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>193</y>
+     <width>240</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PROGRAM CHANGE PRESET CONTROL</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="midiThruCombo">
+   <property name="geometry">
+    <rect>
+     <x>89</x>
+     <y>213</y>
+     <width>211</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Routes incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing 12 Step settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="editable">
     <bool>false</bool>
@@ -307,27 +318,142 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>272</x>
-     <y>182</y>
-     <width>200</width>
+     <x>301</x>
+     <y>121</y>
+     <width>16</width>
      <height>16</height>
     </rect>
    </property>
-   <property name="text">
-    <string>DEVICE / EDITOR MIDI THRU</string>
+   <property name="styleSheet">
+    <string notr="true">/*-----------QLabel------------*/
+QLabel
+{
+	font: 20px &quot;Corbel&quot;;
+	color: rgb(245, 245, 245);
+}</string>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>74</x>
+     <y>31</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="resetSelect">
+   <property name="geometry">
+    <rect>
+     <x>89</x>
+     <y>151</y>
+     <width>211</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Resets select button sensitivity to the default value. </string>
+   </property>
+   <property name="text">
+    <string>RESET SELECT HOLD TIME</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>652</x>
+     <y>30</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*-----------QLabel------------*/
+QLabel
+{
+	font: 20px &quot;Corbel&quot;;
+	color: rgb(245, 245, 245);
+}</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>425</x>
+     <y>31</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>75</x>
+     <y>122</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="midiVolume">
+   <property name="geometry">
+    <rect>
+     <x>439</x>
+     <y>90</y>
+     <width>212</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enables/Disables the CC 7 127 message the 12 Step &lt;br&gt;automatically outputs on preset changes.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string>DISABLED</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QSlider" name="globalSensitivity">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>42</y>
+     <x>89</x>
+     <y>30</y>
      <width>211</width>
      <height>22</height>
     </rect>
@@ -345,113 +471,11 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>657</x>
-     <y>45</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: transparent;</string>
-   </property>
-   <property name="text">
-    <string>+</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>76</x>
-     <y>112</y>
-     <width>238</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>SEND FULL VOLUME ON PRESET CHANGE</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="velocityOverride">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>132</y>
-     <width>212</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Enables/Disables &quot;velocity override&quot;.&lt;p&gt;When enabled, all presets will transmit all MIDI notes at full velocity (127), ignoring all velocity-related settings in the modlines. When disabled, all presets will respond to velocity as normal.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>DISABLED</string>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>308</x>
-     <y>45</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: transparent;</string>
-   </property>
-   <property name="text">
-    <string>+</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>441</x>
-     <y>112</y>
-     <width>208</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>VELOCITY OVERRIDE</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>22</y>
-     <width>211</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>GLOBAL KEY SENSITIVITY</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QToolButton" name="resetGlobal">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>72</y>
+     <x>89</x>
+     <y>60</y>
      <width>211</width>
      <height>24</height>
     </rect>
@@ -469,74 +493,54 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QSlider" name="selectSensitivity">
+  <widget class="QLabel" name="label_velocity">
    <property name="geometry">
     <rect>
      <x>440</x>
-     <y>42</y>
-     <width>211</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Sets the minimum hold time to activate the 12 Step's Select key.&lt;p&gt;Moving the slider to the left (toward the &quot;-&quot; symbol) decreases how long you must hold the select key for it to activate.  Moving the slider to the right (toward the &quot;+&quot; symbol) increases the time you must hold the select key before it is activated.</string>
-   </property>
-   <property name="minimum">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QToolButton" name="resetSelect">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>72</y>
-     <width>211</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Resets select button sensitivity to the default value. </string>
-   </property>
-   <property name="text">
-    <string>RESET SELECT HOLD TIME</string>
-   </property>
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>22</y>
-     <width>211</width>
+     <y>131</y>
+     <width>208</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>SELECT BUTTON HOLD TIME</string>
+    <string>VELOCITY OVERRIDE</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QCheckBox" name="midiVolume">
+  <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>132</y>
+     <x>302</x>
+     <y>30</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*-----------QLabel------------*/
+QLabel
+{
+	font: 20px &quot;Corbel&quot;;
+	color: rgb(245, 245, 245);
+}</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="velocityOverride">
+   <property name="geometry">
+    <rect>
+     <x>439</x>
+     <y>151</y>
      <width>212</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>Enables/Disables the CC 7 127 message the 12 Step &lt;br&gt;automatically outputs on preset changes.</string>
+    <string>Enables/Disables &quot;velocity override&quot;.&lt;p&gt;When enabled, all presets will transmit all MIDI notes at full velocity (127), ignoring all velocity-related settings in the modlines. When disabled, all presets will respond to velocity as normal.</string>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
@@ -548,36 +552,249 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="label_key_sensitivity">
    <property name="geometry">
     <rect>
-     <x>429</x>
-     <y>38</y>
-     <width>16</width>
+     <x>89</x>
+     <y>10</y>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background: transparent;</string>
-   </property>
    <property name="text">
-    <string>_</string>
+    <string>GLOBAL KEY SENSITIVITY</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_10">
+  <widget class="QLabel" name="label_select">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>38</y>
-     <width>16</width>
+     <x>79</x>
+     <y>101</y>
+     <width>231</width>
      <height>16</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background: transparent;</string>
+   <property name="text">
+    <string>SELECT BUTTON HOLD TIME</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_thru">
+   <property name="geometry">
+    <rect>
+     <x>89</x>
+     <y>193</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
    </property>
    <property name="text">
-    <string>_</string>
+    <string>DEVICE / EDITOR MIDI THRU</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_backlight_brightness">
+   <property name="geometry">
+    <rect>
+     <x>439</x>
+     <y>10</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>BACKLIGHT BRIGHTNESS</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSlider" name="selectSensitivity">
+   <property name="geometry">
+    <rect>
+     <x>89</x>
+     <y>121</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum hold time to activate the 12 Step's Select key, from 50ms to 6 seconds.&lt;/p&gt;&lt;p&gt;Moving the slider to the left (toward the &amp;quot;-&amp;quot; symbol) decreases how long you must hold the select key for it to activate. Moving the slider to the right (toward the &amp;quot;+&amp;quot; symbol) increases the time you must hold the select key before it is activated.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="backlightBrightness">
+   <property name="geometry">
+    <rect>
+     <x>439</x>
+     <y>30</y>
+     <width>212</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjust the brightness of the 12 Step key backlight LEDs.&lt;/p&gt;&lt;p&gt;This feature is only available on 12 Step2, and is disabled when legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSlider::sub-page:horizontal{background: rgb(170, 170, 170) }
+QSlider::add-page:horizontal{background: rgb(170, 170, 170)}
+QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}</string>
+   </property>
+   <property name="minimum">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <number>29</number>
+   </property>
+   <property name="sliderPosition">
+    <number>29</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="progchgRXchannel">
+   <property name="geometry">
+    <rect>
+     <x>439</x>
+     <y>213</y>
+     <width>212</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selects which channel the 12 Step responds to when receiving Program Changes to select presets. LED CC and CV NRPN messages are also recognized on this channel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentText">
+    <string>Channel 1</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>Channel 1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 5</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 7</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 8</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 9</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 10</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 11</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 12</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 13</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 14</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 15</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Channel 16</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Disabled</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_send_volume">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>70</y>
+     <width>240</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SEND FULL VOLUME ON PRESET CHANGE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

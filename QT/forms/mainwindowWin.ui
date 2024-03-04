@@ -38,7 +38,7 @@ QToolButton:focus
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 14px &quot;Futura PT Book&quot;;
+	font: 14px &quot;Corbel&quot;;
  /*
 	border: 2px solid rgb(245, 245, 245);
 */
@@ -55,7 +55,7 @@ QComboBox QListView
 {
    /* border: 1px solid rgb(255,255,255);*/
 	color: white;
-	font: 10px &quot;Futura PT Book&quot;;
+	font: 10px &quot;Corbel&quot;;
 	padding-left: 3px;
 	padding-right: 0px;
 	min-width: 200px;
@@ -244,7 +244,7 @@ QLineEdit
 	border: 3px solid rgb(245, 245, 245);
 	padding-bottom: 2px;
 	color: rgb(245, 245, 245);
-	font: 24pt &quot;Droid Sans Mono&quot;;
+	font: 24pt &quot;Corbel&quot;;
 }
 
 QLineEdit:focus

@@ -8,5 +8,5 @@
 		<TargetDir>@HomeDir@/KMI/12 Step Editor</TargetDir>
 		<WizardStyle>Mac</WizardStyle>
 		<StyleSheet>style.qss</StyleSheet>
-		<ControlScript>pre-install.qs</ControlScript>
+		<!-- <ControlScript>pre-install2.qs</ControlScript> -->
 </Installer>

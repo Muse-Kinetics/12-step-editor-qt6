@@ -30,7 +30,7 @@ public:
     QFile *jsonFile;
 
 signals:
-    void signalRecallSettings(QVariantMap preset, QVariantMap settings);
+    void signalRecallSettings(QVariantMap preset); //, QVariantMap settings);
 
 public slots:
     void slotSetJSONPath();

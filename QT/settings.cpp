@@ -15,19 +15,21 @@ Settings::Settings(QWidget *parent, QSettings *_sessionSettings) :
 
     this->setObjectName("Settings");
 
+
+
+    settingsForm->setupUi(settingsWidget);
+
+    progChgRxCh = settingsForm->progchgRXchannel;
+    midiThru = settingsForm->midiThruCombo;
+    qDebug() << "Instantiated settings.cpp ui elements/pointers";
+    qDebug() << "settings - midiThru: " << midiThru->objectName();
+    this->setGeometry(0, 0, SETTINGSTAB_WIDTH, SETTINGSTAB_HEIGHT);
+    //set main stylesheet for this tab here - if it needs to be different from the stylesheet for all tabs - for that see mainwindow.cpp
+
     saveSettingsTimeout = new QTimer(this);
     connect(saveSettingsTimeout, SIGNAL(timeout()), this, SLOT(slotSaveSettingsTimeout()));
     saveSettingsTimeoutTime = 0;
 
-    settingsForm->setupUi(settingsWidget);
-    this->setGeometry(0, 0, SETTINGSTAB_WIDTH, SETTINGSTAB_HEIGHT);
-    //set main stylesheet for this tab here - if it needs to be different from the stylesheet for all tabs - for that see mainwindow.cpp
-
-    qDebug() << "Instantiate settings.cpp";
-    midiThru = settingsForm->midiThruCombo;
-    qDebug() << "settings - midiThru: " << midiThru->objectName();
-
-    progChgRxCh = settingsForm->progchgRXchannel;
 
     slotConnectElements();
     slotUpdateLabeLValues();
@@ -68,8 +70,9 @@ void Settings::slotConnectElements()
     connect(settingsForm->midiVolume, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
     connect(settingsForm->velocityOverride, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
 
-    // MIDI Thru dropdown
+    // Dropdowns
     connect(midiThru, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
+    connect(progChgRxCh, SIGNAL(currentIndexChanged(int)), this, SIGNAL(slotUpdateNRPNChannel(int)));
 }
 
 void Settings::slotDisconnectElements()
@@ -104,9 +107,9 @@ void Settings::slotUpdateLabeLValues()
 
     qDebug() << "settingsTab slotUpdateLabeLValues called - brightness: " << brightness;
 
-    settingsForm->label_key_sensitivity->setText(QString("GLOBAL KEY SENSITIVITY - %1\%").arg(sensitivity));
+    settingsForm->label_key_sensitivity->setText(QString("GLOBAL KEY SENSITIVITY - %1%").arg(sensitivity));
     settingsForm->label_select->setText(QString("SELECT BUTTON HOLD TIME - %1 Seconds").arg(selectTime));
-    settingsForm->label_backlight_brightness->setText(QString("BACKLIGHT BRIGHTNESS - %1\%").arg(brightness));
+    settingsForm->label_backlight_brightness->setText(QString("BACKLIGHT BRIGHTNESS - %1%").arg(brightness));
 }
 
 void Settings::slotValueChanged()
@@ -181,7 +184,7 @@ void Settings::slotValueChanged()
     slotUpdateLabeLValues();
 }
 
-void Settings::slotRecallPreset(QVariantMap preset, QVariantMap)
+void Settings::slotRecallPreset(QVariantMap preset)
 {
     slotDisconnectElements();
 

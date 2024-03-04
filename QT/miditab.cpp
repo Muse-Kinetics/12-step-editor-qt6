@@ -113,6 +113,7 @@ void MidiTab::slotTabView(int tabIndex)
 
 void MidiTab::slotEnableUIfor12S2(bool is12s2)
 {
+    qDebug() << "slotEnableUIfor12S2 called - is12s2: " << is12s2;
     bool stateToSet = !is12s2; // invert so we can setDisabled
     //return; // for now leave everything enabled for dev
 

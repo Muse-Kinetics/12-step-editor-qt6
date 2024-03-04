@@ -22,10 +22,22 @@ QWidget
 
 }
 
+QWidget:disabled {
+	border: 2px solid rgb(100, 100, 100);
+	background: rgba(20, 20, 20, 100);
+	color: rgb(100, 100, 100);
+	padding: 1px 3px 1px 4px;
+}
+
+QComboBox::disabled
+{
+
+}
+
 /**************LABEL**************/
 QLabel
 {
-	font: 9pt &quot;Corbel&quot;;
+	font: 9pt &quot;Open Sans&quot;;
 	color: rgb(242, 242, 242);
 	background-color: transparent;
 }
@@ -33,7 +45,7 @@ QLabel
 /**************SPINBOX**************/
 QSpinBox
 {
-	font: 10pt &quot;Corbel&quot;;
+	font: 10pt &quot;Open Sans&quot;;
 	color: rgb(242, 242, 242);
 	background-color: rgb(60, 60, 60);
 	border: 2px solid rgb(242, 242, 242);
@@ -47,7 +59,7 @@ QSpinBox:focus
 /**************DOUBLESPINBOX**************/
 QDoubleSpinBox
 {
-	font: 10pt &quot;Corbel&quot;;
+	font: 10pt &quot;Open Sans&quot;;
 	color: rgb(242, 242, 242);
 	background-color: rgb(60, 60, 60);
 	border: 2px solid rgb(242, 242, 242);
@@ -80,15 +92,144 @@ QRadioButton::indicator
 	width: 0px;
 	height: 0px;
 }
-</string>
+
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 10pt &quot;Open Sans&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+    combobox-popup: 0;
+ }
+
+/*----------- QComboBox ------------*/
+
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10pt &quot;Open Sans&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 100px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 100px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+    border: none;
+    background: none;
+    image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+    padding-right: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+    width: 1px;
+    height: 1px;
+    subcontrol-origin: margin;
+    subcontrol-position: right center;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}
+
+/* ---[scroll bar]----------------------------------------------------------------------------*/
+
+QComboBox QAbstractItemView QScrollBar:vertical {
+	background: black;
+/* margin sets up how far the handle can travel */
+	margin: 0px 0px 0px 0px;
+	border: none;
+}
+
+/* Sets up the color and height of handle */
+QComboBox QAbstractItemView QScrollBar::handle:vertical {
+	background: rgb(255,255,255);
+	border: none;
+}
+
+/* This removes the bottom button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::add-line:vertical {
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* This remvoes the top button by setting the height to 0px */
+QComboBox QAbstractItemView QScrollBar::sub-line:vertical {
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+	border: none;
+}
+
+/* need this to get rid of crosshatching on scrollbar background */
+QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+	border: none;
+}
+
+
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------*/</string>
   </property>
   <widget class="QToolButton" name="deletemodline">
    <property name="geometry">
     <rect>
      <x>40</x>
      <y>480</y>
-     <width>23</width>
-     <height>23</height>
+     <width>24</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -117,8 +258,8 @@ QToolButton:pressed
     <rect>
      <x>10</x>
      <y>480</y>
-     <width>23</width>
-     <height>23</height>
+     <width>24</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="focusPolicy">
@@ -173,9 +314,9 @@ QToolButton:pressed
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>153</x>
+     <x>150</x>
      <y>13</y>
-     <width>41</width>
+     <width>47</width>
      <height>16</height>
     </rect>
    </property>
@@ -189,9 +330,9 @@ QToolButton:pressed
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>221</x>
+     <x>218</x>
      <y>13</y>
-     <width>41</width>
+     <width>47</width>
      <height>16</height>
     </rect>
    </property>
@@ -304,142 +445,6 @@ QToolButton:pressed
     <number>-1</number>
    </property>
   </widget>
-  <widget class="SelectAllSpinBox" name="voice_a_bank">
-   <property name="geometry">
-    <rect>
-     <x>153</x>
-     <y>93</y>
-     <width>41</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="specialValueText">
-    <string>off</string>
-   </property>
-   <property name="minimum">
-    <number>-1</number>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-   <property name="value">
-    <number>-1</number>
-   </property>
-  </widget>
-  <widget class="SelectAllSpinBox" name="voice_b_bank">
-   <property name="geometry">
-    <rect>
-     <x>221</x>
-     <y>93</y>
-     <width>41</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Anytime the current preset is loaded it will immediately&lt;br&gt; output the entered value as a Bank Select message.</string>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="specialValueText">
-    <string>off</string>
-   </property>
-   <property name="minimum">
-    <number>-1</number>
-   </property>
-   <property name="maximum">
-    <number>127</number>
-   </property>
-   <property name="value">
-    <number>-1</number>
-   </property>
-  </widget>
-  <widget class="SelectAllSpinBox" name="voice_a_bend_range">
-   <property name="geometry">
-    <rect>
-     <x>153</x>
-     <y>123</y>
-     <width>41</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Sets the Pitch Bend range (in semitones) of Voice A.</string>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="specialValueText">
-    <string/>
-   </property>
-   <property name="minimum">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <number>12</number>
-   </property>
-   <property name="value">
-    <number>1</number>
-   </property>
-  </widget>
-  <widget class="SelectAllSpinBox" name="voice_b_bend_range">
-   <property name="geometry">
-    <rect>
-     <x>221</x>
-     <y>123</y>
-     <width>41</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Sets the Pitch Bend range (in semitones) of Voice B.</string>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="buttonSymbols">
-    <enum>QAbstractSpinBox::NoButtons</enum>
-   </property>
-   <property name="specialValueText">
-    <string/>
-   </property>
-   <property name="minimum">
-    <number>1</number>
-   </property>
-   <property name="maximum">
-    <number>12</number>
-   </property>
-   <property name="value">
-    <number>1</number>
-   </property>
-  </widget>
   <widget class="SelectAllSpinBox" name="voice_a_transpose">
    <property name="geometry">
     <rect>
@@ -513,7 +518,7 @@ QToolButton:pressed
     <rect>
      <x>37</x>
      <y>33</y>
-     <width>71</width>
+     <width>100</width>
      <height>26</height>
     </rect>
    </property>
@@ -526,38 +531,12 @@ QToolButton:pressed
     <rect>
      <x>37</x>
      <y>63</y>
-     <width>81</width>
+     <width>100</width>
      <height>26</height>
     </rect>
    </property>
    <property name="text">
     <string>Program Change</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>37</x>
-     <y>93</y>
-     <width>31</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Bank</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>37</x>
-     <y>123</y>
-     <width>81</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Bend Range</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -576,9 +555,9 @@ QToolButton:pressed
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>47</x>
+     <x>30</x>
      <y>207</y>
-     <width>70</width>
+     <width>94</width>
      <height>26</height>
     </rect>
    </property>
@@ -640,9 +619,9 @@ QToolButton:pressed
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>463</x>
+     <x>460</x>
      <y>207</y>
-     <width>41</width>
+     <width>47</width>
      <height>26</height>
     </rect>
    </property>
@@ -720,445 +699,681 @@ QToolButton:pressed
     <string/>
    </property>
   </widget>
-  <widget class="QFrame" name="frame">
+  <widget class="QComboBox" name="settings_cv1_local">
    <property name="geometry">
     <rect>
-     <x>288</x>
-     <y>70</y>
-     <width>201</width>
-     <height>62</height>
+     <x>390</x>
+     <y>33</y>
+     <width>100</width>
+     <height>26</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DEFAULT - CV1 = GATE, CV2 = PITCH. If multiple notes are assigned to a 12 Step Key, only the first note (the one in the top of the editor) controls the CV. &lt;br/&gt;&lt;br/&gt;GATE - the CV is set to 5V when a key is pressed, and 0V when the key is released. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent key that was pressed. &lt;/p&gt;&lt;p&gt;VELOCITY - same as PITCH, except the key velocity is mapped to 0-5V.&lt;/p&gt;&lt;p&gt;PRESSURE - the CV is set to 0-5V corresponding to the current PRESSURE of the active key. &lt;/p&gt;&lt;p&gt;TILT - the CV is set to 0-5V corresponding to the current TILT of the active key. &lt;/p&gt;&lt;p&gt;PEDAL - the CV is set to 0-5V, controlled by the expression pedal input. &lt;/p&gt;&lt;p&gt;DISABLED - the CV ignores local control from the 12 Step2 keys.&lt;/p&gt;&lt;p&gt;Note - CV features are only available on 12 Step2, and are disabled if legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QFrame
+    <string notr="true">/*----------- QComboBox ------------*/
+
+/* dropdown box*/
+QComboBox QListView
 {
-	background-color: transparent;
-	border: none;
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10px &quot;Corbel&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 110px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 110px;
 }</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-   <widget class="QRadioButton" name="keySafetySingleKey">
-    <property name="geometry">
-     <rect>
-      <x>88</x>
-      <y>1</y>
-      <width>103</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key&lt;/b&gt;: Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Multi Key&lt;/b&gt;: All keys can be activated at any time.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
-
-}
-
-QRadioButton::unchecked
-{
-	image: url(:/ui/ui_images/keysafety_singlekey_inactive.svg);
-}
-
-QRadioButton::checked
-{
-	image: url(:/ui/ui_images/keysafety_singlekey_active.svg);
-}
-
-QRadioButton::unchecked:pressed
-{
-	image: url(:/ui/ui_images/keysafety_singlekey_pressed.svg);
-}
-
-QRadioButton::checked:pressed
-{
-	image: url(:/ui/ui_images/keysafety_singlekey_pressed.svg);
-}
-
-QRadioButton::unchecked:focus
-{
-	image: url(:/ui/ui_images/keysafety_singlekey_inactive_focus.svg);
-}
-
-QRadioButton::checked:focus
-{
-	image: url(:/ui/ui_images/keysafety_singlekey_active_focus.svg);
-}</string>
-    </property>
+   <item>
     <property name="text">
-     <string/>
+     <string>Default (Gate)</string>
     </property>
-    <property name="checkable">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="keySafetyMultiKey">
-    <property name="geometry">
-     <rect>
-      <x>88</x>
-      <y>35</y>
-      <width>103</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key&lt;/b&gt;: Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Multi Key&lt;/b&gt;: All keys can be activated at any time.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
-
-}
-
-QRadioButton::unchecked
-{
-	image: url(:/ui/ui_images/keysafety_multikey_inactive.svg);
-}
-
-QRadioButton::checked
-{
-	image: url(:/ui/ui_images/keysafety_multikey_active.svg);
-}
-
-QRadioButton::unchecked:pressed
-{
-	image: url(:/ui/ui_images/keysafety_multikey_pressed.svg);
-}
-
-QRadioButton::checked:pressed
-{
-	image: url(:/ui/ui_images/keysafety_multikey_pressed.svg);
-}
-
-QRadioButton::unchecked:focus
-{
-	image: url(:/ui/ui_images/keysafety_multikey_inactive_focus.svg);
-}
-
-QRadioButton::checked:focus
-{
-	image: url(:/ui/ui_images/keysafety_multikey_active_focus.svg);
-}</string>
-    </property>
+   </item>
+   <item>
     <property name="text">
-     <string/>
+     <string>Gate</string>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_17">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>0</y>
-      <width>23</width>
-      <height>62</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key&lt;/b&gt;: Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Multi Key&lt;/b&gt;: All keys can be activated at any time.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel
-{
-	image: url(:/ui/ui_images/keysafety_grouping.svg);
-}</string>
-    </property>
+   </item>
+   <item>
     <property name="text">
-     <string/>
+     <string>Pitch</string>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_18">
-    <property name="geometry">
-     <rect>
-      <x>2</x>
-      <y>23</y>
-      <width>61</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key&lt;/b&gt;: Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Multi Key&lt;/b&gt;: All keys can be activated at any time.</string>
-    </property>
+   </item>
+   <item>
     <property name="text">
-     <string>Key Safety</string>
+     <string>Velocity</string>
     </property>
-   </widget>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pressure</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Tilt</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Expression Pedal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Disabled</string>
+    </property>
+   </item>
   </widget>
-  <widget class="QFrame" name="frame_2">
+  <widget class="QLabel" name="label_17">
    <property name="geometry">
     <rect>
-     <x>500</x>
-     <y>37</y>
-     <width>221</width>
-     <height>129</height>
+     <x>390</x>
+     <y>13</y>
+     <width>100</width>
+     <height>16</height>
     </rect>
    </property>
+   <property name="text">
+    <string>Control Surface</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_22">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>63</y>
+     <width>71</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CV Out 2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_18">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>123</y>
+     <width>60</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets how many keys can be activated simultaneously.&lt;p&gt;&lt;b&gt;Single Key&lt;/b&gt;: Only one key can be activated at a time.&lt;p&gt;&lt;b&gt;Multi Key&lt;/b&gt;: All keys can be activated at any time.</string>
+   </property>
+   <property name="text">
+    <string>Key Mode</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_19">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>153</y>
+     <width>70</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Notes will turn on when a key is pressed and continue playing when released. When another key is pressed, the previous notes will turn off and the new key's notes will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
+   </property>
+   <property name="text">
+    <string>Note Mode</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="settings_cv2_local">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>63</y>
+     <width>100</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DEFAULT - CV1 = GATE, CV2 = PITCH. If multiple notes are assigned to a 12 Step Key, only the first note (the one in the top of the editor) controls the CV. &lt;br/&gt;&lt;br/&gt;GATE - the CV is set to 5V when a key is pressed, and 0V when the key is released. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent key that was pressed. &lt;/p&gt;&lt;p&gt;VELOCITY - same as PITCH, except the key velocity is mapped to 0-5V.&lt;/p&gt;&lt;p&gt;PRESSURE - the CV is set to 0-5V corresponding to the current PRESSURE of the active key. &lt;/p&gt;&lt;p&gt;TILT - the CV is set to 0-5V corresponding to the current TILT of the active key. &lt;/p&gt;&lt;p&gt;PEDAL - the CV is set to 0-5V, controlled by the expression pedal input. &lt;/p&gt;&lt;p&gt;DISABLED - the CV ignores local control from the 12 Step2 keys.&lt;/p&gt;&lt;p&gt;Note - CV features are only available on 12 Step2, and are disabled if legacy hardware is connected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QFrame
+    <string notr="true">/*----------- QComboBox ------------*/
+
+/* dropdown box*/
+QComboBox QListView
 {
-	background-color: transparent;
-	border: none;
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10px &quot;Corbel&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 110px;
+    height: 200px;
+}
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 110px;
 }</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+   <item>
+    <property name="text">
+     <string>Default (Pitch)</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Gate</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pitch</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Velocity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pressure</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Tilt</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Expression Pedal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Disabled</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_key_safety_mode">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>123</y>
+     <width>127</width>
+     <height>26</height>
+    </rect>
    </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets how many keys can be activated simultaneously. Mono = monophonic, one key at a time. Poly = polyphonic, multiple keys at a time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
-   <widget class="QRadioButton" name="noteModeNormal">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>0</y>
-      <width>103</width>
-      <height>27</height>
-     </rect>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <item>
+    <property name="text">
+     <string>Mono</string>
     </property>
-    <property name="toolTip">
-     <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Pressing a key will turn the note on — it will continue playing after releasing the key. When the next key is pressed, the previous key will turn off and the new key will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
+   </item>
+   <item>
+    <property name="text">
+     <string>Poly</string>
     </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_cv2_usb">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>63</y>
+     <width>75</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Configure USB MIDI (Port , &amp;quot;CV Out&amp;quot;) control of the CV Out.&lt;/p&gt;&lt;p&gt;GATE - the CV is set to 5V when a MIDI Note On is received, and 0V for Note Off. The gate remains on until all active notes are turned off. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;VELOCITY - the CV is set to a 0-5V voltage that matches the velocity of the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;BEND / MOD - the CV is set to a 0-5V voltage corresponding to14 bit (pitch bend) or 7 bit (mod wheel CC1) MIDI messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
 
-}
 
-QRadioButton::unchecked
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
 {
-	image: url(:/ui/ui_images/notemode_normal_inactive.svg);
-}
-
-QRadioButton::checked
-{
-	image: url(:/ui/ui_images/notemode_normal_active.svg);
-}
-
-QRadioButton::unchecked:pressed
-{
-	image: url(:/ui/ui_images/notemode_normal_pressed.svg);
-}
-
-QRadioButton::checked:pressed
-{
-	image: url(:/ui/ui_images/notemode_normal_pressed.svg);
-}
-
-QRadioButton::unchecked:focus
-{
-	image: url(:/ui/ui_images/notemode_normal_inactive_focus.svg);
-}
-
-QRadioButton::checked:focus
-{
-	image: url(:/ui/ui_images/notemode_normal_active_focus.svg);
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 85px;
 }</string>
-    </property>
+   </property>
+   <item>
     <property name="text">
-     <string/>
+     <string>Gate</string>
     </property>
-    <property name="checkable">
-     <bool>true</bool>
+   </item>
+   <item>
+    <property name="text">
+     <string>Pitch</string>
     </property>
-   </widget>
-   <widget class="QRadioButton" name="noteModeLegato">
-    <property name="geometry">
-     <rect>
-      <x>89</x>
-      <y>33</y>
-      <width>105</width>
-      <height>27</height>
-     </rect>
+   </item>
+   <item>
+    <property name="text">
+     <string>Velocity</string>
     </property>
-    <property name="toolTip">
-     <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Pressing a key will turn the note on — it will continue playing after releasing the key. When the next key is pressed, the previous key will turn off and the new key will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bend / Mod</string>
     </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_20">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>13</y>
+     <width>75</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>USB</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_21">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>33</y>
+     <width>71</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CV Out 1</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="settings_note_mode">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>153</y>
+     <width>127</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets how MIDI notes will behave when playing the 12 Step &lt;/p&gt;&lt;p&gt;• Normal: Notes will turn on when a key is pressed and turn off when the key is released. &lt;/p&gt;&lt;p&gt;• Legato: Notes will turn on when a key is pressed and continue playing when released. When another key is pressed, the previous notes will turn off and the new key’s notes will turn on. &lt;/p&gt;&lt;p&gt;• Toggle: Notes will turn on when a key is pressed and stay on until the key is pressed again. &lt;/p&gt;&lt;p&gt;• Hold: Allows toggling between Normal and Legato mode using the Select key.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <item>
+    <property name="text">
+     <string>Normal</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Legato</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Toggle</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Hold</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_cv1_usb_ch">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>33</y>
+     <width>50</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the USB MIDI channel that the CV Out responds to&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
 
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10px &quot;Corbel&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 50px;
+    height: 200px;
 }
 
-QRadioButton::unchecked
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
 {
-	image: url(:/ui/ui_images/notemode_legato_inactive.svg);
-}
-
-QRadioButton::checked
-{
-	image: url(:/ui/ui_images/notemode_legato_active.svg);
-}
-
-QRadioButton::unchecked:pressed
-{
-	image: url(:/ui/ui_images/notemode_legato_pressed.svg);
-}
-
-QRadioButton::checked:pressed
-{
-	image: url(:/ui/ui_images/notemode_legato_pressed.svg);
-}
-
-QRadioButton::unchecked:focus
-{
-	image: url(:/ui/ui_images/notemode_legato_inactive_focus.svg);
-}
-
-QRadioButton::checked:focus
-{
-	image: url(:/ui/ui_images/notemode_legato_active_focus.svg);
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 50px;
 }</string>
-    </property>
+   </property>
+   <item>
     <property name="text">
-     <string/>
+     <string>Ch 1</string>
     </property>
-   </widget>
-   <widget class="QRadioButton" name="noteModeToggle">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>66</y>
-      <width>103</width>
-      <height>27</height>
-     </rect>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ch 2</string>
     </property>
-    <property name="toolTip">
-     <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Pressing a key will turn the note on — it will continue playing after releasing the key. When the next key is pressed, the previous key will turn off and the new key will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
+   </item>
+  </widget>
+  <widget class="QComboBox" name="settings_cv2_usb_ch">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>63</y>
+     <width>50</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the USB MIDI channel that the CV Out responds to&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
 
+/* dropdown box*/
+QComboBox QListView
+{
+    border: 1px solid rgb(255,255,255);
+	color: white;
+	font: 10px &quot;Corbel&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 50px;
+    height: 200px;
 }
 
-QRadioButton::unchecked
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
 {
-	image: url(:/ui/ui_images/notemode_toggle_inactive.svg);
-}
-
-QRadioButton::checked
-{
-	image: url(:/ui/ui_images/notemode_toggle_active.svg);
-}
-
-QRadioButton::unchecked:pressed
-{
-	image: url(:/ui/ui_images/notemode_toggle_pressed.svg);
-}
-
-QRadioButton::checked:pressed
-{
-	image: url(:/ui/ui_images/notemode_toggle_pressed.svg);
-}
-
-QRadioButton::unchecked:focus
-{
-	image: url(:/ui/ui_images/notemode_toggle_inactive_focus.svg);
-}
-
-QRadioButton::checked:focus
-{
-	image: url(:/ui/ui_images/notemode_toggle_active_focus.svg);
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 50px;
 }</string>
-    </property>
+   </property>
+   <item>
     <property name="text">
-     <string/>
+     <string>Ch 1</string>
     </property>
-   </widget>
-   <widget class="QRadioButton" name="noteModeHold">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>99</y>
-      <width>103</width>
-      <height>27</height>
-     </rect>
+   </item>
+   <item>
+    <property name="text">
+     <string>Ch 2</string>
     </property>
-    <property name="toolTip">
-     <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Pressing a key will turn the note on — it will continue playing after releasing the key. When the next key is pressed, the previous key will turn off and the new key will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QRadioButton
-{
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_23">
+   <property name="geometry">
+    <rect>
+     <x>587</x>
+     <y>13</y>
+     <width>50</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Channel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="settings_cv1_usb">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>33</y>
+     <width>75</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Configure USB MIDI (Port , &amp;quot;CV Out&amp;quot;) control of the CV Out.&lt;/p&gt;&lt;p&gt;GATE - the CV is set to 5V when a MIDI Note On is received, and 0V for Note Off. The gate remains on until all active notes are turned off. &lt;/p&gt;&lt;p&gt;PITCH - the CV is set to a (1V/Oct) voltage that matches the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;VELOCITY - the CV is set to a 0-5V voltage that matches the velocity of the most recent MIDI Note On message.&lt;/p&gt;&lt;p&gt;BEND / MOD - the CV is set to a 0-5V voltage corresponding to14 bit (pitch bend) or 7 bit (mod wheel CC1) MIDI messages.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
 
-}
 
-QRadioButton::unchecked
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
 {
-	image: url(:/ui/ui_images/notemode_hold_inactive.svg);
-}
-
-QRadioButton::checked
-{
-	image: url(:/ui/ui_images/notemode_hold_active.svg);
-}
-
-QRadioButton::unchecked:pressed
-{
-	image: url(:/ui/ui_images/notemode_hold_pressed.svg);
-}
-
-QRadioButton::checked:pressed
-{
-	image: url(:/ui/ui_images/notemode_hold_pressed.svg);
-}
-
-QRadioButton::unchecked:focus
-{
-	image: url(:/ui/ui_images/notemode_hold_inactive_focus.svg);
-}
-
-QRadioButton::checked:focus
-{
-	image: url(:/ui/ui_images/notemode_hold_active_focus.svg);
+    background-color: rgb(40, 40, 40);
+    selection-color: white;
+    selection-background-color: rgb(0,174,239);
+    min-width: 85px;
 }</string>
-    </property>
+   </property>
+   <item>
     <property name="text">
-     <string/>
+     <string>Gate</string>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_19">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>56</y>
-      <width>54</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Pressing a key will turn the note on — it will continue playing after releasing the key. When the next key is pressed, the previous key will turn off and the new key will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
-    </property>
+   </item>
+   <item>
     <property name="text">
-     <string>Note Mode</string>
+     <string>Pitch</string>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_20">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>0</y>
-      <width>23</width>
-      <height>126</height>
-     </rect>
-    </property>
-    <property name="toolTip">
-     <string>Sets the way notes behave when triggered.&lt;p&gt;&lt;b&gt;Normal&lt;/b&gt;: Notes will turn on when a key is pressed and turn off when the key is released.&lt;p&gt;&lt;b&gt;Legato&lt;/b&gt;: Pressing a key will turn the note on — it will continue playing after releasing the key. When the next key is pressed, the previous key will turn off and the new key will turn on.&lt;p&gt;&lt;b&gt;Toggle&lt;/b&gt;: Notes will turn on when a key is pressed and stay on until the key is pressed again.&lt;p&gt;&lt;b&gt;Hold&lt;/b&gt;: Allows toggling between Normal and Legato mode using the Select key.</string>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel
-{
-	image: url(:/ui/ui_images/notemode_grouping.svg);
-}</string>
-    </property>
+   </item>
+   <item>
     <property name="text">
-     <string/>
+     <string>Velocity</string>
     </property>
-   </widget>
+   </item>
+   <item>
+    <property name="text">
+     <string>Bend / Mod</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="SelectAllSpinBox" name="voice_b_bank_msb">
+   <property name="geometry">
+    <rect>
+     <x>221</x>
+     <y>93</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (MSB, CC#0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="specialValueText">
+    <string>off</string>
+   </property>
+   <property name="minimum">
+    <number>-1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="value">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="SelectAllSpinBox" name="voice_a_bank">
+   <property name="geometry">
+    <rect>
+     <x>153</x>
+     <y>123</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (LSB, CC#32)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="specialValueText">
+    <string>off</string>
+   </property>
+   <property name="minimum">
+    <number>-1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="value">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>93</y>
+     <width>81</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Bank MSB</string>
+   </property>
+  </widget>
+  <widget class="SelectAllSpinBox" name="voice_a_bank_msb">
+   <property name="geometry">
+    <rect>
+     <x>153</x>
+     <y>93</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (MSB, CC#0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="specialValueText">
+    <string>off</string>
+   </property>
+   <property name="minimum">
+    <number>-1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="value">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="SelectAllSpinBox" name="voice_b_bank">
+   <property name="geometry">
+    <rect>
+     <x>221</x>
+     <y>123</y>
+     <width>41</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anytime the current preset is loaded it will immediately output the entered value as a Bank Select message (LSB, CC#32)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="buttonSymbols">
+    <enum>QAbstractSpinBox::NoButtons</enum>
+   </property>
+   <property name="specialValueText">
+    <string>off</string>
+   </property>
+   <property name="minimum">
+    <number>-1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="value">
+    <number>-1</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>123</y>
+     <width>100</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Bank LSB</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>

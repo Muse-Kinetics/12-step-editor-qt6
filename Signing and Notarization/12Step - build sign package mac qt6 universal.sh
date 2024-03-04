@@ -7,7 +7,7 @@
 this_year=2024
 app_name="12 Step Editor"
 app_name_fp=12\ Step\ Editor
-version=3.0.1C
+version=3.0.1
 
 bundle_name=12StepEditor
 bundle_id="com.keithmcmillen.$bundle_name"
@@ -19,6 +19,8 @@ dmg_icon="./$app_name.icns"
 subfolder_path="./dmg/$app_name"
 changelog_source="../CHANGELOG.md"
 changelog_dest="$subfolder_path/CHANGELOG.md"
+content_source="../Content"
+content_dest="$subfolder_path/Content"
 app_path="$subfolder_path/$app_name.app"
 path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
 developer_id="Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})"
@@ -42,7 +44,7 @@ if [ -d "$app_path" ]
 then
 	rm -rf "$app_path"
 	echo ""
-	echo "Cleaning out old advanced editor..."
+	echo "Cleaning out old editor..."
 	echo ""
 fi
 
@@ -54,6 +56,14 @@ then
 	echo ""
 fi
 
+if [ -f "$content_dest" ] 
+then
+  rm -rf "$content_dest"
+  echo ""
+  echo "Cleaning out old changelog..."
+  echo ""
+fi
+
 # echo "Press any key to continue"
 # echo
 # read -n 1 -s -r -p ""
@@ -62,6 +72,7 @@ fi
 # copy the .app and resources
 \cp -R "$app_source" "$subfolder_path/"
 \cp -R "$changelog_source" "$subfolder_path/"
+\cp -R "$content_source" "$subfolder_path/"
 
 echo ""
 echo "### - Updating info.plist"

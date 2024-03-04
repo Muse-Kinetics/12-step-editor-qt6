@@ -40,6 +40,14 @@ QComboBox QListView
 	min-width: 70px;
 }
 
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}
+
 QComboBox QAbstractItemView
 {
     min-width: 190px;
@@ -96,21 +104,6 @@ QLabel
    </property>
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
    </property>
    <item>
     <property name="text">
@@ -190,22 +183,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/2_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/2_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/2_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/2_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/2_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -239,22 +232,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/3_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/3_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/3_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/3_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/3_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -273,21 +266,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -350,21 +329,6 @@ QComboBox::down-arrow
    </property>
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
    </property>
    <item>
     <property name="text">
@@ -444,22 +408,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/5_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/5_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/5_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/5_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/5_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -493,22 +457,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/4_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/4_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/4_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/4_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/4_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -526,21 +490,6 @@ QCheckBox::indicator:checked:pressed
    </property>
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
    </property>
    <item>
     <property name="text">
@@ -605,21 +554,6 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -683,21 +617,6 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -760,21 +679,6 @@ QComboBox::down-arrow
    </property>
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
    </property>
    <item>
     <property name="text">
@@ -854,22 +758,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/7_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/7_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/7_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/7_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/7_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -903,22 +807,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/9_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/9_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/9_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/9_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/9_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -936,21 +840,6 @@ QCheckBox::indicator:checked:pressed
    </property>
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
    </property>
    <item>
     <property name="text">
@@ -1030,22 +919,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/6_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/6_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/6_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/6_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/6_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1079,22 +968,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/8_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/8_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/8_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/8_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/8_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1113,21 +1002,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1191,21 +1066,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1269,21 +1130,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1347,21 +1194,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1425,21 +1258,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1503,21 +1322,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1596,22 +1401,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/16_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/16_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/16_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/16_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/16_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1645,22 +1450,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/14_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/14_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/14_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/14_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/14_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1679,21 +1484,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -1772,22 +1563,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/15_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/15_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/15_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/15_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/15_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1821,22 +1612,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/11_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/11_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/11_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/11_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/11_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1870,22 +1661,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/13_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/13_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/13_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/13_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/13_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1919,22 +1710,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/10_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/10_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/10_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/10_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/10_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -1953,21 +1744,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2046,22 +1823,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/12_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/12_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/12_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/12_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/12_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -2095,22 +1872,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/17_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/17_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/17_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/17_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/17_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -2144,22 +1921,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/31_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/31_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/31_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/31_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/31_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -2178,21 +1955,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2256,21 +2019,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2349,22 +2098,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/29_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/29_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/29_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/29_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/29_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -2383,21 +2132,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2461,21 +2196,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2539,21 +2260,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2617,21 +2324,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2695,21 +2388,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2788,22 +2467,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/32_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/32_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/32_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/32_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/32_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -2822,21 +2501,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -2915,22 +2580,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/21_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/21_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/21_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/21_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/21_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -2949,21 +2614,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -3042,22 +2693,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/18_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/18_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/18_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/18_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/18_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3076,21 +2727,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -3169,22 +2806,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/24_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/24_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/24_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/24_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/24_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3218,22 +2855,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/19_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/19_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/19_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/19_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/19_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3267,22 +2904,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/23_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/23_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/23_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/23_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/23_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3301,21 +2938,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -3394,22 +3017,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/22_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/22_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/22_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/22_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/22_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3443,22 +3066,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/26_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/26_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/26_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/26_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/26_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3492,22 +3115,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/20_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/20_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/20_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/20_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/20_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3526,21 +3149,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -3619,22 +3228,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/27_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/27_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/27_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/27_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/27_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3668,22 +3277,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/25_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/25_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/25_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/25_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/25_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3702,21 +3311,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -3795,22 +3390,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/30_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/30_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/30_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/30_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/30_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3844,22 +3439,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/33_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/33_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/33_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/33_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/33_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -3878,21 +3473,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -3956,21 +3537,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4049,22 +3616,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/28_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/28_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/28_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/28_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/28_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4083,21 +3650,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4161,21 +3714,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4254,22 +3793,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/64_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/64_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/64_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/64_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/64_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4303,22 +3842,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/37_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/37_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/37_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/37_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/37_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4352,22 +3891,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/56_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/56_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/56_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/56_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/56_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4401,22 +3940,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/1_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/1_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/1_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/1_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/1_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4450,22 +3989,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/40_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/40_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/40_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/40_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/40_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4484,21 +4023,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4562,21 +4087,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4640,21 +4151,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4718,21 +4215,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4811,22 +4294,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/60_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/60_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/60_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/60_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/60_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4860,22 +4343,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/44_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/44_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/44_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/44_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/44_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -4894,21 +4377,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -4987,22 +4456,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/57_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/57_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/57_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/57_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/57_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5021,21 +4490,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5099,21 +4554,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5177,21 +4618,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5270,22 +4697,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/41_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/41_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/41_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/41_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/41_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5304,21 +4731,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5382,21 +4795,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5475,22 +4874,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/51_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/51_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/51_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/51_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/51_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5524,22 +4923,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/35_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/35_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/35_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/35_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/35_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5573,22 +4972,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/43_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/43_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/43_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/43_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/43_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5607,21 +5006,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5700,22 +5085,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/53_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/53_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/53_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/53_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/53_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5749,22 +5134,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/63_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/63_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/63_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/63_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/63_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5783,21 +5168,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5876,22 +5247,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/39_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/39_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/39_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/39_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/39_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -5910,21 +5281,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -5988,21 +5345,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6081,22 +5424,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/42_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/42_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/42_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/42_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/42_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6115,21 +5458,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6208,22 +5537,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/50_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/50_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/50_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/50_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/50_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6257,22 +5586,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/34_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/34_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/34_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/34_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/34_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6291,21 +5620,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6384,22 +5699,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/48_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/48_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/48_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/48_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/48_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6418,21 +5733,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6496,21 +5797,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6574,21 +5861,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6667,22 +5940,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/45_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/45_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/45_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/45_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/45_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6716,22 +5989,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/47_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/47_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/47_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/47_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/47_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6750,21 +6023,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -6843,22 +6102,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/62_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/62_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/62_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/62_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/62_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6892,22 +6151,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/46_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/46_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/46_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/46_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/46_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -6926,21 +6185,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7019,22 +6264,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/59_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/59_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/59_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/59_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/59_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7053,21 +6298,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7131,21 +6362,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7224,22 +6441,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/61_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/61_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/61_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/61_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/61_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7258,21 +6475,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7336,21 +6539,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7429,22 +6618,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/38_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/38_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/38_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/38_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/38_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7478,22 +6667,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/49_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/49_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/49_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/49_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/49_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7527,22 +6716,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/36_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/36_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/36_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/36_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/36_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7561,21 +6750,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7639,21 +6814,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7717,21 +6878,7 @@ QComboBox::down-arrow
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7810,22 +6957,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/58_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/58_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/58_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/58_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/58_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7844,21 +6991,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -7937,22 +7070,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/52_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/52_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/52_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/52_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/52_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -7971,21 +7104,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -8064,22 +7183,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/54_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/54_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/54_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/54_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/54_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">
@@ -8098,21 +7217,7 @@ QCheckBox::indicator:checked:pressed
    <property name="toolTip">
     <string>Select a preset to include in the Setlist.</string>
    </property>
-   <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
-{
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.png);
-	padding-right: 15px;
-}</string>
-   </property>
+   
    <item>
     <property name="text">
      <string>PRESET_NAME</string>
@@ -8191,22 +7296,22 @@ QCheckBox::indicator
 
 QCheckBox::indicator:unchecked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/55_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_pressed.svg);
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/setlistlabels/55_setlist_off.png);
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_off.svg);
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/setlistlabels/55_setlist_on.png);
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_on.svg);
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/setlistlabels/55_setlist_pressed.png);
+	image: url(:/ui/ui_images/setlistlabels/55_setlist_pressed.svg);
 }</string>
    </property>
    <property name="text">

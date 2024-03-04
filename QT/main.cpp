@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     //double scale = width / minWidth;
     //qDebug() << "scale: " << scale;
-    double scale = 1.3;
+    double scale = 1.25;
     std::string scaleAsString = std::to_string(scale);
     QByteArray scaleAsQByteArray(scaleAsString.c_str(), (int)scaleAsString.length());
     qputenv("QT_SCALE_FACTOR", scaleAsQByteArray);

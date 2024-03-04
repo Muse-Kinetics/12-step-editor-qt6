@@ -63,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
         betaVersion = "";
     }
 
+    slotSetupStyleStringsAndFonts();
+
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_12step), sizeof(_fw_ver_12step));
 
 
@@ -136,7 +138,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qDebug() << "------------ [EXPRESSION PEDAL AND CV CALIBRATION] ---------------------------------------------------";
     pedalCalWindow = new pedalCal(this);
     cvCalWindow = new cvCal(this);
-    cvCalWindow->setStyleSheet("");
+
 
     qDebug() << "------------ [FW UPDATE AND TROUBLESHOOTING WINDOWS] ---------------------------------------------------";
     // Firmware update Window
@@ -157,8 +159,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("12 Step Editor");
     this->setGeometry(400, 35, mainWindowWidth, mainWindowHeight);
     this->setFixedSize(mainWindowWidth, mainWindowHeight);
-
-    slotSetupStyleStringsAndFonts();
 
     //-------------------- Disable Widget
     qDebug() << "------------ [WIDGET SETUP] ---------------------------------------------------";
@@ -256,7 +256,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+
+    slotDisconnectElements();
+    if (cvCalWindow != nullptr)
+    {
+        cvCalWindow->slotDisconnectElements();
+    }
+
     delete ui;
+
+//    std::exit(2);
+//    QCoreApplication::exit(2);
+
+//    close();
+
 }
 
 
@@ -323,7 +336,7 @@ void MainWindow::windowHasLoaded()
         tabArea->setTabToolTip(0,"Set up the active preset Notes here. The updated preset be sent to the 12 Step before changes take affect.");
         tabArea->setTabToolTip(1,"Manage the active preset MIDI settings here. The updated preset must be sent to the 12 Step before changes take affect.");
         tabArea->setTabToolTip(2,"Arrange your presets into a setlist to be sent to the 12 Step.");
-        tabArea->setTabToolTip(3,"Global settings that are not tied to a preset. Changes here are sent to the 12 Step as settings are modified.");
+        tabArea->setTabToolTip(3,"Global settings that are not tied to a preset. Changes to global settings are sent to the 12 Step in real time.");
 
         qDebug() << "------------ [MIDI THRU SETUP] ---------------------------------------------------";
         // MIDI thru dropdown
@@ -343,6 +356,12 @@ void MainWindow::windowHasLoaded()
 
         copyPasteHandler = new CopyPasteHandler(presetInterface, sessionSettings, this);
         importExportHandler = new ImportExportHandler(presetInterface, this);
+
+        qDebug() << "[WAIT FOR SETTINGS TAB TO APPEAR]";
+        while (settingsTab == nullptr)
+        {
+            // wait here
+        }
 
         qDebug() << "**** Connect Interfaces ****";
         slotConnectInterfaces();
@@ -691,13 +710,14 @@ void MainWindow::slotConnectInterfaces()
     }
 
     //---------- Settings
-    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), settingsTab, SLOT(slotRecallPreset(QVariantMap,QVariantMap)));
+    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap)), settingsTab, SLOT(slotRecallPreset(QVariantMap)));
 
     //---------- Pedal Calibration
-    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), pedalCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap,QVariantMap)));
+    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap)), pedalCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap)));
 
     //---------- CV Calibration
-    connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap,QVariantMap)), cvCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap,QVariantMap)));
+    // not implemented, cv calibration stored on device
+    //connect(globalPresetInterface, SIGNAL(signalRecallSettings(QVariantMap)), cvCalWindow, SLOT(slotLoadJSONCalibrationValues(QVariantMap)));
 
     //--------------------------------------- Parameter Storage
 
@@ -827,10 +847,12 @@ void MainWindow::slotConnectInterfaces()
     connect(openCVCalibration,  SIGNAL(triggered()), cvCalWidget, SLOT(show()));
     connect(openCVCalibration, SIGNAL(triggered()), cvCalWindow, SLOT(show()));
     connect(openCVCalibration, SIGNAL(triggered()), cvCalWindow, SLOT(slotGetDeviceCVCalibration()));
+
     connect(cvCalWindow,  SIGNAL(signalWindowClosed()), cvCalWidget, SLOT(hide()));
 //    connect(cvCalWindow,  SIGNAL(signalWindowClosed()), disableWidget, SLOT(hide()));
 
-    connect(settingsTab->progChgRxCh, SIGNAL(currentIndexChanged(int)), cvCalWindow, SLOT(slotUpdateNRPNChannel(int)));
+    // this is a pointer in settings, it needs to be set up before this is connected
+    connect(settingsTab, SIGNAL(slotUpdateNRPNChannel(int)), cvCalWindow, SLOT(slotUpdateNRPNChannel(int)));
 
     // Help menu connections
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
@@ -898,10 +920,6 @@ void MainWindow::slotConnectInterfaces()
     connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));         // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), TwelveStep, SLOT(slotFirmwareUpdateReset()));                   // stop timeout timers
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));      // close fw dialog and connect
-    //connect(TwelveStep, SIGNAL(signalRequestGlobals()), this, SLOT(slotSendGlobalsRequest()));                                 // request globals
-    //connect(sysExEncDecode, SIGNAL(signalGlobalsReceivedDoFwUd()), TwelveStep, SLOT(slotRequestFirmwareUpdate()));                      // if fwupdate requested globals then alert that we've saved them
-    //connect(sysExEncDecode, SIGNAL(signalGlobalsReceived()), this, SLOT(slotEnableGlobalsWindows()));                       // enable globals window when we receive this
-    //connect(TwelveStep, SIGNAL(signalRestoreGlobals()), this, SLOT(slotEncodeGlobals()));                                      // restore the globals after fw update
 
     // handle device unexpectedly in bootloader mode
     connect(TwelveStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
@@ -926,9 +944,6 @@ void MainWindow::slotConnectInterfaces()
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////// FW Updating Dialogs ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //connect(this, SIGNAL(signalClosePorts()), sysexManager, SLOT(slotClosePorts()));
-    // eb todo
 
     // MIDI overhaul
     connect(TwelveStep, SIGNAL(signalConnected(bool)), this, SLOT(slotShowConnection(bool)));
@@ -958,6 +973,11 @@ void MainWindow::slotDisconnectElements()
     disconnect(ui->preset_displayname_2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(ui->preset_displayname_3, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(ui->preset_displayname_4, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
+
+    //disconnect(cvCalWindow,  SIGNAL(signalWindowClosed()), cvCalWidget, SLOT(hide()));
+    //disconnect(cvCalWindow, SIGNAL(signalSendNRPN(int,int,unsigned char)), TwelveStep, SLOT(slotSendMIDI_NRPN(int,int,uchar)));
+    //disconnect(cvCalWindow, SIGNAL(signalSendStepSXPacket(uint8_t,uint8_t,uint8_t*,uint16_t)), kmiEncode, SLOT(slotEncodePacket(uint8_t,uint8_t,uint8_t*,uint16_t)));
+
 }
 
 void MainWindow::slotValueChanged()
@@ -1266,7 +1286,7 @@ void MainWindow::slotUpdatePasteAvailability()
 
 void MainWindow::slotOpenDoc()
 {
-    QDesktopServices::openUrl(QUrl("http://files.keithmcmillen.com/downloads/12step/12_Step_Manual_V2.0.pdf"));
+    QDesktopServices::openUrl(QUrl("https://files.keithmcmillen.com/products/12step/manual/12%20Step%20Manual%20Version%203.0.1.pdf"));
 }
 
 void MainWindow::slotEnableDisableToolTips()
@@ -1394,11 +1414,17 @@ void MainWindow::slotShowConnection(bool connection)
             openCVCalibration->setDisabled(false);
         }
 
-        cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
+        if (cvCalWindow != nullptr)
+        {
+            cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
+        }
 
 //        sysexManager->slotSendFwQuery();
         aboutDialogForm->found->setText(deviceFirmwareVersionString());
-        troubleshootWindow->slotConnected(true);
+        if (troubleshootWindow != nullptr)
+        {
+            troubleshootWindow->slotConnected(true);
+        }
 
         slotSendSettings(); // sync hardware to editor
     }
@@ -1419,7 +1445,10 @@ void MainWindow::slotShowConnection(bool connection)
         openPedalCalibration->setDisabled(true);
         openCVCalibration->setDisabled(true);
         aboutDialogForm->found->setText("Not Connected");
-        troubleshootWindow->slotConnected(false);
+        if (troubleshootWindow != nullptr)
+        {
+            troubleshootWindow->slotConnected(false);
+        }
     }
 }
 
@@ -1525,7 +1554,10 @@ void MainWindow::slotProcessKMIPacket(uint8_t PID, uint8_t category, uint8_t typ
         case KEYS_CAL_PAYLOAD:
             break;
         case CV_CAL_PAYLOAD:
-            cvCalWindow->slotParseDeviceCVCalibration(ptr, length);
+            if (cvCalWindow != nullptr)
+            {
+                cvCalWindow->slotParseDeviceCVCalibration(ptr, length);
+            }
             break;
         }
 
@@ -1593,7 +1625,10 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         {
             TwelveStep->slotSetExpectedFW(thisFw);
 
-            troubleshootWindow->slotDetected();
+            if (troubleshootWindow != nullptr)
+            {
+                troubleshootWindow->slotDetected();
+            }
             ui->connected->setText("Detected");
             ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background:rgb(255,125,0); border-radius:0px;}"
                                          "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
@@ -1661,7 +1696,10 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         }
         else if (inOrOut == PORT_OUT && (portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) )
         {
-            troubleshootWindow->slotConnected(false);
+            if (troubleshootWindow != nullptr)
+            {
+                troubleshootWindow->slotConnected(false);
+            }
             ui->connected->setText("Not Connected");
             ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background: rgb(100,100,100); border-radius:0px;}"
                                          "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
@@ -1707,6 +1745,22 @@ void MainWindow::slotBootloaderMode(bool fwUpdateRequested)
     }
 }
 
+void MainWindow::relaunchApplication() {
+    // Get the application's executable path and arguments
+    QString appPath = QCoreApplication::applicationFilePath();
+    QStringList args = QCoreApplication::arguments();
+
+    // Remove the first argument, which is the path to the executable
+    args.removeFirst();
+
+    // Start a new instance of the application
+    QProcess::startDetached(appPath, args);
+
+    // Exit the current application instance
+    QCoreApplication::quit();
+}
+
+
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 {
     qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
@@ -1715,6 +1769,9 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
     {
         slotUpdateMIDIaux();
         slotShowConnection(true);
+#ifdef Q_OS_WINDOWS
+        relaunchApplication();
+#endif
     }
     else
     {
@@ -1722,6 +1779,7 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
         slotShowConnection(false);
     }
     disableWidget->hide(); // re-enable app and "ungrey" main window
+
 }
 
 void MainWindow::slotForceFirmwareUpdate()
@@ -1736,10 +1794,16 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
     qDebug() << "slotFirmwareDetected called";
 
-    troubleshootWindow->slotSetDevVersion(deviceFirmwareVersionString(), deviceBootloaderVersionString());
+    if (troubleshootWindow != nullptr)
+    {
+        troubleshootWindow->slotSetDevVersion(deviceFirmwareVersionString(), deviceBootloaderVersionString());
+    }
     if (forceFirmwareUpdate)
     {
-        troubleshootWindow->slotRequestFwUpdate();
+        if (troubleshootWindow != nullptr)
+        {
+            troubleshootWindow->slotRequestFwUpdate();
+        }
         forceFirmwareUpdate = false;
     }
 
@@ -1836,6 +1900,11 @@ void MainWindow::slotProcessNRPN(uchar chan, int nrpn, int val)
 
 void MainWindow::slotOpenTroubleshooting()
 {
+    if (troubleshootWindow == nullptr)
+    {
+        return;
+    }
+
     troubleshootWindow->show();
     troubleshootWindow->slotScrollTroubleUp();
 }

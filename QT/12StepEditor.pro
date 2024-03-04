@@ -12,14 +12,14 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.1.C
+VERSION = 3.0.1
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-#uncomment this and DEPLOY = 1 to build a console version of the app. Do this once before deploying the app.
-#BUILD_CONSOLE = 1
+#uncomment this to build a console version of the app. Do this once before deploying the app.
+BUILD_CONSOLE = 1
 
 # Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-DEPLOY = 1
+#DEPLOY = 1
 
 # Uncomment this line if your project includes QML, this will add the qmldir option to the qt deployment utility command
 INCLUDE_QML = 1
@@ -153,14 +153,8 @@ FORMS    += forms/mainwindow.ui \
     forms/deleteForm.ui \
     forms/importOldFoundForm.ui \
     forms/importOldNotFoundForm.ui \
-#    forms/fwoodform.ui \
-#    forms/fwprogressform.ui \
-#    forms/fwupdatecompleteform.ui \
     forms/aboutFormWin.ui \
     forms/deleteFormWin.ui \
-#    forms/fwoodformWin.ui \
-#    forms/fwprogressformWin.ui \
-#    forms/fwupdatecompleteformWin.ui \
     forms/importOldFoundFormWin.ui \
     forms/importOldNotFoundFormWin.ui \
     forms/keyEditFormWin.ui \
@@ -232,10 +226,14 @@ ICON = resources/appicon.icns
 
 DISTFILES += \
     inc/KMI_KMDM/README.md \
+    inc/KMI_KMDM/cvCal/cvCalStyleMac.qss \
+    inc/KMI_KMDM/cvCal/cvCalStyleWin.qss \
     inc/KMI_KMDM/fwupdate/stylesheets/GrayButtonStyleSheet.qss \
     inc/KMI_KMDM/fwupdate/stylesheets/RedButtonStyleSheet.qss \
     inc/KMI_KMDM/fwupdate/stylesheets/fwUpdateStyles_lightBlue.qss \
     inc/KMI_KMDM/fwupdate/stylesheets/fwUpdateStyles_red.qss \
+    inc/KMI_KMDM/pedalCal/pedalCalStlyesMac.qss \
+    inc/KMI_KMDM/pedalCal/pedalCalStylesWin.qss \
     inc/KMI_Ports/README.md \
     inc/KMI_Updates/README.md \
     resources/firmware/12Step-29.syx \
@@ -264,19 +262,43 @@ win32 {
 
 
 
-# Conditionally include deployment steps based on the DEPLOY flag
-!isEmpty(DEPLOY) {
+
+isEmpty(DEPLOY) {
+    # Define a dummy deploy target that does nothing
+    QMAKE_EXTRA_TARGETS += deploy
+    deploy.commands = @echo "Deploy is disabled"
+} else {
 
 
     win32 {
-
-        #-------------- sign the application
         package_dir = $$shell_path($$absolute_path("..\\win-build\\packages\\com.keithmcmillen.12stepeditor\\data\\$${TARGET}", $$PWD))
         content_dir = $$shell_path($$absolute_path("..\\win-build\\packages\\com.keithmcmillen.12stepeditor\\data\\Content", $$PWD))
         repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
 
-        path_to_signtool = "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe"
+        changelog_src = "$${repo_root_dir}\\CHANGELOG.md"
+        content_src = "$${repo_root_dir}\\Content"
 
+        LIBCRYPTO_SRC = $$PWD/inc/KMI_Updates/ssl/libcrypto-1_1-x64.dll
+        LIBSSL_SRC = $$PWD/inc/KMI_Updates/ssl/libssl-1_1-x64.dll
+
+        LIBCRYPTO_DST = $$replace(LIBCRYPTO_SRC, '/', '\\')
+        LIBSSL_DST = $$replace(LIBSSL_SRC, '/', '\\')
+
+        path_to_signtool = C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe
+        path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe
+
+        path_to_bincreate = C:\\Qt6\\QtIFW-4.6.0\\bin\\binarycreator.exe
+        path_to_installerbase = C:\\Qt6\\QtIFW-4.6.0\\bin\\installerbase.exe
+        path_to_install = $$shell_path($$absolute_path("..\\win-build", $$PWD))
+
+        # Corrected variable assignments without escaped quotes
+        app_name = $${TARGET}
+        installer_name = \"$$app_name v$$VERSION Windows Installer\"
+        installer_file = \"$$app_name v$$VERSION Windows Installer.exe\"
+
+
+        message("path_to_bincreate is: " $$quote($$path_to_bincreate))
+        message("installer_file is: " $$quote($$installer_file))
 
         build_subdir = release  # Default to release
         CONFIG(debug, debug|release): build_subdir = debug
@@ -286,78 +308,47 @@ win32 {
         binary_dest = "$${package_dir}\\$${TARGET}.exe"
         app_name = $${TARGET}
 
-        !isEmpty(BUILD_CONSOLE) {
-            binary_dest = "$${package_dir}\\$${TARGET} (debug console).exe"
-            app_name = $${TARGET} (debug console)
+        debug_src = "$${temp_out_pwd}\\$${build_subdir}\\$${TARGET} (debug console).exe"
+        debug_dest = "$${package_dir}\\$${TARGET} (debug console).exe"
+
+
+
+        deploy_opts = "--compiler-runtime"
+        !isEmpty(INCLUDE_QML) {
+            deploy_opts += " --qmldir \"$$PWD\""
         }
 
-        # newline
-        QMAKE_POST_LINK += echo "" $$escape_expand(\\n\\t)
 
-        QMAKE_POST_LINK += echo "Copying executable to package_dir" $$escape_expand(\\n\\t)
+        # Define custom deployment commands after all variables have been defined
+        DEPLOY_COMMANDS = \
+            echo Deploying for Windows && \
+            echo Copying executable to package_dir && \
+            copy /y \"$$binary_src\" \"$$binary_dest\" && \
+            copy /y \"$$debug_src\" \"$$debug_dest\" && \
+            echo Signing App Executable && \
+            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$binary_dest\" && \
+            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$debug_dest\" && \
+            echo Running qtwindeploy: \"$$package_dir\" && \
+            \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
+            echo Copying SSL dlls to package_dir && \
+            copy /y \"$$LIBCRYPTO_DST\" \"$$package_dir\" && \
+            copy /y \"$$LIBSSL_DST\" \"$$package_dir\" && \
+            echo Copying changelog && \
+            copy /y \"$$changelog_src\" \"$$content_dir\" && \
+            echo Copying content && \
+            Robocopy \"$$content_src\" \"$$content_dir\" destination_folder /E /COPY:DAT /R:0 && \
+            echo Creating Installer && \
+            cd \"$$path_to_install\" && \
+            \"$$path_to_bincreate\" --verbose --offline-only -c config/config.xml -p packages $$installer_name && \
+            echo Signing Installer && \
+            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file
 
-        QMAKE_POST_LINK += copy /y \"$$binary_src \" \"$$binary_dest \" $$escape_expand(\\n\\t)
+        # Define a phony target for deployment
+            QMAKE_EXTRA_TARGETS += deploy
+            deploy.commands = $$DEPLOY_COMMANDS
+            deploy.depends = first  # ensures this runs after the first build
 
-
-        QMAKE_POST_LINK += echo "Signing App Executable" $$escape_expand(\\n\\t)
-        QMAKE_POST_LINK += $$path_to_signtool sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$binary_dest\" $$escape_expand(\\n\\t)
-
-        # only process the rest if this is not the console debug app
-        isEmpty(BUILD_CONSOLE) {
-            #-------------- run qt deploy utility (copies dlls and frameworks to deployment dir)
-
-            path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe
-
-
-            deploy_opts = "--compiler-runtime"
-            !isEmpty(INCLUDE_QML) {
-                deploy_opts += " --qmldir \"$$PWD\""
-            }
-
-
-            QMAKE_POST_LINK += echo "Running qtwindeploy: $$package_dir" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += $$path_to_qtwindeploy $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" $$escape_expand(\\n\\t)
-
-            #----------------- copy SSL dlls ----------------------------
-
-            QMAKE_POST_LINK += echo "Copying SSL dlls to package_dir" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += copy /y \"$$LIBCRYPTO_DST\" \"$$package_dir\" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += copy /y \"$$LIBSSL_DST\" \"$$package_dir\" $$escape_expand(\\n\\t)
-
-            #----------------- copy changelog ----------------------------
-
-            changelog_src = "$${repo_root_dir}\\CHANGELOG.md"
-
-            QMAKE_POST_LINK += echo "Copying changelog" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += copy /y \"$$changelog_src\" \"$$content_dir\" $$escape_expand(\\n\\t)
-            #QMAKE_POST_LINK += xcopy /Y /E /I /H /K \"$$content_src\" \"$$package_dir\\_Extras\" $$escape_expand(\\n\\t)
-
-            #----------------- create installer ----------------------------
-
-            path_to_bincreate = "C:\\Qt6\QtIFW-4.6.0\\bin\\binarycreator.exe"
-            path_to_installerbase = "C:\\Qt6\QtIFW-4.6.0\\bin\\installerbase.exe"
-            path_to_install = $$shell_path($$absolute_path("..\\win-build", $$PWD))
-            installer_name = \"$$app_name Installer v$$VERSION\"
-            installer_file = \"$$app_name Installer v$${VERSION}.exe\"
-
-            #message("path_to_bincreate is: " $$quote($$path_to_bincreate))
-            #message("installer_file is: " $$quote($$installer_file))
-
-            #QMAKE_POST_LINK += echo "Signing installerbase.exe" $$escape_expand(\\n\\t)
-            #QMAKE_POST_LINK += $$path_to_signtool sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$path_to_installerbase\" $$escape_expand(\\n\\t)
-
-            #QMAKE_POST_LINK += $$path_to_signtool remove /s \"$$path_to_installerbase\" $$escape_expand(\\n\\t)
-
-
-            QMAKE_POST_LINK += echo "Creating Installer" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += cd \"$$path_to_install\" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += \"$$path_to_bincreate\" --offline-only -c config/config.xml -p packages $$installer_name $$escape_expand(\\n\\t)
-
-            QMAKE_POST_LINK += echo "Signing Installer" $$escape_expand(\\n\\t)
-            QMAKE_POST_LINK += $$path_to_signtool sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file $$escape_expand(\\n\\t)
-        }
     }
-
 }
 
 

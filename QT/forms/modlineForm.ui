@@ -36,7 +36,8 @@ QComboBox QListView
 
 QComboBox QAbstractItemView
 {
-    min-width: 150px;
+    min-width: 90px;
+	icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
 }
 
 QComboBox::item:alternate
@@ -84,7 +85,19 @@ QComboBox::focus
 {
 	border: 2px solid rgb(0, 174, 239);
 }
-</string>
+
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}
+
+QComboBox::down-arrow:disabled
+{
+	image: none;
+}</string>
   </property>
   <widget class="QComboBox" name="destination">
    <property name="geometry">
@@ -99,23 +112,9 @@ QComboBox::focus
     <string>Sets the type of MIDI message to output.</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
+    <string notr="true">QComboBox QAbstractItemView
 {
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
-	padding-right: 15px;
-}
-
-QComboBox::down-arrow:disabled
-{
-	image: none;
+    min-width: 110px;
 }</string>
    </property>
    <item>
@@ -185,18 +184,10 @@ QComboBox::down-arrow:disabled
     <string>Sets the type of sensor data coming from the 12 Step (for Voice A).</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
+    <string notr="true">QComboBox QAbstractItemView
 {
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
-	padding-right: 15px;
+    min-width: 115px;
+	icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
 }</string>
    </property>
    <item>
@@ -268,18 +259,10 @@ QComboBox::down-arrow
     <string>Sets the type of sensor data coming from the 12 Step (for Voice B).</string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
+    <string notr="true">QComboBox QAbstractItemView
 {
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
-	padding-right: 15px;
+    min-width: 115px;
+	icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
 }</string>
    </property>
    <item>
@@ -404,18 +387,10 @@ QComboBox::down-arrow
     <string>Sets the type of curve to &lt;br&gt;apply to incoming values. </string>
    </property>
    <property name="styleSheet">
-    <string notr="true">/*----------- QComboBox ------------*/
-QComboBox
+    <string notr="true">QComboBox QAbstractItemView
 {
-
-}
-
-QComboBox::down-arrow
-{
-	border: none;
-	background: none;
-	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
-	padding-right: 15px;
+    min-width: 85px;
+	icon-size: 0px; /* this getes rid of the space of an icon to the left of items */
 }</string>
    </property>
    <item>

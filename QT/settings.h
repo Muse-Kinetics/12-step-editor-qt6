@@ -56,6 +56,7 @@ signals:
 
     // update aux
     void signalUpdateMIDIaux();
+    void slotUpdateNRPNChannel(int);
 
 public slots:
     void slotEnableUIfor12S2(bool is12s2);
@@ -63,7 +64,7 @@ public slots:
     void slotDisconnectElements();
     void slotUpdateLabeLValues();
     void slotValueChanged();
-    void slotRecallPreset(QVariantMap, QVariantMap);
+    void slotRecallPreset(QVariantMap);
     void slotResetGlobalSensitivity();
     void slotResetSelectSensitivity();
 

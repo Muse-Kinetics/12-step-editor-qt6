@@ -56,13 +56,13 @@ KeyEdit::KeyEdit(QWidget *parent, int keyInstanceNum) :
         this->setStyleSheet("QSpinBox{font:9pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding-left: 2px}"
                             "QSpinBox:focus{border:none;outline:none;}"
                             "QLineEdit{font:9pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding:1px1px1px3px;}"
-                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_black.png)}"
+                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_black.svg)}"
                             );
 #else
         this->setStyleSheet("QSpinBox{font:7pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding-left: 2px}"
                             "QSpinBox:focus{border:none;outline:none;}"
                             "QLineEdit{font:7pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding:1px1px1px3px;}"
-                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_black.png)}"
+                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_black.svg)}"
                             );
 #endif
     }
@@ -75,13 +75,13 @@ KeyEdit::KeyEdit(QWidget *parent, int keyInstanceNum) :
         this->setStyleSheet("QSpinBox{font:9pt'Droid Sans Mono';border:none;background-color:rgb(65,65,65);color:rgb(242, 242, 242);padding-left: 2px;}"
                             "QSpinBox:focus{border:none;outline:none;}"
                             "QLineEdit{font:9pt'Droid Sans Mono';border:none;background-color:rgb(65,65,65);color:rgb(242, 242, 242);padding:1px1px1px3px;}"
-                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_white.png)}"
+                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_white.svg)}"
                             );
 #else
         this->setStyleSheet("QSpinBox{font:7pt'Droid Sans Mono';border:none;background-color:rgb(65,65,65);color:rgb(242, 242, 242);padding-left: 2px;}"
                             "QSpinBox:focus{border:none;outline:none;}"
                             "QLineEdit{font:7pt'Droid Sans Mono';border:none;background-color:rgb(65,65,65);color:rgb(242, 242, 242);padding:1px1px1px3px;}"
-                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_white.png)}"
+                            "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_white.svg)}"
                             );
 #endif
     }
@@ -219,13 +219,13 @@ void KeyEdit::slotSelectKey()
     keyEditForm->frame->setStyleSheet("QSpinBox{font:9pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding-left: 2px}"
                                       "QSpinBox:focus{border:none;outline:none;}"
                                       "QLineEdit{font:9pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding:1px1px1px3px;}"
-                                      "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_blue.png)}"
+                                      "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_blue.svg)}"
                                       );
 #else
     keyEditForm->frame->setStyleSheet("QSpinBox{font:7pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding-left: 2px}"
                                       "QSpinBox:focus{border:none;outline:none;}"
                                       "QLineEdit{font:7pt'Droid Sans Mono';border:none;background-color:rgb(242, 242, 242);color:rgb(65,65,65);padding:1px1px1px3px;}"
-                                      "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_blue.png)}"
+                                      "QFrame{background-color:transparent;border:none;image:url(:/ui/ui_images/key_edit_background_blue.svg)}"
                                       );
 #endif
     emit signalSelectedKeyNum(keyInstance);

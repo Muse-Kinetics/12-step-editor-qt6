@@ -1,11 +1,14 @@
 #### 12 Step Editor and Firmware Changelog
 
-### Editor 3.0.1, Firmware 1.0.1 (2024-02-19)
+
+### Editor 3.0.1, Firmware 1.0.2 (2024-02-29)
 Major release update for 12 Step2
 - New Features/Changes:
 	- 12 Step2 Editor UI additions:
 		- Added CV Out routing controls to MIDI Tab
 		- Added Backlight Brightness control to Settings Tab
+		- Replaced key frames and setlist button PNGs with SVGs (much cleaner)
+		- Windows scaling and sizing fixes for combobox widths and fonts 
 	- Added Expression Pedal Calibration to the Editor Hardware menu
 		- User can define min/max values to scale expression pedal input to output
 		- Added table assignment (linear, exponential, log, etc). This is a global setting that will always be applied to the expression pedal before preset modlines.

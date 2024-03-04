@@ -9,6 +9,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QThread>
+#include <QPointer>
 
 // midi overhaul
 #include "kmi_ports.h"
@@ -55,24 +56,23 @@
 #include "ui_pedalcal.h"
 #include "ui_cvCal.h"
 
-
-namespace Ui {
-class MainWindow;
-}
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
     QByteArray applicationVersion, thisFw;
 
     QString betaVersion;
 
-    KMI_Updates * checkUpdates;
+    KMI_Updates *checkUpdates;
 
     // ------ midi overhaul --------------------------------------------------------
 
@@ -89,7 +89,7 @@ public:
     // and one output for hosted mode. For other editors you would likely define one output port for to mirror the
     // incoming MIDI from the controller, as a workaround for Windows not sharing ports.
     // For KMI_Central we are using these for the input/output dropdowns as a simple MIDI route demo.
-    MidiDeviceManager* midiTHRU;
+    MidiDeviceManager *midiTHRU;
 
     //QComboBox *midiThruDropdown;
 
@@ -102,10 +102,10 @@ public:
     QString deviceFirmwareVersionString();
     QString applicationFirmwareVersionString();
 
-    fwUpdate* fwUpdateWindow;
-    troubleshoot* troubleshootWindow;
-    pedalCal* pedalCalWindow;
-    cvCal* cvCalWindow;
+    QPointer<fwUpdate> fwUpdateWindow;
+    QPointer<troubleshoot> troubleshootWindow;
+    QPointer<pedalCal> pedalCalWindow;
+    QPointer<cvCal> cvCalWindow;
 
     //----------------------------------- Stylesheets
     // General
@@ -229,6 +229,7 @@ public slots:
     // ------ midi overhaul --------------------------------------------------------
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o
     void slotBootloaderMode(bool fwUpdateRequested);
+    void relaunchApplication();
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);

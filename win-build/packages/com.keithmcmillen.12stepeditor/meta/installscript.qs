@@ -7,18 +7,7 @@ Component.prototype.createOperations = function()
 {
     console.log("Starting createOperations...");
 
-    // Check if the target directory already exists
     var targetDir = installer.value("TargetDir");
-    console.log("TargetDir: " + targetDir);
-
-    if (installer.fileExists(targetDir)) {
-        console.log("Target directory exists. Attempting to uninstall existing installation.");
-        installer.information("An existing installation was detected at " + targetDir + ". Please uninstall it before proceeding with the new installation.");
-        installer.quit();
-        return;
-    } else {
-        console.log("Target directory does not exist. Proceeding with installation.");
-    }
 
     // Create the basic operations for the component
     component.createOperations();

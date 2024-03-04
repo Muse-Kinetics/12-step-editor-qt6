@@ -130,7 +130,7 @@ void GlobalPresetInterface::slotRecallSettings()
 {
     qDebug() << "slotRecallSettings called";
     //called in constructor
-    emit signalRecallSettings(settings.value(QString("Global")).toMap(), settings);
+    emit signalRecallSettings(settings.value(QString("Global")).toMap()); //, settings);
 }
 
 /*void GlobalPresetInterface::slotSaveSettingsTimeout()

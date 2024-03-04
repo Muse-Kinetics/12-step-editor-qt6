@@ -18,7 +18,7 @@
 /*----------- QComboBox ------------*/
 QComboBox
 {
-	font: 14px &quot;Futura PT Book&quot;;
+	font: 9pt &quot;Open Sans&quot;;
 	border: 2px solid rgb(245, 245, 245);
 	background: rgb(60, 60, 60);
 	color: white;
@@ -33,7 +33,7 @@ QComboBox QListView
 {
     border: 1px solid rgb(255,255,255);
 	color: white;
-	font: 10px &quot;Futura PT Book&quot;;
+	font: 9pt &quot;Open Sans&quot;;
 	padding-left: 3px;
 	padding-right: 3px;
 	min-width: 200px;
@@ -352,7 +352,7 @@ QComboBox::down-arrow
 
 QComboBox QListView
 {
-	min-width: 120px;
+	min-width: 135px;
 }</string>
    </property>
    <item>
@@ -496,7 +496,7 @@ QComboBox QAbstractItemView
     background-color: rgb(40, 40, 40);
     selection-color: white;
     selection-background-color: rgb(0,174,239);
-    min-width: 100px;
+    min-width: 80px;
 }
 
 QComboBox::down-arrow

@@ -403,7 +403,7 @@ QSlider::sub-page:horizontal
     <rect>
      <x>90</x>
      <y>212</y>
-     <width>200</width>
+     <width>211</width>
      <height>27</height>
     </rect>
    </property>
@@ -559,7 +559,7 @@ QComboBox::down-arrow
     <rect>
      <x>90</x>
      <y>192</y>
-     <width>200</width>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -796,7 +796,7 @@ QComboBox::down-arrow
     <bool>false</bool>
    </property>
    <property name="currentText">
-    <string>Channel 10</string>
+    <string>Channel 1</string>
    </property>
    <property name="frame">
     <bool>true</bool>
