@@ -12,14 +12,14 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.1
+VERSION = 3.0.2
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 #uncomment this to build a console version of the app. Do this once before deploying the app.
-BUILD_CONSOLE = 1
+#BUILD_CONSOLE = 1
 
 # Uncomment this line if you want to deploy the app (codesign, xxxDeployqt, copy content, and create installer/dmg etc
-#DEPLOY = 1
+DEPLOY = 1
 
 # Uncomment this line if your project includes QML, this will add the qmldir option to the qt deployment utility command
 INCLUDE_QML = 1
@@ -261,7 +261,9 @@ win32 {
 }
 
 
-
+# ********************************************************************************************************
+# NOTE for the deployment process to work you MUST add an additional "make" build step, arguments: deploy
+# ********************************************************************************************************
 
 isEmpty(DEPLOY) {
     # Define a dummy deploy target that does nothing

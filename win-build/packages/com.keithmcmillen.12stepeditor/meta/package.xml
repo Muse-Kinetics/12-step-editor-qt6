@@ -2,7 +2,7 @@
 <Package>
     	<DisplayName>12 Step Editor</DisplayName>
     	<Description>The Windows editor for the 12 Step floor controller. Includes DAW scripts and other content.</Description>
-    	<Version>3.0.1</Version>
+    	<Version>3.0.2</Version>
     	<Default>true</Default>    
     	<ReleaseDate>2024-02-24</ReleaseDate>
 	<Script>installscript.qs</Script>

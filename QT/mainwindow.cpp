@@ -11,6 +11,9 @@
 #include "KMI_SysexMessages.h"
 #include "sysex.h"
 
+// uncomment this line if you want to debug the 12S2 hardware menus without connecting 12step2 hardware
+//#define ENABLE_12S2_HARDWARE_OPTIONS
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 
@@ -1207,13 +1210,16 @@ void MainWindow::slotInitMenuBar()
     openPedalCalibration = new QAction("Calibrate Expression Pedal", hardware);
     actionList.append(openPedalCalibration);
     hardware->addAction(openPedalCalibration);
+
     openPedalCalibration->setDisabled(true);
 
     //cv calibration
     openCVCalibration = new QAction("Calibrate CV Outs", hardware);
     actionList.append(openCVCalibration);
     hardware->addAction(openCVCalibration);
+#ifndef ENABLE_12S2_HARDWARE_OPTIONS
     openCVCalibration->setDisabled(true);
+#endif
     openCVCalibration->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_O));
 
     //reload firmware
@@ -1377,12 +1383,14 @@ void MainWindow::slotShowConnection(bool connection)
     if(connected)
     {
         // adjust ui based on hardware rev
-        bool is12s2 = false;
+#ifdef ENABLE_12S2_HARDWARE_OPTIONS
+        bool is12s2 = true;
+#else
+        bool is12s2 = (TwelveStep->PID_MIDI == PID_12STEP2);
+#endif
 
-        if (TwelveStep->PID_MIDI == PID_12STEP2)
+        if (is12s2)
         {
-            is12s2 = true;
-
             midiTab->slotEnableUIfor12S2(is12s2);
             settingsTab->slotEnableUIfor12S2(is12s2); // need to do this before updating values
             settingsTab->slotUpdateLabeLValues();
@@ -1409,17 +1417,20 @@ void MainWindow::slotShowConnection(bool connection)
         updateFirmwareAct->setDisabled(false);
         openPedalCalibration->setDisabled(false);
 
+#ifdef ENABLE_12S2_HARDWARE_OPTIONS
+        openCVCalibration->setDisabled(false);
+#else
         if (is12s2) // don't allow on old hardware
-        {
+        {   
             openCVCalibration->setDisabled(false);
         }
+#endif
 
         if (cvCalWindow != nullptr)
         {
             cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
         }
 
-//        sysexManager->slotSendFwQuery();
         aboutDialogForm->found->setText(deviceFirmwareVersionString());
         if (troubleshootWindow != nullptr)
         {
@@ -1443,7 +1454,10 @@ void MainWindow::slotShowConnection(bool connection)
         ui->update->setEnabled(false);
         updateFirmwareAct->setDisabled(true);
         openPedalCalibration->setDisabled(true);
+
+#ifndef ENABLE_12S2_HARDWARE_OPTIONS
         openCVCalibration->setDisabled(true);
+#endif
         aboutDialogForm->found->setText("Not Connected");
         if (troubleshootWindow != nullptr)
         {
@@ -1577,7 +1591,7 @@ QString MainWindow::deviceBootloaderVersionString()
 
 QString MainWindow::deviceFirmwareVersionString()
 {
-    if (!connected) return QString("Device not connected");
+    if (!connected) return QString("Device Firmware Version: pending");
 
     return QString("Device Firmware Version: %1.%2.%3")
             .arg(uchar(TwelveStep->deviceFirmwareVersion.at(0)))
@@ -1637,6 +1651,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             {
                 UserDialog portError((QString("ERROR: MIDI input port \"%1\"\nis currently being used by another program or process!").arg(portName)), {"Ok"});
                 portError.exec();
+                kmiPorts->slotRefreshPortMaps();
             }
             else
             {
@@ -1650,6 +1665,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             {
                 UserDialog portError((QString("ERROR: MIDI output port \"%1\"\nis currently being used by another program or process!").arg(portName)), {"Ok"});
                 portError.exec();
+                kmiPorts->slotRefreshPortMaps();
             }
             else
             {

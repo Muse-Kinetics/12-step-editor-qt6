@@ -1,5 +1,8 @@
 #### 12 Step Editor and Firmware Changelog
 
+### Editor 3.0.2, Firmware 1.0.2 (2024-03-06)
+- Bug Fixes:
+	- Added extra steps to bootloader installation process (unplug device, relaunch app) to account for Windows MIDI drivers refusing to let go of device ports during reboot
 
 ### Editor 3.0.1, Firmware 1.0.2 (2024-02-29)
 Major release update for 12 Step2
