@@ -922,15 +922,19 @@ void MainWindow::slotConnectInterfaces()
     connect(TwelveStep, SIGNAL(signalFwProgress(int)), fwUpdateWindow, SLOT(slotUpdateProgressBar(int)));                      // console
     connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), fwUpdateWindow, SLOT(slotFwUpdateComplete(bool)));         // Update Complete
     connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), TwelveStep, SLOT(slotFirmwareUpdateReset()));                   // stop timeout timers
-    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));      // close fw dialog and connect
 
-    // handle device unexpectedly in bootloader mode
-    connect(TwelveStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
+#ifdef DEBUG_FW_BRICKED
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccess()), this, SLOT(slotFirmwareDebugBricked()));                        // stop timeout timers
+#endif
+    connect(fwUpdateWindow, SIGNAL(signalFwUpdateSuccessCloseDialog(bool)), this, SLOT(slotFwUpdateSuccessCloseDialog(bool)));      // close fw dialog and connect
 
     // connect fwUpdate console messages to connection troubleshooter
     connect(TwelveStep, SIGNAL(signalFwConsoleMessage(QString)), troubleshootWindow, SLOT(slotAppendToStatusLog(QString)));
     connect(fwUpdateWindow, SIGNAL(signalRequestFwUpdate()), troubleshootWindow, SLOT(slotRequestFwUpdate()));
     connect(TwelveStep, SIGNAL(signalFirmwareUpdateComplete(bool)), troubleshootWindow, SLOT(slotFirmwareUpdated(bool)));
+
+    // handle device unexpectedly in bootloader mode
+    connect(TwelveStep, SIGNAL(signalBootloaderMode(bool)), this, SLOT(slotBootloaderMode(bool)));
 
     // NRPNs for pedalCal tether and cvCal
     connect(TwelveStep, SIGNAL(signalRxMidi_NRPN(uchar,int,int)), this, SLOT(slotProcessNRPN(uchar,int,int)));
@@ -976,11 +980,6 @@ void MainWindow::slotDisconnectElements()
     disconnect(ui->preset_displayname_2, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(ui->preset_displayname_3, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(ui->preset_displayname_4, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
-
-    //disconnect(cvCalWindow,  SIGNAL(signalWindowClosed()), cvCalWidget, SLOT(hide()));
-    //disconnect(cvCalWindow, SIGNAL(signalSendNRPN(int,int,unsigned char)), TwelveStep, SLOT(slotSendMIDI_NRPN(int,int,uchar)));
-    //disconnect(cvCalWindow, SIGNAL(signalSendStepSXPacket(uint8_t,uint8_t,uint8_t*,uint16_t)), kmiEncode, SLOT(slotEncodePacket(uint8_t,uint8_t,uint8_t*,uint16_t)));
-
 }
 
 void MainWindow::slotValueChanged()
@@ -1776,15 +1775,116 @@ void MainWindow::relaunchApplication() {
     QCoreApplication::quit();
 }
 
+#ifdef DEBUG_FW_BRICKED
+void MainWindow::slotFirmwareDebugBricked() // called by fwUpdateWindow->signalFwUpdateSuccess()
+{
+    qDebug() << "Swapping FW files";
+    static bool swapFw;
+
+    swapFw = !swapFw;
+    QString thisFwFile;
+
+    if (swapFw)
+    {
+        thisFwFile = QString(":/resources/firmware/12Step_Firmware_v1.0.3.syx");
+    }
+    else
+    {
+        thisFwFile = QString(":/resources/firmware/12Step_Firmware_v1.0.4.syx");
+    }
+
+    qDebug() << "thisFwFile: " << thisFwFile;
+
+    if (!TwelveStep->slotOpenFirmwareFile(thisFwFile))
+    {
+        qDebug() << "ERROR - firmware file not found: " << thisFwFile;
+        UserDialog firmwareError("ERROR - firmware file not found! Please re-install the application.", {"Exit"});
+        firmwareError.exec();
+        QCoreApplication::quit();
+    }
+
+    // Create a one-shot timer
+    QTimer *timerFwFile = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+    timerFwFile->setSingleShot(true);
+
+    // Connect the timeout signal to a lambda function that triggers the update action
+    connect(timerFwFile, &QTimer::timeout, this, [this]() {
+        slotFirmwareDebugBricked2();
+    });
+
+    timerFwFile->start(1000); // Time in milliseconds
+}
+
+void MainWindow::slotFirmwareDebugBricked2() // called by fwUpdateWindow->signalFwUpdateSuccess()
+{
+    qDebug() << "Start timer to press DONE";
+    // Create a one-shot timer
+    QTimer *timerDone = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+    timerDone->setSingleShot(true);
+
+    // Connect the timeout signal to a lambda function that triggers the update action
+    connect(timerDone, &QTimer::timeout, this, [this]() {
+        fwUpdateWindow->slotPressButtDone();
+    });
+
+    // Start the timer with a 5-second timeout
+    timerDone->start(4000); // Time in milliseconds
+}
+
+void MainWindow::slotFirmwareDebugBricked3() // called by slotFwUpdateSuccessCloseDialog
+{
+    qDebug() << "Test and if idle, trigger another FW update...";
+    if (TwelveStep->firmwareUpdateState == FWUD_STATE_IDLE || TwelveStep->firmwareUpdateState >= FWUD_STATE_SUCCESS)
+    {
+        slotSendPresets();
+        updateFirmwareAct->trigger();
+
+
+        // Create a one-shot timer
+        QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+        timerRetrig->setSingleShot(true);
+
+        // Connect the timeout signal to a lambda function that triggers the update action
+        connect(timerRetrig, &QTimer::timeout, this, [this]() {
+            slotFirmwareDebugBricked3();
+        });
+    }
+}
+#endif // DEBUG_FW_BRICKED
+
 
 void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 {
     qDebug() << "slotFwUpdateSuccessCloseDialog called - success: " << success;
 
+#ifdef DEBUG_FW_BRICKED
+    static int fwSuccessCounter = 0;
+#endif
+
     if (success)
     {
+#ifdef DEBUG_FW_BRICKED
+        fwSuccessCounter++;
+        qDebug() << "---------- fwSuccessCounter: " << fwSuccessCounter << "----------------------------------";
+#endif
+
         slotUpdateMIDIaux();
         slotShowConnection(true);
+
+#ifdef DEBUG_FW_BRICKED
+        // Create a one-shot timer
+        QTimer *timerRetrig = new QTimer(this); // `this` assumes you're inside a QObject-derived class
+        timerRetrig->setSingleShot(true);
+
+        // Connect the timeout signal to a lambda function that triggers the update action
+        connect(timerRetrig, &QTimer::timeout, this, [this]() {
+            slotFirmwareDebugBricked3();
+        });
+
+
+        timerRetrig->start(4000); // Time in milliseconds
+#endif // DEBUG_FW_BRICKED
+
 #ifdef Q_OS_WINDOWS
         relaunchApplication();
 #endif
@@ -1841,6 +1941,9 @@ void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
         fwUpdateWindow->slotAppendTextToConsole(deviceFirmwareVersionString());
 
         fwUpdateWindow->show();
+#ifdef DEBUG_FW_BRICKED
+        fwUpdateWindow->slotPressButtOk();
+#endif
     }
 }
 

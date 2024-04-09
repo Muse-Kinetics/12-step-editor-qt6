@@ -1,5 +1,10 @@
 #### 12 Step Editor and Firmware Changelog
 
+### Editor 3.0.3, Firmware 1.0.3 (2024-03-11)
+- Bug Fixes:
+	- Program Changes received from expander port (legact 12 Step1) now control presets
+	- Pitch Bend messages sent to CV interface now properly scale with calibration values
+
 ### Editor 3.0.2, Firmware 1.0.2 (2024-03-06)
 - Bug Fixes:
 	- Added extra steps to bootloader installation process (unplug device, relaunch app) to account for Windows MIDI drivers refusing to let go of device ports during reboot

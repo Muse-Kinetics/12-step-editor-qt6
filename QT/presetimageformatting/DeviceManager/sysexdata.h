@@ -5,7 +5,7 @@
 #ifndef SYSEXDATA_H
 #define SYSEXDATA_H
 
-#include "12step.h"
+#include "device_includes.h"
 
 #include <QByteArray>
 #include <QList>

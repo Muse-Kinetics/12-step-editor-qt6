@@ -5,7 +5,7 @@
 #ifndef	SYSEX_INCLUDED
 #define	SYSEX_INCLUDED
 
-#include "12step.h"
+#include "device_includes.h"
 
 
 #define	MAX_SYSEX_SIZE	50000
@@ -14,50 +14,6 @@
 //#define NULL    0
 
 
-// message category/types stored in the sysex preamble
-enum SYX_MSG_CATEGORY
-{
-    MSG_CAT_LEGACY,         // 0x00 = older softstep messaging where type was an int with MSB = 0, LSB = LEGACY_SYX_MSG_TYPES
-    MSG_CAT_CALIBRATION,    // new message categories start here
-    MSG_CAT_PRESET,         // to request/send preset data
-    NUM_MSG_CATEGORIES
-};
-
-enum {
-        BLOCK_TYPE_REQUEST_FW_VERSION,
-        BLOCK_TYPE_REQUEST_FW,
-        BLOCK_TYPE_ALPHANUMERIC,
-        BLOCK_TYPE_LED,
-        BLOCK_TYPE_EL,
-        BLOCK_TYPE_FW_HEADER,
-        BLOCK_TYPE_FW_BLOCK_HEADER,
-        BLOCK_TYPE_FW_DATA,
-        BLOCK_TYPE_PAD,
-        BLOCK_TYPE_STANDALONE,
-        BLOCK_TYPE_SEGMENT_MASK,
-        BLOCK_TYPE_PEDAL,
-        BLOCK_TYPE_DEBUG_MESSAGE,
-        PACKET_TYPE_COUNT
-};
-
-enum SYX_CALIBRATION_MSGS
-{
-    REQUEST_PEDAL_CAL,
-    PEDAL_CAL_PAYLOAD,
-    REQUEST_KEYS_CAL,
-    KEYS_CAL_PAYLOAD,
-    REQUEST_CV_CAL,
-    CV_CAL_PAYLOAD,
-    RESET_CV_CAL_TO_FACTORY,
-    NUM_CALIBRATION_MSG_TYPES
-};
-
-enum SYX_PRESET_MSGS
-{
-    REQUEST_PRESET,
-    PRESET_PAYLOAD,
-    NUM_PRESET_MSG_TYPES
-};
 
 #define	LE_short(val) (((val & 0xFF) << 8) + ( ((val) >> 8) & 0xFF))
 //#define	LE_int(val)  (LE_short(((int)val)>>16) | LE_short((int)val & 0xffff))

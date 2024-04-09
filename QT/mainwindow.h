@@ -56,6 +56,10 @@
 #include "ui_pedalcal.h"
 #include "ui_cvCal.h"
 
+
+// uncomment this to force firmware updates in a loop
+//#define DEBUG_FW_BRICKED
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -230,6 +234,13 @@ public slots:
     void slotMIDIPortChange(QString, uchar, uchar, int); // handles changes to MIDI i/o
     void slotBootloaderMode(bool fwUpdateRequested);
     void relaunchApplication();
+
+#ifdef DEBUG_FW_BRICKED
+    void slotFirmwareDebugBricked();
+    void slotFirmwareDebugBricked2();
+    void slotFirmwareDebugBricked3();
+#endif
+
     void slotFwUpdateSuccessCloseDialog(bool);
     void slotForceFirmwareUpdate();
     void slotFirmwareDetected(MidiDeviceManager *thisMDM, bool);

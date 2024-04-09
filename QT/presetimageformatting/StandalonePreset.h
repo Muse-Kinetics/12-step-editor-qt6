@@ -5,7 +5,7 @@
 #ifndef STANDALONEPRESET_H
 #define STANDALONEPRESET_H
 
-#include "12step.h"
+#include "device_includes.h"
 
 #define PRESET_INFO_FORMAT_VERSION 1 // this is the current format version used in preset_info
 

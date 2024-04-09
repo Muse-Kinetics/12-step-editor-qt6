@@ -7,7 +7,7 @@
 this_year=2024
 app_name="12 Step Editor"
 app_name_fp=12\ Step\ Editor
-version=3.0.1
+version=3.0.4
 
 bundle_name=12StepEditor
 bundle_id="com.keithmcmillen.$bundle_name"

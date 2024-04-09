@@ -56,7 +56,7 @@ signals:
 
     // update aux
     void signalUpdateMIDIaux();
-    void slotUpdateNRPNChannel(int);
+    void signalUpdateNRPNChannel(int);
 
 public slots:
     void slotEnableUIfor12S2(bool is12s2);

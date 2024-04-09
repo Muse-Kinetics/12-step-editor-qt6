@@ -87,6 +87,10 @@ void Settings::slotDisconnectElements()
 
     disconnect(settingsForm->midiVolume, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->velocityOverride, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
+
+    // Dropdowns
+    disconnect(midiThru, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
+    disconnect(progChgRxCh, SIGNAL(currentIndexChanged(int)), this, SIGNAL(slotUpdateNRPNChannel(int)));
 }
 
 void Settings::slotUpdateLabeLValues()

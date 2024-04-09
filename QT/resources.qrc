@@ -314,7 +314,6 @@
         <file>ui_images/setlistlabels/63_setlist_pressed.svg</file>
     </qresource>
     <qresource prefix="/">
-        <file>resources/firmware/12Step_Firmware_v0.3.0.syx</file>
         <file>resources/stylesheets/12StepWin.qss</file>
         <file>resources/stylesheets/12StepMac.qss</file>
         <file>presets/12Step.json</file>
@@ -322,10 +321,7 @@
         <file>presets/setlist.json</file>
         <file>presets/settings.json</file>
         <file>resources/firmware/12Step99-TrojanBootloader.syx</file>
-        <file>inc/KMI_KMDM/cvCal/cvCalStyleMac.qss</file>
-        <file>inc/KMI_KMDM/cvCal/cvCalStyleWin.qss</file>
-        <file>resources/firmware/12Step_Firmware_v1.0.2.syx</file>
-        <file>inc/KMI_KMDM/pedalCal/pedalCalStlyesMac.qss</file>
-        <file>inc/KMI_KMDM/pedalCal/pedalCalStylesWin.qss</file>
+        <file>resources/firmware/12Step_Firmware_v1.0.4.syx</file>
+        <file>resources/firmware/12Step_Firmware_v1.0.3.syx</file>
     </qresource>
 </RCC>

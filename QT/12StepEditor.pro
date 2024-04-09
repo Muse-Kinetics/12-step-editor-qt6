@@ -12,7 +12,7 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.2
+VERSION = 3.0.4
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 #uncomment this to build a console version of the app. Do this once before deploying the app.
@@ -111,6 +111,7 @@ HEADERS  += mainwindow.h \
     inc/KMI_Ports/kmi_ports.h \
     inc/KMI_Updates/kmi_updates.h \
     inc/rtmidi/RtMidi.h \
+    presetimageformatting/device_includes.h \
     presetinterface.h \
     modlines.h \
     miditab.h \
@@ -136,7 +137,6 @@ HEADERS  += mainwindow.h \
     presetimageformatting/DeviceManager/sysexdata.h \
     presetimageformatting/TreeView/treeitem.h \
     presetimageformatting/TreeView/treemodel.h \
-    presetimageformatting/12step.h \
     globalpresetinterface.h \
     selectallspinbox.h \
     userdialog.h
@@ -210,7 +210,7 @@ win32{
 OTHER_FILES +=
 
 RESOURCES += \
-    inc/KMI_KMDM/fwupdate/fw_stylesheets.qrc \
+    inc/KMI_KMDM/KMI_mdm.qrc \
     resources.qrc \
     resources/fonts/fonts.qrc
 
@@ -327,21 +327,33 @@ isEmpty(DEPLOY) {
             echo Copying executable to package_dir && \
             copy /y \"$$binary_src\" \"$$binary_dest\" && \
             copy /y \"$$debug_src\" \"$$debug_dest\" && \
+            \
             echo Signing App Executable && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$binary_dest\" && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash \"$$debug_dest\" && \
+            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$binary_dest\" && \
+            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$debug_dest\" && \
+            \
             echo Running qtwindeploy: \"$$package_dir\" && \
             \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
+            \
             echo Copying SSL dlls to package_dir && \
             copy /y \"$$LIBCRYPTO_DST\" \"$$package_dir\" && \
             copy /y \"$$LIBSSL_DST\" \"$$package_dir\" && \
+            \
+            echo Clearing content && \
+            (if exist \"$$content_dir\" rmdir /s /q \"$$content_dir\" || echo Directory not found, skipping deletion) && \
+            mkdir \"$$content_dir\" && \
+            \
+            echo Copying content && \
+            Robocopy \"$$content_src\" \"$$content_dir\" /MIR && \
+            echo Robocopy Exit Code: %ERRORLEVEL% & \
+            \
             echo Copying changelog && \
             copy /y \"$$changelog_src\" \"$$content_dir\" && \
-            echo Copying content && \
-            Robocopy \"$$content_src\" \"$$content_dir\" destination_folder /E /COPY:DAT /R:0 && \
+            \
             echo Creating Installer && \
             cd \"$$path_to_install\" && \
             \"$$path_to_bincreate\" --verbose --offline-only -c config/config.xml -p packages $$installer_name && \
+            \
             echo Signing Installer && \
             \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file
 
