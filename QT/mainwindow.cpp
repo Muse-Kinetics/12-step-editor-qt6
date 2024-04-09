@@ -259,7 +259,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-
+    TwelveStep->slotStopPolling("Exit App");
+    TwelveStep->slotCloseMidiIn();
+    TwelveStep->slotCloseMidiOut();
+    kmiPorts->devicePoller->stop();
     slotDisconnectElements();
     if (cvCalWindow != nullptr)
     {
@@ -268,10 +271,10 @@ MainWindow::~MainWindow()
 
     delete ui;
 
-//    std::exit(2);
-//    QCoreApplication::exit(2);
+    std::exit(2);
+    QCoreApplication::exit(2);
 
-//    close();
+    close();
 
 }
 
@@ -855,7 +858,7 @@ void MainWindow::slotConnectInterfaces()
 //    connect(cvCalWindow,  SIGNAL(signalWindowClosed()), disableWidget, SLOT(hide()));
 
     // this is a pointer in settings, it needs to be set up before this is connected
-    connect(settingsTab, SIGNAL(slotUpdateNRPNChannel(int)), cvCalWindow, SLOT(slotUpdateNRPNChannel(int)));
+    connect(settingsTab, SIGNAL(signalUpdateNRPNChannel(int)), cvCalWindow, SLOT(slotUpdateNRPNChannel(int)));
 
     // Help menu connections
     connect(about, SIGNAL(triggered()), disableWidget, SLOT(raise()));
@@ -1870,6 +1873,8 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 
         slotUpdateMIDIaux();
         slotShowConnection(true);
+
+        slotSendPresets(); // added for bootloader image upgrades
 
 #ifdef DEBUG_FW_BRICKED
         // Create a one-shot timer

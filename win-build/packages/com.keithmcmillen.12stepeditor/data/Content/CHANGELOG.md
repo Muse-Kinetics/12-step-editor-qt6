@@ -1,9 +1,13 @@
 #### 12 Step Editor and Firmware Changelog
 
-### Editor 3.0.3, Firmware 1.0.3 (2024-03-11)
+### Editor 3.0.4, Firmware 1.0.3 (2024-04-08)
 - Bug Fixes:
 	- Program Changes received from expander port (legact 12 Step1) now control presets
 	- Pitch Bend messages sent to CV interface now properly scale with calibration values
+	- Program Change RX channel now correctly updates NRPN messaging for CV calibration
+	- Firmware update process throttled to 256 bytes every 4ms, bootloader locked
+
+### Editor 3.0.3 - not released to public
 
 ### Editor 3.0.2, Firmware 1.0.2 (2024-03-06)
 - Bug Fixes:

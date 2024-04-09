@@ -128,7 +128,7 @@ void PresetInterface::slotRecallPreset(int i)
 
 void PresetInterface::slotStoreValue(QString name, QVariant value, int presetNum)
 {
-    qDebug() << "slotStoreValue called - name: " << name << " value: " << value;
+    //qDebug() << "slotStoreValue called - name: " << name << " value: " << value;
     if(presetNum == -1)
     {
         presetNum = currentPresetNum;

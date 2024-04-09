@@ -72,7 +72,7 @@ void Settings::slotConnectElements()
 
     // Dropdowns
     connect(midiThru, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
-    connect(progChgRxCh, SIGNAL(currentIndexChanged(int)), this, SIGNAL(slotUpdateNRPNChannel(int)));
+    connect(progChgRxCh, SIGNAL(currentIndexChanged(int)), this, SIGNAL(signalUpdateNRPNChannel(int)));
 }
 
 void Settings::slotDisconnectElements()
@@ -90,7 +90,7 @@ void Settings::slotDisconnectElements()
 
     // Dropdowns
     disconnect(midiThru, SIGNAL(activated(int)), this, SIGNAL(signalUpdateMIDIaux()));
-    disconnect(progChgRxCh, SIGNAL(currentIndexChanged(int)), this, SIGNAL(slotUpdateNRPNChannel(int)));
+    disconnect(progChgRxCh, SIGNAL(currentIndexChanged(int)), this, SIGNAL(signalUpdateNRPNChannel(int)));
 }
 
 void Settings::slotUpdateLabeLValues()
@@ -212,7 +212,7 @@ void Settings::slotRecallPreset(QVariantMap preset)
             }
 
             slider->setValue(value);
-            qDebug() << "settings update from slotRecallPreset - objectName: " << objectName << " value: " << value;
+            //qDebug() << "settings update from slotRecallPreset - objectName: " << objectName << " value: " << value;
         }
         else if(widget->metaObject()->className() == QString("QCheckBox"))
         {
