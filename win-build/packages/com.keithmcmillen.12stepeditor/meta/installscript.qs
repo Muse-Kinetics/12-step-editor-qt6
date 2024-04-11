@@ -25,7 +25,7 @@ Component.prototype.createOperations = function()
         var exePath = targetDir + "/" + displayName + "/" + displayName + ".exe";
         var shortcutPath = startMenuDir + "/" + displayName + ".lnk";
         var workingDir = targetDir + "/" + displayName;
-        var iconPath = targetDir + "/Content/Icon/appicon.ico";
+        var iconPath = targetDir + "/Content/Icons/appicon.ico";
         var uninstallShortcutPath = targetDir + "/Uninstall " + displayName + ".lnk";
 
         console.log("EXE Path: " + exePath);
