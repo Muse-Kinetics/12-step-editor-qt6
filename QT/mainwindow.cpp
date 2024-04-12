@@ -1428,10 +1428,18 @@ void MainWindow::slotShowConnection(bool connection)
         }
 #endif
 
-        if (cvCalWindow != nullptr)
+#ifdef Q_OS_WIN
+        if (TwelveStep->firmwareUpdateState != FWUD_STATE_SUCCESS) // windows reboots after fw update, don't send any sysex
         {
-            cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
+#endif
+            if (cvCalWindow != nullptr)
+            {
+                cvCalWindow->slotGetDeviceCVCalibration(); // update when connected
+            }
+            slotSendSettings(); // sync hardware to editor
+#ifdef Q_OS_WIN
         }
+#endif
 
         aboutDialogForm->found->setText(deviceFirmwareVersionString());
         if (troubleshootWindow != nullptr)
@@ -1439,7 +1447,7 @@ void MainWindow::slotShowConnection(bool connection)
             troubleshootWindow->slotConnected(true);
         }
 
-        slotSendSettings(); // sync hardware to editor
+
     }
     else
     {
@@ -1640,6 +1648,8 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_IN_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_IN)
         {
             TwelveStep->slotSetExpectedFW(thisFw);
+            TwelveStep->sysExTxChunkSize = 48;
+            TwelveStep->sysExTxChunkDelay = 1;
 
             if (troubleshootWindow != nullptr)
             {
@@ -1648,6 +1658,18 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             ui->connected->setText("Detected");
             ui->connected->setStyleSheet("QPushButton {border: 1px solid rgb(67,67,67); background:rgb(255,125,0); border-radius:0px;}"
                                          "QToolTip {font: 10pt 'Futura'; color: rgb(242, 242, 242);}");
+
+            if (TwelveStep->installingBootloader == BL_INSTALL_PENDING && portName != TWELVESTEP_BL_PORT)
+            {
+                return; // don't try to connect to the bootloader installer v99
+            }
+
+#ifdef Q_OS_WIN
+            if (TwelveStep->firmwareUpdateState == FWUD_STATE_FW_SENT_WAIT && portName == TWELVESTEP1_IN_P1)
+            {
+                TwelveStep->firmwareUpdateState = FWUD_STATE_SUCCESS;
+            }
+#endif
 
             if (!TwelveStep->slotUpdatePortIn(portNum))
             {
@@ -1727,6 +1749,11 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         break;
     case PORT_CHANGED:
         //qDebug() << " PORT CHANGED - name: " << portName << portName << " inOrOut: " << kmiPorts->inOut[inOrOut] << " messageType: " << kmiPorts->mType[messageType] << " portNum: " << portNum << "\n";
+
+        if (TwelveStep->installingBootloader == BL_INSTALL_PENDING)
+        {
+            return; // don't try to connect to the bootloader installer v99
+        }
 
         // **** TwelveStep renumber ****************************************
         if (portName == TwelveStep->portName_in && inOrOut == PORT_IN)
@@ -1874,7 +1901,10 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
         slotUpdateMIDIaux();
         slotShowConnection(true);
 
-        slotSendPresets(); // added for bootloader image upgrades
+        if (TwelveStep->firmwareUpdateState == FWUD_STATE_SUCCESS)
+        {
+            slotSendPresets(); // added for bootloader image upgrades
+        }
 
 #ifdef DEBUG_FW_BRICKED
         // Create a one-shot timer

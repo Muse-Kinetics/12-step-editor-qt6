@@ -22,7 +22,7 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 DEPLOY = 1
 
 # Uncomment this line if your project includes QML, this will add the qmldir option to the qt deployment utility command
-INCLUDE_QML = 1
+#INCLUDE_QML = 1
 
 # still holding onto support for High Sierra here, separate build
 
