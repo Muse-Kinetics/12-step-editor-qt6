@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>745</width>
-    <height>260</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,6 +47,7 @@ QToolButton:pressed
 	padding: 0, 1, 0, 0;
 }
 
+/*----------- QCheckBox ------------*/
 QCheckBox
 {
 	background: transparent;
@@ -55,32 +56,34 @@ QCheckBox
 
 QCheckBox::indicator
 {
-	width: 212px;
-	height: 24px;
+	width: 90;
+    height: 24;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
 	
-image: url(:/ui/ui_images/cc7_disabled_pressed.svg);
+image: url(:/ui/ui_images/button/button_disabled_pressed.svg);
 
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/cc7_disabled.svg);
+	image: url(:/ui/ui_images/button/button_disabled.svg);
 
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/cc7_enabled.svg);
+	image: url(:/ui/ui_images/button/button_enabled.svg);
 
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/cc7_enabled_pressed.svg);
+	image: url(:/ui/ui_images/button/button_enabled_pressed.svg);
 }
 
 /*-------QSlider-------*/
@@ -272,78 +275,11 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
 /* -------------------------------------------------------------------------------*/
 /* -------------------------------------------------------------------------------*/</string>
   </property>
-  <widget class="QLabel" name="label_progchg">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>193</y>
-     <width>240</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>PROGRAM CHANGE PRESET CONTROL</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="midiThruCombo">
-   <property name="geometry">
-    <rect>
-     <x>89</x>
-     <y>213</y>
-     <width>211</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Routes incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing 12 Step settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="editable">
-    <bool>false</bool>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <item>
-    <property name="text">
-     <string>None</string>
-    </property>
-   </item>
-  </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>301</x>
-     <y>121</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*-----------QLabel------------*/
-QLabel
-{
-	font: 20px &quot;Corbel&quot;;
-	color: rgb(245, 245, 245);
-}</string>
-   </property>
-   <property name="text">
-    <string>+</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>74</x>
-     <y>31</y>
+     <x>300</x>
+     <y>103</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -352,54 +288,14 @@ QLabel
     <string notr="true">background: transparent;</string>
    </property>
    <property name="text">
-    <string>—</string>
-   </property>
-  </widget>
-  <widget class="QToolButton" name="resetSelect">
-   <property name="geometry">
-    <rect>
-     <x>89</x>
-     <y>151</y>
-     <width>211</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Resets select button sensitivity to the default value. </string>
-   </property>
-   <property name="text">
-    <string>RESET SELECT HOLD TIME</string>
-   </property>
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>652</x>
-     <y>30</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*-----------QLabel------------*/
-QLabel
-{
-	font: 20px &quot;Corbel&quot;;
-	color: rgb(245, 245, 245);
-}</string>
-   </property>
-   <property name="text">
     <string>+</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_12">
+  <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>425</x>
-     <y>31</y>
+     <x>70</x>
+     <y>171</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -414,8 +310,8 @@ QLabel
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>75</x>
-     <y>122</y>
+     <x>70</x>
+     <y>101</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -427,45 +323,42 @@ QLabel
     <string>—</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="midiVolume">
+  <widget class="QToolButton" name="resetSelect">
    <property name="geometry">
     <rect>
-     <x>439</x>
-     <y>90</y>
-     <width>212</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Enables/Disables the CC 7 127 message the 12 Step &lt;br&gt;automatically outputs on preset changes.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>DISABLED</string>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QSlider" name="globalSensitivity">
-   <property name="geometry">
-    <rect>
-     <x>89</x>
-     <y>30</y>
-     <width>211</width>
+     <x>320</x>
+     <y>170</y>
+     <width>60</width>
      <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>Adjusts the sensitivity of the 12 Step keys and the select button.&lt;p&gt;Moving the slider to the right (toward the &quot;+&quot; symbol) increases sensitivity — moving the slider to the left (toward the &quot;-&quot; symbol) decreases sensitivity.</string>
+    <string>Resets select button sensitivity to the default value. </string>
+   </property>
+   <property name="text">
+    <string>RESET</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QSlider" name="onThreshold">
+   <property name="geometry">
+    <rect>
+     <x>83</x>
+     <y>100</y>
+     <width>100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum pressure threshold to activate the 12 Step keys. A higher (+) value makes the keys less sensitive and require more pressure to activate. A lower (-) value makes the key more sensitive and easier to activate.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="minimum">
     <number>1</number>
    </property>
    <property name="maximum">
-    <number>500</number>
+    <number>64</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -474,10 +367,10 @@ QLabel
   <widget class="QToolButton" name="resetGlobal">
    <property name="geometry">
     <rect>
-     <x>89</x>
-     <y>60</y>
-     <width>211</width>
-     <height>24</height>
+     <x>320</x>
+     <y>30</y>
+     <width>60</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -487,108 +380,17 @@ QLabel
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>RESET GLOBAL SENSITIVITY</string>
+    <string>RESET</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_velocity">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>131</y>
-     <width>208</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>VELOCITY OVERRIDE</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>302</x>
-     <y>30</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">/*-----------QLabel------------*/
-QLabel
-{
-	font: 20px &quot;Corbel&quot;;
-	color: rgb(245, 245, 245);
-}</string>
-   </property>
-   <property name="text">
-    <string>+</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="velocityOverride">
-   <property name="geometry">
-    <rect>
-     <x>439</x>
-     <y>151</y>
-     <width>212</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="toolTip">
-    <string>Enables/Disables &quot;velocity override&quot;.&lt;p&gt;When enabled, all presets will transmit all MIDI notes at full velocity (127), ignoring all velocity-related settings in the modlines. When disabled, all presets will respond to velocity as normal.</string>
-   </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
-   <property name="text">
-    <string>DISABLED</string>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_key_sensitivity">
-   <property name="geometry">
-    <rect>
-     <x>89</x>
-     <y>10</y>
-     <width>211</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>GLOBAL KEY SENSITIVITY</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_select">
-   <property name="geometry">
-    <rect>
-     <x>79</x>
-     <y>101</y>
-     <width>231</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>SELECT BUTTON HOLD TIME</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_thru">
    <property name="geometry">
     <rect>
-     <x>89</x>
-     <y>193</y>
+     <x>450</x>
+     <y>220</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -600,17 +402,227 @@ QLabel
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_backlight_brightness">
+  <widget class="QCheckBox" name="midiVolume">
    <property name="geometry">
     <rect>
-     <x>439</x>
-     <y>10</y>
+     <x>510</x>
+     <y>30</y>
+     <width>90</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enables/Disables the CC 7 127 message the 12 Step &lt;br&gt;automatically outputs on preset changes.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="midiThruCombo">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>240</y>
+     <width>211</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Routes incoming 12 Step MIDI data to the selected port. Useful for controlling devices without a DAW. &lt;/p&gt;&lt;p&gt;Note for Windows users - Windows cannot share MIDI drivers between multiple applications. Use this MIDI Thru to audition changes while editing 12 Step settings.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*----------- QComboBox ------------*/
+/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12pt &quot;Futura PT&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    min-width: 450px;
+}
+
+/* dropdown box*/
+QComboBox QListView
+{
+	background-color: rgb(60, 60, 60);
+	border: transparent;
+	font: 12px &quot;Futura PT&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 200px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/*----------- QFrame ------------*/
+QFrame
+{
+	background: rgb(89, 89, 89);
+	border: none;
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(245, 245, 245);
+}
+
+
+/*-----------QLineEdit------------*/
+QLineEdit
+{
+	background: rgb(60, 60, 60);
+	border: 3px solid rgb(245, 245, 245);
+	padding-bottom: 2px;
+	color: rgb(245, 245, 245);
+	font: 24pt &quot;Droid Sans Mono&quot;;
+}
+
+QLineEdit:focus
+{
+	border: 3px solid white;
+	padding-bottom: 2px;
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(60, 60, 60);
+	color: white;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: black;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}
+</string>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <item>
+    <property name="text">
+     <string>None</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>301</x>
+     <y>33</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_key_sensitivity">
+   <property name="geometry">
+    <rect>
+     <x>83</x>
+     <y>9</y>
      <width>211</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>BACKLIGHT BRIGHTNESS</string>
+    <string>GLOBAL KEY GAIN</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_select">
+   <property name="geometry">
+    <rect>
+     <x>73</x>
+     <y>150</y>
+     <width>231</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SELECT BUTTON HOLD TIME</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -619,8 +631,8 @@ QLabel
   <widget class="QSlider" name="selectSensitivity">
    <property name="geometry">
     <rect>
-     <x>89</x>
-     <y>121</y>
+     <x>83</x>
+     <y>170</y>
      <width>211</width>
      <height>22</height>
     </rect>
@@ -638,12 +650,139 @@ QLabel
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
+  <widget class="QLabel" name="label_progchg">
+   <property name="geometry">
+    <rect>
+     <x>445</x>
+     <y>150</y>
+     <width>221</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PROGRAM CHANGE PRESET CONTROL</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>173</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_12">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>241</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="velocityOverride">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>100</y>
+     <width>90</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Enables/Disables &quot;velocity override&quot;.&lt;p&gt;When enabled, all presets will transmit all MIDI notes at full velocity (127), ignoring all velocity-related settings in the modlines. When disabled, all presets will respond to velocity as normal.</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_send_volume">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>9</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SEND FULL VOLUME ON PRESET CHANGE</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QSlider" name="offThreshold">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>100</y>
+     <width>100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the lower pressure threshold required for a held key to turn off. A lower value makes it easier to keep a key turned on when it is held, a higher value makes it easier to quickly retrigger a key for faster playing. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>64</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>243</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
   <widget class="QSlider" name="backlightBrightness">
    <property name="geometry">
     <rect>
-     <x>439</x>
-     <y>30</y>
-     <width>212</width>
+     <x>83</x>
+     <y>240</y>
+     <width>211</width>
      <height>22</height>
     </rect>
    </property>
@@ -668,11 +807,46 @@ QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}</s
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
+  <widget class="QToolButton" name="resetThresholds">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>100</y>
+     <width>60</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resets thresholds to their default values. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="text">
+    <string>RESET</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_onThresh">
+   <property name="geometry">
+    <rect>
+     <x>83</x>
+     <y>80</y>
+     <width>100</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>ON THRESH</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <widget class="QComboBox" name="progchgRXchannel">
    <property name="geometry">
     <rect>
-     <x>439</x>
-     <y>213</y>
+     <x>450</x>
+     <y>170</y>
      <width>212</width>
      <height>27</height>
     </rect>
@@ -684,7 +858,133 @@ QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}</s
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">/*----------- QComboBox ------------*/
+/*-----------QWidget-----------*/
+QWidget
+{
+	background: rgb(40, 40, 40);
+}
+
+/*----------- QComboBox ------------*/
+QComboBox
+{
+	font: 12pt &quot;Futura PT&quot;;
+	border: 2px solid rgb(245, 245, 245);
+	background: rgb(60, 60, 60);
+	color: white;
+	padding: 1px 3px 1px 4px;
+ }
+
+/*----------- dropdown items hovered ------------*/
+QComboBox QAbstractItemView
+{
+    min-width: 450px;
+}
+
+/* dropdown box*/
+QComboBox QListView
+{
+	background-color: rgb(60, 60, 60);
+	border: transparent;
+	font: 12px &quot;Futura PT&quot;;
+	padding-left: 3px;
+	padding-right: 3px;
+	min-width: 200px;
+}
+
+QComboBox::item:alternate
+{
+	background: rgb(90, 90, 90);
+}
+
+QComboBox::item:selected
+{
+	border: 1px solid transparent;
+	background: rgb(0,174,239);
+}
+
+QComboBox::indicator
+{
+	background-color: transparent;
+	selection-background-color: transparent;
+	color: transparent;
+	selection-color: white;
+}
+
+/* required for down-arrow or it's blank*/
+QComboBox::drop-down
+{
+	width: 1px;
+	height: 1px;
+	subcontrol-origin: margin;
+	subcontrol-position: right center;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	padding: 1px 1px 1px 4px;
+}
+
+/*----------- QFrame ------------*/
+QFrame
+{
+	background: rgb(89, 89, 89);
+	border: none;
+}
+
+/*-----------QLabel------------*/
+QLabel
+{
+	font: 12pt &quot;Futura PT&quot;;
+	color: rgb(245, 245, 245);
+}
+
+
+/*-----------QLineEdit------------*/
+QLineEdit
+{
+	background: rgb(60, 60, 60);
+	border: 3px solid rgb(245, 245, 245);
+	padding-bottom: 2px;
+	color: rgb(245, 245, 245);
+	font: 24pt &quot;Droid Sans Mono&quot;;
+}
+
+QLineEdit:focus
+{
+	border: 3px solid white;
+	padding-bottom: 2px;
+}
+
+/*----------- QToolButton ------------*/
+QToolButton
+{
+	background: rgb(60, 60, 60);
+	color: white;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0,1,0,0;
+}
+
+QToolButton:pressed
+{
+	background: rgb(245, 245, 245);
+	color: black;
+	border: 2px solid rgb(245, 245, 245);
+	font: 10pt &quot;Futura PT&quot;;
+	padding: 0, 1, 0, 0;
+}
+
+
+/* down arrow image */
+QComboBox::down-arrow
+{
+	border: none;
+	background: none;
+	image: url(:/ui/ui_images/combobox_menu_arrows.svg);
+	padding-right: 15px;
+}
+</string>
    </property>
    <property name="editable">
     <bool>false</bool>
@@ -781,17 +1081,90 @@ QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}</s
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_send_volume">
+  <widget class="QLabel" name="label_offThresh">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>70</y>
-     <width>240</width>
+     <x>190</x>
+     <y>80</y>
+     <width>100</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>SEND FULL VOLUME ON PRESET CHANGE</string>
+    <string>OFF THRESH</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSlider" name="globalSensitivity">
+   <property name="geometry">
+    <rect>
+     <x>83</x>
+     <y>30</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Applies a gain (sensitivity) multiplier to the 12 Step keys and the select button. Adjusting this setting lower (-) and higher (+) will affect key velocity, pressure, and tilt values. This gain will also affect the pressure before the key on and off thresholds are used to determine when a key turns on and off. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>500</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_velocity">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>80</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>VELOCITY OVERRIDE ALL NOTES 127</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>69</x>
+     <y>31</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_backlight_brightness">
+   <property name="geometry">
+    <rect>
+     <x>83</x>
+     <y>220</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>BACKLIGHT BRIGHTNESS</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
