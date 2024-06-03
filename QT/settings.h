@@ -67,6 +67,7 @@ public slots:
     void slotRecallPreset(QVariantMap);
     void slotResetGlobalSensitivity();
     void slotResetSelectSensitivity();
+    void slotResetThresholds();
 
     void slotSaveSettingsTimeout();
 

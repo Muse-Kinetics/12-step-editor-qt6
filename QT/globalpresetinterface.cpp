@@ -26,6 +26,22 @@ GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessio
         flagWriteSettings = true;
     }
 
+    if (settings.value(QString("Global")).toMap().contains("offThreshold") == false)
+    {
+        qDebug() << "global settings: offThreshold entry missing, setting to default";
+        slotStoreSettings("offThreshold", 5);
+
+        flagWriteSettings = true;
+    }
+
+    if (settings.value(QString("Global")).toMap().contains("onThreshold") == false)
+    {
+        qDebug() << "global settings: onThreshold entry missing, setting to default";
+        slotStoreSettings("onThreshold", 15);
+
+        flagWriteSettings = true;
+    }
+
     if (settings.value(QString("Global")).toMap().contains("progchgRXchannel") == false)
     {
         qDebug() << "global settings: progchgRXchannel entry missing, setting to default";
@@ -108,6 +124,8 @@ void GlobalPresetInterface::slotConstructSettingsDefaultMap()
 {
     defaultGlobalMap["globalSensitivity"] = 1.0;
     defaultGlobalMap["selectSensitivity"] = 10;
+    defaultGlobalMap["onThresh"] = 15;
+    defaultGlobalMap["offThresh"] = 5;
     defaultGlobalMap["backlightBrightness"] = 29;
     defaultGlobalMap["progchgRXchannel"] = MIDI_CH_10;
     defaultGlobalMap["velocityOverride"] = 0;

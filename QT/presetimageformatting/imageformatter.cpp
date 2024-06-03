@@ -470,10 +470,10 @@ void ImageFormatter::formatSettings(QVariantMap settingsMap)
 
 
     //On Threshold
-    settings.input_settings.onThreshold = 10;
+    settings.input_settings.onThreshold = (unsigned char) (settingsMap.value("onThreshold", 15).toInt());
 
     //Off Threshold
-    settings.input_settings.offThreshold = 5;
+    settings.input_settings.offThreshold = (unsigned char) (settingsMap.value("offThreshold", 5).toInt());
 
     //connect mode??
     settings.connect_mode.midi_volume_reset = (unsigned char) (settingsMap.value("midiVolume").toInt());

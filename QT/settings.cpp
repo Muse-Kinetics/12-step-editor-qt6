@@ -61,11 +61,14 @@ void Settings::slotConnectElements()
 {
     connect(settingsForm->globalSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(settingsForm->selectSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(settingsForm->offThreshold, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    connect(settingsForm->onThreshold, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(settingsForm->backlightBrightness, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     connect(settingsForm->progchgRXchannel, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 
     connect(settingsForm->resetGlobal, SIGNAL(clicked()), this, SLOT(slotResetGlobalSensitivity()));
     connect(settingsForm->resetSelect, SIGNAL(clicked()), this, SLOT(slotResetSelectSensitivity()));
+    connect(settingsForm->resetThresholds, SIGNAL(clicked()), this, SLOT(slotResetThresholds()));
 
     connect(settingsForm->midiVolume, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
     connect(settingsForm->velocityOverride, SIGNAL(toggled(bool)), this, SLOT(slotValueChanged()));
@@ -79,6 +82,8 @@ void Settings::slotDisconnectElements()
 {
     disconnect(settingsForm->globalSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->selectSensitivity, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(settingsForm->offThreshold, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+    disconnect(settingsForm->onThreshold, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->backlightBrightness, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
     disconnect(settingsForm->progchgRXchannel, SIGNAL(currentIndexChanged(int)), this, SLOT(slotValueChanged()));
 
@@ -98,6 +103,10 @@ void Settings::slotUpdateLabeLValues()
     double sensitivity = settingsForm->globalSensitivity->value() / 5.0;
     double selectTime = (settingsForm->selectSensitivity->value() * 50.0) / 1000.0;
     double brightnessFloat = double(settingsForm->backlightBrightness->value() / 29.0) * 100.0;
+
+    int offThreshold = settingsForm->offThreshold->value();
+    int onThreshold = settingsForm->onThreshold->value();
+
     int brightness;
 
     if (_is12s2)
@@ -109,11 +118,13 @@ void Settings::slotUpdateLabeLValues()
         brightness = 100; // only show 100% for 12Step1
     }
 
-    qDebug() << "settingsTab slotUpdateLabeLValues called - brightness: " << brightness;
+    //qDebug() << "settingsTab slotUpdateLabeLValues called - brightness: " << brightness;
 
     settingsForm->label_key_sensitivity->setText(QString("GLOBAL KEY SENSITIVITY - %1%").arg(sensitivity));
     settingsForm->label_select->setText(QString("SELECT BUTTON HOLD TIME - %1 Seconds").arg(selectTime));
     settingsForm->label_backlight_brightness->setText(QString("BACKLIGHT BRIGHTNESS - %1%").arg(brightness));
+    settingsForm->label_offThresh->setText(QString("OFF THRESH - %1").arg(offThreshold));
+    settingsForm->label_onThresh->setText(QString("ON THRESH - %1").arg(onThreshold));
 }
 
 void Settings::slotValueChanged()
@@ -269,6 +280,12 @@ void Settings::slotResetGlobalSensitivity()
 void Settings::slotResetSelectSensitivity()
 {
     settingsForm->selectSensitivity->setValue(10);
+}
+
+void Settings::slotResetThresholds()
+{
+    settingsForm->onThreshold->setValue(15);
+    settingsForm->offThreshold->setValue(5);
 }
 
 // wrappers for midiThru - overwrought workaround for access violation on windows

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>745</width>
-    <height>260</height>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,32 +55,34 @@ QCheckBox
 
 QCheckBox::indicator
 {
-	width: 210px;
-	height: 40px;
+	width: 90;
+    height: 24;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 QCheckBox::indicator:unchecked:pressed
 {
 	
-image: url(:/ui/ui_images/cc7_disabled_pressed.svg);
+image: url(:/ui/ui_images/button/button_disabled_pressed.svg);
 
 }
 
 QCheckBox::indicator:unchecked
 {
-	image: url(:/ui/ui_images/cc7_disabled.svg);
+	image: url(:/ui/ui_images/button/button_disabled.svg);
 
 }
 
 QCheckBox::indicator:checked
 {
-	image: url(:/ui/ui_images/cc7_enabled.svg);
+	image: url(:/ui/ui_images/button/button_enabled.svg);
 
 }
 
 QCheckBox::indicator:checked:pressed
 {
-	image: url(:/ui/ui_images/cc7_enabled_pressed.svg);
+	image: url(:/ui/ui_images/button/button_enabled_pressed.svg);
 }
 
 /*-------QSlider-------*/
@@ -144,14 +146,14 @@ QSlider::sub-page:horizontal
   <widget class="QSlider" name="globalSensitivity">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>29</y>
+     <x>83</x>
+     <y>30</y>
      <width>211</width>
      <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>Adjusts the sensitivity of the 12 Step keys and the select button.&lt;p&gt;Moving the slider to the right (toward the &quot;+&quot; symbol) increases sensitivity — moving the slider to the left (toward the &quot;-&quot; symbol) decreases sensitivity.</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Applies a gain (sensitivity) multiplier to the 12 Step keys and the select button. Adjusting this setting lower (-) and higher (+) will affect key velocity, pressure, and tilt values. This gain will also affect the pressure before the key on and off thresholds are used to determine when a key turns on and off. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="minimum">
     <number>1</number>
@@ -163,23 +165,23 @@ QSlider::sub-page:horizontal
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QSlider" name="selectSensitivity">
+  <widget class="QSlider" name="onThreshold">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>120</y>
-     <width>211</width>
+     <x>83</x>
+     <y>100</y>
+     <width>100</width>
      <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum hold time to activate the 12 Step's Select key, from 50ms to 6 seconds.&lt;/p&gt;&lt;p&gt;Moving the slider to the left (toward the &amp;quot;-&amp;quot; symbol) decreases how long you must hold the select key for it to activate. Moving the slider to the right (toward the &amp;quot;+&amp;quot; symbol) increases the time you must hold the select key before it is activated.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum pressure threshold to activate the 12 Step keys. A higher (+) value makes the keys less sensitive and require more pressure to activate. A lower (-) value makes the key more sensitive and easier to activate.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="minimum">
     <number>1</number>
    </property>
    <property name="maximum">
-    <number>127</number>
+    <number>64</number>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -188,10 +190,10 @@ QSlider::sub-page:horizontal
   <widget class="QToolButton" name="resetGlobal">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>59</y>
-     <width>211</width>
-     <height>24</height>
+     <x>320</x>
+     <y>30</y>
+     <width>60</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -201,26 +203,26 @@ QSlider::sub-page:horizontal
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>RESET GLOBAL SENSITIVITY</string>
+    <string>RESET</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QToolButton" name="resetSelect">
+  <widget class="QToolButton" name="resetThresholds">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>150</y>
-     <width>211</width>
-     <height>24</height>
+     <x>320</x>
+     <y>100</y>
+     <width>60</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="toolTip">
-    <string>Resets select button sensitivity to the default value. </string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Resets thresholds to their default values. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>RESET SELECT HOLD TIME</string>
+    <string>RESET</string>
    </property>
    <property name="checkable">
     <bool>false</bool>
@@ -229,30 +231,30 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_key_sensitivity">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>83</x>
      <y>9</y>
      <width>211</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>GLOBAL KEY SENSITIVITY</string>
+    <string>GLOBAL KEY GAIN</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_select">
+  <widget class="QLabel" name="label_onThresh">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>100</y>
-     <width>231</width>
+     <x>83</x>
+     <y>80</y>
+     <width>100</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>SELECT BUTTON HOLD TIME</string>
+    <string>ON THRESH</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -261,8 +263,8 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>77</x>
-     <y>121</y>
+     <x>70</x>
+     <y>101</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -277,8 +279,8 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>307</x>
-     <y>123</y>
+     <x>300</x>
+     <y>103</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -293,8 +295,8 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>76</x>
-     <y>30</y>
+     <x>69</x>
+     <y>31</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -309,8 +311,8 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>308</x>
-     <y>32</y>
+     <x>301</x>
+     <y>33</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -325,9 +327,9 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_send_volume">
    <property name="geometry">
     <rect>
-     <x>435</x>
-     <y>69</y>
-     <width>222</width>
+     <x>450</x>
+     <y>9</y>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -337,13 +339,16 @@ QSlider::sub-page:horizontal
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QCheckBox" name="midiVolume">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>89</y>
-     <width>212</width>
+     <x>510</x>
+     <y>30</y>
+     <width>90</width>
      <height>24</height>
     </rect>
    </property>
@@ -354,7 +359,7 @@ QSlider::sub-page:horizontal
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>DISABLED</string>
+    <string/>
    </property>
    <property name="checked">
     <bool>false</bool>
@@ -363,9 +368,9 @@ QSlider::sub-page:horizontal
   <widget class="QCheckBox" name="velocityOverride">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>150</y>
-     <width>212</width>
+     <x>510</x>
+     <y>100</y>
+     <width>90</width>
      <height>24</height>
     </rect>
    </property>
@@ -376,7 +381,7 @@ QSlider::sub-page:horizontal
     <string notr="true"/>
    </property>
    <property name="text">
-    <string>DISABLED</string>
+    <string/>
    </property>
    <property name="checked">
     <bool>false</bool>
@@ -385,24 +390,27 @@ QSlider::sub-page:horizontal
   <widget class="QLabel" name="label_velocity">
    <property name="geometry">
     <rect>
-     <x>441</x>
-     <y>130</y>
-     <width>208</width>
+     <x>450</x>
+     <y>80</y>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>VELOCITY OVERRIDE</string>
+    <string>VELOCITY OVERRIDE ALL NOTES 127</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QComboBox" name="midiThruCombo">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>212</y>
+     <x>450</x>
+     <y>240</y>
      <width>211</width>
      <height>27</height>
     </rect>
@@ -557,8 +565,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_thru">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>192</y>
+     <x>450</x>
+     <y>220</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -573,8 +581,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
-     <x>657</x>
-     <y>32</y>
+     <x>300</x>
+     <y>243</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -589,8 +597,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_backlight_brightness">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>9</y>
+     <x>83</x>
+     <y>220</y>
      <width>211</width>
      <height>16</height>
     </rect>
@@ -605,8 +613,8 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>427</x>
-     <y>30</y>
+     <x>70</x>
+     <y>241</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -621,8 +629,8 @@ QComboBox::down-arrow
   <widget class="QSlider" name="backlightBrightness">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>29</y>
+     <x>83</x>
+     <y>240</y>
      <width>211</width>
      <height>22</height>
     </rect>
@@ -651,8 +659,8 @@ QSlider::handle:horizontal{background: rgb(0,0,0); border: none; width: 0px;}</s
   <widget class="QComboBox" name="progchgRXchannel">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>212</y>
+     <x>450</x>
+     <y>170</y>
      <width>212</width>
      <height>27</height>
     </rect>
@@ -890,9 +898,9 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_progchg">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>192</y>
-     <width>212</width>
+     <x>450</x>
+     <y>150</y>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -903,6 +911,162 @@ QComboBox::down-arrow
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QToolButton" name="resetSelect">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>170</y>
+     <width>60</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>Resets select button sensitivity to the default value. </string>
+   </property>
+   <property name="text">
+    <string>RESET</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_select">
+   <property name="geometry">
+    <rect>
+     <x>73</x>
+     <y>150</y>
+     <width>231</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SELECT BUTTON HOLD TIME</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSlider" name="selectSensitivity">
+   <property name="geometry">
+    <rect>
+     <x>83</x>
+     <y>170</y>
+     <width>211</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum hold time to activate the 12 Step's Select key, from 50ms to 6 seconds.&lt;/p&gt;&lt;p&gt;Moving the slider to the left (toward the &amp;quot;-&amp;quot; symbol) decreases how long you must hold the select key for it to activate. Moving the slider to the right (toward the &amp;quot;+&amp;quot; symbol) increases the time you must hold the select key before it is activated.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>127</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>173</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>171</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: transparent;</string>
+   </property>
+   <property name="text">
+    <string>—</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_offThresh">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>80</y>
+     <width>100</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OFF THRESH</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QSlider" name="offThreshold">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>100</y>
+     <width>100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the lower pressure threshold required for a held key to turn off. A lower value makes it easier to keep a key turned on when it is held, a higher value makes it easier to quickly retrigger a key for faster playing. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>64</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <zorder>label_velocity</zorder>
+  <zorder>globalSensitivity</zorder>
+  <zorder>onThreshold</zorder>
+  <zorder>resetGlobal</zorder>
+  <zorder>resetThresholds</zorder>
+  <zorder>label_key_sensitivity</zorder>
+  <zorder>label_onThresh</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_send_volume</zorder>
+  <zorder>midiVolume</zorder>
+  <zorder>velocityOverride</zorder>
+  <zorder>midiThruCombo</zorder>
+  <zorder>label_thru</zorder>
+  <zorder>label_10</zorder>
+  <zorder>label_backlight_brightness</zorder>
+  <zorder>label_12</zorder>
+  <zorder>backlightBrightness</zorder>
+  <zorder>progchgRXchannel</zorder>
+  <zorder>label_progchg</zorder>
+  <zorder>resetSelect</zorder>
+  <zorder>label_select</zorder>
+  <zorder>selectSensitivity</zorder>
+  <zorder>label_7</zorder>
+  <zorder>label_8</zorder>
+  <zorder>label_offThresh</zorder>
+  <zorder>offThreshold</zorder>
  </widget>
  <resources/>
  <connections/>

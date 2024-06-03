@@ -177,7 +177,11 @@ void send_standalone_image(unsigned char *image,int count)
     midi_sx_close();
 
     //Writes file to disk
-    sx_send_list(SX_TYPE_DOWNLOAD,"send_standalone_image");
+
+    //EB TODO: not sure why this didn't trip an error before but this function doesn't take any arguments... replacing without them for now
+    sx_send_list();
+    //sx_send_list(SX_TYPE_DOWNLOAD,"send_standalone_image");
+
 
     //Closes file we just wrote
     download_file_close();
@@ -248,7 +252,10 @@ void send_standalone_settings(t_softstep *x)
     midi_sx_flush();
 
     midi_sx_close();
-    sx_send_list(x,SX_TYPE_NORMAL,"send_standalone_settings");
+
+    //sx_send_list(x,SX_TYPE_NORMAL,"send_standalone_settings");
+    //EB TODO: not sure why this didn't trip an error before but this function doesn't take any arguments... replacing without them for now
+    sx_send_list();
 }
 
 #endif

@@ -108,7 +108,7 @@
 
 // -------------------------------------- Settings
 #define SETTINGSTAB_WIDTH           745
-#define SETTINGSTAB_HEIGHT          300
+#define SETTINGSTAB_HEIGHT          330
 
 
 #endif // DEFINITIONS_H

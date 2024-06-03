@@ -42,12 +42,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
 
-
-    qDebug() << "System Locale: " << QLocale::system().name();
-
     // application version
     QString versionString = QString(APP_VERSION);
 
+    //qDebug() << "versionString: " << versionString;
     // Split the version string by dots and assign values directly
     QStringList parts = versionString.split('.');
 
@@ -70,6 +68,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     thisFw = QByteArray(reinterpret_cast<char*>(_fw_ver_12step), sizeof(_fw_ver_12step));
 
+    QDateTime current = QDateTime::currentDateTime();
+    QString timestamp = current.toString("yyyy::MM::dd::hh:mm:ss");
+    qDebug() << "SoftStep Advanced Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
+    qDebug() << "System Locale: " << QLocale::system().name() << " Time: " << timestamp;
 
     // flag that the app has just started, avoid unsaved popup on open
     firstRunUnsavedFlag = true;

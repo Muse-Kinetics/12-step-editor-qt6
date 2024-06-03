@@ -1,63 +1,8 @@
 <RCC>
     <qresource prefix="/ui">
-        <file>ui_images/combobox_menu_arrows.png</file>
-        <file>ui_images/key_edit_background_black.png</file>
-        <file>ui_images/key_edit_background_white.png</file>
-        <file>ui_images/key_edit_background_blue.png</file>
-        <file>ui_images/add_modline_notpressed.png</file>
-        <file>ui_images/add_modline_pressed.png</file>
-        <file>ui_images/delete_modline_notpressed.png</file>
-        <file>ui_images/delete_modline_pressed.png</file>
-        <file>ui_images/keysafety_multikey_active.png</file>
-        <file>ui_images/keysafety_multikey_inactive.png</file>
-        <file>ui_images/keysafety_singlekey_active.png</file>
-        <file>ui_images/keysafety_singlekey_inactive.png</file>
-        <file>ui_images/notemode_hold_active.png</file>
-        <file>ui_images/notemode_hold_inactive.png</file>
-        <file>ui_images/notemode_legato_active.png</file>
-        <file>ui_images/notemode_legato_inactive.png</file>
-        <file>ui_images/notemode_normal_active.png</file>
-        <file>ui_images/notemode_normal_inactive.png</file>
-        <file>ui_images/notemode_toggle_active.png</file>
-        <file>ui_images/notemode_toggle_inactive.png</file>
-        <file>ui_images/keysafety_multikey_pressed.png</file>
-        <file>ui_images/keysafety_singlekey_pressed.png</file>
-        <file>ui_images/notemode_hold_pressed.png</file>
-        <file>ui_images/notemode_legato_pressed.png</file>
-        <file>ui_images/notemode_normal_pressed.png</file>
-        <file>ui_images/notemode_toggle_pressed.png</file>
-        <file>ui_images/divider.png</file>
-        <file>ui_images/keysafety_grouping.png</file>
-        <file>ui_images/notemode_grouping.png</file>
-        <file>ui_images/12step_title.png</file>
-        <file>ui_images/backlighting_off_pressed.png</file>
-        <file>ui_images/backlighting_off.png</file>
-        <file>ui_images/backlighting_on_pressed.png</file>
-        <file>ui_images/backlighting_on.png</file>
-        <file>ui_images/backlighting_off_focus.png</file>
-        <file>ui_images/backlighting_on_focus.png</file>
-        <file>ui_images/keysafety_multikey_active_focus.png</file>
-        <file>ui_images/keysafety_multikey_inactive_focus.png</file>
-        <file>ui_images/keysafety_singlekey_active_focus.png</file>
-        <file>ui_images/keysafety_singlekey_inactive_focus.png</file>
-        <file>ui_images/notemode_hold_active_focus.png</file>
-        <file>ui_images/notemode_hold_inactive_focus.png</file>
-        <file>ui_images/notemode_legato_active_focus.png</file>
-        <file>ui_images/notemode_legato_inactive_focus.png</file>
-        <file>ui_images/notemode_normal_active_focus.png</file>
-        <file>ui_images/notemode_normal_inactive_focus.png</file>
-        <file>ui_images/notemode_toggle_active_focus.png</file>
-        <file>ui_images/notemode_toggle_inactive_focus.png</file>
-        <file>ui_images/presets_label.png</file>
         <file>resources/appicon.icns</file>
         <file>resources/appicon.ico</file>
         <file>resources/appicon.rc.txt</file>
-        <file>ui_images/cc7_disabled_active.png</file>
-        <file>ui_images/cc7_disabled_pressed.png</file>
-        <file>ui_images/cc7_disabled.png</file>
-        <file>ui_images/cc7_enabled_active.png</file>
-        <file>ui_images/cc7_enabled_pressed.png</file>
-        <file>ui_images/cc7_enabled.png</file>
         <file>ui_images/12step_title.svg</file>
         <file>ui_images/add_modline_notpressed.svg</file>
         <file>ui_images/add_modline_pressed.svg</file>
@@ -312,6 +257,12 @@
         <file>ui_images/setlistlabels/63_setlist_off.svg</file>
         <file>ui_images/setlistlabels/63_setlist_on.svg</file>
         <file>ui_images/setlistlabels/63_setlist_pressed.svg</file>
+        <file>ui_images/button/button_disabled_active.svg</file>
+        <file>ui_images/button/button_disabled.svg</file>
+        <file>ui_images/button/button_disabled_pressed.svg</file>
+        <file>ui_images/button/button_enabled.svg</file>
+        <file>ui_images/button/button_enabled_active.svg</file>
+        <file>ui_images/button/button_enabled_pressed.svg</file>
     </qresource>
     <qresource prefix="/">
         <file>resources/stylesheets/12StepWin.qss</file>
@@ -321,7 +272,6 @@
         <file>presets/setlist.json</file>
         <file>presets/settings.json</file>
         <file>resources/firmware/12Step99-TrojanBootloader.syx</file>
-        <file>resources/firmware/12Step_Firmware_v1.0.4.syx</file>
-        <file>resources/firmware/12Step_Firmware_v1.0.3.syx</file>
+        <file>resources/firmware/12Step_Firmware_v1.0.5.syx</file>
     </qresource>
 </RCC>
