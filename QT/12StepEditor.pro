@@ -12,7 +12,7 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.5.A
+VERSION = 3.0.5
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 #uncomment this to build a console version of the app. Do this once before deploying the app.

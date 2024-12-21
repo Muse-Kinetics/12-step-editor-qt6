@@ -1,5 +1,18 @@
 #### 12 Step Editor and Firmware Changelog
 
+### Editor 3.0.5, Firmware 1.0.4 (2024-06-24)
+- New Features/Changes:
+	- Added global key on/off thresholds to settings tab. 
+		- On threshold determines how much pressure is needed to turn a key on
+			- A higher on threshold setting requires more pressure to turn a key on and reduces unintended notes
+		- Off threshold determines when an active key is turned off.
+			- A higher off theshold setting prevents stuck keys and allows more rapid playing
+			- A lower off threshold setting prevents double triggering
+	- Reduced key-on latency and improved key sensitivity, especially for black/accidental keys
+	- Keys pressure now automatically scales/calibrates based on the peak key value received since power on
+- Bug Fixes:
+	- Fixed an over-indexing error that caused unexpected behavior under very specific conditions 
+
 ### Editor 3.0.4, Firmware 1.0.3 (2024-04-08)
 - Bug Fixes:
 	- Program Changes received from expander port (legact 12 Step1) now control presets

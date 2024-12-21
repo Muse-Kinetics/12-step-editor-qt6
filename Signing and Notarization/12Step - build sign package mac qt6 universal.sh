@@ -27,6 +27,9 @@ developer_id="Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})"
 final_dmg_name="./$app_name Mac v$version.dmg"
 readme_name="README.pdf"
 
+app_debug_path="$app_name.app/Contents/MacOS/$app_name"
+app_debug_sl="$app_name (debug console)"
+
 
 # set current directory to where the script was called from
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -73,6 +76,23 @@ fi
 \cp -R "$app_source" "$subfolder_path/"
 \cp -R "$changelog_source" "$subfolder_path/"
 \cp -R "$content_source" "$subfolder_path/"
+
+
+echo "Making debug symlinks"
+
+# echo $app_debug_sl
+
+# echo "Press any key to continue"
+# echo
+# read -n 1 -s -r -p ""
+
+cd "$subfolder_path"
+
+ln -s "$app_debug_path" "$app_debug_sl"
+
+cd "$DIR"
+
+
 
 echo ""
 echo "### - Updating info.plist"
