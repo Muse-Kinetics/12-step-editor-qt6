@@ -7,7 +7,7 @@
 this_year=2024
 app_name="12 Step Editor"
 app_name_fp=12\ Step\ Editor
-version=3.0.5
+version=3.0.7
 
 bundle_name=12StepEditor
 bundle_id="com.keithmcmillen.$bundle_name"
@@ -23,7 +23,7 @@ content_source="../Content"
 content_dest="$subfolder_path/Content"
 app_path="$subfolder_path/$app_name.app"
 path_to_dqt=~/Qt/6.3.2/macos/bin/macdeployqt
-developer_id="Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})"
+developer_id="Developer ID Application: Kesumo, LLC (J372N6RANB)"
 final_dmg_name="./$app_name Mac v$version.dmg"
 readme_name="README.pdf"
 
@@ -199,7 +199,7 @@ echo "### - Signing dmg...."
 echo
 
 # sign the dmg
-codesign -s "Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f  "$final_dmg_name"
+codesign -s "Developer ID Application: Kesumo, LLC (J372N6RANB)" --options runtime --timestamp --force --deep --entitlements ./entitlements.mac.plist -f  "$final_dmg_name"
 
 echo ""
 echo "### - Notorizing..."
@@ -211,16 +211,15 @@ echo
 # (see https://scriptingosx.com/2021/07/notarize-a-command-line-tool-with-notarytool/)
 
 # 1) Find the profile name by entering: security find-identity -p basic -v
-# 2) The profile name is the digits in parenthesis at the end of: "Developer ID Application: Kesumo, LLC (${APPLE_TEAM_ID})"
-# 3) Store the credentials by entering: xcrun notarytool store-credentials --apple-id "${APPLE_ID}" --team-id "${APPLE_TEAM_ID}"
+# 2) The profile name is the digits in parenthesis at the end of: "Developer ID Application: Kesumo, LLC (J372N6RANB)"
+# 3) Store the credentials by entering: xcrun notarytool store-credentials --apple-id "andrej@keithmcmillen.com" --team-id "J372N6RANB"
 # 4) Enter the profile name when prompted
 # 5) Enter the app specific password (signing / notarization) for the apple id
 # 6) Use the profile id from step #4 in the command below
 
-xcrun notarytool submit "$final_dmg_name" --keychain-profile "${APPLE_KEYCHAIN_PROFILE}" --wait
+xcrun notarytool submit "$final_dmg_name" --keychain-profile "Andrej" --wait
 
 # deprecated command
-#xcrun altool --notarize-app -f "$final_dmg_name" -t osx -u ${APPLE_ID} -p ${APPLE_APP_PASSWORD} -primary-bundle-id $bundle_id
+#xcrun altool --notarize-app -f "$final_dmg_name" -t osx -u andrej@keithmcmillen.com -p yjne-vbrl-zojz-hpda -primary-bundle-id $bundle_id
 
-rm -rf ./dmg/12\ Step\ Editor/Icon$'\r
-
+rm -rf ./dmg/12\ Step\ Editor/Icon$'\r'

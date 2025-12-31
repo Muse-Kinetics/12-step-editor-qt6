@@ -263,6 +263,7 @@
         <file>ui_images/button/button_enabled.svg</file>
         <file>ui_images/button/button_enabled_active.svg</file>
         <file>ui_images/button/button_enabled_pressed.svg</file>
+        <file>ui_images/muse_kinetics_logo_white.svg</file>
     </qresource>
     <qresource prefix="/">
         <file>resources/stylesheets/12StepWin.qss</file>
@@ -272,6 +273,6 @@
         <file>presets/setlist.json</file>
         <file>presets/settings.json</file>
         <file>resources/firmware/12Step99-TrojanBootloader.syx</file>
-        <file>resources/firmware/12Step_Firmware_v1.0.5.syx</file>
+        <file>resources/firmware/12Step_Firmware_v1.0.7.syx</file>
     </qresource>
 </RCC>

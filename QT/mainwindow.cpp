@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QCoreApplication>
 #include "KMI_FwVersions.h"
-#include "kmi_updates.h"
+#include "KMI_updates.h"
 #include "globalVars.h"
 #include "KMI_SysexMessages.h"
 #include "sysex.h"
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QDateTime current = QDateTime::currentDateTime();
     QString timestamp = current.toString("yyyy::MM::dd::hh:mm:ss");
-    qDebug() << "SoftStep Advanced Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
+    qDebug() << "12 Step Editor - Application Version: " << applicationVersion << " Firmware Version: " << thisFw;
     qDebug() << "System Locale: " << QLocale::system().name() << " Time: " << timestamp;
 
     // flag that the app has just started, avoid unsaved popup on open
@@ -264,8 +264,11 @@ MainWindow::~MainWindow()
     TwelveStep->slotStopPolling("Exit App");
     TwelveStep->slotCloseMidiIn();
     TwelveStep->slotCloseMidiOut();
+
     kmiPorts->devicePoller->stop();
+
     slotDisconnectElements();
+
     if (cvCalWindow != nullptr)
     {
         cvCalWindow->slotDisconnectElements();
@@ -273,10 +276,12 @@ MainWindow::~MainWindow()
 
     delete ui;
 
+#ifndef Q_OS_WIN
     std::exit(2);
     QCoreApplication::exit(2);
 
     close();
+#endif
 
 }
 
@@ -345,6 +350,8 @@ void MainWindow::windowHasLoaded()
         tabArea->setTabToolTip(1,"Manage the active preset MIDI settings here. The updated preset must be sent to the 12 Step before changes take affect.");
         tabArea->setTabToolTip(2,"Arrange your presets into a setlist to be sent to the 12 Step.");
         tabArea->setTabToolTip(3,"Global settings that are not tied to a preset. Changes to global settings are sent to the 12 Step in real time.");
+
+        ui->MK_link->raise();
 
         qDebug() << "------------ [MIDI THRU SETUP] ---------------------------------------------------";
         // MIDI thru dropdown
@@ -808,6 +815,11 @@ void MainWindow::slotConnectInterfaces()
 
     // troubleshooter
     connect(ui->connected, SIGNAL(clicked()), this, SLOT(slotOpenTroubleshooting()));
+
+    // Connect the button to open the URL
+    connect(ui->MK_link, &QPushButton::clicked, []() {
+        QDesktopServices::openUrl(QUrl("https://www.musekinetics.com"));
+    });
 
     //--------------------------------------- Setlist
     connect(presetInterface, SIGNAL(signalPopulateSetlistMenus(QComboBox*)), setlistTab, SLOT(slotPopulateSetlistMenus(QComboBox*)));
@@ -1364,6 +1376,8 @@ void MainWindow::slotTabSizing(int tabIndex)
         importOldDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - importOldDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - importOldDialogWidget->height()/2, importOldDialogWidget->width(), importOldDialogWidget->height());
         importOldNotFoundDialogWidget->setGeometry(SETTINGSTAB_WIDTH/2 - importOldNotFoundDialogWidget->width()/2, SETTINGSTAB_HEIGHT/2 + TAB_Y_POS/2 - importOldNotFoundDialogWidget->height()/2, importOldNotFoundDialogWidget->width(), importOldNotFoundDialogWidget->height());
     }
+
+    ui->MK_link->raise();
 }
 
 void MainWindow::slotMidiTabHeight(int modlinesShowing)
@@ -1509,7 +1523,7 @@ void MainWindow::slotSendPresets()
         return;
     }
     //------- Do settings
-    slotSendSettings();
+    //slotSendSettings();
 
     //------- Do image
     QVariantMap reduceSetlist; //This should contain actual preset maps
@@ -1555,6 +1569,13 @@ void MainWindow::slotSendPresets()
 
 void MainWindow::slotSendSettings()
 {
+    if (presetsSending)
+    {
+        // Retry sending settings after 5 seconds
+        QTimer::singleShot(500, this, &MainWindow::slotSendSettings);
+        return;
+    }
+
     qDebug() << "slotSendSettings called";
     ///This Function below does 3 Things:
     /// 1. Assigns json / qvariantmap values to our preset image struct
@@ -1905,7 +1926,7 @@ void MainWindow::slotFwUpdateSuccessCloseDialog(bool success)
 
         if (TwelveStep->firmwareUpdateState == FWUD_STATE_SUCCESS)
         {
-            slotSendPresets(); // added for bootloader image upgrades
+            slotCleanUpSetlist(); // added for bootloader image upgrades
         }
 
 #ifdef DEBUG_FW_BRICKED
@@ -2068,3 +2089,4 @@ void MainWindow::slotOpenTroubleshooting()
 // --------------------------------------------------------------------------------------
 // ------ end midi overhaul -------------------------------------------------------------
 // --------------------------------------------------------------------------------------
+

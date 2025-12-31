@@ -389,9 +389,9 @@ QComboBox QAbstractItemView QScrollBar::add-page:vertical, QScrollBar::sub-page:
   <widget class="QLabel" name="label_thru">
    <property name="geometry">
     <rect>
-     <x>450</x>
+     <x>400</x>
      <y>220</y>
-     <width>211</width>
+     <width>311</width>
      <height>16</height>
     </rect>
    </property>
@@ -615,9 +615,9 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_select">
    <property name="geometry">
     <rect>
-     <x>73</x>
+     <x>18</x>
      <y>150</y>
-     <width>231</width>
+     <width>341</width>
      <height>16</height>
     </rect>
    </property>
@@ -653,9 +653,9 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_progchg">
    <property name="geometry">
     <rect>
-     <x>445</x>
+     <x>400</x>
      <y>150</y>
-     <width>221</width>
+     <width>311</width>
      <height>16</height>
     </rect>
    </property>
@@ -723,9 +723,9 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_send_volume">
    <property name="geometry">
     <rect>
-     <x>450</x>
+     <x>400</x>
      <y>9</y>
-     <width>211</width>
+     <width>311</width>
      <height>16</height>
     </rect>
    </property>
@@ -742,7 +742,7 @@ QComboBox::down-arrow
   <widget class="QSlider" name="offThreshold">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>194</x>
      <y>100</y>
      <width>100</width>
      <height>22</height>
@@ -1122,9 +1122,9 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_velocity">
    <property name="geometry">
     <rect>
-     <x>450</x>
+     <x>400</x>
      <y>80</y>
-     <width>211</width>
+     <width>311</width>
      <height>16</height>
     </rect>
    </property>
@@ -1157,9 +1157,9 @@ QComboBox::down-arrow
   <widget class="QLabel" name="label_backlight_brightness">
    <property name="geometry">
     <rect>
-     <x>83</x>
+     <x>18</x>
      <y>220</y>
-     <width>211</width>
+     <width>341</width>
      <height>16</height>
     </rect>
    </property>

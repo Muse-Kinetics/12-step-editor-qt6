@@ -111,3 +111,4 @@ compile_commands.json
 /win-build/*.zip
 Icon\r
 Icon\r
+QT/build

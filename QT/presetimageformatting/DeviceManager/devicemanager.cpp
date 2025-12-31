@@ -231,7 +231,7 @@ void DeviceManager::slotDisplayStr(QString str)
     int i,chr;
     for (i=0;i<DEVICE_DISPLAY_LEN;i++) {
 
-        if (i<str.count())
+        if (i<str.size())
             chr = str.toLatin1().data()[i];
         else
             chr = ' ';

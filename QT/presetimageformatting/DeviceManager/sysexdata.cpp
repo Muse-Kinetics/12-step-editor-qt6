@@ -18,7 +18,7 @@ SysexData::SysexData(QByteArray sysexRaw)
     qDebug() << QString("SysexData[%1]").arg(sysexData.size());
     packetSearchInit();
 
-//    for (i=0;i<sysexData.count();i++)
+//    for (i=0;i<sysexData.size();i++)
 //    {
 //        qDebug("sysexData[%d] %02x",i,sysexData.at(i));
 //    }
@@ -103,7 +103,7 @@ bool SysexData::decodeTail()
 bool SysexData::packetNext()
 {
 
-    for (;sysexIndex < sysexData.count();sysexIndex++)
+    for (;sysexIndex < sysexData.size();sysexIndex++)
     {
          switch (sysexData.at(sysexIndex))
         {
@@ -131,7 +131,7 @@ bool SysexData::decodeData(unsigned char *data)
         if (midi_sx_decode_get(data))
             return true;
 
-        count = sysexData.count();
+        count = sysexData.size();
 
         if (sysexIndex < count)
             midi_sx_decode_put(sysexData.at(sysexIndex++));

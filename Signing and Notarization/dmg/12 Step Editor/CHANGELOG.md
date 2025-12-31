@@ -1,6 +1,28 @@
 #### 12 Step Editor and Firmware Changelog
 
-### Editor 3.0.5, Firmware 1.0.4 (2024-06-24)
+### Editor 3.0.7, Firmware 1.0.7 (2025-01-22)
+- Bug fixes:
+	- To address issues with preset corruption, we've updated how the 12 Step display behaves when receiving presets from the editor and loading presets on the device. 
+		- Context: with previous version of the 12 Step firmware, it was possible to send an incomplete and/or corrupted preset setlist. While this did not happen often, when it did happen there was no indication given to the end user. For instance, a setlist with 30 presets could be sent, but only the first 25 were successfully loaded. This would work without issue until the end user attempted to load any of the presets 26-30, in which case undefined behavior could occur. In most cases that we were able to reproduce, this would cause the unit to load factory presets, but with no indication given to the end user. To address this:
+		- When the preset setlist is sent from the editor to the device, the 12 Step display will now show a counter with the number of presets received. If there is an error when the presets are sent (i.e. transmission times out, or the number of presets received doesn't match the number that were supposed to be sent), the display will show an error message "PRST / ERR / SEND / AGAN", and the device will not process any presets. If the unit is power cycled before the setlist is successfully re-sent, then the factory presets will load, and the display will show the message "FACT / PRST / LOAD / ED" until the select button is activated. 
+		- When loading a preset on the device, the red LEDs next to each preset slot (numbere keys) will correctly indicate the available preset slots to load in the current "decade". For instance, if 21 presets have been loaded on the device:
+			- Decade 0: slots 1-9 will blink red, 0 remains dark (presets are not zero indexed)
+			- Decade 1: slots 1-9 and 0 (ie 10) will blink red
+			- Decade 2: slots 0 and 1 (ie 20 and 21) will blink red, the rest remain dark and if selected will revert to the current preset
+		- When loading a preset on the device, the 12 Step will briefly (1 second) show the preset number (i.e. "P 10") before showing the preset name. 
+		- In the incredibly unlikely chance that presets become corrupted after the setlist has been succesfully sent and verified with the guards implemented above, the unit will display the "PRST / ERR / SEND / AGAN" message and load factory presets on the next power cycle unless the presets are re-sent first. 
+		- Flash memory read/writes now suspend ADC scanning. This has a secondary affect of setting the backlight brightness to max. If the backlight is dimmed, this will give the apprearance of a flash of light when loading presets. 
+		- 
+	- False triggers (ghost notes)
+		- Context: When firmware 1.0.4 was released to the public, the Facebook group received a post where someone was questioning the latency of the 12 Step keys. This honestly had never come up before, and upon investigation it was discovered that the firmware was weighting 8 ADC scans before activating a key. As far as we could tell this was how 12 Step had always behaved, and there was no documentation as to WHY this was in place. So we lowered this to a single ADC scan and tested the behavior, and sure enough we found that this significantly lowered the latency of the key action, and we released this update as firmware 1.0.5. 
+			- While this was tested with a handful of volunteer beta testers, in hindsight we should have been more careful making this change, because it resulted in a handful of users experiencing false triggers and ghost notes caused by random noise in the ADC scan. Our best guess is that the 8 ADC scans were being used as a noise filter, where all 8 scans had to be above the on threshold before a key would be activated. 
+		- The fix: We've implemented a more sophisticated hysteresis noise filter that only needs 2 ADC samples, and we've lowered the overall incidence of noise by properly synchromizing the ADC scan to the key cooking algorithm. This should prevent ghost notes and false triggers experienced by some users after updating to the previous firmware version 1.0.5.
+	- Note: if the above reads more like a blog entry than a changelog update, that's intentional given the nature of this update. If you do or don't appreciate this kind of information, please feel free to reach out directly to eric (sign of the at) musekinetics (punctuation) com and I'd be happy to discuss it with you. 
+
+### Editor 3.0.6A, Firmware 1.0.6 (2024-12-31)
+- Beta, never released to the public
+
+### Editor 3.0.5, Firmware 1.0.5 (2024-06-24)
 - New Features/Changes:
 	- Added global key on/off thresholds to settings tab. 
 		- On threshold determines how much pressure is needed to turn a key on
@@ -13,7 +35,7 @@
 - Bug Fixes:
 	- Fixed an over-indexing error that caused unexpected behavior under very specific conditions 
 
-### Editor 3.0.4, Firmware 1.0.3 (2024-04-08)
+### Editor 3.0.4, Firmware 1.0.4 (2024-04-08)
 - Bug Fixes:
 	- Program Changes received from expander port (legact 12 Step1) now control presets
 	- Pitch Bend messages sent to CV interface now properly scale with calibration values

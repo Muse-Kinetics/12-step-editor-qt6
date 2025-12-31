@@ -12,7 +12,7 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.5
+VERSION = 3.0.7
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 #uncomment this to build a console version of the app. Do this once before deploying the app.
@@ -25,23 +25,33 @@ DEPLOY = 1
 #INCLUDE_QML = 1
 
 # still holding onto support for High Sierra here, separate build
-
 message("Building with Qt $${QT_VERSION}")
 
 # build with Qt 5.11.3 to support El Capitan, Sierra, and High Sierra
 lessThan(QT_MAJOR_VERSION, 6){
+    message("Building legacy MacOS Intel Binary")
     macx{
-        message("Building legacy MacOS Intel Binary")
         QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.11
     }
 }
 
 # build with Qt 6.2.1 to support Mojave and later
-versionAtLeast(QT_VERSION, 6.2.1){
+versionAtLeast(QT_VERSION, 6.2.1):!versionAtLeast(QT_VERSION, 6.9.0){
     macx{
-        message("Building Apple M1/Intel Universal Binary")
+        message("Building Apple M1/Intel Universal Binary for macOS 10.14+")
         QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
         QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+    }
+}
+
+# build with Qt 6.9+ for macOS 12.0+ (Qt 6.9.2 requires macOS 12.0)
+versionAtLeast(QT_VERSION, 6.9.0){
+    macx{
+        message("Building Apple M1/Intel Universal Binary for macOS 12.0+")
+        QMAKE_MACOSX_DEPLOYMENT_TARGET = 12.0
+        QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+        QMAKE_LFLAGS += -Wl,-w  # suppress harmless alignment warnings in Universal builds
+        CONFIG+=sdk_no_version_check
     }
 }
 
@@ -64,8 +74,8 @@ SOURCES += main.cpp\
     inc/KMI_KMDM/pedalCal/pedalcal.cpp \
     inc/KMI_KMDM/qt_ui/kmiSpinBoxUpDown.cpp \
     inc/KMI_KMDM/troubleshoot/troubleshoot.cpp \
-    inc/KMI_Ports/kmi_ports.cpp \
-    inc/KMI_Updates/kmi_updates.cpp \
+    inc/KMI_KMDM/KMI_ports.cpp \
+    inc/KMI_KMDM/KMI_updates.cpp \
     inc/rtmidi/RtMidi.cpp \
         mainwindow.cpp \
     presetinterface.cpp \
@@ -108,8 +118,8 @@ HEADERS  += mainwindow.h \
     inc/KMI_KMDM/pedalCal/readOnlySlider.h \
     inc/KMI_KMDM/qt_ui/kmiSpinBoxUpDown.h \
     inc/KMI_KMDM/troubleshoot/troubleshoot.h \
-    inc/KMI_Ports/kmi_ports.h \
-    inc/KMI_Updates/kmi_updates.h \
+    inc/KMI_KMDM/KMI_ports.h \
+    inc/KMI_KMDM/KMI_updates.h \
     inc/rtmidi/RtMidi.h \
     presetimageformatting/device_includes.h \
     presetinterface.h \
@@ -175,15 +185,13 @@ FORMS    += forms/mainwindow.ui \
 
 INCLUDEPATH += \
     inc/rtmidi \
-    inc/KMI_Ports \
     inc/KMI_KMDM \
     inc/KMI_KMDM/kmiSysEx \
     inc/KMI_KMDM/cvCal \
     inc/KMI_KMDM/pedalCal \
     inc/KMI_KMDM/fwupdate \
     inc/KMI_KMDM/troubleshoot \
-    inc/KMI_KMDM/qt_ui \
-    inc/KMI_Updates
+    inc/KMI_KMDM/qt_ui
 
 #DEFINES += \
 #    MDM_DEBUG_ENABLED # enable deeper deebugging for KMI Midi Device Manager
@@ -202,8 +210,15 @@ linux{
 }
 
 win32{
+
+    #DEFINES += __WINDOWS_UWP__=1
+    #DEFINES += WINRT_LEAN_AND_MEAN
+    #LIBS += -lwindowsapp
+    #QMAKE_CXXFLAGS += /std:c++17 /ZW
+
     DEFINES += __WINDOWS_MM__=1
-        LIBS += -lwinmm
+    LIBS += -lwinmm
+
 }
 # end rtmidi defines
 
@@ -233,18 +248,14 @@ DISTFILES += \
     inc/KMI_KMDM/fwupdate/stylesheets/fwUpdateStyles_lightBlue.qss \
     inc/KMI_KMDM/fwupdate/stylesheets/fwUpdateStyles_red.qss \
     inc/KMI_KMDM/pedalCal/pedalCalStlyesMac.qss \
-    inc/KMI_KMDM/pedalCal/pedalCalStylesWin.qss \
-    inc/KMI_Ports/README.md \
-    inc/KMI_Updates/README.md \
-    resources/firmware/12Step-29.syx \
-    resources/firmware/12step.syx
+    inc/KMI_KMDM/pedalCal/pedalCalStylesWin.qss
 
 #--------------- contents/resources --------
 
-# copy SSL DLLs for checking kmi.com for updates
 win32 {
-    LIBCRYPTO_SRC = $$PWD/inc/KMI_Updates/ssl/libcrypto-1_1-x64.dll
-    LIBSSL_SRC = $$PWD/inc/KMI_Updates/ssl/libssl-1_1-x64.dll
+    # Copy SSL DLLs for checking kmi.com for updates
+    LIBCRYPTO_SRC = $$PWD/inc/KMI_KMDM/ssl/libcrypto-1_1-x64.dll
+    LIBSSL_SRC = $$PWD/inc/KMI_KMDM/ssl/libssl-1_1-x64.dll
 
     LIBCRYPTO_DST = $$replace(LIBCRYPTO_SRC, '/', '\\')
     LIBSSL_DST = $$replace(LIBSSL_SRC, '/', '\\')
@@ -261,6 +272,7 @@ win32 {
 }
 
 
+
 # ********************************************************************************************************
 # NOTE for the deployment process to work you MUST add an additional "make" build step, arguments: deploy
 # ********************************************************************************************************
@@ -273,6 +285,8 @@ isEmpty(DEPLOY) {
 
 
     win32 {
+
+
         package_dir = $$shell_path($$absolute_path("..\\win-build\\packages\\com.keithmcmillen.12stepeditor\\data\\$${TARGET}", $$PWD))
         content_dir = $$shell_path($$absolute_path("..\\win-build\\packages\\com.keithmcmillen.12stepeditor\\data\\Content", $$PWD))
         repo_root_dir = $$shell_path($$absolute_path("..", $$PWD))
@@ -280,12 +294,13 @@ isEmpty(DEPLOY) {
         changelog_src = "$${repo_root_dir}\\CHANGELOG.md"
         content_src = "$${repo_root_dir}\\Content"
 
-        LIBCRYPTO_SRC = $$PWD/inc/KMI_Updates/ssl/libcrypto-1_1-x64.dll
-        LIBSSL_SRC = $$PWD/inc/KMI_Updates/ssl/libssl-1_1-x64.dll
+        LIBCRYPTO_SRC = $$PWD/inc/KMI_KMDM/ssl/libcrypto-1_1-x64.dll
+        LIBSSL_SRC = $$PWD/inc/KMI_KMDM/ssl/libssl-1_1-x64.dll
 
         LIBCRYPTO_DST = $$replace(LIBCRYPTO_SRC, '/', '\\')
         LIBSSL_DST = $$replace(LIBSSL_SRC, '/', '\\')
 
+        cert_thumbprint = "66aef8acbdc187562ba7af2fec2b070de1612267"
         path_to_signtool = C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22000.0\\x64\\signtool.exe
         path_to_qtwindeploy = $$[QT_INSTALL_BINS]\\windeployqt.exe
 
@@ -315,7 +330,7 @@ isEmpty(DEPLOY) {
 
 
 
-        deploy_opts = "--compiler-runtime"
+        deploy_opts = "--release --compiler-runtime"
         !isEmpty(INCLUDE_QML) {
             deploy_opts += " --qmldir \"$$PWD\""
         }
@@ -329,8 +344,8 @@ isEmpty(DEPLOY) {
             copy /y \"$$debug_src\" \"$$debug_dest\" && \
             \
             echo Signing App Executable && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$binary_dest\" && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$debug_dest\" && \
+            \"$$path_to_signtool\" sign /v /debug /a /sha1 $$cert_thumbprint /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$binary_dest\" && \
+            \"$$path_to_signtool\" sign /v /debug /a /sha1 $$cert_thumbprint /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$debug_dest\" && \
             \
             echo Running qtwindeploy: \"$$package_dir\" && \
             \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
@@ -355,7 +370,7 @@ isEmpty(DEPLOY) {
             \"$$path_to_bincreate\" --verbose --offline-only -c config/config.xml -p packages $$installer_name && \
             \
             echo Signing Installer && \
-            \"$$path_to_signtool\" sign /v /debug /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file
+            \"$$path_to_signtool\" sign /v /debug /a /sha1 $$cert_thumbprint /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file
 
         # Define a phony target for deployment
             QMAKE_EXTRA_TARGETS += deploy

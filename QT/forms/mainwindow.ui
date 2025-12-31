@@ -182,7 +182,6 @@ QComboBox:focus
      </property>
      <property name="font">
       <font>
-       <family>Futura PT</family>
        <pointsize>16</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -1131,7 +1130,6 @@ QComboBox::down-arrow
      </property>
      <property name="font">
       <font>
-       <family>Futura PT</family>
        <pointsize>10</pointsize>
        <italic>false</italic>
        <bold>false</bold>
@@ -1248,7 +1246,6 @@ QComboBox::down-arrow
     </property>
     <property name="font">
      <font>
-      <family>Futura PT</family>
       <pointsize>72</pointsize>
       <italic>false</italic>
       <bold>false</bold>
@@ -1291,6 +1288,37 @@ text-align: center;</string>
     </property>
     <property name="text">
      <string>NOT CONNECTED</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="MK_link">
+    <property name="geometry">
+     <rect>
+      <x>619</x>
+      <y>130</y>
+      <width>141</width>
+      <height>35</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: rgb(89, 89, 89); /* Simple gray background */
+    border: none; /* Remove borders for simplicity */
+    padding: 0px; /* Remove all padding */
+    margin: 0px; /* Remove extra margins */
+    image: url(:/ui/ui_images/muse_kinetics_logo_white.svg); /* Display the image */
+    height: auto; /* Maintain aspect ratio of the image */
+    qproperty-alignment: AlignTop; /* Align content to the top */
+}
+
+QPushButton:pressed {
+    background-color: darkgrey; /* Slightly darker background when pressed */
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="default">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
