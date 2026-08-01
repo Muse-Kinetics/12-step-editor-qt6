@@ -178,7 +178,7 @@ QSlider::sub-page:horizontal
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the minimum pressure threshold to activate the 12 Step keys. A higher (+) value makes the keys less sensitive and require more pressure to activate. A lower (-) value makes the key more sensitive and easier to activate.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="minimum">
-    <number>1</number>
+    <number>15</number>
    </property>
    <property name="maximum">
     <number>64</number>
@@ -1029,7 +1029,7 @@ QComboBox::down-arrow
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the lower pressure threshold required for a held key to turn off. A lower value makes it easier to keep a key turned on when it is held, a higher value makes it easier to quickly retrigger a key for faster playing. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="minimum">
-    <number>1</number>
+    <number>10</number>
    </property>
    <property name="maximum">
     <number>64</number>

@@ -4,3 +4,6 @@
 [submodule "QT/inc/rtmidi"]
 	path = QT/inc/rtmidi
 	url = ssh://git@github.com/Muse-Kinetics/rtmidi.git
+[submodule "mk_firmware_tester"]
+	path = mk_firmware_tester
+	url = ssh://git@github.com/Muse-Kinetics/mk_firmware_tester.git

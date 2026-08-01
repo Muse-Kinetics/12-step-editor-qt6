@@ -149,6 +149,31 @@ void Settings::slotValueChanged()
         {
             QSlider *slider = reinterpret_cast<QSlider *>(QObject::sender());
             jsonName = slider->objectName();
+
+            // Enforce offThreshold being at least 1 less than onThreshold. Moving
+            // either slider adjusts the other (pushing it out of the way) unless
+            // there's no room left, in which case the slider that just moved is
+            // clamped back instead. Re-read slider->value() below (rather than
+            // capturing it before this block) so a self-clamp is reflected in what
+            // gets stored.
+            if (jsonName == "onThreshold" || jsonName == "offThreshold")
+            {
+                int onValue = settingsForm->onThreshold->value();
+                int offValue = settingsForm->offThreshold->value();
+
+                if (offValue > onValue - 1)
+                {
+                    if (jsonName == "onThreshold" || offValue + 1 > settingsForm->onThreshold->maximum())
+                    {
+                        settingsForm->offThreshold->setValue(onValue - 1);
+                    }
+                    else
+                    {
+                        settingsForm->onThreshold->setValue(offValue + 1);
+                    }
+                }
+            }
+
             if (jsonName == "globalSensitivity")
             {
                 double gain = slider->value() * 0.01;
@@ -284,8 +309,8 @@ void Settings::slotResetSelectSensitivity()
 
 void Settings::slotResetThresholds()
 {
-    settingsForm->onThreshold->setValue(15);
-    settingsForm->offThreshold->setValue(5);
+    settingsForm->onThreshold->setValue(20);
+    settingsForm->offThreshold->setValue(15);
 }
 
 // wrappers for midiThru - overwrought workaround for access violation on windows

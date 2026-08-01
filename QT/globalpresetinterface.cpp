@@ -26,18 +26,34 @@ GlobalPresetInterface::GlobalPresetInterface(QWidget *parent, QSettings *_sessio
         flagWriteSettings = true;
     }
 
-    if (settings.value(QString("Global")).toMap().contains("offThreshold") == false)
-    {
-        qDebug() << "global settings: offThreshold entry missing, setting to default";
-        slotStoreSettings("offThreshold", 5);
+    // Minimum allowed key on/off threshold values (must match the sliders' "minimum"
+    // property in settingsForm.ui / settingsFormWin.ui), and the minimum required gap
+    // between them (must match the adjustment logic in Settings::slotValueChanged()).
+    // A preset saved before these constraints existed can violate them, which would
+    // otherwise get sent to a connected device as-is (the QSlider clamps its own
+    // display, but not the underlying settings map used to send settings to the
+    // device). If either threshold is missing, below its minimum, or the gap between
+    // them is violated, reset both thresholds plus sensitivity and select-hold-time
+    // to defaults, since those interact with the thresholds (see globalSensitivity's
+    // tooltip: it affects pressure before the on/off thresholds are applied).
+    const int onThresholdMinimum = 15;
+    const int offThresholdMinimum = 10;
+    const int minimumOnOffGap = 1;
 
-        flagWriteSettings = true;
-    }
+    QVariantMap globalSettingsMap = settings.value(QString("Global")).toMap();
+    bool thresholdsMissing = !globalSettingsMap.contains("onThreshold") || !globalSettingsMap.contains("offThreshold");
+    int savedOnThreshold = globalSettingsMap.value("onThreshold").toInt();
+    int savedOffThreshold = globalSettingsMap.value("offThreshold").toInt();
+    bool thresholdsBelowMinimum = savedOnThreshold < onThresholdMinimum || savedOffThreshold < offThresholdMinimum;
+    bool thresholdsGapViolated = !thresholdsMissing && (savedOnThreshold - savedOffThreshold < minimumOnOffGap);
 
-    if (settings.value(QString("Global")).toMap().contains("onThreshold") == false)
+    if (thresholdsMissing || thresholdsBelowMinimum || thresholdsGapViolated)
     {
-        qDebug() << "global settings: onThreshold entry missing, setting to default";
-        slotStoreSettings("onThreshold", 15);
+        qDebug() << "global settings: onThreshold/offThreshold missing, below minimum, or too close together, resetting thresholds, sensitivity, and select hold time to defaults";
+        slotStoreSettings("onThreshold", 20);
+        slotStoreSettings("offThreshold", 15);
+        slotStoreSettings("globalSensitivity", 1.0);
+        slotStoreSettings("selectSensitivity", 10);
 
         flagWriteSettings = true;
     }

@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch 12 Step Editor",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\12 Step Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\KeithMcMillenInstruments\\12 Step Editor\\logs\"",
+      "preLaunchTask": "Build 12 Step Editor Release"
+    },
+    {
+      "name": "Launch 12 Step Editor (Force WinMM)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\12 Step Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\KeithMcMillenInstruments\\12 Step Editor\\logs\" -MidiBackend winmm",
+      "preLaunchTask": "Build 12 Step Editor Release"
+    }
+  ]
+}

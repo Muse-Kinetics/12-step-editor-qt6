@@ -12,7 +12,7 @@ QT       += core gui \
 
 TARGET = "12 Step Editor"
 TEMPLATE = app
-VERSION = 3.0.7
+VERSION = 3.0.8
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 #uncomment this to build a console version of the app. Do this once before deploying the app.
@@ -66,6 +66,8 @@ INCLUDEPATH +=  presetimageformatting \
 
 SOURCES += main.cpp\
     globalVars.c \
+    inc/KMI_KMDM/diagnosticlogger.cpp \
+    inc/KMI_KMDM/KMI_fwupdate.cpp \
     inc/KMI_KMDM/KMI_SysexMessages.c \
     inc/KMI_KMDM/KMI_mdm.cpp \
     inc/KMI_KMDM/cvCal/cvCal.cpp \
@@ -105,8 +107,10 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     globalVars.h \
+    inc/KMI_KMDM/diagnosticlogger.h \
     inc/KMI_KMDM/KMI_DevData.h \
     inc/KMI_KMDM/KMI_FwVersions.h \
+    inc/KMI_KMDM/KMI_fwupdate.h \
     inc/KMI_KMDM/KMI_SysexMessages.h \
     inc/KMI_KMDM/KMI_mdm.h \
     inc/KMI_KMDM/cvCal/cvCal.h \
@@ -210,15 +214,47 @@ linux{
 }
 
 win32{
+    WMS_SDK_ROOT = C:/PROGRA~2/WI3CF2~1/10
 
-    #DEFINES += __WINDOWS_UWP__=1
-    #DEFINES += WINRT_LEAN_AND_MEAN
-    #LIBS += -lwindowsapp
-    #QMAKE_CXXFLAGS += /std:c++17 /ZW
+    WMS_SDK_VERSION = $$replace($$(WindowsSDKVersion), \\\\, /)
+    WMS_SDK_VERSION = $$replace(WMS_SDK_VERSION, /$, )
+    isEmpty(WMS_SDK_VERSION): WMS_SDK_VERSION = 10.0.26100.0
 
+    WMS_CPPWINRT = $${WMS_SDK_ROOT}/Include/$${WMS_SDK_VERSION}/cppwinrt
+    WMS_WINDOWS_WINMD = $${WMS_SDK_ROOT}/UnionMetadata/$${WMS_SDK_VERSION}/Windows.winmd
+    WMS_CPPWINRT_EXE = $${WMS_SDK_ROOT}/bin/$${WMS_SDK_VERSION}/x64/cppwinrt.exe
+    WMS_RUNTIME_WINMD = C:/Program Files/Windows MIDI Services/Desktop App SDK Runtime/Microsoft.Windows.Devices.Midi2.winmd
+    WMS_PROJECTION_DIR = $$OUT_PWD/generated/winrt
+    WMS_PROJECTION_HEADER = $${WMS_PROJECTION_DIR}/winrt/Microsoft.Windows.Devices.Midi2.h
+
+    !exists($$WMS_CPPWINRT): error(Windows SDK cppwinrt headers not found at $$WMS_CPPWINRT)
+    !exists($$WMS_WINDOWS_WINMD): error(Windows.winmd not found at $$WMS_WINDOWS_WINMD)
+    !exists($$WMS_CPPWINRT_EXE): error(cppwinrt.exe not found at $$WMS_CPPWINRT_EXE)
+    !exists($$WMS_RUNTIME_WINMD): error(Windows MIDI Services runtime winmd not found at $$WMS_RUNTIME_WINMD)
+
+    INCLUDEPATH += $$WMS_CPPWINRT $$WMS_PROJECTION_DIR
+    # Both WinMM and WMS compiled in — backend is selected at runtime based on SDK availability.
     DEFINES += __WINDOWS_MM__=1
+    DEFINES += __WINDOWS_MIDI_SERVICES__=1
     LIBS += -lwinmm
+    LIBS += -lole32
+    LIBS += -lruntimeobject
+    LIBS += -lwindowsapp
 
+    wms_projection.target = $$WMS_PROJECTION_HEADER
+    export(wms_projection.target)
+
+    wms_projection.commands = if not exist $$shell_path(\"$$WMS_PROJECTION_DIR\") mkdir $$shell_path(\"$$WMS_PROJECTION_DIR\") $$escape_expand(\n\t) \
+                              $$shell_path(\"$$WMS_CPPWINRT_EXE\") -input $$shell_path(\"$$WMS_RUNTIME_WINMD\") -reference $$shell_path(\"$$WMS_WINDOWS_WINMD\") -output $$shell_path(\"$$WMS_PROJECTION_DIR\")
+    export(wms_projection.commands)
+
+    PRE_TARGETDEPS += $$WMS_PROJECTION_HEADER
+    export(PRE_TARGETDEPS)
+
+    first.depends += $(first) wms_projection
+    export(first.depends)
+
+    QMAKE_EXTRA_TARGETS += first wms_projection
 }
 # end rtmidi defines
 
@@ -254,8 +290,8 @@ DISTFILES += \
 
 win32 {
     # Copy SSL DLLs for checking kmi.com for updates
-    LIBCRYPTO_SRC = $$PWD/inc/KMI_KMDM/ssl/libcrypto-1_1-x64.dll
-    LIBSSL_SRC = $$PWD/inc/KMI_KMDM/ssl/libssl-1_1-x64.dll
+    LIBCRYPTO_SRC = $$PWD/ssl/libcrypto-1_1-x64.dll
+    LIBSSL_SRC = $$PWD/ssl/libssl-1_1-x64.dll
 
     LIBCRYPTO_DST = $$replace(LIBCRYPTO_SRC, '/', '\\')
     LIBSSL_DST = $$replace(LIBSSL_SRC, '/', '\\')
@@ -294,8 +330,8 @@ isEmpty(DEPLOY) {
         changelog_src = "$${repo_root_dir}\\CHANGELOG.md"
         content_src = "$${repo_root_dir}\\Content"
 
-        LIBCRYPTO_SRC = $$PWD/inc/KMI_KMDM/ssl/libcrypto-1_1-x64.dll
-        LIBSSL_SRC = $$PWD/inc/KMI_KMDM/ssl/libssl-1_1-x64.dll
+        LIBCRYPTO_SRC = $$PWD/ssl/libcrypto-1_1-x64.dll
+        LIBSSL_SRC = $$PWD/ssl/libssl-1_1-x64.dll
 
         LIBCRYPTO_DST = $$replace(LIBCRYPTO_SRC, '/', '\\')
         LIBSSL_DST = $$replace(LIBSSL_SRC, '/', '\\')
@@ -344,8 +380,8 @@ isEmpty(DEPLOY) {
             copy /y \"$$debug_src\" \"$$debug_dest\" && \
             \
             echo Signing App Executable && \
-            \"$$path_to_signtool\" sign /v /debug /a /sha1 $$cert_thumbprint /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$binary_dest\" && \
-            \"$$path_to_signtool\" sign /v /debug /a /sha1 $$cert_thumbprint /tr http://timestamp.digicert.com /td SHA256 /fd certHash \"$$debug_dest\" && \
+            \"$$path_to_signtool\" sign /fd sha256 /a /tr http://timestamp.digicert.com /td SHA256 \"$$binary_dest\" && \
+            \"$$path_to_signtool\" sign /fd sha256 /a /tr http://timestamp.digicert.com /td SHA256 \"$$debug_dest\" && \
             \
             echo Running qtwindeploy: \"$$package_dir\" && \
             \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
@@ -370,12 +406,45 @@ isEmpty(DEPLOY) {
             \"$$path_to_bincreate\" --verbose --offline-only -c config/config.xml -p packages $$installer_name && \
             \
             echo Signing Installer && \
-            \"$$path_to_signtool\" sign /v /debug /a /sha1 $$cert_thumbprint /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 /fd certHash $$installer_file
+            \"$$path_to_signtool\" sign /fd sha256 /a /tr http://timestamp.globalsign.com/tsa/advanced /td SHA256 $$installer_file
 
-        # Define a phony target for deployment
-            QMAKE_EXTRA_TARGETS += deploy
+        # No-signing variant of the same deploy pipeline, skipping all signtool calls
+        # (exe signing, debug-console-exe signing, installer signing). Useful for local/
+        # test packaging on a machine without the code-signing cert installed.
+        DEPLOY_COMMANDS_NOSIGN = \
+            echo Deploying for Windows \(no signing\) && \
+            echo Copying executable to package_dir && \
+            copy /y \"$$binary_src\" \"$$binary_dest\" && \
+            copy /y \"$$debug_src\" \"$$debug_dest\" && \
+            \
+            echo Running qtwindeploy: \"$$package_dir\" && \
+            \"$$path_to_qtwindeploy\" $$deploy_opts --dir \"$$package_dir\" \"$$binary_dest\" && \
+            \
+            echo Copying SSL dlls to package_dir && \
+            copy /y \"$$LIBCRYPTO_DST\" \"$$package_dir\" && \
+            copy /y \"$$LIBSSL_DST\" \"$$package_dir\" && \
+            \
+            echo Clearing content && \
+            (if exist \"$$content_dir\" rmdir /s /q \"$$content_dir\" || echo Directory not found, skipping deletion) && \
+            mkdir \"$$content_dir\" && \
+            \
+            echo Copying content && \
+            Robocopy \"$$content_src\" \"$$content_dir\" /MIR && \
+            echo Robocopy Exit Code: %ERRORLEVEL% & \
+            \
+            echo Copying changelog && \
+            copy /y \"$$changelog_src\" \"$$content_dir\" && \
+            \
+            echo Creating Installer \(unsigned\) && \
+            cd \"$$path_to_install\" && \
+            \"$$path_to_bincreate\" --verbose --offline-only -c config/config.xml -p packages $$installer_name
+
+        # Define phony targets for deployment
+            QMAKE_EXTRA_TARGETS += deploy deploy_nosign
             deploy.commands = $$DEPLOY_COMMANDS
             deploy.depends = first  # ensures this runs after the first build
+            deploy_nosign.commands = $$DEPLOY_COMMANDS_NOSIGN
+            deploy_nosign.depends = first
 
     }
 }

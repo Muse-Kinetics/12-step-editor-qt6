@@ -183,6 +183,7 @@ public:
     QAction *doc;
     QAction *update;
     QAction *troubleShoot;
+    QAction *openLogLocation;
 
     //Ui Elements
     MidiTab *midiTab;
@@ -273,6 +274,7 @@ public slots:
     void slotInitMenuBar();
     void slotUpdatePasteAvailability();
     void slotOpenDoc();
+    void slotOpenLogDirectory();
     void slotEnableDisableToolTips();
     void slotAutoPopulateSetlist();
 

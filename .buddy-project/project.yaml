@@ -1,0 +1,20 @@
+name: 12 Step Editor
+description: Qt6 editor (QT/12StepEditor.pro) for configuring 12 Step hardware, managing presets, and delivering firmware updates.
+repository: c:\Users\eric\KMI Dropbox\Eric Bateman\00_Editors\12 Step
+status: active
+phase: wms-chunked-firmware-migration-code-complete-pending-hardware-validation
+owner: Eric Bateman <eric@musekinetics.com>
+responsible_buddy: Windoze
+created: 2026-07-30
+last_updated: 2026-07-30T00:00:00Z
+peer_buddies:
+  - Windoze
+tags:
+  - qt
+  - midi
+  - firmware-update
+  - 12step
+  - desktop-editor
+  - wms
+  - winmm
+  - submodule-consolidation

@@ -1,5 +1,14 @@
 #### 12 Step Editor and Firmware Changelog
 
+### Editor 3.0.8, Firmware 1.0.9 (2026-07-31)
+- New Features/Changes:
+	- Migrated to Windows MIDI Services (WMS), with automatic fallback to WinMM on machines without the WMS runtime installed.
+	- Firmware updates now use a packetized, chunk-safe transfer with a per-packet identity handshake instead of sending the whole firmware image as one block.
+	- Devices running firmware older than 1.0.0 are no longer offered an in-editor update; the editor shows a support link instead.
+	- Raised the minimum allowed key on/off thresholds (on: 15, off: 10) and the defaults (on: 20, off: 15), and the off threshold can no longer be set within 1 of the on threshold (moving either slider adjusts the other if needed). Presets saved before these limits existed are corrected to defaults on load.
+	- Added a "Open Log File Location" item to the Help menu.
+	- Updated firmware to 1.0.9: renames the unit's USB MIDI ports to "12Step Control Surface" and "12Step Expander" (previously unnamed "12Step"/"12Step 2" ports); adds a boot-time tare capture for the key/select sensors to reduce stuck-key false triggers; raises the on-device default on/off pressure thresholds and adds a device-side minimum gap between them. The editor recognizes units on both the old and new port-naming scheme.
+
 ### Editor 3.0.7, Firmware 1.0.7 (2025-01-22)
 - Bug fixes:
 	- To address issues with preset corruption, we've updated how the 12 Step display behaves when receiving presets from the editor and loading presets on the device. 

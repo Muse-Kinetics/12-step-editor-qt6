@@ -5,6 +5,9 @@
 #include "mainwindow.h"
 #include <QWidget>
 #include <QCoreApplication>
+#include <QDir>
+#include <QStandardPaths>
+#include "diagnosticlogger.h"
 #include "KMI_FwVersions.h"
 #include "KMI_updates.h"
 #include "globalVars.h"
@@ -41,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setApplicationName("12 Step Editor");
     QCoreApplication::setOrganizationName("KeithMcMillenInstruments");
     QCoreApplication::setOrganizationDomain("keithmcmillen.com");
+    DiagnosticLogger::initialize();
 
     // application version
     QString versionString = QString(APP_VERSION);
@@ -91,6 +95,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // ******************************
 
     TwelveStep = new MidiDeviceManager(this, PID_12STEP2, "12Step", kmiPorts);
+    // Opt into the packetized firmware-update transport (per-packet identity handshake) —
+    // isPacketizedFirmwareUpdateEnabled() only auto-enables this for SoftStep PIDs by default.
+    TwelveStep->slotSetFirmwareUpdateTransportMode(FW_TRANSPORT_PACKETIZED);
     kmiDecode = new KMI_Decode();
     kmiEncode = new KMI_Encode(PID_12STEP2); // EB TODO: update this when we connect/detect a new PID
 
@@ -313,7 +320,7 @@ void MainWindow::windowHasLoaded()
     }
 
     // setup firmware image
-    QString thisFwFile = QString(":/resources/firmware/12Step_Firmware_v%1.%2.%3.syx")
+    QString thisFwFile = QString(":/resources/firmware/12Step_Firmware_v%1.%2.%3-cs512.syx")
             .arg(uchar(thisFw.at(0)))
             .arg(uchar(thisFw.at(1)))
             .arg(uchar(thisFw.at(2)));
@@ -1263,6 +1270,12 @@ void MainWindow::slotInitMenuBar()
     update = new QAction("Check for Updates", help);
     actionList.append(update);
     help->addAction(update);
+
+    //open log file location
+    openLogLocation = new QAction("Open Log File Location", help);
+    connect(openLogLocation, SIGNAL(triggered()), this, SLOT(slotOpenLogDirectory()));
+    actionList.append(openLogLocation);
+    help->addAction(openLogLocation);
     help->addSeparator();
 
     //troubleshooter
@@ -1309,6 +1322,18 @@ void MainWindow::slotUpdatePasteAvailability()
 void MainWindow::slotOpenDoc()
 {
     QDesktopServices::openUrl(QUrl("https://files.keithmcmillen.com/products/12step/manual/12%20Step%20Manual%20Version%203.0.1.pdf"));
+}
+
+void MainWindow::slotOpenLogDirectory()
+{
+    QString logDir = DiagnosticLogger::logDirectoryPath();
+    if (logDir.isEmpty())
+    {
+        logDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/logs";
+    }
+
+    QDir().mkpath(logDir);
+    QDesktopServices::openUrl(QUrl::fromLocalFile(logDir));
 }
 
 void MainWindow::slotEnableDisableToolTips()
@@ -1655,7 +1680,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
     case PORT_CONNECT:
 
         // update dropdown
-        if (inOrOut == PORT_OUT && portName != TWELVESTEP1_OUT_P1 && portName != TWELVESTEP2_OUT_P1) // don't create feedback loop
+        if (inOrOut == PORT_OUT && portName != TWELVESTEP1_OUT_P1 && portName != TWELVESTEP1_OUT_P1_NAMED && portName != TWELVESTEP2_OUT_P1) // don't create feedback loop
         {
             settingsTab->midiThru_addItem(portName); // update dropdown
 
@@ -1668,11 +1693,9 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
         }
 
         // **** TwelveStep connect *****************************************
-        if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_IN_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_IN)
+        if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP1_IN_P1_NAMED || portName == TWELVESTEP2_IN_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_IN)
         {
             TwelveStep->slotSetExpectedFW(thisFw);
-            TwelveStep->sysExTxChunkSize = 48;
-            TwelveStep->sysExTxChunkDelay = 1;
 
             if (troubleshootWindow != nullptr)
             {
@@ -1688,7 +1711,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             }
 
 #ifdef Q_OS_WIN
-            if (TwelveStep->firmwareUpdateState == FWUD_STATE_FW_SENT_WAIT && portName == TWELVESTEP1_IN_P1)
+            if (TwelveStep->firmwareUpdateState == FWUD_STATE_FW_SENT_WAIT && (portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP1_IN_P1_NAMED))
             {
                 TwelveStep->firmwareUpdateState = FWUD_STATE_SUCCESS;
             }
@@ -1706,7 +1729,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             }
 
         }
-        else if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_OUT)
+        else if ((portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP1_OUT_P1_NAMED || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) && inOrOut == PORT_OUT)
         {
             if (!TwelveStep->slotUpdatePortOut(portNum))
             {
@@ -1757,7 +1780,7 @@ void MainWindow::slotMIDIPortChange(QString portName, uchar inOrOut, uchar messa
             TwelveStep->slotCloseMidiOut(SIGNAL_SEND);
             TwelveStep->pollingStatus = false;
         }
-        else if (inOrOut == PORT_OUT && (portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) )
+        else if (inOrOut == PORT_OUT && (portName == TWELVESTEP1_IN_P1 || portName == TWELVESTEP1_OUT_P1_NAMED || portName == TWELVESTEP2_OUT_P1 || portName == TWELVESTEP_BL_PORT) )
         {
             if (troubleshootWindow != nullptr)
             {
@@ -1967,6 +1990,24 @@ void MainWindow::slotForceFirmwareUpdate()
 void MainWindow::slotFirmwareDetected(MidiDeviceManager *thisMDM, bool matches)
 {
     qDebug() << "slotFirmwareDetected called";
+
+    // Devices running firmware < 1.0.0 predate the bootloader and cannot be
+    // safely updated through this editor. Show a blocking message and quit
+    // rather than attempting an update.
+    if ((uchar)thisMDM->deviceFirmwareVersion.at(0) < 1)
+    {
+        QString versionStr = QString("%1.%2.%3")
+            .arg((uchar)thisMDM->deviceFirmwareVersion.at(0))
+            .arg((uchar)thisMDM->deviceFirmwareVersion.at(1))
+            .arg((uchar)thisMDM->deviceFirmwareVersion.at(2));
+        UserDialog unsupportedDialog(
+            QString("Your device firmware %1 is no longer supported.").arg(versionStr),
+            {"EXIT"});
+        unsupportedDialog.exec();
+        QDesktopServices::openUrl(QUrl("https://support.musekinetics.com"));
+        QCoreApplication::quit();
+        return;
+    }
 
     if (troubleshootWindow != nullptr)
     {

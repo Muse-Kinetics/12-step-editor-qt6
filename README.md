@@ -26,7 +26,7 @@ The 12 Step Editor is a cross-platform Qt application that provides complete con
 
 ### Minimum Requirements
 - **macOS**: 10.14 (Mojave) or later
-- **Windows**: Windows 10 or later
+- **Windows**: Windows 10 or later. Uses Windows MIDI Services (WMS) when available, with automatic fallback to WinMM on machines without the WMS runtime installed.
 - **Qt Framework**: 6.2.1 or later (Qt 5.11.3+ for legacy macOS builds)
 
 ### Development Requirements
@@ -98,7 +98,10 @@ To enable deployment, you must add a build step called "DEPLOY" and ensure the `
 
 **Port Names:**
 - **12 Step2**: "12 Step Control Surface", "12 Step TRS MIDI Out", "12 Step CV Out"
-- **Legacy 12 Step1**: "12 Step Port 1", "12 Step Port 2"
+- **12 Step1, firmware 1.0.9+**: "12Step Control Surface", "12Step Expander"
+- **12 Step1, firmware < 1.0.9 (legacy)**: "12Step Port 1"/"12Step Port 2" (Mac) or "12Step"/"MIDIIN2 (12Step)" (Windows)
+
+The editor recognizes 12 Step1 units on either the old or new port-naming scheme.
 
 ### Basic Operation
 - **Load Presets**: Access factory and user presets from the preset library
@@ -137,7 +140,8 @@ Hardware menu → Factory Reset
 File menu → Load Firmware
 - Select firmware file from the `Content/Firmware/` directory
 - Follow on-screen prompts for bootloader installation (may require unplugging device)
-- Firmware update throttled to 256 bytes every 4ms for stability
+- Firmware is sent as a packetized, chunk-safe transfer with a per-packet identity handshake, rather than as a single blob
+- Devices running firmware older than 1.0.0 are no longer offered an in-editor update
 
 ## Development
 
@@ -175,7 +179,7 @@ The project includes automated code signing and notarization scripts for macOS d
 
 ### USB MIDI Driver
 - **12 Step2**: Uses modern USB MIDI driver (same as latest KMI products)
-- **Legacy 12 Step1**: Uses original port names for backward compatibility with older editors
+- **12 Step1**: Firmware 1.0.9+ renamed its ports to "12Step Control Surface"/"12Step Expander"; the editor still recognizes the original unnamed port scheme for units on older firmware
 
 ### Contributing
 1. Fork the repository
@@ -186,9 +190,17 @@ The project includes automated code signing and notarization scripts for macOS d
 
 ## Version History
 
-Current version: **3.0.5** (Editor), **1.0.4** (Firmware)
+Current version: **3.0.8** (Editor), **1.0.9** (Firmware)
 
 See [CHANGELOG.md](CHANGELOG.md) for complete version history and release notes.
+
+### Recent Updates (3.0.8)
+- Migrated to Windows MIDI Services (WMS), with automatic fallback to WinMM
+- Firmware updates now use a packetized, chunk-safe transfer instead of a single blob
+- Devices on firmware older than 1.0.0 are no longer offered an in-editor update
+- Raised the minimum/default key on/off thresholds and enforce a minimum gap between them
+- Added an "Open Log File Location" item to the Help menu
+- Firmware 1.0.9 renames the 12 Step1's USB MIDI ports to "12Step Control Surface"/"12Step Expander"; the editor recognizes units on either the old or new naming scheme
 
 ### Recent Updates (3.0.5)
 - Added global key on/off thresholds to settings tab

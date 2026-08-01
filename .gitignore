@@ -59,6 +59,7 @@ Thumbs.db
 *.so
 *.so.*
 *.dll
+!QT/ssl/*.dll
 *.dylib
 # Qt-es
 object_script.*.Release
@@ -109,6 +110,7 @@ compile_commands.json
 *.app
 *.exe
 /win-build/*.zip
+/win-build/update-repository/
 Icon\r
 Icon\r
 QT/build

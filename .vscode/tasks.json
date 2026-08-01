@@ -1,0 +1,121 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build 12 Step Editor Debug",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\QT\\12StepEditor.pro",
+        "build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Build 12 Step Editor Release",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\QT\\12StepEditor.pro",
+        "build",
+        "${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Clean 12 Step Editor Debug",
+      "type": "process",
+      "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
+      "args": [
+        "..\\QT\\12StepEditor.pro",
+        "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Debug"
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Tail 12 Step Editor Log",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\tail-log.ps1",
+        "${env:APPDATA}\\KeithMcMillenInstruments\\12 Step Editor\\logs"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Make 12 Step Windows Installer",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\make-installer.ps1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Make 12 Step Windows Installer (No Signing)",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}\\.vscode\\make-installer.ps1",
+        "-DisableSigning"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy 12 Step Windows Installer",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build 12 Step Editor Release",
+        "Make 12 Step Windows Installer"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy 12 Step Windows Installer (No Signing)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build 12 Step Editor Release",
+        "Make 12 Step Windows Installer (No Signing)"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
