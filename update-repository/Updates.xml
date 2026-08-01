@@ -1,0 +1,19 @@
+<Updates>
+ <ApplicationName>{AnyApplication}</ApplicationName>
+ <ApplicationVersion>1.0.0</ApplicationVersion>
+ <Checksum>true</Checksum>
+ <PackageUpdate>
+  <Name>com.keithmcmillen.12stepeditor</Name>
+  <DisplayName>12 Step Editor</DisplayName>
+  <Description>The Windows editor for the 12 Step floor controller. Includes DAW scripts and other content.</Description>
+  <Version>3.0.8</Version>
+  <Default>true</Default>
+  <ReleaseDate>2024-02-24</ReleaseDate>
+  <Script>installscript.qs</Script>
+  <UpdateFile OS="Any" UncompressedSize="163023180" CompressedSize="47031447"/>
+  <DownloadableArchives>12 Step Editor.7z,Content.7z</DownloadableArchives>
+  <SHA1>8cddd01733df227548428a0f0d1b3e678e5ec1e5</SHA1>
+ </PackageUpdate>
+ <SHA1>8aedf794f007a5dcd328c8921691df45583eb5bb</SHA1>
+ <MetadataName>2026-07-31-2125_meta.7z</MetadataName>
+</Updates>
