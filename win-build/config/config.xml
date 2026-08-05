@@ -8,7 +8,7 @@
 		<TargetDir>@HomeDir@/KMI/12 Step Editor</TargetDir>
 		<WizardStyle>Mac</WizardStyle>
 		<StyleSheet>style.qss</StyleSheet>
-		<!-- <ControlScript>pre-install2.qs</ControlScript> -->
+		<ControlScript>controller.qs</ControlScript>
 		<RemoteRepositories>
 			<Repository>
 				<Url>https://muse-kinetics.github.io/12-step-editor-qt6/update-repository</Url>

@@ -1276,6 +1276,19 @@ void MainWindow::slotInitMenuBar()
     connect(openLogLocation, SIGNAL(triggered()), this, SLOT(slotOpenLogDirectory()));
     actionList.append(openLogLocation);
     help->addAction(openLogLocation);
+
+#ifdef Q_OS_WIN
+    //Windows MIDI Services (WMS) — the Microsoft-provided runtime/SDK, not something we can
+    //bundle an installer for (see ../SOP-WMS-and-Chunked-Firmware-Update-Migration.md). Just
+    //points the user at Microsoft's own "get latest" page.
+    installWMS = new QAction("Install Windows MIDI Services", help);
+    connect(installWMS, &QAction::triggered, this, []() {
+        QDesktopServices::openUrl(QUrl("https://microsoft.github.io/MIDI/get-latest/"));
+    });
+    actionList.append(installWMS);
+    help->addAction(installWMS);
+#endif
+
     help->addSeparator();
 
     //troubleshooter

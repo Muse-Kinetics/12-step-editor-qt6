@@ -7,7 +7,11 @@
 	- Devices running firmware older than 1.0.0 are no longer offered an in-editor update; the editor shows a support link instead.
 	- Raised the minimum allowed key on/off thresholds (on: 15, off: 10) and the defaults (on: 20, off: 15), and the off threshold can no longer be set within 1 of the on threshold (moving either slider adjusts the other if needed). Presets saved before these limits existed are corrected to defaults on load.
 	- Added a "Open Log File Location" item to the Help menu.
+	- Added an "Install Windows MIDI Services" item to the Help menu, linking to Microsoft's own installer for users who want WMS support instead of the WinMM fallback.
 	- Updated firmware to 1.0.9: renames the unit's USB MIDI ports to "12Step Control Surface" and "12Step Expander" (previously unnamed "12Step"/"12Step 2" ports); adds a boot-time tare capture for the key/select sensors to reduce stuck-key false triggers; raises the on-device default on/off pressure thresholds and adds a device-side minimum gap between them. The editor recognizes units on both the old and new port-naming scheme.
+- Bug Fixes:
+	- Fixed the Windows installer silently packaging an empty Content folder (manual, DAW scripts, firmware, and the app icon were all missing) — the Start Menu shortcut had a blank icon as a result.
+	- Fixed the Windows installer's bundled VC++ Redistributable: the "already installed" detection could report success without actually verifying the runtime was new enough (allowing an install to complete without ever installing a compatible runtime, which could crash the app on first launch on a clean machine), and the bundled redistributable file itself was outdated. The installer now fetches Microsoft's current redistributable and installs it as needed.
 
 ### Editor 3.0.7, Firmware 1.0.7 (2025-01-22)
 - Bug fixes:

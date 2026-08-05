@@ -111,6 +111,10 @@ compile_commands.json
 *.exe
 /win-build/*.zip
 /win-build/update-repository/
+/win-build/packages/com.keithmcmillen.12stepeditor/data
+
+# Local Claude Code session/tooling state (worktrees, agent state) - not project source
+/.claude/
 Icon\r
 Icon\r
 QT/build

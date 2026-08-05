@@ -44,8 +44,14 @@ Component.prototype.createOperations = function()
                 "after the package is copied. Please wait...",
                 QMessageBox.Ok);
 
-            // Execute the installer after copying files
-            component.addOperation("Execute", vcRedistPath, "/install", "/quiet", "/norestart");
+            // Execute the installer after copying files. The exit-code allowlist is required:
+            // vc_redist.x64.exe legitimately returns 3010 (installed, reboot required) and
+            // 1638/5100 (an equal-or-newer runtime is already present) on success paths that
+            // aren't 0 - without allowlisting them, QtIFW treats any non-zero exit as a hard
+            // failure and aborts the rest of createOperations (including the shortcut
+            // operations below), even though the redistributable installed correctly. See
+            // ../SOP-WMS-and-Chunked-Firmware-Update-Migration.md §4.10.
+            component.addOperation("Execute", "{0,3010,1638,5100}", vcRedistPath, "/install", "/quiet", "/norestart");
         }
         else
         {

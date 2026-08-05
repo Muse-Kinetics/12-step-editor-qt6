@@ -184,6 +184,7 @@ public:
     QAction *update;
     QAction *troubleShoot;
     QAction *openLogLocation;
+    QAction *installWMS;
 
     //Ui Elements
     MidiTab *midiTab;
