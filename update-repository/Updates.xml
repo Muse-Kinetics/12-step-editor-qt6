@@ -10,10 +10,10 @@
   <Default>true</Default>
   <ReleaseDate>2024-02-24</ReleaseDate>
   <Script>installscript.qs</Script>
-  <UpdateFile OS="Any" UncompressedSize="163023180" CompressedSize="47031447"/>
+  <UpdateFile OS="Any" UncompressedSize="177114657" CompressedSize="59352268"/>
   <DownloadableArchives>12 Step Editor.7z,Content.7z</DownloadableArchives>
-  <SHA1>8cddd01733df227548428a0f0d1b3e678e5ec1e5</SHA1>
+  <SHA1>da11a3fa362a052cbdca901ebe3e1a4d9f656f63</SHA1>
  </PackageUpdate>
- <SHA1>8aedf794f007a5dcd328c8921691df45583eb5bb</SHA1>
- <MetadataName>2026-07-31-2125_meta.7z</MetadataName>
+ <SHA1>c158d494b81f50cbeacf4d4756c484109a5fbd27</SHA1>
+ <MetadataName>2026-08-04-1730_meta.7z</MetadataName>
 </Updates>
