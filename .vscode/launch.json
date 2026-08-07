@@ -2,18 +2,36 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch 12 Step Editor",
+      "name": "12 Step Win Launch",
       "type": "node-terminal",
       "request": "launch",
       "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\12 Step Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\KeithMcMillenInstruments\\12 Step Editor\\logs\"",
-      "preLaunchTask": "Build 12 Step Editor Release"
+      "preLaunchTask": "12 Step Win Build"
     },
     {
-      "name": "Launch 12 Step Editor (Force WinMM)",
+      "name": "12 Step Win Launch (Force WinMM)",
       "type": "node-terminal",
       "request": "launch",
       "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\.vscode\\launch-and-tail.ps1\" \"${workspaceFolder}\\build-12StepEditor-Desktop_Qt_6_3_2_MSVC2019_64bit-Release\\release\\12 Step Editor.exe\" \"${workspaceFolder}\" \"${env:APPDATA}\\KeithMcMillenInstruments\\12 Step Editor\\logs\" -MidiBackend winmm",
-      "preLaunchTask": "Build 12 Step Editor Release"
+      "preLaunchTask": "12 Step Win Build"
+    },
+    {
+      "name": "12 Step Mac Launch (Console)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "\"${workspaceFolder}/.vscode/launch-on-console.sh\" \"${workspaceFolder}/build-macos-release/12 Step Editor.app/Contents/MacOS/12 Step Editor\"",
+      "preLaunchTask": "12 Step Mac Build"
+    },
+    {
+      "name": "12 Step Mac Debug (lldb)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build-macos-release/12 Step Editor.app/Contents/MacOS/12 Step Editor",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "MIMode": "lldb",
+      "preLaunchTask": "12 Step Mac Build"
     }
   ]
 }

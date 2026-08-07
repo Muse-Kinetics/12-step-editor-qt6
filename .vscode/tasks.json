@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build 12 Step Editor Debug",
+      "label": "12 Step Win Build (Debug)",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -16,12 +16,11 @@
         "$msCompile"
       ],
       "group": {
-        "kind": "build",
-        "isDefault": true
+        "kind": "build"
       }
     },
     {
-      "label": "Build 12 Step Editor Release",
+      "label": "12 Step Win Build",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -37,7 +36,7 @@
       ]
     },
     {
-      "label": "Clean 12 Step Editor Debug",
+      "label": "12 Step Win Clean",
       "type": "process",
       "command": "${workspaceFolder}\\.vscode\\run-msvc-qmake-task.cmd",
       "args": [
@@ -52,7 +51,7 @@
       ]
     },
     {
-      "label": "Tail 12 Step Editor Log",
+      "label": "12 Step Win Tail Log",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -67,7 +66,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Make 12 Step Windows Installer",
+      "label": "12 Step Win Installer",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -83,7 +82,7 @@
       "problemMatcher": []
     },
     {
-      "label": "Make 12 Step Windows Installer (No Signing)",
+      "label": "12 Step Win Installer (No Signing)",
       "type": "shell",
       "command": "powershell",
       "args": [
@@ -100,21 +99,133 @@
       "problemMatcher": []
     },
     {
-      "label": "Deploy 12 Step Windows Installer",
+      "label": "12 Step Win Deploy",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Build 12 Step Editor Release",
-        "Make 12 Step Windows Installer"
+        "12 Step Win Build",
+        "12 Step Win Installer"
       ],
       "problemMatcher": []
     },
     {
-      "label": "Deploy 12 Step Windows Installer (No Signing)",
+      "label": "12 Step Win Deploy (No Signing)",
       "dependsOrder": "sequence",
       "dependsOn": [
-        "Build 12 Step Editor Release",
-        "Make 12 Step Windows Installer (No Signing)"
+        "12 Step Win Build",
+        "12 Step Win Installer (No Signing)"
       ],
+      "problemMatcher": []
+    },
+    {
+      "label": "12 Step Mac Build",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/QT/12StepEditor.pro",
+        "build",
+        "${workspaceFolder}/build-macos-release",
+        "CONFIG+=release"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "12 Step Mac Build (Debug)",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/QT/12StepEditor.pro",
+        "build",
+        "${workspaceFolder}/build-macos-debug",
+        "CONFIG+=debug"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "12 Step Mac Clean",
+      "type": "process",
+      "command": "${workspaceFolder}/.vscode/run-qmake-task.sh",
+      "args": [
+        "${workspaceFolder}/QT/12StepEditor.pro",
+        "clean",
+        "${workspaceFolder}/build-macos-release"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "12 Step Mac Launch (Console)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/launch-on-console.sh",
+      "args": [
+        "${workspaceFolder}/build-macos-release/12 Step Editor.app/Contents/MacOS/12 Step Editor"
+      ],
+      "dependsOn": [
+        "12 Step Mac Build"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      }
+    },
+    {
+      "label": "12 Step Mac Make DMG",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/make-dmg-mac.sh",
+      "args": [
+        "12 Step Editor",
+        "${workspaceFolder}/build-macos-release/12 Step Editor.app"
+      ],
+      "options": {
+        "env": {
+          "KMI_VERSION_PRO": "${workspaceFolder}/QT/12StepEditor.pro",
+          "KMI_QMLDIR": "${workspaceFolder}/QT"
+        }
+      },
+      "dependsOn": [
+        "12 Step Mac Build"
+      ],
+      "dependsOrder": "sequence",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "12 Step Mac Deploy",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/release-github-mac.sh",
+      "args": [
+        "Muse-Kinetics/12-step-editor-qt6",
+        "12 Step Editor",
+        "${workspaceFolder}/build-macos-release/12 Step Editor.app"
+      ],
+      "options": {
+        "env": {
+          "KMI_VERSION_PRO": "${workspaceFolder}/QT/12StepEditor.pro"
+        }
+      },
+      "dependsOn": [
+        "12 Step Mac Make DMG"
+      ],
+      "dependsOrder": "sequence",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true,
+        "clear": true
+      },
       "problemMatcher": []
     }
   ]

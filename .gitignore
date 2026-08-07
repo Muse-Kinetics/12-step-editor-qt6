@@ -118,3 +118,6 @@ compile_commands.json
 Icon\r
 Icon\r
 QT/build
+
+# macOS VS Code build output
+build-macos-*/

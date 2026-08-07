@@ -1,5 +1,19 @@
 # Current Task
 
+## macOS release — COMPLETE (2026-08-06)
+
+Windows was already published (v3.0.8). The macOS build is now **hardware-validated by Eric**, and the signed + notarized universal DMG is published to the GitHub release.
+
+- Built on macOS with **Qt 6.9.2** (universal x86_64+arm64) via the new `.vscode` **12 Step Mac Build** task. One Qt-6.9.2/Apple-clang fix was required (`-Wno-error=implicit-function-declaration` for `qyieldcpu.h`), applied in `.vscode/run-qmake-task.sh`.
+- Packaged via **12 Step Mac Make DMG**: macdeployqt → codesign (Developer ID: Kesumo, LLC) → create-dmg (app + CHANGELOG + Content (3.4M), drag-to-Applications) → notarize (notarytool profile "Andrej") → staple.
+- Deployed via **12 Step Mac Deploy**: `gh release upload v3.0.8` → `Muse-Kinetics/12-step-editor-qt6`. Asset: `12 Step Editor Mac v3.0.8.dmg`.
+
+The `.vscode` tooling now carries unified cross-platform tasks named `[Product] [OS] [Action]` (12 Step Win Build / 12 Step Mac Build / 12 Step Mac Launch (Console) / 12 Step Mac Make DMG / 12 Step Mac Deploy). "Deploy" = attach the DMG to the matching GitHub release (moved off self-hosted webpage).
+
+**Status: shipped on both Windows and macOS.** Everything below predates this and is kept for history.
+
+---
+
 Migration of 12 Step to the WMS/WinMM dual-backend + chunked firmware-update architecture is **code-complete and clean-build-validated** (2026-07-30), following `../SOP-WMS-and-Chunked-Firmware-Update-Migration.md`. Hardware validation (SOP §5) has not been done — that's the only remaining step.
 
 ## IMPORTANT — branch/remote migration (2026-07-31)
